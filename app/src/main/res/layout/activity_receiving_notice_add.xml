@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ui.activity.purchaseWarehousing.ReceivingNoticeAddActivity">
+    android:orientation="vertical">
 
     <com.jeewms.www.wms.ui.view.TitleTopOrdersView
         android:id="@+id/receiving_detail_title"
@@ -680,8 +679,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintRight_toLeftOf="@+id/iv_scan"
                     android:src="@drawable/ic_add_blu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"/>
                 <ImageView
                     android:id="@+id/iv_scan"
                     android:src="@drawable/ic_scan_blu"
@@ -689,8 +688,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toRightOf="@+id/iv_add"
                     app:layout_constraintRight_toRightOf="parent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"/>
             </android.support.constraint.ConstraintLayout>
             <com.bin.david.form.core.SmartTable
                 android:layout_marginTop="10dp"

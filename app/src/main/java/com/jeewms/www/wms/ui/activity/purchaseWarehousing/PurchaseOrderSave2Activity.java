@@ -186,8 +186,8 @@ public class PurchaseOrderSave2Activity extends BaseActivity1 {
         addTable.getConfig().setShowYSequence(false);
         addTable.getConfig().setShowXSequence(false);
         addTable.getConfig().setShowTableTitle(false);
-        addTable.getConfig().setContentStyle(new FontStyle(45, Color.BLUE));
-        addTable.getConfig().setColumnTitleStyle(new FontStyle(50, Color.WHITE));
+        addTable.getConfig().setContentStyle(new FontStyle(30, Color.BLUE));
+        addTable.getConfig().setColumnTitleStyle(new FontStyle(35, Color.WHITE));
         addTable.getConfig().setColumnTitleBackground(new BaseBackgroundFormat(getResources().getColor(R.color.titlebar_color)));
         addTable.getConfig().setContentCellBackgroundFormat(new BaseCellBackgroundFormat<CellInfo>() {
             @Override

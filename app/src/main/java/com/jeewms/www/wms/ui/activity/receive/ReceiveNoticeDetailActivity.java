@@ -171,8 +171,8 @@ public class ReceiveNoticeDetailActivity extends BaseActivity1 {
         noticeDetailTab.getConfig().setShowYSequence(false);
         noticeDetailTab.getConfig().setShowXSequence(false);
         noticeDetailTab.getConfig().setShowTableTitle(false);
-        noticeDetailTab.getConfig().setContentStyle(new FontStyle(45, Color.BLUE));
-        noticeDetailTab.getConfig().setColumnTitleStyle(new FontStyle(50, Color.WHITE));
+        noticeDetailTab.getConfig().setContentStyle(new FontStyle(30, Color.BLUE));
+        noticeDetailTab.getConfig().setColumnTitleStyle(new FontStyle(35, Color.WHITE));
         noticeDetailTab.getConfig().setColumnTitleBackground(new BaseBackgroundFormat(getResources().getColor(R.color.titlebar_color)));
         noticeDetailTab.getConfig().setContentCellBackgroundFormat(new BaseCellBackgroundFormat<CellInfo>() {
             @Override
