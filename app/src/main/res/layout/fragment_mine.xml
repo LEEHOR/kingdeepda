@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.12" />
+
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.20" />
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.28" />
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.36" />
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.44" />
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.52" />
+    <com.jeewms.www.wms.ui.view.CircleImageView
+        android:id="@+id/mine_head_portrait"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/mine_head"
+        app:layout_constraintBottom_toBottomOf="@id/guideline3"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintLeft_toLeftOf="@id/guideline1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/mine_head_portrait"
+        app:layout_constraintLeft_toRightOf="@+id/mine_head_portrait"
+        app:layout_constraintTop_toTopOf="@+id/mine_head_portrait">
+
+        <TextView
+            android:id="@+id/userAccount"
+            android:text="JD:785445454"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/userID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <View
+        android:id="@+id/view1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/guideline3"
+        android:background="@color/actions_background_light"
+        android:layout_width="0dp"
+        android:layout_height="1dp"/>
+    <RelativeLayout
+        android:id="@+id/re_app_update"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline5"
+        app:layout_constraintLeft_toLeftOf="@id/guideline1"
+        app:layout_constraintRight_toRightOf="@+id/guideline2"
+        app:layout_constraintTop_toTopOf="@+id/guideline3"
+        android:orientation="horizontal"
+        android:layout_width="0dp"
+        android:layout_height="0dp">
+        <TextView
+            style="@style/mine_fragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:drawableLeft="@drawable/mine_01"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:text="@string/mine_1" />
+        <ImageView
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/gray_right"
+            android:layout_width="25dp"
+            android:layout_height="25dp"/>
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/view2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/guideline5"
+        android:background="@color/actions_background_light"
+        android:layout_width="0dp"
+        android:layout_height="1dp"/>
+    <RelativeLayout
+        android:id="@+id/re_change_pass"
+        app:layout_constraintLeft_toLeftOf="@id/guideline1"
+        app:layout_constraintTop_toTopOf="@+id/guideline5"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline6"
+        app:layout_constraintRight_toRightOf="@+id/guideline2"
+        android:orientation="horizontal"
+        android:layout_width="0dp"
+        android:layout_height="0dp">
+        <TextView
+            android:gravity="center_vertical"
+            android:text="@string/mine_2"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:drawableLeft="@drawable/mine_02"
+            android:drawablePadding="5dp"
+            style="@style/mine_fragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <ImageView
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/gray_right"
+            android:layout_width="25dp"
+            android:layout_height="25dp"/>
+    </RelativeLayout>
+
+    <View
+    android:id="@+id/view3"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toTopOf="@id/guideline6"
+    android:background="@color/actions_background_light"
+    android:layout_width="0dp"
+    android:layout_height="1dp"/>
+    <RelativeLayout
+        android:id="@+id/re_default_option"
+        app:layout_constraintLeft_toLeftOf="@id/guideline1"
+        app:layout_constraintTop_toTopOf="@+id/guideline6"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline7"
+        app:layout_constraintRight_toRightOf="@id/guideline2"
+        android:layout_width="0dp"
+        android:layout_height="0dp">
+        <TextView
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:gravity="center_vertical"
+            android:text="@string/mine_3"
+            android:drawableLeft="@drawable/mine_03"
+            android:drawablePadding="5dp"
+            style="@style/mine_fragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <ImageView
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:id="@+id/setting_iv"
+            android:src="@drawable/gray_right"
+            android:layout_width="25dp"
+            android:layout_height="25dp"/>
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/view4"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/guideline7"
+        android:background="@color/actions_background_light"
+        android:layout_width="0dp"
+        android:layout_height="1dp"/>
+    <RelativeLayout
+        android:id="@+id/re_server_option"
+        app:layout_constraintLeft_toLeftOf="@id/guideline1"
+        app:layout_constraintTop_toBottomOf="@+id/guideline7"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline8"
+        app:layout_constraintRight_toRightOf="@id/guideline2"
+        android:layout_width="0dp"
+        android:layout_height="0dp">
+        <TextView
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:gravity="center_vertical"
+            android:text="@string/mine_4"
+            style="@style/mine_fragment"
+            android:drawableLeft="@drawable/mine_04"
+            android:drawablePadding="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <ImageView
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/gray_right"
+            android:layout_width="25dp"
+            android:layout_height="25dp"/>
+    </RelativeLayout>
+    <View
+        android:id="@+id/view5"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/guideline8"
+        android:background="@color/actions_background_light"
+        android:layout_width="0dp"
+        android:layout_height="1dp"/>
+    <RelativeLayout
+        android:id="@+id/re_sign_out"
+        app:layout_constraintLeft_toLeftOf="@id/guideline1"
+        app:layout_constraintTop_toBottomOf="@+id/guideline8"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline9"
+        app:layout_constraintRight_toRightOf="@id/guideline2"
+        android:layout_width="0dp"
+        android:layout_height="0dp">
+        <TextView
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:gravity="center_vertical"
+            android:text="@string/mine_5"
+            android:drawableLeft="@drawable/mine_05"
+            android:drawablePadding="5dp"
+            style="@style/mine_fragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <ImageView
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/gray_right"
+            android:layout_width="25dp"
+            android:layout_height="25dp"/>
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

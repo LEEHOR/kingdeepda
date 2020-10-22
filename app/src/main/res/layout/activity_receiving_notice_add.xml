@@ -1,0 +1,718 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.activity.purchaseWarehousing.ReceivingNoticeAddActivity">
+
+    <com.jeewms.www.wms.ui.view.TitleTopOrdersView
+        android:id="@+id/receiving_detail_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="基本信息"
+                android:textColor="@color/titlebar_color"
+                android:textSize="16dp"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <android.support.v7.widget.CardView
+                app:cardCornerRadius="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                app:contentPadding="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:id="@+id/line1"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/mine_fragment"
+                                android:text="单据类型:" />
+                            <EditText
+                                android:id="@+id/tv_fbillTypeName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
+                                android:drawableRight="@drawable/ic_sanjiao1"
+                                style="@style/mine_fragment"
+                                android:focusableInTouchMode="false"
+                                android:focusable="false"
+                                android:ellipsize="end"
+                                android:singleLine="true" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/line2"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/mine_fragment"
+                                android:text="收料组织:" />
+                            <TextView
+                                android:text="默认"
+                                android:layout_marginLeft="5dp"
+                                style="@style/mine_fragment"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <EditText
+                                android:id="@+id/tv_fstockOrgNamee"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
+                                android:drawableRight="@drawable/ic_sanjiao1"
+                                style="@style/mine_fragment"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                android:singleLine="true" />
+                        </LinearLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:id="@+id/line3"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/mine_fragment"
+                                android:text="采购组织:" />
+
+
+                            <EditText
+                                android:id="@+id/tv_fpurchaseOrgName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:drawableRight="@drawable/ic_sanjiao1"
+                                android:paddingBottom="5dp"
+                                style="@style/mine_fragment"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                android:singleLine="true" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/line4"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/mine_fragment"
+                                android:text="业务类型:" />
+                            <EditText
+                                android:id="@+id/tv_fbusinessType"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
+                                android:drawableRight="@drawable/ic_sanjiao1"
+                                style="@style/mine_fragment"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                android:singleLine="true" />
+                        </LinearLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:id="@+id/line5"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/mine_fragment"
+                                android:text="收料部门:" />
+
+                            <EditText
+                                android:id="@+id/tv_fstockDeptName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
+                                android:drawableRight="@drawable/ic_sanjiao1"
+                                style="@style/mine_fragment"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                android:singleLine="true" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/line6"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/mine_fragment"
+                                android:text="采购部门:" />
+                            <EditText
+                                android:id="@+id/tv_fpurchaseDeptName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:drawableRight="@drawable/ic_sanjiao1"
+                                android:paddingBottom="5dp"
+                                style="@style/mine_fragment"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                android:singleLine="true" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:id="@+id/line7"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/mine_fragment"
+                                android:text="单据编号:" />
+
+                            <EditText
+                                android:id="@+id/tv_fbillNo"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
+                                android:drawableRight="@drawable/ic_sanjiao1"
+                                style="@style/mine_fragment"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                android:singleLine="true" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/line8"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/mine_fragment"
+                                android:text="库存组:" />
+                            <EditText
+                                android:id="@+id/tv_fstockerGroupName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
+                                android:drawableRight="@drawable/ic_sanjiao1"
+                                style="@style/mine_fragment"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                android:singleLine="true" />
+                        </LinearLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:id="@+id/line9"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/mine_fragment"
+                                android:text="采购组:" />
+
+                            <EditText
+                                android:id="@+id/tv_fpurchaserGroupName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
+                                android:drawableRight="@drawable/ic_sanjiao1"
+                                style="@style/mine_fragment"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                android:singleLine="true" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/line10"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/mine_fragment"
+                                android:text="入库日期:" />
+                            <EditText
+                                android:id="@+id/tv_fdate"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
+                                android:drawableRight="@drawable/ic_sanjiao1"
+                                style="@style/mine_fragment"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                android:singleLine="true" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:id="@+id/line11"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/mine_fragment"
+                                android:text="仓管员:" />
+
+                            <EditText
+                                android:id="@+id/tv_fstockerName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
+                                android:drawableRight="@drawable/ic_sanjiao1"
+                                style="@style/mine_fragment"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                android:singleLine="true" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/line12"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/mine_fragment"
+                                android:text="采购员:" />
+                            <EditText
+                                android:id="@+id/tv_fpurchaserName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
+                                android:drawableRight="@drawable/ic_sanjiao1"
+                                style="@style/mine_fragment"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                android:singleLine="true" />
+                        </LinearLayout>
+                    </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:id="@+id/line13"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/mine_fragment"
+                            android:text="单据状态:" />
+
+                        <EditText
+                            android:id="@+id/tv_fdocumentStatus"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:drawableRight="@drawable/ic_sanjiao1"
+                            style="@style/mine_fragment"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:singleLine="true" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/line14"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/mine_fragment"
+                            android:text="供应商:" />
+                        <EditText
+                            android:id="@+id/tv_fsupplierName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:drawableRight="@drawable/ic_sanjiao1"
+                            style="@style/mine_fragment"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:singleLine="true" />
+                    </LinearLayout>
+                </LinearLayout>
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:text="需求组织:"
+                                style="@style/mine_fragment"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <EditText
+                                android:id="@+id/tv_fdemandOrgName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
+                                android:drawableRight="@drawable/ic_sanjiao1"
+                                style="@style/mine_fragment"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                android:singleLine="true" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <TextView
+                android:text="供应商信息"
+                android:textColor="@color/titlebar_color"
+                android:textSize="16dp"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <android.support.v7.widget.CardView
+                app:cardCornerRadius="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                app:contentPadding="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/mine_fragment"
+                                android:text="结算方:" />
+
+                            <EditText
+                                android:id="@+id/tv_fsettleName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
+                                android:drawableRight="@drawable/ic_sanjiao1"
+                                style="@style/mine_fragment"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                android:singleLine="true" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/mine_fragment"
+                                android:text="供货方:" />
+                            <EditText
+                                android:id="@+id/tv_fsupplyName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
+                                android:drawableRight="@drawable/ic_sanjiao1"
+                                style="@style/mine_fragment"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                android:singleLine="true" />
+                        </LinearLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/mine_fragment"
+                                android:text="联系方式:" />
+
+                            <EditText
+                                android:id="@+id/tv_fproviderContactName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
+                                android:drawableRight="@drawable/ic_sanjiao1"
+                                style="@style/mine_fragment"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                android:singleLine="true" />
+                        </LinearLayout>
+                        <LinearLayout
+                           android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/mine_fragment"
+                                android:text="供货方地址:" />
+                            <EditText
+                                android:id="@+id/tv_fsupplyAddress"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
+                                android:drawableRight="@drawable/ic_sanjiao1"
+                                style="@style/mine_fragment"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                android:singleLine="true" />
+                        </LinearLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/mine_fragment"
+                                android:text="收款方" />
+                            <EditText
+                                android:id="@+id/tv_fchargeName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
+                                android:drawableRight="@drawable/ic_sanjiao1"
+                                style="@style/mine_fragment"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                android:singleLine="true" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <TextView
+                android:text="明细信息"
+                android:textColor="@color/titlebar_color"
+                android:textSize="16dp"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/center_cts"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/iv_add"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/iv_scan"
+                    android:src="@drawable/ic_add_blu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <ImageView
+                    android:id="@+id/iv_scan"
+                    android:src="@drawable/ic_scan_blu"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/iv_add"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </android.support.constraint.ConstraintLayout>
+            <com.bin.david.form.core.SmartTable
+                android:layout_marginTop="10dp"
+                android:id="@+id/add_table"
+                android:layout_width="match_parent"
+                android:layout_height="400dp">
+            </com.bin.david.form.core.SmartTable>
+
+        </LinearLayout>
+    </ScrollView>
+    <LinearLayout
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_gravity="end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/btn_push"
+            android:background="@drawable/btn_bg_blue"
+            android:textColor="@color/white"
+            android:text="保存"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</LinearLayout>

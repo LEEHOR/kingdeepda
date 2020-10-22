@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/AppTitlebarStyle"
+    android:background="@color/titlebar_color">
+
+    <ImageButton
+        android:id="@+id/btn_titlebar_left"
+        style="@style/TitlebarButtonStyle"
+        android:layout_alignParentLeft="true"
+        android:visibility="gone"
+        android:src="@drawable/back_white" />
+
+    <Button
+        android:id="@+id/btn_titlebar_right"
+        style="@style/TitlebarButtonStyle"
+        android:layout_alignParentRight="true" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        style="@style/TitlebarTextStyle"
+        android:layout_centerInParent="true" />
+
+</RelativeLayout>

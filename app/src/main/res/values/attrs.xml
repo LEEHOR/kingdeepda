@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="titlebar_bg" format="color" />
+    <attr name="titlebar_bg_w" format="color" />
+    <attr name="titlebar_radio_text_color" format="color" />
+    <attr name="titlebar_radio_bg_left" format="color" />
+    <attr name="titlebar_radio_bg_center" format="color" />
+    <attr name="titlebar_radio_bg_right" format="color" />
+    <attr name="tab_home_selector" format="color" />
+    <attr name="tab_jinrong_selector" format="color" />
+    <attr name="tab_sixin_selector" format="color" />
+    <attr name="tab_mine_selector" format="color" />
+    <attr name="tab_home_textcolor_selector" format="color" />
+    <attr name="guessbg_color" format="color" />
+    <attr name="guesstext_color" format="color" />
+    <attr name="slid_bg" format="color" />
+    <declare-styleable name="PagerSlidingTabStrip">
+        <attr name="pstsIndicatorColor" format="color" />
+        <attr name="pstsUnderlineColor" format="color" />
+        <attr name="pstsDividerColor" format="color" />
+        <attr name="pstsIndicatorHeight" format="dimension" />
+        <attr name="pstsUnderlineHeight" format="dimension" />
+        <attr name="pstsDividerPadding" format="dimension" />
+        <attr name="pstsTabPaddingLeftRight" format="dimension" />
+        <attr name="pstsScrollOffset" format="dimension" />
+        <attr name="pstsTabBackground" format="reference" />
+        <attr name="pstsShouldExpand" format="boolean" />
+        <attr name="pstsTextAllCaps" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="YearView">
+        <attr name="showYearLabel" format="boolean" />
+        <attr name="showYearLunarLabel" format="boolean" />
+        <attr name="dividerColor" format="color" />
+        <attr name="yearHeaderTextColor" format="color" />
+        <attr name="yearHeaderTextHeight" format="dimension" />
+        <attr name="yearHeaderTextSize" format="dimension" />
+        <attr name="yearHeaderLunarTextColor" format="color" />
+        <attr name="yearHeaderLunarTextSize" format="dimension" />
+        <attr name="yearHeaderDashColor" format="color" />
+        <attr name="monthLabelTextColor" format="color" />
+        <attr name="monthLabelTextSize" format="dimension" />
+        <attr name="monthLabelTextHeight" format="dimension" />
+
+        <attr name="dayLabelTextColor" format="color" />
+        <attr name="dayLabelTextSize" format="dimension" />
+        <attr name="dayLabelRowHeight" format="dimension" />
+        <!--<attr name="dayLabelCircleTextColor" format="color"/>
+        <attr name="todayLabelCircleBgColor" format="color"/>
+        <attr name="todayLabelTextColor" format="color"/>-->
+        <attr name="dayLabelCircleRadius" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="ProgressWheel">
+        <attr name="matProg_progressIndeterminate" format="boolean" />
+        <attr name="matProg_barColor" format="color" />
+        <attr name="matProg_rimColor" format="color" />
+        <attr name="matProg_rimWidth" format="dimension" />
+        <attr name="matProg_spinSpeed" format="float" />
+        <attr name="matProg_barSpinCycleTime" format="integer" />
+        <attr name="matProg_circleRadius" format="dimension" />
+        <attr name="matProg_fillRadius" format="boolean" />
+        <attr name="matProg_barWidth" format="dimension" />
+        <attr name="matProg_linearProgress" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="MonthView">
+        <attr name="dayCircleRadius" format="dimension" />
+        <!--<attr name="dayCircleTextColor" format="color"/>-->
+        <attr name="selectDayCircleBgColor" format="color" />
+
+        <attr name="dayTextColor" format="color" />
+        <attr name="dayTextSize" format="dimension" />
+        <attr name="dayRowHeight" format="dimension" />
+
+        <!--<attr name="todayCircleBgColor" format="color"/>
+        <attr name="todayTextColor" format="color"/>-->
+
+        <attr name="monthTitleColor" format="color" />
+        <attr name="monthTextSize" format="dimension" />
+        <attr name="monthHeaderHeight" format="dimension" />
+        <attr name="weekLabelTextColor" format="color" />
+        <attr name="weekLabelTextSize" format="dimension" />
+
+        <attr name="showWeekLabel" format="boolean" />
+        <attr name="showWeekDivider" format="boolean" />
+        <attr name="showMonthTitle" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="MonthViewPager">
+        <attr name="show_indicator" format="boolean" />
+        <attr name="ic_previous_month" format="reference" />
+        <attr name="ic_next_month" format="reference" />
+        <!-- top margin between MonthView and MonthViewPager -->
+        <attr name="month_marginTop" format="dimension" />
+        <attr name="otherMonthTextColor" format="color" />
+        <attr name="showOtherMonth" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="TransitRootView">
+        <attr name="y2m_interpolator" format="reference" />
+        <attr name="m2y_interpolator" format="reference" />
+        <attr name="y_anim_duration" format="integer" />
+        <attr name="transit_base_duration" format="integer" />
+        <attr name="m_anim_duration" format="integer" />
+    </declare-styleable>
+
+    <!-- Textview两端对齐的自定义属性-->
+    <declare-styleable name="AlignTextView">
+        <!-- 文本-->
+        <attr name="text" format="string" />
+        <!-- 后缀符号类型:全角、半角-->
+        <attr name="suffixMode" format="enum">
+            <enum name="full_width" value="1" />
+            <enum name="half_width" value="2" />
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="NumberRunningTextView">
+        <attr name="duration" format="integer"></attr>
+        <attr name="minNum" format="integer"></attr>
+        <attr name="minMoney" format="float"></attr>
+        <!--内容的格式-->
+        <attr name="textType">
+            <enum name="money" value="0"></enum>
+            <enum name="num" value="1"></enum>
+        </attr>
+        <!--是否使用每三位数字一个逗号-->
+        <attr name="useCommaFormat" format="boolean"></attr>
+        <!--是否当内容改变的时候使用动画，不改变则不使用动画-->
+        <attr name="runWhenChange" format="boolean"></attr>
+
+    </declare-styleable>
+
+    <declare-styleable name="pickerview">
+        <attr name="pickerview_gravity">
+            <enum name="center" value="17" />
+            <enum name="left" value="3" />
+            <enum name="right" value="5" />
+        </attr>
+        <attr name="pickerview_textSize" format="dimension" />
+        <attr name="pickerview_textColorOut" format="color" />
+        <attr name="pickerview_textColorCenter" format="color" />
+        <attr name="pickerview_dividerColor" format="color" />
+        <attr name="pickerview_lineSpacingMultiplier" format="float" />
+    </declare-styleable>
+    <attr name="borderRadius" format="dimension" />
+    <attr name="type">
+        <enum name="circle" value="0" />
+        <enum name="round" value="1" />
+    </attr>
+    <declare-styleable name="RoundByXfermode">
+        <attr name="borderRadius" />
+        <attr name="type" />
+    </declare-styleable>
+    <declare-styleable name="RoundImageView">
+        <attr name="borderRadius" />
+        <attr name="type" />
+    </declare-styleable>
+    <declare-styleable name="CircleImageView">
+        <attr name="border_width" format="dimension" />
+        <attr name="border_color" format="color" />
+        <attr name="border_overlay" format="boolean" />
+    </declare-styleable>
+
+    <string-array name="order_item">
+        <item>清单管理</item>
+        <item>库存管理</item>
+        <item>库存盘点</item>
+        <item>工序条码</item>
+    </string-array>
+</resources>

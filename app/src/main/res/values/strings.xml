@@ -1,0 +1,167 @@
+<resources>
+    <string name="app_name">金蝶云PDA</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="large_text">
+        "when a user tries to pick up one of cards.\n\n"
+    </string>
+    <string name="action_settings">Settings</string>
+    <string name="huozhu">货主：</string>
+    <string name="fahuotongzhi">发货通知：</string>
+    <string name="tuopanhao">托盘号：</string>
+    <string name="xiajiacunwei">下架储位：</string>
+    <string name="shangjiacunwei">上架储位：</string>
+    <string name="shuliang">数量：</string>
+    <string name="chuwei">储位：</string>
+    <string name="pinming">品名：</string>
+    <string name="jianyituopan">建议托盘：</string>
+    <string name="pici">批次：</string>
+    <string name="danwei">单位：</string>
+    <string name="条码">条码：</string>
+
+    <string name="beizhu">备注：</string>
+    <string name="baocun">保存</string>
+    <string name="shouhuotongzhi">收货通知：</string>
+    <string name="tihi">TiHi：</string>
+    <string name="shouhuoshuliang">收货数量：</string>
+    <string name="shengchanriqi">生产日期：</string>
+    <string name="shouhuowendu">收货温度：</string>
+    <string name="kucunleixing">条码：</string>
+    <string name="yuqishuliang">预期数量：</string>
+    <string name="yishoushuliang">已收数量：</string>
+    <string name="chang">长：</string>
+    <string name="kuang">宽：</string>
+    <string name="gao">高：</string>
+    <string name="tiji">体积：</string>
+    <string name="zhongliang">重量：</string>
+    <string name="dancengshuliang">单层数量：</string>
+    <string name="cenggao">层高：</string>
+    <string name="baozhiqi">保质期：</string>
+    <string name="shangpinbianma">商品编码：</string>
+    <string name="kehubianma">客户编码：</string>
+    <string name="pandianchuwei">盘点储位：</string>
+    <string name="shijishuliang">实际数量：</string>
+    <string name="yichutuopan">移出托盘：</string>
+    <string name="yichuchuwei">移出储位：</string>
+    <string name="yirutuopan">移入托盘：</string>
+    <string name="yiruchuwei">移入储位：</string>
+    <string name="shuliang1">数量1：</string>
+    <string name="shuliang2">数量2：</string>
+    <string name="yuanchuwei">源储位：</string>
+    <string name="mubiaochuwei">目标储位：</string>
+    <string name="tiaoma">条码：</string>
+    <string name="tuopan">托盘：</string>
+    <string name="kehu">客户：</string>
+    <string name="sousuo">搜索</string>
+
+    <string name="sy_dialog_default_title">这里是标题</string>
+    <string name="sy_dialog_ok">确定</string>
+    <string name="sy_dialog_cancel">取消</string>
+    <string name="querenriqi">确认日期：</string>
+    <string name="fuheshuliang">复核数量：</string>
+    <string name="search1">请扫描单号或储位</string>
+    <string name="searchgoods">请扫描商品编码</string>
+    <string name="search2">请扫描商品条码</string>
+
+    <string name="orderdh">单号</string>
+    <string name="orderydh">运单号</string>
+    <string name="orderbz">备注</string>
+    <string name="ordersp">请扫描商品</string>
+
+    <string name="search3">请扫描储位</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="jiaojiedan">交接单</string>
+    <string name="fangweima">防伪码</string>
+    <string name="wuliaohao">物料号</string>
+    <string name="jiaojieshuliang">交接数</string>
+    <string name="daishangjiashuliang">待上架</string>
+    <string name="heji">合计</string>
+
+    <string name="wuliaohaos">物料号：</string>
+    <string name="shangjiachuweis">上架储位：</string>
+    <string name="shuliangs">数量：</string>
+    <string name="zhanyongchuwei">占用储位：</string>
+    <string name="order_search">查询</string>
+    <string name="order_search_cancel">取消</string>
+<!--    =======================================================================================================   -->
+<!--全局使用-->
+    <string name="app_tv1">没有数据…</string>
+    <string name="app_tv2">加载出错了…</string>
+<!--  库存  -->
+    <string name="stock_1">请输入商品编号</string>
+    <string name="stock_2">物料编码：</string>
+    <string name="stock_3">所属仓库：</string>
+    <string name="stock_4">条码：</string>
+    <string name="stock_5">数量：</string>
+    <string name="stock_6">商品分类</string>
+    <string name="stock_7">仓库列表</string>
+    <string name="stock_8">请输入单号或仓库</string>
+    <string name="stock_9">扫码查库存</string>
+<!--    收料通知单-->
+    <string name="receiving_1">单据编号：</string>
+    <string name="receiving_2">单据状态：</string>
+    <string name="receiving_3">收料日期：</string>
+    <string name="receiving_3_1">单据类型：</string>
+    <string name="receiving_3_2">收料部门：</string>
+    <string name="receiving_3_3">收料组织：</string>
+    <string name="receiving_3_4">需求组织：</string>
+    <string name="receiving_3_5">采购组织：</string>
+    <string name="receiving_3_6">业务类型：</string>
+    <string name="receiving_3_7">供应商：</string>
+    <string name="receiving_5">单据详情</string>
+    <string name="receiving_6">采购入库</string>
+    <string name="receiving_7">默认仓库</string>
+    <string name="receiving_8">申请入库</string>
+<!--    我的模块-->
+    <string name="mine_1">版本升级</string>
+    <string name="mine_2">修改密码</string>
+    <string name="mine_3">设置默认组织</string>
+    <string name="mine_4">服务配置</string>
+    <string name="mine_5">退出账号</string>
+    <string name="mine_6">更新</string>
+    <string name="mine_7">取消</string>
+    <string name="mine08">提交</string>
+    <string name="mine09">修改密码</string>
+    <string name="mine11">请输入密码</string>
+    <string name="mine12">请输入账号</string>
+    <string name="mine13">再输入一次密码</string>
+    <string name="mine14">请输入旧密码</string>
+    <string name="mine15">下次更新</string>
+    <string name="updateVersion">金蝶云PDA.apk</string>
+    <string name="updateVersion1">金蝶云PDA</string>
+    <string name="updateVersion2">正在下载…</string>
+    <string name="mine_dialog_title">提示</string>
+    <string name="mine_dialog_msg">要退出登录吗?</string>
+    <string name="mine_dialog_ok">确定</string>
+    <string name="mine_dialog_cancel">取消</string>
+    <string name="setting_1">设置默认组织</string>
+    <string name="setting_2">设置默认仓库</string>
+    <string name="setting_3">设置默认单据类型</string>
+    <string name="setting_3_0">设置默认收料组织</string>
+    <string name="setting_3_1">设置默认采购部门</string>
+    <string name="setting_3_2">设置默认需求组织</string>
+    <string name="setting_3_3">设置默认采购组织</string>
+    <string name="setting_4">热敏打印机配置</string>
+    <string name="setting_5">服务器地址配置</string>
+    <string name="setting_6">服务配置</string>
+    <string name="setting_7">选择蓝牙设备</string>
+    <string name="setting_8">接收远程打印消息</string>
+    <string name="setting_9">开始打印</string>
+    <string name="setting_10">已配对蓝牙设备</string>
+    <string name="setting_11">点击名称连接</string>
+    <string name="setting_12">未配对蓝牙设备</string>
+    <string name="setting_13">点击名称进行配对</string>
+    <string name="setting_14">设备</string>
+    <string name="setting_15">打开蓝牙</string>
+    <string name="setting_16">关闭蓝牙</string>
+    <string name="setting_17">打开蓝牙?</string>
+    <string name="setting_18">未搜索到蓝牙设备</string>
+    <string name="setting_19">正在搜索…</string>
+    <string name="setting_20">搜索结束…</string>
+    <string name="setting_21">请输入ip地址</string>
+    <string name="setting_22">确定</string>
+
+
+</resources>

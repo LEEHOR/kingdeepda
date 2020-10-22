@@ -1,0 +1,85 @@
+apply plugin: 'com.android.application'
+
+def keystorePropertiesFile = rootProject.file("./app/sign/demo_keystore.properties")
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+android {
+    compileSdkVersion 28
+    buildToolsVersion "28.0.3"
+    defaultConfig {
+        applicationId "com.jeewms.www.wms"
+        minSdkVersion 18
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    signingConfigs {
+        relealse {
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            v2SigningEnabled true
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true // 混淆
+            zipAlignEnabled true // Zipalign优化
+            shrinkResources true  // 移除无用的resource文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'  // 加载默认混淆配置文件
+            signingConfig signingConfigs.relealse  // 签名
+        }
+    }
+    //ADD THESE LINES:
+    packagingOptions {
+        exclude 'LICENSE.txt'
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+//    buildToolsVersion '27.0.1'
+    buildToolsVersion '28.0.3'
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support:design:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:2.0.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation 'com.jakewharton:butterknife:8.4.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+    implementation 'org.greenrobot:eventbus:3.0.0'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    //implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    debugImplementation 'com.facebook.stetho:stetho:1.1.1'
+    //implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.google.code.gson:gson:2.8.5'
+   // implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+    implementation 'com.zhy:percent-support-extends:1.1.1'
+    implementation 'com.android.support:cardview-v7:28.0.0'
+    implementation 'eu.the4thfloor.volley:com.android.volley:2015.05.28'
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
+   // implementation 'com.jcodecraeer:xrecyclerview:1.3.2'
+    implementation 'com.nhaarman.listviewanimations:lib-core:3.1.0@aar'
+    implementation 'com.nhaarman.listviewanimations:lib-manipulation:3.1.0@aar'
+    implementation 'com.nhaarman.listviewanimations:lib-core-slh:3.1.0@aar'
+    implementation 'com.nineoldandroids:library:2.4.0'
+    implementation 'com.wang.avi:library:1.0.0'
+    implementation 'com.hjm:BottomTabBar:1.2.0'
+    implementation 'com.github.Vincent7Wong:EasyNavigation:1.5.0'
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.50'
+    implementation 'com.github.anzaizai:EasyRefreshLayout:1.3.1'
+    implementation 'com.github.yxping:EasyPermissionUtil:v0.1.0'
+    implementation 'com.github.huangyanbin:SmartTable:2.2.0'
+    //蓝牙
+   // implementation 'com.vise.xiaoyaoyou:baseble:2.0.6'
+    implementation 'cn.com.superLei:blelibrary:3.1.0'
+    implementation project(':zxing-lib')
+}

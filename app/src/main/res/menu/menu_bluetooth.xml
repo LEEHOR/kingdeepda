@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.jeewms.www.wms.ui.activity.mine.BluetoothSettings1Activity">
+    <item
+        android:id="@+id/action_open"
+        android:orderInCategory="100"
+        android:title="@string/setting_15"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_close"
+        android:orderInCategory="100"
+        android:title="@string/setting_16"
+        app:showAsAction="never" />
+</menu>

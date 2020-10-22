@@ -1,0 +1,15 @@
+<resources>
+    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+    <dimen name="title_size">24sp</dimen>
+    <dimen name="text_size">16sp</dimen>
+    <!--item字体大小-->
+    <dimen name="item_text_size">14sp</dimen>
+    <dimen name="paddingTop">0dp</dimen>
+    <dimen name="paddingLeft15">15dp</dimen>
+    <dimen name="text_big_size">16sp</dimen>
+    <dimen name="text_min_size">14sp</dimen>
+    <dimen name="text_small_size">12sp</dimen>
+    <dimen name="condition_popuwindow_height">336dp</dimen>
+</resources>

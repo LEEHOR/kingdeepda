@@ -1,0 +1,16 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.Vincent7Wong:EasyNavigation:1.5.0@aar">
+    <ANNOTATIONS>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/33211cd7ac04def603a19f48fa78be23/EasyNavigation-1.5.0/annotations.zip!/" />
+    </ANNOTATIONS>
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/33211cd7ac04def603a19f48fa78be23/EasyNavigation-1.5.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/33211cd7ac04def603a19f48fa78be23/EasyNavigation-1.5.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/33211cd7ac04def603a19f48fa78be23/EasyNavigation-1.5.0/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.Vincent7Wong/EasyNavigation/1.5.0/f214f52729aa7b5e1803d58602e135d9143b3cd2/EasyNavigation-1.5.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

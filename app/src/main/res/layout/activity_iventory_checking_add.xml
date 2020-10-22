@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--库存盘点详情-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical">
+
+	<com.jeewms.www.wms.ui.view.TitleTopOrdersView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content" />
+
+	<ScrollView
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight="1">
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical">
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:paddingLeft="10dp"
+				android:paddingRight="10dp">
+				<TextView
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:padding="10dp"
+					android:text="单号" />
+
+				<TextView
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="2"
+					android:padding="10dp"
+					android:text="制单人" />
+			</LinearLayout>
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:paddingLeft="10dp"
+				android:paddingRight="10dp">
+				<TextView
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:padding="10dp"
+					android:text="制单人" />
+
+				<TextView
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="2"
+					android:padding="10dp"
+					android:text="制单人" />
+			</LinearLayout>
+			<View
+				android:background="@color/actions_background_light"
+				android:layout_width="match_parent"
+				android:layout_height="1dp"/>
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:paddingLeft="10dp"
+				android:paddingRight="10dp">
+				<TextView
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:padding="10dp"
+					android:text="业务日期" />
+
+				<TextView
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="2"
+					android:padding="10dp"
+					android:text="制单人" />
+			</LinearLayout>
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:paddingLeft="10dp"
+				android:paddingRight="10dp">
+				<TextView
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:padding="10dp"
+					android:text="仓库" />
+
+				<TextView
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="2"
+					android:padding="10dp"
+					android:text="制单人" />
+			</LinearLayout>
+
+			<View
+				android:background="@color/actions_background_light"
+				android:layout_width="match_parent"
+				android:layout_height="8dp"/>
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:paddingLeft="10dp"
+				android:paddingRight="10dp">
+				<TextView
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:padding="10dp"
+					android:text="盘点人" />
+
+				<TextView
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:padding="10dp"
+					android:text="盘点数量" />
+				<TextView
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:padding="10dp"
+					android:layout_weight="1"
+					android:text="操作" />
+			</LinearLayout>
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:paddingLeft="10dp"
+				android:paddingRight="10dp">
+				<TextView
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:padding="10dp"
+					android:text="制单人" />
+
+				<TextView
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:padding="10dp"
+					android:text="制单人" />
+				<TextView
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:padding="10dp"
+					android:text="查看明细" />
+			</LinearLayout>
+
+			<View
+				android:background="@color/actions_background_light"
+				android:layout_width="match_parent"
+				android:layout_height="8dp"/>
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:gravity="center_vertical"
+				android:paddingLeft="10dp"
+				android:paddingRight="10dp">
+				<LinearLayout
+					android:layout_width="0dp"
+					android:layout_weight="1"
+					android:orientation="horizontal"
+					android:layout_height="wrap_content">
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:padding="10dp"
+						android:text="商品明细" />
+					<TextView
+						android:text="打印条码"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"/>
+				</LinearLayout>
+				<TextView
+					android:text="合计:"
+					android:padding="10dp"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"/>
+				<TextView
+					android:text="2"
+					android:padding="10dp"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"/>
+			</LinearLayout>
+			<android.support.v7.widget.RecyclerView
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"/>
+		</LinearLayout>
+	</ScrollView>
+	<View
+		android:background="@color/actions_background_light"
+		android:layout_width="match_parent"
+		android:layout_height="1dp"/>
+	<LinearLayout
+		android:gravity="center_vertical"
+		android:layout_width="match_parent"
+		android:layout_height="55dp">
+		<TextView
+			android:padding="10dp"
+			android:text="盈亏合计:"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"/>
+		<TextView
+			android:text="盈亏合计:"
+			android:padding="10dp"
+			android:layout_marginLeft="10dp"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"/>
+		<TextView
+			android:text="盈亏合计:"
+			android:padding="10dp"
+			android:layout_marginLeft="10dp"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"/>
+	</LinearLayout>
+</LinearLayout>

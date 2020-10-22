@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.jeewms.www.wms.ui.view.TitleTopOrdersView
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/changeIp_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1"
+        app:layout_constraintTop_toTopOf="parent" />
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9"
+        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        app:layout_constraintLeft_toLeftOf="@id/guideline1"
+        app:layout_constraintRight_toRightOf="@id/guideline2"
+       app:layout_constraintTop_toBottomOf="@id/changeIp_title"
+        android:background="@drawable/edit_corner"
+        android:id="@+id/line1"
+        android:orientation="horizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content">
+        <EditText
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:id="@+id/app_ip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/userIcon"
+            android:lines="1"
+            android:background="@null"
+            android:hint="@string/stock_1"
+            android:textSize="16dp"
+            android:inputType="number" />
+        <!-- android:inputType="number"-->
+    </LinearLayout>
+    <Button
+        app:layout_constraintLeft_toLeftOf="@id/guideline1"
+        app:layout_constraintRight_toRightOf="@id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/line1"
+        android:id="@+id/btn_confirm"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:textSize="@dimen/text_size"
+        android:text="@string/setting_22"
+        android:textColor="@color/white"
+        android:background="@drawable/btn_select"
+        android:layout_marginTop="30dp" />
+</android.support.constraint.ConstraintLayout>

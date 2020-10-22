@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tool:context=".ui.activity.mine.ChangePass">
+    <com.jeewms.www.wms.ui.view.TitleTopOrdersView
+        android:id="@+id/changePass_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline1"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+           app:layout_constraintGuide_percent="0.1"
+            app:layout_constraintTop_toTopOf="parent" />
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.9"
+            app:layout_constraintTop_toTopOf="parent" />
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_marginTop="20dp"
+            app:layout_constraintLeft_toLeftOf="@id/guideline1"
+            app:layout_constraintRight_toRightOf="@id/guideline2"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/edit_corner"
+            android:id="@+id/line1"
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_account" />
+            <EditText
+                android:layout_marginLeft="10dp"
+                android:id="@+id/user_account"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:layout_toRightOf="@+id/userIcon"
+                android:lines="1"
+                android:background="@null"
+                android:hint="@string/mine12"
+                android:textSize="16dp"
+                android:inputType="textPersonName" />
+            <!-- android:inputType="number"-->
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            app:layout_constraintLeft_toLeftOf="@id/guideline1"
+            app:layout_constraintRight_toRightOf="@id/guideline2"
+         app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/edit_corner"
+            android:id="@+id/line2"
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_account" />
+            <EditText
+                android:layout_marginLeft="10dp"
+                android:id="@+id/user_oldpass"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:layout_toRightOf="@+id/userIcon"
+                android:lines="1"
+                android:background="@null"
+                android:hint="@string/mine14"
+                android:textSize="16dp"
+                android:inputType="textPersonName" />
+            <!-- android:inputType="number"-->
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="5dp"
+            app:layout_constraintLeft_toLeftOf="@id/guideline1"
+            app:layout_constraintRight_toRightOf="@id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/line2"
+            android:background="@drawable/edit_corner"
+            android:id="@+id/line3"
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_pass" />
+            <EditText
+                android:layout_marginLeft="10dp"
+                android:id="@+id/input_pass1"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:lines="1"
+                android:layout_toRightOf="@+id/userIcon"
+                android:background="@null"
+                android:hint="@string/mine11"
+                android:textSize="16dp"
+                android:inputType="textPassword" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="5dp"
+            app:layout_constraintLeft_toLeftOf="@id/guideline1"
+            app:layout_constraintRight_toRightOf="@id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/line3"
+            android:id="@+id/line4"
+            android:background="@drawable/edit_corner"
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_pass" />
+            <EditText
+                android:layout_marginLeft="10dp"
+                android:id="@+id/input_pass2"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:layout_toRightOf="@+id/userIcon"
+                android:lines="1"
+                android:background="@null"
+                android:hint="@string/mine13"
+                android:textSize="16dp"
+                android:inputType="textPassword" />
+        </LinearLayout>
+        <Button
+            app:layout_constraintLeft_toLeftOf="@id/guideline1"
+            app:layout_constraintRight_toRightOf="@id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/line4"
+            android:id="@+id/btn_confirm"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:textSize="@dimen/text_size"
+            android:text="@string/mine08"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_select"
+            android:layout_marginTop="20dp" />
+    </android.support.constraint.ConstraintLayout>
+
+</LinearLayout>

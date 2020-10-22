@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Gradle: cn.com.superLei:blelibrary:3.1.0@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3a52fde098b45e8fe6982dcaa0d22d44/blelibrary-3.1.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3a52fde098b45e8fe6982dcaa0d22d44/blelibrary-3.1.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3a52fde098b45e8fe6982dcaa0d22d44/blelibrary-3.1.0/res" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/cn.com.superLei/blelibrary/3.1.0/2195574ced0a55d1a742984ac81e6495f94a0bac/blelibrary-3.1.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/cn.com.superLei/blelibrary/3.1.0/254ce85de4ffc256b3c85ffb1f62419ef422e798/blelibrary-3.1.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
