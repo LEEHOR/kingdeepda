@@ -11,6 +11,7 @@ import com.jeewms.www.wms.bean.HomeBtnBean;
 import com.jeewms.www.wms.constance.Constance;
 import com.jeewms.www.wms.ui.activity.StockScanSearchActivity;
 import com.jeewms.www.wms.ui.activity.processReport.ProcessReportListActivity;
+import com.jeewms.www.wms.ui.activity.productionWarehousing.ProductionWarehousingActivity;
 import com.jeewms.www.wms.ui.activity.purchaseWarehousing.PurchaseOrderSave2Activity;
 import com.jeewms.www.wms.ui.activity.receive.ReceiveNoticeActivity;
 import com.zhy.android.percent.support.PercentLinearLayout;
@@ -63,7 +64,7 @@ public class HomeGridItemView {
         } else if (Constance.btnNameList[2].equals(btnName)){
             ProcessReportListActivity.show(mActivity);
         }else if (Constance.btnNameList[3].equals(btnName)){
-
+            ProductionWarehousingActivity.show(mActivity);
         }else if (Constance.btnNameList[4].equals(btnName)){
 
         }else if (Constance.btnNameList[5].equals(btnName)){

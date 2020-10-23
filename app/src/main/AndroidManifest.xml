@@ -39,7 +39,6 @@
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
-
         <activity android:name=".MainActivity" />
         <activity
             android:name=".WelComeActivity"
@@ -63,11 +62,6 @@
         <activity android:name=".ui.activity.OrderDetails"
             android:launchMode="singleTask"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
         </activity>
         <activity
             android:name=".ui.activity.mine.ChangePass"
@@ -89,10 +83,6 @@
             android:name=".ui.activity.mine.BluetoothSettings1Activity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" >
-<!--                        <intent-filter>-->
-<!--                            <action android:name="android.intent.action.MAIN" />-->
-<!--                            <category android:name="android.intent.category.LAUNCHER" />-->
-<!--                        </intent-filter>-->
         </activity>
         <activity
             android:name=".ui.activity.mine.ChangeIpActivity"
@@ -123,10 +113,17 @@
             android:launchMode="singleTask"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
+            android:name=".ui.activity.processReport.ProductionWarehousing2Activity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".ui.activity.productionWarehousing.ProductionWarehousingActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
             android:name=".ui.activity.StockScanSearchActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
-
 <!--        二维码扫描-->
         <activity android:name="com.google.zxing.activity.CaptureActivity"
             android:launchMode="singleTask"

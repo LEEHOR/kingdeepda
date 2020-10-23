@@ -65,7 +65,7 @@ public class ProcessReportListActivity extends BaseActivity1 {
         });
         TextView tex_item = processTitle.getTex_item();
         tex_item.setVisibility(View.VISIBLE);
-        tex_item.setText("工序汇报");
+        tex_item.setText("工序汇报列表页");
 
     }
 
