@@ -94,7 +94,6 @@
 <!--                            <category android:name="android.intent.category.LAUNCHER" />-->
 <!--                        </intent-filter>-->
         </activity>
-
         <activity
             android:name=".ui.activity.mine.ChangeIpActivity"
             android:launchMode="singleTask"
@@ -111,13 +110,18 @@
             android:name=".ui.activity.purchaseWarehousing.PurchaseOrderSave2Activity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
-
-
         <activity
             android:name=".ui.activity.purchaseWarehousing.PurchaseOrderSaveActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
-
+        <activity
+            android:name=".ui.activity.processReport.ProcessReportListActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".ui.activity.processReport.ProcessReportDetail"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name=".ui.activity.StockScanSearchActivity"
             android:launchMode="singleTask"
