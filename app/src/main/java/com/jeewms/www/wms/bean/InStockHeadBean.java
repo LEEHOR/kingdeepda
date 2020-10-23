@@ -138,7 +138,6 @@ public class InStockHeadBean implements Serializable {
         private String fproviderContactName;
         private String fpurchaserGroupName;
         private String fsupplyNumber;
-        private String stkInStockEntryVoList;
         private String fdate;
         private String fsettleOrgIdName;
         private String fownerTypeIdHeadNumber;
@@ -154,7 +153,34 @@ public class InStockHeadBean implements Serializable {
         private String fownerTypeIdHead;
         private String fbillTypeNumber;
         private String fsettleCurrIdName;
+        private String FSupplierId;
+        private String FSettleCurrId;
         private String fbillNo;
+        private List<InStockEntryBean.DataEntity> stkInStockEntryVo;
+
+        public String getFSupplierId() {
+            return FSupplierId;
+        }
+
+        public void setFSupplierId(String FSupplierId) {
+            this.FSupplierId = FSupplierId;
+        }
+
+        public String getFSettleCurrId() {
+            return FSettleCurrId;
+        }
+
+        public void setFSettleCurrId(String FSettleCurrId) {
+            this.FSettleCurrId = FSettleCurrId;
+        }
+
+        public List<InStockEntryBean.DataEntity> getStkInStockEntryVo() {
+            return stkInStockEntryVo;
+        }
+
+        public void setStkInStockEntryVo(List<InStockEntryBean.DataEntity> stkInStockEntryVo) {
+            this.stkInStockEntryVo = stkInStockEntryVo;
+        }
 
         public void setFid(int fid) {
             this.fid = fid;
@@ -288,9 +314,6 @@ public class InStockHeadBean implements Serializable {
             this.fsupplyNumber = fsupplyNumber;
         }
 
-        public void setStkInStockEntryVoList(String stkInStockEntryVoList) {
-            this.stkInStockEntryVoList = stkInStockEntryVoList;
-        }
 
         public void setFdate(String fdate) {
             this.fdate = fdate;
@@ -486,10 +509,6 @@ public class InStockHeadBean implements Serializable {
 
         public String getFsupplyNumber() {
             return fsupplyNumber;
-        }
-
-        public String getStkInStockEntryVoList() {
-            return stkInStockEntryVoList;
         }
 
         public String getFdate() {

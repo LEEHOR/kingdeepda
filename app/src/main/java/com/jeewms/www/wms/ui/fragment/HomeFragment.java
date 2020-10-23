@@ -1,4 +1,4 @@
-package com.jeewms.www.wms.ui.fragment1;
+package com.jeewms.www.wms.ui.fragment;
 
 import android.view.View;
 import android.widget.GridView;

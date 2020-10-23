@@ -9,7 +9,6 @@ import com.jeewms.www.wms.base.BaseActivity1;
 import com.jeewms.www.wms.ui.view.TitleTopOrdersView;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * @ProjectName: kingdeepda
@@ -25,12 +24,12 @@ import butterknife.ButterKnife;
  * @Version: 1.0
  */
 public class ProcessReportDetail extends BaseActivity1 {
-    @BindView(R.id.processDetail_title)
+    @BindView(R.id.processDetail_title2)
     TitleTopOrdersView processDetailTitle;
 
     @Override
     protected int getContentResId() {
-        return R.layout.activity_process_report_detail;
+        return R.layout.activity_process_report_detail2;
     }
 
     @Override
@@ -51,10 +50,4 @@ public class ProcessReportDetail extends BaseActivity1 {
 
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }

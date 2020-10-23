@@ -1,4 +1,4 @@
-package com.jeewms.www.wms.ui.activity.productionWarehousing;
+package com.jeewms.www.wms.ui.activity.salesDelivery;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,45 +11,46 @@ import com.jeewms.www.wms.base.BaseActivity1;
 import com.jeewms.www.wms.ui.view.TitleTopOrdersView;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * @ProjectName: kingdeepda
- * @Package: com.jeewms.www.wms.ui.activity.productionWarehousing
- * @ClassName: ProductionWarehousingActivity
+ * @Package: com.jeewms.www.wms.ui.activity.salesDelivery
+ * @ClassName: SalesDeliveryActivity
  * @Description: java类作用描述
- * 首页跳转进来的生产入库
+ * 销售出库
  * @Author: 作者名
- * @CreateDate: 2020/10/23 11:26
+ * @CreateDate: 2020/10/23 14:24
  * @UpdateUser: 更新者：
- * @UpdateDate: 2020/10/23 11:26
+ * @UpdateDate: 2020/10/23 14:24
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class ProductionWarehousingActivity extends BaseActivity1 {
-    @BindView(R.id.processDetail_title)
-    TitleTopOrdersView processDetailTitle;
+public class SalesDeliveryActivity extends BaseActivity1 {
+    @BindView(R.id.sales_out_title)
+    TitleTopOrdersView salesOutTitle;
 
     @Override
     protected int getContentResId() {
-        return R.layout.activity_process_report_detail;
+        return R.layout.activity_sales_stock_out;
     }
 
     public static void show(Context context) {
-        Intent intent = new Intent(context, ProductionWarehousingActivity.class);
+        Intent intent = new Intent(context, SalesDeliveryActivity.class);
         context.startActivity(intent);
     }
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        processDetailTitle.getBtn_back().setOnClickListener(new View.OnClickListener() {
+        salesOutTitle.getBtn_back().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
-        TextView tex_item = processDetailTitle.getTex_item();
+        TextView tex_item = salesOutTitle.getTex_item();
         tex_item.setVisibility(View.VISIBLE);
-        tex_item.setText("生产入库");
+        tex_item.setText("销售出库");
     }
 
     @Override
@@ -57,4 +58,10 @@ public class ProductionWarehousingActivity extends BaseActivity1 {
 
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

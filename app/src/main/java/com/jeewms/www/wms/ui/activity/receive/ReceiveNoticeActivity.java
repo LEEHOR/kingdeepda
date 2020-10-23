@@ -23,11 +23,12 @@ import com.jeewms.www.wms.base.BaseActivity1;
 import com.jeewms.www.wms.bean.ReceiveBillBean;
 import com.jeewms.www.wms.bean.ReceivePush;
 import com.jeewms.www.wms.constance.Constance;
-import com.jeewms.www.wms.ui.activity.purchaseWarehousing.PurchaseOrderSaveActivity;
-import com.jeewms.www.wms.ui.activity.purchaseWarehousing.PurchaseOrderSave2Activity;
+import com.jeewms.www.wms.ui.activity.purchaseWarehousing.PurchaseWarehousingActivity;
+import com.jeewms.www.wms.ui.activity.purchaseWarehousing.PurchaseWarehousingDetailActivity;
 import com.jeewms.www.wms.ui.adapter.ReceivingAdapter;
 import com.jeewms.www.wms.ui.view.TitleTopOrdersView;
 import com.jeewms.www.wms.util.LocalDisplay;
+import com.jeewms.www.wms.util.Logutil;
 import com.jeewms.www.wms.util.ToastUtil;
 import com.jeewms.www.wms.util.decoration.SpacesItemDecoration;
 import com.jeewms.www.wms.volley.HTTPUtils;
@@ -166,7 +167,7 @@ public class ReceiveNoticeActivity extends BaseActivity1 {
     public void onViewClicked(View view) {
         switch (view.getId()){
             case R.id.iv_add:
-                Intent intent=new Intent(ReceiveNoticeActivity.this, PurchaseOrderSave2Activity.class);
+                Intent intent=new Intent(ReceiveNoticeActivity.this, PurchaseWarehousingActivity.class);
                startActivity(intent);
                 break;
             case R.id.iv_scan:
@@ -269,8 +270,9 @@ public class ReceiveNoticeActivity extends BaseActivity1 {
             public void onResponse(ReceivePush response) {
                 if (response.getCode()==0) {
                     ToastUtil.show(ReceiveNoticeActivity.this,"下推成功");
+                    Logutil.print("下推",response.getData().getId()+"/"+response.getData().getNumber());
                        //跳转到采购入库详情
-                        Intent intent1=new Intent(ReceiveNoticeActivity.this, PurchaseOrderSaveActivity.class);
+                        Intent intent1=new Intent(ReceiveNoticeActivity.this, PurchaseWarehousingDetailActivity.class);
                         Bundle bundle1=new Bundle();
                         bundle1.putInt("fid",response.getData().getId());
                         bundle1.putString("fnumber",response.getData().getNumber());
@@ -278,9 +280,9 @@ public class ReceiveNoticeActivity extends BaseActivity1 {
                         startActivity(intent1);
                 } else {
                     ToastUtil.show(ReceiveNoticeActivity.this,"下推失败");
-                    Intent intent1=new Intent(ReceiveNoticeActivity.this, PurchaseOrderSaveActivity.class);
+                    Intent intent1=new Intent(ReceiveNoticeActivity.this, PurchaseWarehousingDetailActivity.class);
                     Bundle bundle1=new Bundle();
-                    bundle1.putInt("fid",100009);
+                    bundle1.putInt("fid",100049);
                     bundle1.putString("fnumber","CGRK00004");
                     intent1.putExtras(bundle1);
                     startActivity(intent1);

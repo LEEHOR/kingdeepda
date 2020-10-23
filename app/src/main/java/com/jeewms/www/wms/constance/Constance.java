@@ -60,6 +60,8 @@ public class Constance {
     public static final String getstkInStock="/api/pda/stkInStock/getstkInStock";
     //采购入库表体
     public static final String getstkInStockEntry="/api/pda/stkInStock/getstkInStockEntry";
+    //采购入库保存
+    public static final String stkInStockAdd="/api/pda/stkInStock/add";
 
 
     //登录
@@ -125,6 +127,10 @@ public class Constance {
     //采购入库单据体数据
     public static String getGetstkInStockEntry() {
         return getBaseUrl()+getstkInStockEntry;
+    }
+
+    public static String getStkInStockAdd() {
+        return getBaseUrl()+stkInStockAdd;
     }
 
     public static class SHAREP {

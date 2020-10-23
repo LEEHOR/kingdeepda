@@ -7,10 +7,8 @@ import android.support.constraint.ConstraintLayout;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.jeewms.www.wms.base.BaseActivity;
 import com.jeewms.www.wms.bean.LoginVm;
-import com.jeewms.www.wms.bean.PurchaseOrderAddBean;
 import com.jeewms.www.wms.bean.SignOut;
 import com.jeewms.www.wms.constance.Constance;
 import com.jeewms.www.wms.constance.Shared;
@@ -20,8 +18,6 @@ import com.jeewms.www.wms.util.SharedPreferencesUtil;
 import com.jeewms.www.wms.util.StringUtil;
 import com.jeewms.www.wms.volley.HTTPUtils;
 import com.jeewms.www.wms.volley.VolleyListener;
-
-import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -75,13 +71,13 @@ public class WelComeActivity extends BaseActivity {
                 }
             }
         }, 3000);
-        SignOut signOut=new SignOut();
-        signOut.setAge(16);
-        signOut.setHeight("180");
-        signOut.setName("leehor");
-        PurchaseOrderAddBean bean=new PurchaseOrderAddBean();
-        JsonObject jsonObject = new Gson().toJsonTree(bean).getAsJsonObject();
-        Logutil.print("数据",jsonObject.toString());
+//        SignOut signOut=new SignOut();
+//        signOut.setAge(16);
+//        signOut.setHeight("180");
+//        signOut.setName("leehor");
+//        PurchaseOrderAddBean bean=new PurchaseOrderAddBean();
+//        JsonObject jsonObject = new Gson().toJsonTree(bean).getAsJsonObject();
+//        Logutil.print("数据",jsonObject.toString());
 
     }
 

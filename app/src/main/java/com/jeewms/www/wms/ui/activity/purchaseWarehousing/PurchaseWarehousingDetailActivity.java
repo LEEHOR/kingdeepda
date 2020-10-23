@@ -20,6 +20,7 @@ import com.bin.david.form.data.format.bg.BaseCellBackgroundFormat;
 import com.bin.david.form.data.style.FontStyle;
 import com.bin.david.form.data.table.TableData;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.jeewms.www.wms.R;
 import com.jeewms.www.wms.base.BaseActivity1;
@@ -27,13 +28,16 @@ import com.jeewms.www.wms.bean.InStockEntryBean;
 import com.jeewms.www.wms.bean.InStockHeadBean;
 import com.jeewms.www.wms.bean.MaterialListBean;
 import com.jeewms.www.wms.bean.ProjectListBean;
-import com.jeewms.www.wms.bean.PurchaseOrderAddBean;
+import com.jeewms.www.wms.bean.UpdatePwd;
 import com.jeewms.www.wms.constance.Constance;
 import com.jeewms.www.wms.ui.dialog.PurchaseOrderAddDialog;
 import com.jeewms.www.wms.ui.view.TitleTopOrdersView;
 import com.jeewms.www.wms.util.Logutil;
 import com.jeewms.www.wms.volley.HTTPUtils;
 import com.jeewms.www.wms.volley.VolleyListener;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -57,7 +61,7 @@ import butterknife.OnClick;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class PurchaseOrderSaveActivity extends BaseActivity1 {
+public class PurchaseWarehousingDetailActivity extends BaseActivity1 {
     @BindView(R.id.receiving_detail_title)
     TitleTopOrdersView receivingDetailTitle;
     @BindView(R.id.add_table)
@@ -108,18 +112,15 @@ public class PurchaseOrderSaveActivity extends BaseActivity1 {
     EditText tvFsupplyAddress;
     @BindView(R.id.tv_fchargeName)
     EditText tvFchargeName;
-
+    private InStockHeadBean.DataEntity TableHeadData;
+    private List<InStockEntryBean.DataEntity> TableBodyDate=new ArrayList<>();
     private int fid = 0;
     private String key_fid = "fid";
-    //传参
-    private PurchaseOrderAddBean bean = new PurchaseOrderAddBean();
-    PurchaseOrderAddBean.ModelEntity modelEntity = new PurchaseOrderAddBean.ModelEntity();
-    //明细
-    private List<PurchaseOrderAddBean.ModelEntity.FInStockEntryEntity> fInStockEntryEntityList = new ArrayList<>();
+
 
     @Override
     protected int getContentResId() {
-        return R.layout.activity_receiving_notice_add;
+        return R.layout.activity_purchase_warehousing_detail;
     }
 
 
@@ -132,7 +133,7 @@ public class PurchaseOrderSaveActivity extends BaseActivity1 {
             }
         });
         receivingDetailTitle.getTex_item().setVisibility(View.VISIBLE);
-        receivingDetailTitle.getTex_item().setText("采购入库页");
+        receivingDetailTitle.getTex_item().setText("采购入库详情页");
 
         TextView tv_right2 = receivingDetailTitle.getTv_right2();
         tv_right2.setVisibility(View.INVISIBLE);
@@ -173,7 +174,7 @@ public class PurchaseOrderSaveActivity extends BaseActivity1 {
             @Override
             public int getBackGroundColor(CellInfo cellInfo) {
                 if (cellInfo.row % 2 == 0) {
-                    return ContextCompat.getColor(PurchaseOrderSaveActivity.this, R.color.black_f5f5f5);
+                    return ContextCompat.getColor(PurchaseWarehousingDetailActivity.this, R.color.black_f5f5f5);
                 } else {
                     return TableConfig.INVALID_COLOR; //返回无效颜色，不会绘制
                 }
@@ -194,30 +195,35 @@ public class PurchaseOrderSaveActivity extends BaseActivity1 {
         params.put(key_fid, fid);
         String getstkInStock = Constance.getGetstkInStock();
         HTTPUtils.postByJson(this, getstkInStock, InStockHeadBean.class, params, new VolleyListener<InStockHeadBean>() {
+
             @Override
             public void onResponse(InStockHeadBean response) {
                 if (response.getCode() == 0) {
                     List<InStockHeadBean.DataEntity> datas = response.getData();
-                    InStockHeadBean.DataEntity dataEntity = datas.get(0);
-                    tvFbillTypeName.setText(dataEntity.getFbillTypeName());
-                    tvFstockOrgNamee.setText(dataEntity.getFstockOrgName());
-                    tvFpurchaseOrgName.setText(dataEntity.getFpurchaseOrgName());
-                    tvFstockDeptName.setText(dataEntity.getFstockDeptName());
-                    tvFpurchaseDeptName.setText(dataEntity.getFpurchaseDeptName());
-                    tvFbillNo.setText(dataEntity.getFbillNo());
-                    tvFstockerGroupName.setText(dataEntity.getFstockerGroupName());
-                    tvFpurchaserGroupName.setText(dataEntity.getFpurchaserGroupName());
-                    String fdate = dataEntity.getFdate();
+                    TableHeadData = datas.get(0);
+                  //  TableHeadData.setFSupplierId(TableHeadData.getFsupplierNumber());
+                  //  TableHeadData.setFSettleCurrId(TableHeadData.getFsettleCurrIdNumber());
+                    tvFbillTypeName.setText(TableHeadData.getFbillTypeName());
+                    tvFstockOrgNamee.setText(TableHeadData.getFstockOrgName());
+                    tvFpurchaseOrgName.setText(TableHeadData.getFpurchaseOrgName());
+                    tvFstockDeptName.setText(TableHeadData.getFstockDeptName());
+                    tvFpurchaseDeptName.setText(TableHeadData.getFpurchaseDeptName());
+                    tvFbillNo.setText(TableHeadData.getFbillNo());
+                    tvFstockerGroupName.setText(TableHeadData.getFstockerGroupName());
+                    tvFpurchaserGroupName.setText(TableHeadData.getFpurchaserGroupName());
+                    String fdate = TableHeadData.getFdate();
                     String str1 = fdate.substring(0, fdate.indexOf("T"));
                     tvFdate.setText(str1);
-                    tvFstockerName.setText(dataEntity.getFstockerName());
-                    tvFpurchaserName.setText(dataEntity.getFpurchaserName());
-                    tvFdocumentStatus.setText(dataEntity.getFdocumentStatus());
-                    tvFsettleName.setText(dataEntity.getFsettleName());
-                    tvFsupplyName.setText(dataEntity.getFsupplyName());
-                    tvFproviderContactName.setText(dataEntity.getFproviderContactName());
-                    tvFsupplyAddress.setText(dataEntity.getFsupplyAddress());
-                    tvFchargeName.setText(dataEntity.getFchargeName());
+                    tvFstockerName.setText(TableHeadData.getFstockerName());
+                    tvFpurchaserName.setText(TableHeadData.getFpurchaserName());
+                    tvFdocumentStatus.setText(TableHeadData.getFdocumentStatus());
+                    tvFsupplierName.setText(TableHeadData.getFsupplierName());
+                    tvFdemandOrgName.setText(TableHeadData.getFdemandOrgName());
+                    tvFsettleName.setText(TableHeadData.getFsettleName());
+                    tvFsupplyName.setText(TableHeadData.getFsupplyName());
+                    tvFproviderContactName.setText(TableHeadData.getFproviderContactName());
+                    tvFsupplyAddress.setText(TableHeadData.getFsupplyAddress());
+                    tvFchargeName.setText(TableHeadData.getFchargeName());
                 }
             }
 
@@ -251,10 +257,15 @@ public class PurchaseOrderSaveActivity extends BaseActivity1 {
 
             @Override
             public void onResponse(InStockEntryBean response) {
+                TableBodyDate.clear();
                 if (response.getCode() == 0) {
-                    List<InStockEntryBean.DataEntity> data = response.getData();
-                    addTable.addData(data, false);
-                    //  dataEntities.addAll(data);
+                    //TableBodyDate = response.getData();
+                    TableBodyDate.addAll(response.getData());
+                    TableHeadData.setStkInStockEntryVo(TableBodyDate);
+                    addTable.addData(response.getData(), false);
+
+
+                    // dataEntities.addAll(data);
                 } else {
                 }
 
@@ -334,62 +345,39 @@ public class PurchaseOrderSaveActivity extends BaseActivity1 {
 
     @OnClick(R.id.btn_push)
     public void onViewClicked() {
-
+        SaveDate();
     }
 
-    private void SetDate() {
-        modelEntity.setFID(fid);
-        //    modelEntity.setFBillNo(billNo);
-        //收料组织 必填
-        PurchaseOrderAddBean.ModelEntity.FStockOrgIdEntity fStockOrgIdEntity = new PurchaseOrderAddBean.ModelEntity.FStockOrgIdEntity();
-        fStockOrgIdEntity.setFNumber("");
-        modelEntity.setFStockOrgId(fStockOrgIdEntity);
-        //日期 必填
-        //    modelEntity.setFDate(date);
-        // 单据类型 必填
-        PurchaseOrderAddBean.ModelEntity.FBillTypeIDEntity fBillTypeIDEntity = new PurchaseOrderAddBean.ModelEntity.FBillTypeIDEntity();
-        fBillTypeIDEntity.setFNUMBER("");
-        modelEntity.setFBillTypeID(fBillTypeIDEntity);
-        //货主类型 必填
-        modelEntity.setFOwnerTypeIdHead("");
-        //货主  必填
-        PurchaseOrderAddBean.ModelEntity.FOwnerIdHeadEntity fOwnerIdHeadEntity = new PurchaseOrderAddBean.ModelEntity.FOwnerIdHeadEntity();
-        fOwnerIdHeadEntity.setFNumber("");
-        modelEntity.setFOwnerIdHead(fOwnerIdHeadEntity);
-        // 需求组织：FDemandOrgId
-        PurchaseOrderAddBean.ModelEntity.FDemandOrgIdEntity fDemandOrgIdEntity = new PurchaseOrderAddBean.ModelEntity.FDemandOrgIdEntity();
-        fDemandOrgIdEntity.setFNumber("");
-        modelEntity.setFDemandOrgId(fDemandOrgIdEntity);
-        // 采购组织：FPurchaseOrgId  (必填项)
-        PurchaseOrderAddBean.ModelEntity.FPurchaseOrgIdEntity fPurchaseOrgIdEntity = new PurchaseOrderAddBean.ModelEntity.FPurchaseOrgIdEntity();
-        fPurchaseOrgIdEntity.setFNumber("");
-        modelEntity.setFPurchaseOrgId(fPurchaseOrgIdEntity);
-        //供应商：FSupplierId  (必填项)
-        PurchaseOrderAddBean.ModelEntity.FSupplierIdEntity fSupplierIdEntity = new PurchaseOrderAddBean.ModelEntity.FSupplierIdEntity();
-        fSupplierIdEntity.setFNumber("");
-        modelEntity.setFSupplierId(fSupplierIdEntity);
-        // 库存组
-        PurchaseOrderAddBean.ModelEntity.FStockerGroupIdEntity fStockerGroupIdEntity = new PurchaseOrderAddBean.ModelEntity.FStockerGroupIdEntity();
-        //收料部门
-        PurchaseOrderAddBean.ModelEntity.FStockDeptIdEntity fStockDeptIdEntity = new PurchaseOrderAddBean.ModelEntity.FStockDeptIdEntity();
-        fStockDeptIdEntity.setFNumber("");
-        modelEntity.setFStockDeptId(fStockDeptIdEntity);
-        //采购部门：FPurchaseDeptId
-        PurchaseOrderAddBean.ModelEntity.FPurchaseDeptIdEntity fPurchaseDeptIdEntity = new PurchaseOrderAddBean.ModelEntity.FPurchaseDeptIdEntity();
-        fPurchaseDeptIdEntity.setFNumber("");
-        modelEntity.setFPurchaseDeptId(fPurchaseDeptIdEntity);
+    //保存
+    private void SaveDate() {
+        Gson gson = new GsonBuilder().serializeNulls().create();
+        String s = gson.toJson(TableHeadData);
+        JSONObject jsonObject=null;
+        try {
+             jsonObject = new JSONObject(s);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Logutil.print("数据11", jsonObject.toString());
+        JsonObject asJsonObject =gson.toJsonTree(TableHeadData).getAsJsonObject();
+        Logutil.print("数据", asJsonObject.toString());
+        String stkInStockAdd = Constance.getStkInStockAdd();
+        HTTPUtils.postByJson(this, stkInStockAdd, UpdatePwd.class, asJsonObject, new VolleyListener<UpdatePwd>() {
+            @Override
+            public void requestComplete() {
 
-        // 仓管员：FStockerId
-        //PurchaseOrderAddBean.ModelEntity.FStockerIdEntity fStockerIdEntity=new  PurchaseOrderAddBean.ModelEntity.FStockerIdEntity();
-        // 对应组织：FCorrespondOrgId
-        // PurchaseOrderAddBean.ModelEntity.FCorrespondOrgIdEntity fCorrespondOrgIdEntity=new  PurchaseOrderAddBean.ModelEntity.FCorrespondOrgIdEntity();
-        // 采购组：FPurchaserGroupId
-        //  PurchaseOrderAddBean.ModelEntity.FPurchaserGroupIdEntity fPurchaserGroupIdEntity=new PurchaseOrderAddBean.ModelEntity.FPurchaserGroupIdEntity();
-        // 采购员：FPurchaserId
-        modelEntity.setFInStockEntry(fInStockEntryEntityList);
-        bean.setModel(modelEntity);
-        JsonObject jsonObject = new Gson().toJsonTree(bean).getAsJsonObject();
-        Logutil.print("数据", jsonObject.toString());
+            }
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+
+            @Override
+            public void onResponse(UpdatePwd response) {
+
+            }
+        });
     }
 
     private void AddOrderDialog(String title, int type) {

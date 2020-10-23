@@ -28,6 +28,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.jeewms.www.wms.bean.UpdatePwd;
 import com.jeewms.www.wms.constance.Shared;
 import com.jeewms.www.wms.util.Logutil;
 import com.jeewms.www.wms.util.SharedPreferencesUtil;
@@ -66,7 +68,6 @@ public class HTTPUtils {
      */
     public static<T> void postByJson(final Context context, final String url, final Class<T> tClass ,final Map<String, String> params, final VolleyListener<T> listener){
         JSONObject jsonObject=new JSONObject(params);
-
         JsonObjectRequest jsonRequest=new JsonObjectRequest(Method.POST, url, jsonObject, new Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -105,6 +106,137 @@ public class HTTPUtils {
         }
         mRequestQueue.add(jsonRequest);
     }
+
+    /**
+     * Json方式请求
+     * @param <T>
+     * @param context
+     * @param url
+     * @param tClass
+     * @param jsonObject
+     * @param listener
+     */
+    public static<T> void postByJson(final Context context, final String url, final Class<T> tClass , JsonObject jsonObject, final VolleyListener<T> listener){
+        com.jeewms.www.wms.volley.JsonObjectRequest jsonObjectRequest=new com.jeewms.www.wms.volley.JsonObjectRequest(Method.POST, url, jsonObject, new Listener<JsonObject>() {
+            @Override
+            public void onResponse(JsonObject response) {
+                Logutil.print("网络日志:成功" +response.toString());
+                Gson gson=new Gson();
+                T t = new Gson().fromJson(response, tClass);
+                listener.onResponse(t);
+                listener.requestComplete();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Logutil.print("网络日志:失败" +error.getMessage());
+                listener.onErrorResponse(error);
+                listener.requestComplete();
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                if (!url.contains("login")) {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("Authorization", SharedPreferencesUtil.getInstance(context).getKeyValue(Shared.TOKEN));
+                    return params;
+                } else {
+                    return super.getHeaders();
+                }
+            }
+        };
+//        JsonObjectRequest jsonRequest=new JsonObjectRequest(Method.POST, url, jsonObject, new Listener<JSONObject>() {
+//            @Override
+//            public void onResponse(JSONObject response) {
+//                Logutil.print("网络日志:成功" +response.toString());
+//                Gson gson=new Gson();
+//                T t = gson.fromJson(String.valueOf(response), tClass);
+//                listener.onResponse(t);
+//                listener.requestComplete();
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Logutil.print("网络日志:失败" +error.getMessage());
+//                listener.onErrorResponse(error);
+//                listener.requestComplete();
+//            }
+//        }){
+//            @Override
+//            public Map<String, String> getHeaders() throws AuthFailureError {
+//                if (!url.contains("login")) {
+//                    Map<String, String> params = new HashMap<>();
+//                    params.put("Authorization", SharedPreferencesUtil.getInstance(context).getKeyValue(Shared.TOKEN));
+//                    return params;
+//                } else {
+//                    return super.getHeaders();
+//                }
+//            }
+//        };
+        if (mRequestQueue == null) {
+            init(context);
+        }
+        try {
+            Logutil.print("网络日志", "\n[\n" + jsonObjectRequest.getBodyContentType() + "\n" + jsonObjectRequest.getHeaders().toString() + "\n" + jsonObjectRequest.getUrl() + "\n" + "POST"+"\n"+ jsonObject.toString() + "\n]");
+        } catch (AuthFailureError authFailureError) {
+            authFailureError.printStackTrace();
+        }
+        mRequestQueue.add(jsonObjectRequest);
+    }
+
+
+
+    /**
+     * Json方式请求
+     * @param <T>
+     * @param context
+     * @param url
+     * @param tClass
+     * @param jsonObject
+     * @param listener
+     */
+    public static<T> void postByJson(final Context context, final String url, final Class<T> tClass , JSONObject jsonObject, final VolleyListener<T> listener){
+        JsonObjectRequest jsonRequest=new JsonObjectRequest(Method.POST, url, jsonObject, new Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Logutil.print("网络日志:成功" +response.toString());
+                Gson gson=new Gson();
+                T t = gson.fromJson(String.valueOf(response), tClass);
+                listener.onResponse(t);
+                listener.requestComplete();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Logutil.print("网络日志:失败" +error.getMessage());
+                listener.onErrorResponse(error);
+                listener.requestComplete();
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                if (!url.contains("login")) {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("Authorization", SharedPreferencesUtil.getInstance(context).getKeyValue(Shared.TOKEN));
+                    return params;
+                } else {
+                    return super.getHeaders();
+                }
+            }
+        };
+        if (mRequestQueue == null) {
+            init(context);
+        }
+        try {
+            Logutil.print("网络日志", "\n[\n" + jsonRequest.getBodyContentType() + "\n" + jsonRequest.getHeaders().toString() + "\n" + jsonRequest.getUrl() + "\n" + "POST"+"\n"+ jsonObject.toString() + "\n]");
+        } catch (AuthFailureError authFailureError) {
+            authFailureError.printStackTrace();
+        }
+        mRequestQueue.add(jsonRequest);
+    }
+
+
+
 
     //JSON解析
     public static<T> void postJson(final Context context, final String url,Class<T> clazz, final Map<String, String> params, final VolleyListener<T> listener){

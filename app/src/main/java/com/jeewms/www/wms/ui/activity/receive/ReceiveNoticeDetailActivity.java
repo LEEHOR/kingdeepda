@@ -28,7 +28,7 @@ import com.jeewms.www.wms.bean.ReceiveBillBean;
 import com.jeewms.www.wms.bean.ReceiveBillEntry;
 import com.jeewms.www.wms.bean.ReceivePush;
 import com.jeewms.www.wms.constance.Constance;
-import com.jeewms.www.wms.ui.activity.purchaseWarehousing.PurchaseOrderSaveActivity;
+import com.jeewms.www.wms.ui.activity.purchaseWarehousing.PurchaseWarehousingDetailActivity;
 import com.jeewms.www.wms.ui.view.TitleTopOrdersView;
 import com.jeewms.www.wms.util.ToastUtil;
 import com.jeewms.www.wms.volley.HTTPUtils;
@@ -48,6 +48,7 @@ import butterknife.OnClick;
  * @Package: com.jeewms.www.wms.ui.activity1.receiving
  * @ClassName: receivingNoticeDetail
  * @Description: java类作用描述
+ * 收料通知详情
  * @Author: 作者名
  * @CreateDate: 2020/10/15 15:09
  * @UpdateUser: 更新者：
@@ -343,7 +344,7 @@ public class ReceiveNoticeDetailActivity extends BaseActivity1 {
                 if (response.getCode()==0) {
                     ToastUtil.show(ReceiveNoticeDetailActivity.this,"下推成功");
                     //跳转到采购入库详情
-                    Intent intent1=new Intent(ReceiveNoticeDetailActivity.this, PurchaseOrderSaveActivity.class);
+                    Intent intent1=new Intent(ReceiveNoticeDetailActivity.this, PurchaseWarehousingDetailActivity.class);
                     Bundle bundle1=new Bundle();
                     bundle1.putInt("fid",response.getData().getId());
                     bundle1.putString("fnumber",response.getData().getNumber());
@@ -351,9 +352,9 @@ public class ReceiveNoticeDetailActivity extends BaseActivity1 {
                     startActivity(intent1);
                 } else {
                     ToastUtil.show(ReceiveNoticeDetailActivity.this,"下推失败");
-                    Intent intent1=new Intent(ReceiveNoticeDetailActivity.this, PurchaseOrderSaveActivity.class);
+                    Intent intent1=new Intent(ReceiveNoticeDetailActivity.this, PurchaseWarehousingDetailActivity.class);
                     Bundle bundle1=new Bundle();
-                    bundle1.putInt("fid",100009);
+                    bundle1.putInt("fid",100043);
                     bundle1.putString("fnumber","CGRK00004");
                     intent1.putExtras(bundle1);
                     startActivity(intent1);

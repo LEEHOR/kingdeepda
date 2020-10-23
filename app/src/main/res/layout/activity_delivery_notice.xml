@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <com.jeewms.www.wms.ui.view.TitleTopOrdersView
-        android:id="@+id/material_list_title"
+        android:id="@+id/delivery_notice_title"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -14,7 +14,7 @@
         android:id="@+id/view_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-       app:layout_constraintTop_toBottomOf="@id/material_list_title"
+       app:layout_constraintTop_toBottomOf="@id/delivery_notice_title"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         layout="@layout/include_view_scan"/>

@@ -55,15 +55,6 @@
             android:name=".HomeActivity"
             android:launchMode="singleTask" />
         <activity
-            android:name=".ui.activity.HomeOrderActivity"
-            android:launchMode="singleTask"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
-        </activity>
-        <activity android:name=".ui.activity.OrderDetails"
-            android:launchMode="singleTask"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
-        </activity>
-        <activity
             android:name=".ui.activity.mine.ChangePass"
             android:launchMode="singleTask"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
@@ -97,11 +88,11 @@
             android:launchMode="singleTask"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
-            android:name=".ui.activity.purchaseWarehousing.PurchaseOrderSave2Activity"
+            android:name=".ui.activity.purchaseWarehousing.PurchaseWarehousingActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
-            android:name=".ui.activity.purchaseWarehousing.PurchaseOrderSaveActivity"
+            android:name=".ui.activity.purchaseWarehousing.PurchaseWarehousingDetailActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
@@ -113,7 +104,7 @@
             android:launchMode="singleTask"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
-            android:name=".ui.activity.processReport.ProductionWarehousing2Activity"
+            android:name=".ui.activity.productionWarehousing.ProductionWarehousing2Activity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
@@ -121,7 +112,43 @@
             android:launchMode="singleTask"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
-            android:name=".ui.activity.StockScanSearchActivity"
+            android:name=".ui.activity.warehouseOutApplication.WarehouseOutApplicationActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".ui.activity.deliverNotice.DeliveryNoticeActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".ui.activity.deliverNotice.DeliveryNoticeDetailActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".ui.activity.inventoryChecking.InventoryCheckingActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".ui.activity.materialList.MaterialListActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".ui.activity.materialList.MaterialListDetailActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".ui.activity.productionPicking.ProductionPickingActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".ui.activity.otherStockOut.OtherStockOutActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".ui.activity.salesDelivery.SalesDeliveryActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".ui.activity.ScanCodeCheckInventoryActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
 <!--        二维码扫描-->

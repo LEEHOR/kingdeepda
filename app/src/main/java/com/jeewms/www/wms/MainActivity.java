@@ -11,8 +11,8 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.hjm.bottomtabbar.BottomTabBar;
-import com.jeewms.www.wms.ui.fragment1.HomeFragment;
-import com.jeewms.www.wms.ui.fragment1.MineFragment;
+import com.jeewms.www.wms.ui.fragment.HomeFragment;
+import com.jeewms.www.wms.ui.fragment.MineFragment;
 import com.jeewms.www.wms.util.ToastUtil;
 import com.next.easynavigation.constant.Anim;
 import com.next.easynavigation.view.EasyNavigationBar;

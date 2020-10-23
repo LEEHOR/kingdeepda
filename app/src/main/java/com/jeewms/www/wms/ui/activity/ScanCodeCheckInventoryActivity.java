@@ -53,7 +53,7 @@ import butterknife.OnClick;
  * @Package: com.jeewms.www.wms.ui.fragment1
  * @ClassName: StockFragment
  * @Description: java类作用描述
- * 库存管理首页
+ * 扫码查库存
  * @Author: 作者名
  * @CreateDate: 2020/10/13 10:45
  * @UpdateUser: 更新者：
@@ -61,7 +61,7 @@ import butterknife.OnClick;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class StockScanSearchActivity extends BaseActivity1 {
+public class ScanCodeCheckInventoryActivity extends BaseActivity1 {
     @BindView(R.id.stock_scan_search)
     SearchView stockSearch;
     @BindView(R.id.iv_scan)
@@ -97,7 +97,7 @@ public class StockScanSearchActivity extends BaseActivity1 {
     private Map<String, String> mapParam = new HashMap<>();;
 
     public static void show(Context context) {
-        Intent intent = new Intent(context, StockScanSearchActivity.class);
+        Intent intent = new Intent(context, ScanCodeCheckInventoryActivity.class);
         context.startActivity(intent);
     }
 
@@ -365,7 +365,7 @@ public class StockScanSearchActivity extends BaseActivity1 {
                 Manifest.permission.CAMERA, Manifest.permission.VIBRATE}, new PermissionResultCallBack() {
             @Override
             public void onPermissionGranted() {
-                Intent intent = new Intent(StockScanSearchActivity.this, CaptureActivity.class);
+                Intent intent = new Intent(ScanCodeCheckInventoryActivity.this, CaptureActivity.class);
                 startActivityForResult(intent, Constant.REQ_QR_CODE);
             }
 
