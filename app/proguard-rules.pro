@@ -180,6 +180,8 @@
 #
 -dontwarn com.jeewms.www.wms.bean.**
 -keep class com.jeewms.www.wms.bean.** { *; }
+-dontwarn com.jeewms.www.wms.dataBase.**
+-keep class com.jeewms.www.wms.dataBase.** { *; }
 #对含有反射类的处理
 #
 # ----------------------------- 其他的 -----------------------------
@@ -213,6 +215,7 @@
 -keep class com.google.gson.examples.android.model.** { *; }
 # 将下面替换成自己的实体类
 -keep class com.jeewms.www.wms.bean.** { *; }
+-keep class com.jeewms.www.wms.dataBase.** { *; }
 
 
 # ButterKnife
@@ -245,4 +248,15 @@
 -dontwarn com.squareup.picasso.**
 -keepclasseswithmembernames class * {
     native <methods>;
+}
+
+#litepal 数据库
+-keep class org.litepal.** {
+    *;
+}
+-keep class * extends org.litepal.crud.DataSupport {
+    *;
+}
+-keep class * extends org.litepal.crud.LitePalSupport {
+    *;
 }
