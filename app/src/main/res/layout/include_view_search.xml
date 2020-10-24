@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center_vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-        <android.support.v7.widget.SearchView
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            android:id="@+id/app_search"
-            app:iconifiedByDefault="false"
-            app:queryHint="@string/stock_8"
-            android:background="@drawable/search_corner"
-            android:imeOptions="actionSearch"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"/>
-    </LinearLayout>
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:gravity="center_vertical">
+
+    <android.support.v7.widget.SearchView
+        android:id="@+id/app_search"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        android:background="@drawable/search_corner"
+        app:iconifiedByDefault="false"
+        app:queryHint="@string/stock_8"
+        android:imeOptions="actionSearch" />
+</LinearLayout>

@@ -1,237 +1,271 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     xmlns:tool="http://schemas.android.com/tools"
     app:cardCornerRadius="5dp"
     app:contentPadding="10dp"
-    app:cardElevation="2dp"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    app:cardElevation="2dp">
+
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
         <RelativeLayout
-            android:layout_marginBottom="5dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
             <TextView
-                android:id="@+id/receiving_tv1"
                 style="@style/mine_fragment"
+                android:id="@+id/receiving_tv1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:text="@string/receiving_1" />
+
             <TextView
-                android:layout_toRightOf="@+id/receiving_tv1"
+                style="@style/mine_fragment"
                 android:id="@+id/tv_receiving_orderNumber"
-                style="@style/mine_fragment"
-                tool:text="382121390"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/receiving_tv1"
+                tool:text="382121390" />
         </RelativeLayout>
+
         <View
-            android:background="@color/actions_background_light"
+            android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_width="match_parent"/>
+            android:background="@color/actions_background_light" />
+
         <LinearLayout
-            android:layout_marginTop="5dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
             <TextView
                 style="@style/mine_fragment1"
-                android:text="@string/receiving_2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="@string/receiving_2" />
+
             <TextView
-                android:layout_marginStart="5dp"
+                style="@style/mine_fragment"
                 android:id="@+id/tv_receiving_supplier"
-                style="@style/mine_fragment"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp" />
         </LinearLayout>
 
 
         <LinearLayout
-            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:gravity="center_vertical">
+
             <TextView
                 style="@style/mine_fragment1"
-                android:text="@string/receiving_3"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="@string/receiving_3" />
+
             <TextView
+                style="@style/mine_fragment"
                 android:id="@+id/tv_receiving_time"
-                style="@style/mine_fragment"
-                tool:text="2020-3-15"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                tool:text="2020-3-15" />
         </LinearLayout>
+
         <LinearLayout
-            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:gravity="center_vertical">
+
             <TextView
                 style="@style/mine_fragment1"
-                android:text="@string/receiving_3_1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="@string/receiving_3_1" />
+
             <TextView
+                style="@style/mine_fragment"
                 android:id="@+id/tv_receiving_fbillType"
-                style="@style/mine_fragment"
-                tool:text="标准收料单"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                tool:text="标准收料单" />
         </LinearLayout>
+
         <LinearLayout
-            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:gravity="center_vertical">
+
             <TextView
                 style="@style/mine_fragment1"
-                android:text="@string/receiving_3_6"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="@string/receiving_3_6" />
+
             <TextView
+                style="@style/mine_fragment"
                 android:id="@+id/tv_receiving_fbusinessType"
-                style="@style/mine_fragment"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
         </LinearLayout>
+
         <LinearLayout
-            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:gravity="center_vertical">
+
             <TextView
                 style="@style/mine_fragment1"
-                android:text="@string/receiving_3_3"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="@string/receiving_3_3" />
+
             <TextView
+                style="@style/mine_fragment"
                 android:id="@+id/tv_receiving_fstockOrgName"
-                style="@style/mine_fragment"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
         </LinearLayout>
+
         <LinearLayout
-            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:gravity="center_vertical">
+
             <TextView
                 style="@style/mine_fragment1"
-                android:text="@string/receiving_3_4"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="@string/receiving_3_4" />
+
             <TextView
+                style="@style/mine_fragment"
                 android:id="@+id/tv_receiving_fdemandOrgName"
-                style="@style/mine_fragment"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
         </LinearLayout>
+
         <LinearLayout
-            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:gravity="center_vertical">
+
             <TextView
                 style="@style/mine_fragment1"
-                android:text="@string/receiving_3_5"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="@string/receiving_3_5" />
+
             <TextView
+                style="@style/mine_fragment"
                 android:id="@+id/tv_receiving_fpurOrgName"
-                style="@style/mine_fragment"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
         </LinearLayout>
+
         <LinearLayout
-            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:gravity="center_vertical">
+
             <TextView
                 style="@style/mine_fragment1"
-                android:text="@string/receiving_3_2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="@string/receiving_3_2" />
+
             <TextView
+                style="@style/mine_fragment"
                 android:id="@+id/tv_receiving_freceiveDeptName"
-                style="@style/mine_fragment"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
         </LinearLayout>
+
         <LinearLayout
-            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:gravity="center_vertical">
+
             <TextView
                 style="@style/mine_fragment1"
-                android:text="@string/receiving_3_7"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="@string/receiving_3_7" />
+
             <TextView
-                android:id="@+id/tv_receiving_fsupplierName"
                 style="@style/mine_fragment"
+                android:id="@+id/tv_receiving_fsupplierName"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
         </LinearLayout>
+
         <android.support.constraint.ConstraintLayout
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
+
             <TextView
-                android:text="@string/receiving_5"
                 style="@style/mine_fragment2"
-                android:padding="5dp"
-                android:background="@drawable/btn_bg_white"
-                app:layout_constraintHorizontal_chainStyle="spread_inside"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/receiving_purchase_warehousing"
                 android:id="@+id/receiving_detail"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:text="@string/receiving_6"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/receiving_purchase_warehousing"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                style="@style/mine_fragment2"
-                android:padding="5dp"
                 android:background="@drawable/btn_bg_white"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/receiving_detail"
+                android:text="@string/receiving_5" />
+
+            <TextView
+                style="@style/mine_fragment2"
                 android:id="@+id/receiving_purchase_warehousing"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                app:layout_constraintLeft_toRightOf="@id/receiving_detail"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="@drawable/btn_bg_white"
+                android:text="@string/receiving_6" />
         </android.support.constraint.ConstraintLayout>
     </LinearLayout>
 

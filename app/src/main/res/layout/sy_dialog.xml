@@ -1,28 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:wheel="http://schemas.android.com/apk/res-auto"
     android:id="@+id/loading"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:layout_marginLeft="25dp"
     android:layout_marginRight="25dp"
+    android:orientation="vertical"
     android:background="@drawable/sy_dialog_background"
-    android:orientation="vertical" >
+    xmlns:wheel="http://schemas.android.com/apk/res-auto">
 
     <FrameLayout
         android:id="@+id/sy_dlg_custom_holderTop"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-    </FrameLayout>
+        android:layout_height="wrap_content"></FrameLayout>
 
     <LinearLayout
         android:id="@+id/sy_dlg_top_holder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:paddingTop="0dp"
         android:orientation="vertical"
-        android:paddingTop="0dp" >
+        android:gravity="center">
 
         <ImageView
             android:id="@+id/iv_sy_dlg_icon"
@@ -42,86 +41,88 @@
             android:id="@+id/tv_sy_dlg_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:padding="10dp"
-            android:text="@string/sy_dialog_default_title"
+            android:gravity="center"
+            android:textSize="18sp"
             android:textColor="@color/sy_dlg_title_text_color"
-            android:textSize="18sp" />
+            android:text="@string/sy_dialog_default_title" />
 
         <ScrollView
             android:id="@+id/sy_dlg_msg_holder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp" >
+            android:paddingRight="10dp"
+            android:paddingBottom="10dp">
 
             <TextView
                 android:id="@+id/tv_sy_dlg_msg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxWidth="280dp"
-                android:text=""
+                android:textSize="14sp"
                 android:textColor="@color/sy_dlg_msg_text_color"
-                android:textSize="14sp" />
+                android:text="" />
         </ScrollView>
     </LinearLayout>
 
     <FrameLayout
         android:id="@+id/sy_dlg_custom_holder"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-    </FrameLayout>
+        android:layout_height="wrap_content"></FrameLayout>
+
     <LinearLayout
         android:id="@+id/ll_linear_positive"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
         android:background="@drawable/sy_dialog_top_border_bg">
+
         <Button
-            android:id="@+id/sy_dlg_btn_positive2"
             style="@style/sy_dialog_button"
+            android:id="@+id/sy_dlg_btn_positive2"
             android:background="@drawable/sy_dialog_button_right"
-            android:text="@string/sy_dialog_ok"
-            android:textColor="@drawable/sy_dialog_btn_positive_text_color" />
+            android:textColor="@drawable/sy_dialog_btn_positive_text_color"
+            android:text="@string/sy_dialog_ok" />
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/sy_dlg_btn_holder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/sy_dialog_top_border_bg" >
+        android:background="@drawable/sy_dialog_top_border_bg">
 
         <Button
-            android:id="@+id/sy_dlg_btn_negative"
             style="@style/sy_dialog_button"
+            android:id="@+id/sy_dlg_btn_negative"
             android:background="@drawable/sy_dialog_button_left"
             android:text="@string/sy_dialog_cancel" />
+
         <ImageView
             android:id="@+id/div_cancle"
+            android:visibility="gone"
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@color/sy_dlg_border_color"
-            android:visibility="gone"
-            />
+            android:background="@color/sy_dlg_border_color" />
 
         <Button
-            android:id="@+id/sy_dlg_btn_neutral"
             style="@style/sy_dialog_button"
+            android:id="@+id/sy_dlg_btn_neutral"
             android:background="@drawable/sy_dialog_button" />
 
         <View
             android:id="@+id/div"
+            android:visibility="gone"
             android:layout_width="0.5dp"
             android:layout_height="match_parent"
-            android:background="@color/sy_dlg_border_color"
-            android:visibility="gone" />
+            android:background="@color/sy_dlg_border_color" />
 
         <Button
-            android:id="@+id/sy_dlg_btn_positive"
             style="@style/sy_dialog_button"
+            android:id="@+id/sy_dlg_btn_positive"
             android:background="@drawable/sy_dialog_button_right"
-            android:text="@string/sy_dialog_ok"
-            android:textColor="@drawable/sy_dialog_btn_positive_text_color" />
+            android:textColor="@drawable/sy_dialog_btn_positive_text_color"
+            android:text="@string/sy_dialog_ok" />
     </LinearLayout>
 
 </LinearLayout>

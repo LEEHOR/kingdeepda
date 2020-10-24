@@ -1,116 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     xmlns:tool="http://schemas.android.com/tools"
     app:cardCornerRadius="5dp"
     app:contentPadding="10dp"
-    app:cardElevation="2dp"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    app:cardElevation="2dp">
+
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
         <RelativeLayout
-            android:layout_marginBottom="5dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
             <TextView
+                style="@style/mine_fragment"
                 android:id="@+id/stock_tv1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
-                style="@style/mine_fragment"
-                android:text="@string/stock_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:text="@string/stock_2" />
+
             <TextView
-                android:layout_toRightOf="@+id/stock_tv1"
+                style="@style/mine_fragment"
                 android:id="@+id/tv_materialNumber"
-                style="@style/mine_fragment"
-                tool:text="382121390"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/stock_tv1"
+                tool:text="382121390" />
         </RelativeLayout>
+
         <LinearLayout
-            android:layout_marginBottom="5dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
             <TextView
-                android:id="@+id/tv_materialName"
                 style="@style/mine_fragment"
-                tool:text="物料名称"
+                android:id="@+id/tv_materialName"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                tool:text="物料名称" />
+
             <TextView
-                android:layout_marginStart="5dp"
                 android:id="@+id/stock_tv_specification"
-                tool:text="热轧/Φ220/45#"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                tool:text="热轧/Φ220/45#" />
         </LinearLayout>
 
         <View
-            android:background="@color/actions_background_light"
+            android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_width="match_parent"/>
+            android:background="@color/actions_background_light" />
+
         <LinearLayout
-            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:gravity="center_vertical">
+
             <TextView
                 style="@style/mine_fragment"
-                android:text="@string/stock_3"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="@string/stock_3" />
+
             <TextView
+                style="@style/mine_fragment"
                 android:id="@+id/tv_stockName"
-                style="@style/mine_fragment"
-                tool:text="和大赛UI殴打撒"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                tool:text="和大赛UI殴打撒" />
         </LinearLayout>
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:gravity="center_vertical">
+
             <TextView
                 style="@style/mine_fragment1"
-                android:text="@string/stock_4"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="@string/stock_4" />
+
             <TextView
+                style="@style/mine_fragment"
                 android:id="@+id/tv_goodBarCode"
-                style="@style/mine_fragment"
-                tool:text="23213213213"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                tool:text="23213213213" />
         </LinearLayout>
+
         <LinearLayout
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
             <TextView
                 style="@style/mine_fragment1"
-                android:text="@string/stock_5"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="@string/stock_5" />
+
             <TextView
-                android:id="@+id/tv_qty"
                 style="@style/mine_fragment"
-                tool:text="123123"
+                android:id="@+id/tv_qty"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                tool:text="123123" />
         </LinearLayout>
     </LinearLayout>
 

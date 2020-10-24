@@ -14,7 +14,7 @@ import java.io.Serializable;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class newVersionBean implements Serializable {
+public class NewVersionBean implements Serializable {
 
     /**
      * msg : 返回成功

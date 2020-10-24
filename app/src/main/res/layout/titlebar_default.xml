@@ -4,20 +4,20 @@
     android:background="@color/titlebar_color">
 
     <ImageButton
-        android:id="@+id/btn_titlebar_left"
         style="@style/TitlebarButtonStyle"
-        android:layout_alignParentLeft="true"
+        android:id="@+id/btn_titlebar_left"
         android:visibility="gone"
+        android:layout_alignParentLeft="true"
         android:src="@drawable/back_white" />
 
     <Button
-        android:id="@+id/btn_titlebar_right"
         style="@style/TitlebarButtonStyle"
+        android:id="@+id/btn_titlebar_right"
         android:layout_alignParentRight="true" />
 
     <TextView
-        android:id="@+id/tv_title"
         style="@style/TitlebarTextStyle"
+        android:id="@+id/tv_title"
         android:layout_centerInParent="true" />
 
 </RelativeLayout>

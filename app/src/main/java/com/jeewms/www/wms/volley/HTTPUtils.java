@@ -110,6 +110,7 @@ public class HTTPUtils {
 
     /**
      * Json方式请求
+     * Gson 方式
      * @param <T>
      * @param context
      * @param url
@@ -146,34 +147,6 @@ public class HTTPUtils {
                 }
             }
         };
-//        JsonObjectRequest jsonRequest=new JsonObjectRequest(Method.POST, url, jsonObject, new Listener<JSONObject>() {
-//            @Override
-//            public void onResponse(JSONObject response) {
-//                Logutil.print("网络日志:成功" +response.toString());
-//                Gson gson=new Gson();
-//                T t = gson.fromJson(String.valueOf(response), tClass);
-//                listener.onResponse(t);
-//                listener.requestComplete();
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                Logutil.print("网络日志:失败" +error.getMessage());
-//                listener.onErrorResponse(error);
-//                listener.requestComplete();
-//            }
-//        }){
-//            @Override
-//            public Map<String, String> getHeaders() throws AuthFailureError {
-//                if (!url.contains("login")) {
-//                    Map<String, String> params = new HashMap<>();
-//                    params.put("Authorization", SharedPreferencesUtil.getInstance(context).getKeyValue(Shared.TOKEN));
-//                    return params;
-//                } else {
-//                    return super.getHeaders();
-//                }
-//            }
-//        };
         if (mRequestQueue == null) {
             init(context);
         }
@@ -189,6 +162,7 @@ public class HTTPUtils {
 
     /**
      * Json方式请求
+     * org.gson
      * @param <T>
      * @param context
      * @param url

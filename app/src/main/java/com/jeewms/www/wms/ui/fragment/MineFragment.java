@@ -12,7 +12,7 @@ import com.jeewms.www.wms.LoginActivity;
 import com.jeewms.www.wms.R;
 import com.jeewms.www.wms.base.BaseFragment1;
 import com.jeewms.www.wms.bean.LoginVm;
-import com.jeewms.www.wms.bean.newVersionBean;
+import com.jeewms.www.wms.bean.NewVersionBean;
 import com.jeewms.www.wms.constance.Constance;
 import com.jeewms.www.wms.constance.Shared;
 import com.jeewms.www.wms.ui.activity.mine.ChangePass;
@@ -173,7 +173,7 @@ public class MineFragment extends BaseFragment1 {
 
             @Override
             public void onResponse(String response) {
-                newVersionBean vm = GsonUtils.parseJSON(response, newVersionBean.class);
+                NewVersionBean vm = GsonUtils.parseJSON(response, NewVersionBean.class);
                 if (vm.getCode()==0){
                     DialogVersion(vm.getVersion(),vm.getFocusUpdate(),vm.getRemark(),vm.getUrl());
                 }else {

@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tool="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:tool="http://schemas.android.com/tools"
     tool:context=".ui.activity.mine.ChangePass">
+
     <com.jeewms.www.wms.ui.view.TitleTopOrdersView
         android:id="@+id/changePass_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
+
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -18,144 +20,157 @@
             android:id="@+id/guideline1"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:orientation="vertical"
-           app:layout_constraintGuide_percent="0.1"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintGuide_percent="0.1"
+            app:layout_constraintTop_toTopOf="parent"
+            android:orientation="vertical" />
+
         <android.support.constraint.Guideline
             android:id="@+id/guideline2"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:orientation="vertical"
             app:layout_constraintGuide_percent="0.9"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:orientation="vertical" />
+
         <LinearLayout
+            android:id="@+id/line1"
             android:visibility="gone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             app:layout_constraintLeft_toLeftOf="@id/guideline1"
             app:layout_constraintRight_toRightOf="@id/guideline2"
             app:layout_constraintTop_toTopOf="parent"
-            android:background="@drawable/edit_corner"
-            android:id="@+id/line1"
             android:orientation="horizontal"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content">
+            android:background="@drawable/edit_corner">
+
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_marginLeft="10dp"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_account" />
-            <EditText
                 android:layout_marginLeft="10dp"
+                android:src="@drawable/ic_account" />
+
+            <EditText
                 android:id="@+id/user_account"
                 android:layout_width="match_parent"
                 android:layout_height="42dp"
                 android:layout_toRightOf="@+id/userIcon"
-                android:lines="1"
+                android:layout_marginLeft="10dp"
                 android:background="@null"
-                android:hint="@string/mine12"
+                android:inputType="textPersonName"
+                android:lines="1"
                 android:textSize="16dp"
-                android:inputType="textPersonName" />
+                android:hint="@string/mine12" />
             <!-- android:inputType="number"-->
         </LinearLayout>
+
         <LinearLayout
+            android:id="@+id/line2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             app:layout_constraintLeft_toLeftOf="@id/guideline1"
             app:layout_constraintRight_toRightOf="@id/guideline2"
-         app:layout_constraintTop_toTopOf="parent"
-            android:background="@drawable/edit_corner"
-            android:id="@+id/line2"
+            app:layout_constraintTop_toTopOf="parent"
             android:orientation="horizontal"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content">
+            android:background="@drawable/edit_corner">
+
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_marginLeft="10dp"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_account" />
-            <EditText
                 android:layout_marginLeft="10dp"
+                android:src="@drawable/ic_account" />
+
+            <EditText
                 android:id="@+id/user_oldpass"
                 android:layout_width="match_parent"
                 android:layout_height="42dp"
                 android:layout_toRightOf="@+id/userIcon"
-                android:lines="1"
+                android:layout_marginLeft="10dp"
                 android:background="@null"
-                android:hint="@string/mine14"
+                android:inputType="textPersonName"
+                android:lines="1"
                 android:textSize="16dp"
-                android:inputType="textPersonName" />
+                android:hint="@string/mine14" />
             <!-- android:inputType="number"-->
         </LinearLayout>
+
         <LinearLayout
+            android:id="@+id/line3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             app:layout_constraintLeft_toLeftOf="@id/guideline1"
             app:layout_constraintRight_toRightOf="@id/guideline2"
             app:layout_constraintTop_toBottomOf="@+id/line2"
-            android:background="@drawable/edit_corner"
-            android:id="@+id/line3"
             android:orientation="horizontal"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content">
+            android:background="@drawable/edit_corner">
+
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_marginLeft="10dp"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_pass" />
-            <EditText
                 android:layout_marginLeft="10dp"
+                android:src="@drawable/ic_pass" />
+
+            <EditText
                 android:id="@+id/input_pass1"
                 android:layout_width="match_parent"
                 android:layout_height="42dp"
-                android:lines="1"
                 android:layout_toRightOf="@+id/userIcon"
+                android:layout_marginLeft="10dp"
                 android:background="@null"
-                android:hint="@string/mine11"
+                android:inputType="textPassword"
+                android:lines="1"
                 android:textSize="16dp"
-                android:inputType="textPassword" />
+                android:hint="@string/mine11" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/line4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             app:layout_constraintLeft_toLeftOf="@id/guideline1"
             app:layout_constraintRight_toRightOf="@id/guideline2"
             app:layout_constraintTop_toBottomOf="@+id/line3"
-            android:id="@+id/line4"
-            android:background="@drawable/edit_corner"
             android:orientation="horizontal"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content">
+            android:background="@drawable/edit_corner">
+
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_marginLeft="10dp"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_pass" />
-            <EditText
                 android:layout_marginLeft="10dp"
+                android:src="@drawable/ic_pass" />
+
+            <EditText
                 android:id="@+id/input_pass2"
                 android:layout_width="match_parent"
                 android:layout_height="42dp"
                 android:layout_toRightOf="@+id/userIcon"
-                android:lines="1"
+                android:layout_marginLeft="10dp"
                 android:background="@null"
-                android:hint="@string/mine13"
+                android:inputType="textPassword"
+                android:lines="1"
                 android:textSize="16dp"
-                android:inputType="textPassword" />
+                android:hint="@string/mine13" />
         </LinearLayout>
+
         <Button
-            app:layout_constraintLeft_toLeftOf="@id/guideline1"
-            app:layout_constraintRight_toRightOf="@id/guideline2"
-            app:layout_constraintTop_toBottomOf="@+id/line4"
             android:id="@+id/btn_confirm"
             android:layout_width="0dp"
             android:layout_height="40dp"
-            android:textSize="@dimen/text_size"
-            android:text="@string/mine08"
-            android:textColor="@color/white"
+            android:layout_marginTop="20dp"
+            app:layout_constraintLeft_toLeftOf="@id/guideline1"
+            app:layout_constraintRight_toRightOf="@id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/line4"
             android:background="@drawable/btn_select"
-            android:layout_marginTop="20dp" />
+            android:textSize="@dimen/text_size"
+            android:textColor="@color/white"
+            android:text="@string/mine08" />
     </android.support.constraint.ConstraintLayout>
 
 </LinearLayout>

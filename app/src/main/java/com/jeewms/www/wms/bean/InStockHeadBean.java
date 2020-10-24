@@ -1,6 +1,7 @@
 package com.jeewms.www.wms.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -153,26 +154,8 @@ public class InStockHeadBean implements Serializable {
         private String fownerTypeIdHead;
         private String fbillTypeNumber;
         private String fsettleCurrIdName;
-        private String FSupplierId;
-        private String FSettleCurrId;
         private String fbillNo;
-        private List<InStockEntryBean.DataEntity> stkInStockEntryVo;
-
-        public String getFSupplierId() {
-            return FSupplierId;
-        }
-
-        public void setFSupplierId(String FSupplierId) {
-            this.FSupplierId = FSupplierId;
-        }
-
-        public String getFSettleCurrId() {
-            return FSettleCurrId;
-        }
-
-        public void setFSettleCurrId(String FSettleCurrId) {
-            this.FSettleCurrId = FSettleCurrId;
-        }
+        private List<InStockEntryBean.DataEntity> stkInStockEntryVo=new ArrayList<>();
 
         public List<InStockEntryBean.DataEntity> getStkInStockEntryVo() {
             return stkInStockEntryVo;

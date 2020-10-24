@@ -1,83 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tool="http://schemas.android.com/tools"
-    tool:context=".ui.activity.mine.ServerAddressConfigActivity"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    tool:context=".ui.activity.mine.ServerAddressConfigActivity">
+
     <com.jeewms.www.wms.ui.view.TitleTopOrdersView
         android:id="@+id/server_config_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        app:layout_constraintTop_toTopOf="parent" />
+
     <android.support.constraint.Guideline
         android:id="@+id/guideline1"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.05"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        app:layout_constraintGuide_percent="0.05"
+        android:orientation="vertical" />
+
     <android.support.constraint.Guideline
         android:id="@+id/guideline2"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.95"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        app:layout_constraintGuide_percent="0.95"
+        android:orientation="vertical" />
+
     <RelativeLayout
         android:id="@+id/setting_printer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
-        app:layout_constraintTop_toBottomOf="@id/server_config_title"
         app:layout_constraintLeft_toLeftOf="@id/guideline1"
         app:layout_constraintRight_toRightOf="@id/guideline2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content">
+        app:layout_constraintTop_toBottomOf="@id/server_config_title">
+
         <TextView
-            android:id="@+id/printer_tv"
             style="@style/mine_fragment"
-            android:text="@string/setting_4"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
+            android:id="@+id/printer_tv"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <ImageView
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/gray_right"
+            android:text="@string/setting_4" />
+
+        <ImageView
             android:layout_width="25dp"
-            android:layout_height="25dp"/>
+            android:layout_height="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/gray_right" />
     </RelativeLayout>
+
     <View
         android:id="@+id/view1"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/setting_printer"
-        android:background="@color/actions_background_light"
-        android:layout_width="0dp"
-        android:layout_height="1dp"/>
+        android:background="@color/actions_background_light" />
+
     <RelativeLayout
+        android:id="@+id/setting_server"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
-        android:id="@+id/setting_server"
-        app:layout_constraintTop_toBottomOf="@id/view1"
         app:layout_constraintLeft_toLeftOf="@id/guideline1"
         app:layout_constraintRight_toRightOf="@id/guideline2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content">
+        app:layout_constraintTop_toBottomOf="@id/view1">
+
         <TextView
-            android:id="@+id/server_tv"
             style="@style/mine_fragment"
-            android:text="@string/setting_5"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
+            android:id="@+id/server_tv"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <ImageView
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/gray_right"
+            android:text="@string/setting_5" />
+
+        <ImageView
             android:layout_width="25dp"
-            android:layout_height="25dp"/>
+            android:layout_height="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/gray_right" />
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

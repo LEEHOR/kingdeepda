@@ -1,278 +1,325 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:orientation="vertical">
+
     <com.jeewms.www.wms.ui.view.TitleTopOrdersView
         android:id="@+id/material_list_detail_title"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         style="@style/mine_fragment4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableRight="@drawable/ic_bottom_black"
         android:padding="10dp"
+        android:drawableRight="@drawable/ic_bottom_black"
         android:text="基本信息" />
+
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:text="单据编号:"
-                    style="@style/mine_fragment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
                 <TextView
                     style="@style/mine_fragment"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="单据编号:" />
+
+                <TextView
+                    style="@style/mine_fragment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:text="产品编号:"
-                    style="@style/mine_fragment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
                 <TextView
                     style="@style/mine_fragment"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="产品编号:" />
+
+                <TextView
+                    style="@style/mine_fragment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:text="产品名称:"
-                    style="@style/mine_fragment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
                 <TextView
                     style="@style/mine_fragment"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="产品名称:" />
+
+                <TextView
+                    style="@style/mine_fragment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:text="规格型号:"
-                    style="@style/mine_fragment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
                 <TextView
                     style="@style/mine_fragment"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="规格型号:" />
+
+                <TextView
+                    style="@style/mine_fragment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:text="生产组织:"
-                    style="@style/mine_fragment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
                 <TextView
                     style="@style/mine_fragment"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="生产组织:" />
+
+                <TextView
+                    style="@style/mine_fragment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:text="生产车间:"
-                    style="@style/mine_fragment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
                 <TextView
                     style="@style/mine_fragment"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="生产车间:" />
+
+                <TextView
+                    style="@style/mine_fragment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:text="单位:"
-                    style="@style/mine_fragment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
                 <TextView
                     style="@style/mine_fragment"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="单位:" />
+
+                <TextView
+                    style="@style/mine_fragment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:text="数量:"
-                    style="@style/mine_fragment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
                 <TextView
                     style="@style/mine_fragment"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="数量:" />
+
+                <TextView
+                    style="@style/mine_fragment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
         </LinearLayout>
 
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:text="生产订单类型:"
-                    style="@style/mine_fragment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
                 <TextView
                     style="@style/mine_fragment"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="生产订单类型:" />
+
+                <TextView
+                    style="@style/mine_fragment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:text="生产订单编号:"
-                    style="@style/mine_fragment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
                 <TextView
                     style="@style/mine_fragment"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="生产订单编号:" />
+
+                <TextView
+                    style="@style/mine_fragment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:text="生产订单状态:"
-                    style="@style/mine_fragment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
                 <TextView
                     style="@style/mine_fragment"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="生产订单状态:" />
+
+                <TextView
+                    style="@style/mine_fragment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:text="生产订单行号:"
-                    style="@style/mine_fragment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
                 <TextView
                     style="@style/mine_fragment"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="生产订单行号:" />
+
+                <TextView
+                    style="@style/mine_fragment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:text="单据状态:"
-                    style="@style/mine_fragment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
                 <TextView
                     style="@style/mine_fragment"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="单据状态:" />
+
+                <TextView
+                    style="@style/mine_fragment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:text="项目:"
-                    style="@style/mine_fragment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
                 <TextView
                     style="@style/mine_fragment"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="项目:" />
+
+                <TextView
+                    style="@style/mine_fragment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>
+
     <TextView
         style="@style/mine_fragment4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableRight="@drawable/ic_bottom_black"
         android:padding="10dp"
+        android:drawableRight="@drawable/ic_bottom_black"
         android:text="子项明细" />
+
     <com.bin.david.form.core.SmartTable
-        android:minHeight="400dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:minHeight="400dp" />
 
 </LinearLayout>

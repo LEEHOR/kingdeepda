@@ -1,502 +1,519 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <android.support.constraint.ConstraintLayout
         android:id="@+id/cts_3"
-        android:background="@drawable/dialog_white_bg_top"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
         android:layout_width="0dp"
-        android:layout_height="wrap_content">
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/purchase_order_cts1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/purchase_order_sc">
-        <TextView
-            android:id="@+id/purchase_order_add_close"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="取消"
-            android:textColor="@color/red"
-            android:textSize="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-        <TextView
-            android:id="@+id/purchase_order_add_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/purchase_order_add_complete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="完成"
-            android:textColor="@color/titlebar_color"
-            android:textSize="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </android.support.constraint.ConstraintLayout>
-    <ScrollView
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-      app:layout_constraintBottom_toBottomOf="parent"
-        android:id="@+id/purchase_order_sc"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/dialog_white_bg_top">
 
-        <LinearLayout
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/purchase_order_cts1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/purchase_order_sc">
 
-            <android.support.v7.widget.CardView
+            <TextView
+                android:id="@+id/purchase_order_add_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:textSize="16dp"
+                android:textColor="@color/red"
+                android:text="取消" />
+
+            <TextView
+                android:id="@+id/purchase_order_add_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <TextView
+                android:id="@+id/purchase_order_add_complete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:textSize="16dp"
+                android:textColor="@color/titlebar_color"
+                android:text="完成" />
+        </android.support.constraint.ConstraintLayout>
+
+        <ScrollView
+            android:id="@+id/purchase_order_sc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                app:cardCornerRadius="5dp"
-                app:contentPadding="5dp">
+                android:orientation="vertical">
 
-                <LinearLayout
+                <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <android.support.constraint.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            style="@style/mine_fragment3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="项目"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <ImageView
-                            android:layout_width="0dp"
-                            android:layout_height="35dp"
-                            android:src="@drawable/ic_scan_blu"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintDimensionRatio="1:1"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-                    </android.support.constraint.ConstraintLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/actions_background_light" />
+                    android:layout_margin="10dp"
+                    app:cardCornerRadius="5dp"
+                    app:contentPadding="5dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
 
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
+                        <android.support.constraint.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
 
                             <TextView
-                                style="@style/mine_fragment"
+                                style="@style/mine_fragment3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="项目名称:" />
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:text="项目" />
 
-                            <EditText
-                                android:id="@+id/tv_projectName"
-                                style="@style/mine_fragment"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:drawableRight="@drawable/ic_sanjiao1"
-                                android:focusable="false"
-                                android:focusableInTouchMode="false"
-                                android:singleLine="true" />
-                        </LinearLayout>
+                            <ImageView
+                                android:layout_width="0dp"
+                                android:layout_height="35dp"
+                                app:layout_constraintDimensionRatio="1:1"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:src="@drawable/ic_scan_blu" />
+                        </android.support.constraint.ConstraintLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/actions_background_light" />
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
 
-                            <TextView
-                                style="@style/mine_fragment"
-                                android:layout_width="wrap_content"
+                            <LinearLayout
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:text="项目编码:" />
+                                android:layout_weight="1"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical">
 
-                            <EditText
-                                android:id="@+id/tv_projectNum"
-                                style="@style/mine_fragment"
-                                android:layout_width="match_parent"
+                                <TextView
+                                    style="@style/mine_fragment"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="项目名称:" />
+
+                                <EditText
+                                    style="@style/mine_fragment"
+                                    android:id="@+id/tv_projectName"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:drawableRight="@drawable/ic_sanjiao1"
+                                    android:focusable="false"
+                                    android:focusableInTouchMode="false"
+                                    android:singleLine="true" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:focusable="false"
-                                android:focusableInTouchMode="false"
-                                android:singleLine="true" />
+                                android:layout_weight="1"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical">
+
+                                <TextView
+                                    style="@style/mine_fragment"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="项目编码:" />
+
+                                <EditText
+                                    style="@style/mine_fragment"
+                                    android:id="@+id/tv_projectNum"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:focusable="false"
+                                    android:focusableInTouchMode="false"
+                                    android:singleLine="true" />
+                            </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
+                </android.support.v7.widget.CardView>
 
-            <android.support.v7.widget.CardView
-                android:layout_margin="10dp"
-                app:contentPadding="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
+                <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <android.support.constraint.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            style="@style/mine_fragment3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="物料"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <ImageView
-                            android:layout_width="0dp"
-                            android:layout_height="35dp"
-                            android:src="@drawable/ic_scan_blu"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintDimensionRatio="1:1"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-                    </android.support.constraint.ConstraintLayout>
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/actions_background_light" />
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:padding="5dp">
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center_vertical">
-
-                            <TextView
-                                style="@style/mine_fragment"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="物料:" />
-
-                            <EditText
-                                android:id="@+id/tv_fmaterialName"
-                                style="@style/mine_fragment"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:drawableRight="@drawable/ic_sanjiao1"
-                                android:focusable="false"
-                                android:focusableInTouchMode="false"
-                                android:singleLine="true" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center_vertical">
-
-                            <TextView
-                                style="@style/mine_fragment"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="物料编码:" />
-
-                            <EditText
-                                android:id="@+id/tv_fmaterialNum"
-                                style="@style/mine_fragment"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:focusable="false"
-                                android:focusableInTouchMode="false"
-                                android:singleLine="true"/>
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/actions_background_light" />
+                    android:layout_margin="10dp"
+                    app:contentPadding="5dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingLeft="5dp"
-                        android:paddingTop="10dp"
-                        android:paddingRight="5dp"
-                        android:paddingBottom="10dp">
+                        android:orientation="vertical">
 
-                        <TextView
-                            style="@style/mine_fragment"
-                            android:layout_width="wrap_content"
+                        <android.support.constraint.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                style="@style/mine_fragment3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:text="物料" />
+
+                            <ImageView
+                                android:layout_width="0dp"
+                                android:layout_height="35dp"
+                                app:layout_constraintDimensionRatio="1:1"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:src="@drawable/ic_scan_blu" />
+                        </android.support.constraint.ConstraintLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/actions_background_light" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="规格型号:" />
+                            android:padding="5dp"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
 
-                        <TextView
-                            android:id="@+id/tv_fmaterialSpecification"
-                            style="@style/mine_fragment"
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical">
+
+                                <TextView
+                                    style="@style/mine_fragment"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="物料:" />
+
+                                <EditText
+                                    style="@style/mine_fragment"
+                                    android:id="@+id/tv_fmaterialName"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:drawableRight="@drawable/ic_sanjiao1"
+                                    android:focusable="false"
+                                    android:focusableInTouchMode="false"
+                                    android:singleLine="true" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical">
+
+                                <TextView
+                                    style="@style/mine_fragment"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="物料编码:" />
+
+                                <EditText
+                                    style="@style/mine_fragment"
+                                    android:id="@+id/tv_fmaterialNum"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:focusable="false"
+                                    android:focusableInTouchMode="false"
+                                    android:singleLine="true" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/actions_background_light" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
                             android:paddingTop="10dp"
                             android:paddingBottom="10dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:singleLine="true" />
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                style="@style/mine_fragment"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="规格型号:" />
+
+                            <TextView
+                                style="@style/mine_fragment"
+                                android:id="@+id/tv_fmaterialSpecification"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
+                                android:singleLine="true" />
+                        </LinearLayout>
                     </LinearLayout>
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
+                </android.support.v7.widget.CardView>
 
 
-        <android.support.v7.widget.CardView
-           android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="20dp"
-            app:contentPadding="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <android.support.constraint.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        style="@style/mine_fragment3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="其他"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                </android.support.constraint.ConstraintLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/actions_background_light" />
-                <LinearLayout
+                <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="5dp">
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp"
+                    app:contentPadding="5dp">
 
-                    <TextView
-                        style="@style/mine_fragment"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="仓库名称:" />
-
-                    <TextView
-                        android:id="@+id/tv_fstockName"
-                        style="@style/mine_fragment"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableRight="@drawable/ic_sanjiao1"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp"
-                        android:singleLine="true" />
-                </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/actions_background_light" />
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="5dp">
+                        android:orientation="vertical">
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1">
+                        <android.support.constraint.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
 
-                        <TextView
-                            style="@style/mine_fragment"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="采购数量:" />
+                            <TextView
+                                style="@style/mine_fragment3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:text="其他" />
 
-                        <TextView
-                            android:id="@+id/tv_fpurorgNum"
-                            style="@style/mine_fragment"
+                        </android.support.constraint.ConstraintLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/actions_background_light" />
+
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:singleLine="true" />
-                    </LinearLayout>
+                            android:padding="5dp"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                            <TextView
+                                style="@style/mine_fragment"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="仓库名称:" />
 
-                        <TextView
-                            style="@style/mine_fragment"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="交货数量:" />
+                            <TextView
+                                style="@style/mine_fragment"
+                                android:id="@+id/tv_fstockName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
+                                android:drawableRight="@drawable/ic_sanjiao1"
+                                android:singleLine="true" />
+                        </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/tv_factreceiveQty"
-                            style="@style/mine_fragment"
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/actions_background_light" />
+
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:singleLine="true" />
-                    </LinearLayout>
-                </LinearLayout>
+                            android:padding="5dp"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/actions_background_light" />
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="5dp">
+                                <TextView
+                                    style="@style/mine_fragment"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="采购数量:" />
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1">
+                                <TextView
+                                    style="@style/mine_fragment"
+                                    android:id="@+id/tv_fpurorgNum"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:singleLine="true" />
+                            </LinearLayout>
 
-                        <TextView
-                            style="@style/mine_fragment"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="供应商交货数量:" />
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical">
 
-                        <TextView
-                            android:id="@+id/tv_fsupdelQty"
-                            style="@style/mine_fragment"
+                                <TextView
+                                    style="@style/mine_fragment"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="交货数量:" />
+
+                                <TextView
+                                    style="@style/mine_fragment"
+                                    android:id="@+id/tv_factreceiveQty"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:singleLine="true" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/actions_background_light" />
+
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:singleLine="true" />
-                    </LinearLayout>
+                            android:padding="5dp"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1">
 
-                        <TextView
-                            style="@style/mine_fragment"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="计价数量:" />
+                                <TextView
+                                    style="@style/mine_fragment"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="供应商交货数量:" />
 
-                        <TextView
-                            android:id="@+id/tv_priceUnitQty"
-                            style="@style/mine_fragment"
+                                <TextView
+                                    style="@style/mine_fragment"
+                                    android:id="@+id/tv_fsupdelQty"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:singleLine="true" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical">
+
+                                <TextView
+                                    style="@style/mine_fragment"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="计价数量:" />
+
+                                <TextView
+                                    style="@style/mine_fragment"
+                                    android:id="@+id/tv_priceUnitQty"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:singleLine="true" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/actions_background_light" />
+
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:singleLine="true" />
+                            android:padding="5dp"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    style="@style/mine_fragment"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="计价单位:" />
+
+                                <TextView
+                                    style="@style/mine_fragment"
+                                    android:id="@+id/tv_fpriceunitName"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:singleLine="true" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical">
+
+                                <TextView
+                                    style="@style/mine_fragment"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="采购单位:" />
+
+                                <TextView
+                                    style="@style/mine_fragment"
+                                    android:id="@+id/tv_fpurorgName"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:singleLine="true" />
+                            </LinearLayout>
+                        </LinearLayout>
                     </LinearLayout>
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/actions_background_light" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="5dp">
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            style="@style/mine_fragment"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="计价单位:" />
-
-                        <TextView
-                            android:id="@+id/tv_fpriceunitName"
-                            style="@style/mine_fragment"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:singleLine="true" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            style="@style/mine_fragment"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="采购单位:" />
-
-                        <TextView
-                            android:id="@+id/tv_fpurorgName"
-                            style="@style/mine_fragment"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:singleLine="true" />
-                    </LinearLayout>
-                </LinearLayout>
+                </android.support.v7.widget.CardView>
             </LinearLayout>
-        </android.support.v7.widget.CardView>
-        </LinearLayout>
-    </ScrollView>
+        </ScrollView>
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

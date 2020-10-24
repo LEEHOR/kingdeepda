@@ -174,7 +174,6 @@ public class PurchaseOrderAddDialog extends BaseDialogFragment {
                 tvFmaterialName.setText(dataEntity.getFname());
                 tvFmaterialNum.setText(dataEntity.getFnumber());
                 tvFmaterialSpecification.setText(dataEntity.getFspecification());
-               // tvFmaterialSpecification.setText(dataEntity.getFdescription());
             }
 
             @Override

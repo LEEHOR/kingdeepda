@@ -1,39 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.zhy.android.percent.support.PercentLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tool="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:id="@+id/ll_root">
-        <View
-            app:layout_marginTopPercent="10%w"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"/>
-        <ImageView
-            android:id="@+id/img_homeitem"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_gravity="center_horizontal"
-            android:scaleType="centerCrop"
-            app:layout_marginTopPercent="8%w"
-            app:layout_widthPercent="30%w"
-            app:layout_heightPercent="30%w"/>
-        <com.jeewms.www.wms.ui.view.CircleImageView
-            android:visibility="gone"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_widthPercent="40%w"
-            app:layout_heightPercent="40%w"
-            android:background="@color/transparent"
-            android:layout_gravity="center_horizontal"
-            app:layout_marginTopPercent="8%w" />
-        <TextView
-            android:id="@+id/tv_homename"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_horizontal"
-            tool:text="图片描述"
-            app:layout_marginTopPercent="8%w"
-            android:textColor="@color/brack" />
+    xmlns:tool="http://schemas.android.com/tools">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_marginTopPercent="10%w" />
+
+    <ImageView
+        android:id="@+id/img_homeitem"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:scaleType="centerCrop"
+        app:layout_marginTopPercent="8%w"
+        app:layout_widthPercent="30%w"
+        app:layout_heightPercent="30%w" />
+
+    <com.jeewms.www.wms.ui.view.CircleImageView
+        android:visibility="gone"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/transparent"
+        app:layout_widthPercent="40%w"
+        app:layout_heightPercent="40%w"
+        app:layout_marginTopPercent="8%w" />
+
+    <TextView
+        android:id="@+id/tv_homename"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        tool:text="图片描述"
+        app:layout_marginTopPercent="8%w"
+        android:textColor="@color/brack" />
 </com.zhy.android.percent.support.PercentLinearLayout>

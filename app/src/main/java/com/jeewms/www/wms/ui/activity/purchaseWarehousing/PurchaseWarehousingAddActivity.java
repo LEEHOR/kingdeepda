@@ -190,18 +190,15 @@ public class PurchaseWarehousingAddActivity extends BaseActivity1 {
         if (fid != 0) {
             getTableHead(String.valueOf(fid));
         }
-        if (fid != 0) {
-            getTableBodyDate(String.valueOf(fid));
-        }
+
     }
 
     //获取单据头数据
-    private void getTableHead(String fid) {
+    private void getTableHead(String id) {
         Map<String, String> params = new HashMap<>();
-        params.put(key_fid, fid);
+        params.put(key_fid, id);
         String getstkInStock = Constance.getGetstkInStock();
         HTTPUtils.postByJson(this, getstkInStock, InStockHeadBean.class, params, new VolleyListener<InStockHeadBean>() {
-
             @Override
             public void onResponse(InStockHeadBean response) {
                 if (response.getCode() == 0) {
@@ -230,6 +227,9 @@ public class PurchaseWarehousingAddActivity extends BaseActivity1 {
                     tvFproviderContactName.setText(TableHeadData.getFproviderContactName());
                     tvFsupplyAddress.setText(TableHeadData.getFsupplyAddress());
                     tvFchargeName.setText(TableHeadData.getFchargeName());
+                    if (fid != 0) {
+                        getTableBodyDate(String.valueOf(fid));
+                    }
                 }
             }
 

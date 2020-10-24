@@ -1,35 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="10dp"
-    android:paddingBottom="10dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:paddingBottom="10dp">
+
     <TextView
-        android:text="honor"
+        style="@style/mine_fragment"
         android:id="@+id/ble_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        style="@style/mine_fragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:text="honor" />
+
     <TextView
-        android:text="3217383731821893"
-        app:layout_constraintTop_toBottomOf="@+id/ble_name"
-        app:layout_constraintLeft_toLeftOf="parent"
         android:id="@+id/ble_mac"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ble_name"
         android:textSize="12sp"
         android:textColor="#333333"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:text="3217383731821893" />
+
     <TextView
         android:id="@+id/connect"
-        android:text="配对"
-        android:textColor="@color/titlebar_color"
-        android:textSize="14sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:textSize="14sp"
+        android:textColor="@color/titlebar_color"
+        android:text="配对" />
 </android.support.constraint.ConstraintLayout>

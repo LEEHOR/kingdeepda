@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
+
     <com.jeewms.www.wms.ui.view.TitleTopOrdersView
         android:id="@+id/other_stock_out_title"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        app:layout_constraintTop_toTopOf="parent" />
+
     <include
         android:id="@+id/in_view"
         android:layout_width="match_parent"
@@ -17,18 +19,20 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/other_stock_out_title"
-        layout="@layout/include_view_scan"/>
+        layout="@layout/include_view_scan" />
+
     <com.ajguan.library.EasyRefreshLayout
         android:id="@+id/production_refresh"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/in_view"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_width="0dp"
-        android:layout_height="0dp">
+        app:layout_constraintBottom_toBottomOf="parent">
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/production_recycler"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
     </com.ajguan.library.EasyRefreshLayout>
 </android.support.constraint.ConstraintLayout>

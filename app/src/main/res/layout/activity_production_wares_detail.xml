@@ -4,26 +4,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <com.jeewms.www.wms.ui.view.TitleTopOrdersView
         android:id="@+id/production_warehousing_Detail_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:orientation="vertical">
             <!--    基本信息-->
             <TextView
                 style="@style/mine_fragment4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableRight="@drawable/ic_bottom_black"
                 android:padding="10dp"
+                android:drawableRight="@drawable/ic_bottom_black"
                 android:text="基本信息" />
 
             <LinearLayout
@@ -52,11 +55,11 @@
                             style="@style/mine_fragment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
                             android:ellipsize="end"
                             android:focusable="false"
                             android:focusableInTouchMode="false"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp"
                             android:singleLine="true" />
                     </LinearLayout>
 
@@ -76,11 +79,11 @@
                             style="@style/mine_fragment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
                             android:ellipsize="end"
                             android:focusable="false"
                             android:focusableInTouchMode="false"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp"
                             android:singleLine="true" />
                     </LinearLayout>
                 </LinearLayout>
@@ -106,11 +109,11 @@
                             style="@style/mine_fragment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
                             android:ellipsize="end"
                             android:focusable="false"
                             android:focusableInTouchMode="false"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp"
                             android:singleLine="true" />
                     </LinearLayout>
 
@@ -130,11 +133,11 @@
                             style="@style/mine_fragment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
                             android:ellipsize="end"
                             android:focusable="false"
                             android:focusableInTouchMode="false"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp"
                             android:singleLine="true" />
                     </LinearLayout>
                 </LinearLayout>
@@ -160,11 +163,11 @@
                             style="@style/mine_fragment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
                             android:ellipsize="end"
                             android:focusable="false"
                             android:focusableInTouchMode="false"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp"
                             android:singleLine="true" />
                     </LinearLayout>
 
@@ -184,11 +187,11 @@
                             style="@style/mine_fragment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
                             android:ellipsize="end"
                             android:focusable="false"
                             android:focusableInTouchMode="false"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp"
                             android:singleLine="true" />
                     </LinearLayout>
                 </LinearLayout>
@@ -197,11 +200,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="horizontal">
+
                         <TextView
                             style="@style/mine_fragment"
                             android:layout_width="wrap_content"
@@ -212,18 +217,20 @@
                             style="@style/mine_fragment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
                             android:ellipsize="end"
                             android:focusable="false"
                             android:focusableInTouchMode="false"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp"
                             android:singleLine="true" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="horizontal">
+
                         <TextView
                             style="@style/mine_fragment"
                             android:layout_width="wrap_content"
@@ -234,11 +241,11 @@
                             style="@style/mine_fragment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
                             android:ellipsize="end"
                             android:focusable="false"
                             android:focusableInTouchMode="false"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp"
                             android:singleLine="true" />
                     </LinearLayout>
                 </LinearLayout>
@@ -264,11 +271,11 @@
                             style="@style/mine_fragment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
                             android:ellipsize="end"
                             android:focusable="false"
                             android:focusableInTouchMode="false"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp"
                             android:singleLine="true" />
                     </LinearLayout>
 
@@ -288,11 +295,11 @@
                             style="@style/mine_fragment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
                             android:ellipsize="end"
                             android:focusable="false"
                             android:focusableInTouchMode="false"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp"
                             android:singleLine="true" />
                     </LinearLayout>
                 </LinearLayout>
@@ -320,68 +327,71 @@
                 style="@style/mine_fragment4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableRight="@drawable/ic_bottom_black"
                 android:padding="10dp"
+                android:drawableRight="@drawable/ic_bottom_black"
                 android:text="数量" />
+
             <LinearLayout
                 android:visibility="visible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <TextView
-                        android:id="@+id/tv_1"
                         style="@style/mine_fragment4"
+                        android:id="@+id/tv_1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
-                        android:text="首行"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toLeftOf="@id/tv_2"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:text="首行" />
 
                     <TextView
-                        android:id="@+id/tv_2"
                         style="@style/mine_fragment4"
+                        android:id="@+id/tv_2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
-                        android:text="上一行"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toRightOf="@id/tv_1"
                         app:layout_constraintRight_toLeftOf="@id/tv_3"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:text="上一行" />
 
                     <TextView
-                        android:id="@+id/tv_3"
                         style="@style/mine_fragment4"
+                        android:id="@+id/tv_3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
-                        android:text="下一行"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toRightOf="@id/tv_2"
                         app:layout_constraintRight_toRightOf="@id/tv_4"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:text="下一行" />
 
                     <TextView
-                        android:id="@+id/tv_4"
                         style="@style/mine_fragment4"
+                        android:id="@+id/tv_4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
-                        android:text="末行"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toRightOf="@id/tv_3"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:text="末行" />
                 </android.support.constraint.ConstraintLayout>
 
                 <View
@@ -395,6 +405,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/actions_background_light"
                     android:text="工序" />
+
                 <LinearLayout
                     android:visibility="visible"
                     android:layout_width="match_parent"
@@ -423,11 +434,11 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:ellipsize="end"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
                                 android:singleLine="true" />
 
                             <TextView
@@ -460,11 +471,11 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:ellipsize="end"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
                                 android:singleLine="true" />
 
                             <TextView
@@ -496,11 +507,11 @@
                                 style="@style/mine_fragment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:ellipsize="end"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
                                 android:singleLine="true" />
                         </LinearLayout>
 
@@ -520,11 +531,11 @@
                                 style="@style/mine_fragment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:ellipsize="end"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
                                 android:singleLine="true" />
                         </LinearLayout>
                     </LinearLayout>
@@ -550,11 +561,11 @@
                                 style="@style/mine_fragment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:ellipsize="end"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
                                 android:singleLine="true" />
                         </LinearLayout>
 
@@ -574,11 +585,11 @@
                                 style="@style/mine_fragment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:ellipsize="end"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
                                 android:singleLine="true" />
                         </LinearLayout>
                     </LinearLayout>
@@ -604,11 +615,11 @@
                                 style="@style/mine_fragment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:ellipsize="end"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
                                 android:singleLine="true" />
                         </LinearLayout>
 
@@ -628,11 +639,11 @@
                                 style="@style/mine_fragment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:ellipsize="end"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
                                 android:singleLine="true" />
                         </LinearLayout>
                     </LinearLayout>
@@ -658,11 +669,11 @@
                                 style="@style/mine_fragment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:ellipsize="end"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
                                 android:singleLine="true" />
                         </LinearLayout>
                     </LinearLayout>
@@ -673,54 +684,62 @@
                 <!--            数量-->
                 <TextView
                     style="@style/mine_fragment"
-                    android:background="@color/actions_background_light"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/actions_background_light"
                     android:text="数量" />
+
                 <LinearLayout
                     android:visibility="visible"
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
                     <CheckBox
-                        android:text="返修汇报标识"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:text="返修汇报标识" />
+
                     <LinearLayout
-                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
+
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:orientation="horizontal">
+
                                 <TextView
                                     style="@style/mine_fragment"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="合格数量:" />
+
                                 <EditText
                                     style="@style/mine_fragment"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:paddingTop="5dp"
+                                    android:paddingBottom="5dp"
                                     android:ellipsize="end"
                                     android:focusable="false"
                                     android:focusableInTouchMode="false"
-                                    android:paddingTop="5dp"
-                                    android:paddingBottom="5dp"
                                     android:singleLine="true" />
                             </LinearLayout>
+
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:orientation="horizontal">
+
                                 <TextView
                                     style="@style/mine_fragment"
                                     android:layout_width="wrap_content"
@@ -731,11 +750,11 @@
                                     style="@style/mine_fragment"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:paddingTop="5dp"
+                                    android:paddingBottom="5dp"
                                     android:ellipsize="end"
                                     android:focusable="false"
                                     android:focusableInTouchMode="false"
-                                    android:paddingTop="5dp"
-                                    android:paddingBottom="5dp"
                                     android:singleLine="true" />
                             </LinearLayout>
                         </LinearLayout>
@@ -744,32 +763,37 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
+
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:orientation="horizontal">
+
                                 <TextView
                                     style="@style/mine_fragment"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="料废数量:" />
+
                                 <EditText
                                     style="@style/mine_fragment"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:paddingTop="5dp"
+                                    android:paddingBottom="5dp"
                                     android:ellipsize="end"
                                     android:focusable="false"
                                     android:focusableInTouchMode="false"
-                                    android:paddingTop="5dp"
-                                    android:paddingBottom="5dp"
                                     android:singleLine="true" />
                             </LinearLayout>
+
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:orientation="horizontal">
+
                                 <TextView
                                     style="@style/mine_fragment"
                                     android:layout_width="wrap_content"
@@ -780,11 +804,11 @@
                                     style="@style/mine_fragment"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:paddingTop="5dp"
+                                    android:paddingBottom="5dp"
                                     android:ellipsize="end"
                                     android:focusable="false"
                                     android:focusableInTouchMode="false"
-                                    android:paddingTop="5dp"
-                                    android:paddingBottom="5dp"
                                     android:singleLine="true" />
                             </LinearLayout>
                         </LinearLayout>
@@ -793,32 +817,37 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
+
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:orientation="horizontal">
+
                                 <TextView
                                     style="@style/mine_fragment"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="废品数量:" />
+
                                 <EditText
                                     style="@style/mine_fragment"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:paddingTop="5dp"
+                                    android:paddingBottom="5dp"
                                     android:ellipsize="end"
                                     android:focusable="false"
                                     android:focusableInTouchMode="false"
-                                    android:paddingTop="5dp"
-                                    android:paddingBottom="5dp"
                                     android:singleLine="true" />
                             </LinearLayout>
+
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:orientation="horizontal">
+
                                 <TextView
                                     style="@style/mine_fragment"
                                     android:layout_width="wrap_content"
@@ -829,11 +858,11 @@
                                     style="@style/mine_fragment"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:paddingTop="5dp"
+                                    android:paddingBottom="5dp"
                                     android:ellipsize="end"
                                     android:focusable="false"
                                     android:focusableInTouchMode="false"
-                                    android:paddingTop="5dp"
-                                    android:paddingBottom="5dp"
                                     android:singleLine="true" />
                             </LinearLayout>
                         </LinearLayout>
@@ -842,25 +871,28 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
+
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:orientation="horizontal">
+
                                 <TextView
                                     style="@style/mine_fragment"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="完工数量:" />
+
                                 <EditText
                                     style="@style/mine_fragment"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:paddingTop="5dp"
+                                    android:paddingBottom="5dp"
                                     android:ellipsize="end"
                                     android:focusable="false"
                                     android:focusableInTouchMode="false"
-                                    android:paddingTop="5dp"
-                                    android:paddingBottom="5dp"
                                     android:singleLine="true" />
                             </LinearLayout>
                         </LinearLayout>
@@ -869,32 +901,37 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
+
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:orientation="horizontal">
+
                                 <TextView
                                     style="@style/mine_fragment"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="参考序列:" />
+
                                 <EditText
                                     style="@style/mine_fragment"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:paddingTop="5dp"
+                                    android:paddingBottom="5dp"
                                     android:ellipsize="end"
                                     android:focusable="false"
                                     android:focusableInTouchMode="false"
-                                    android:paddingTop="5dp"
-                                    android:paddingBottom="5dp"
                                     android:singleLine="true" />
                             </LinearLayout>
+
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:orientation="horizontal">
+
                                 <TextView
                                     style="@style/mine_fragment"
                                     android:layout_width="wrap_content"
@@ -905,11 +942,11 @@
                                     style="@style/mine_fragment"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:paddingTop="5dp"
+                                    android:paddingBottom="5dp"
                                     android:ellipsize="end"
                                     android:focusable="false"
                                     android:focusableInTouchMode="false"
-                                    android:paddingTop="5dp"
-                                    android:paddingBottom="5dp"
                                     android:singleLine="true" />
                             </LinearLayout>
                         </LinearLayout>
@@ -920,25 +957,28 @@
                 <!--            返修处理-->
                 <TextView
                     style="@style/mine_fragment"
-                    android:background="@color/actions_background_light"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/actions_background_light"
                     android:text="返修处理" />
+
                 <LinearLayout
                     android:visibility="visible"
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="horizontal">
+
                             <TextView
                                 style="@style/mine_fragment"
                                 android:layout_width="wrap_content"
@@ -949,18 +989,20 @@
                                 style="@style/mine_fragment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:ellipsize="end"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
                                 android:singleLine="true" />
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="horizontal">
+
                             <TextView
                                 style="@style/mine_fragment"
                                 android:layout_width="wrap_content"
@@ -971,11 +1013,11 @@
                                 style="@style/mine_fragment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:ellipsize="end"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
                                 android:singleLine="true" />
                         </LinearLayout>
                     </LinearLayout>
@@ -984,11 +1026,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="horizontal">
+
                             <TextView
                                 style="@style/mine_fragment"
                                 android:layout_width="wrap_content"
@@ -999,18 +1043,20 @@
                                 style="@style/mine_fragment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:ellipsize="end"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
                                 android:singleLine="true" />
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="horizontal">
+
                             <TextView
                                 style="@style/mine_fragment"
                                 android:layout_width="wrap_content"
@@ -1021,11 +1067,11 @@
                                 style="@style/mine_fragment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:ellipsize="end"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
                                 android:singleLine="true" />
                         </LinearLayout>
                     </LinearLayout>
@@ -1034,11 +1080,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="horizontal">
+
                             <TextView
                                 style="@style/mine_fragment"
                                 android:layout_width="wrap_content"
@@ -1049,18 +1097,20 @@
                                 style="@style/mine_fragment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:ellipsize="end"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
                                 android:singleLine="true" />
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="horizontal">
+
                             <TextView
                                 style="@style/mine_fragment"
                                 android:layout_width="wrap_content"
@@ -1071,11 +1121,11 @@
                                 style="@style/mine_fragment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:ellipsize="end"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
                                 android:singleLine="true" />
                         </LinearLayout>
                     </LinearLayout>
@@ -1087,25 +1137,28 @@
                 <!--   累计数量-->
                 <TextView
                     style="@style/mine_fragment"
-                    android:background="@color/actions_background_light"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/actions_background_light"
                     android:text="累计数量" />
+
                 <LinearLayout
                     android:visibility="visible"
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="horizontal">
+
                             <TextView
                                 style="@style/mine_fragment"
                                 android:layout_width="wrap_content"
@@ -1116,18 +1169,20 @@
                                 style="@style/mine_fragment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:ellipsize="end"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
                                 android:singleLine="true" />
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="horizontal">
+
                             <TextView
                                 style="@style/mine_fragment"
                                 android:layout_width="wrap_content"
@@ -1138,11 +1193,11 @@
                                 style="@style/mine_fragment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:ellipsize="end"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
                                 android:singleLine="true" />
                         </LinearLayout>
                     </LinearLayout>
@@ -1151,11 +1206,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="horizontal">
+
                             <TextView
                                 style="@style/mine_fragment"
                                 android:layout_width="wrap_content"
@@ -1166,11 +1223,11 @@
                                 style="@style/mine_fragment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:ellipsize="end"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
                                 android:singleLine="true" />
                         </LinearLayout>
                     </LinearLayout>
@@ -1181,25 +1238,28 @@
                 <!--      质量      -->
                 <TextView
                     style="@style/mine_fragment"
-                    android:background="@color/actions_background_light"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/actions_background_light"
                     android:text="质量" />
+
                 <LinearLayout
                     android:visibility="visible"
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="horizontal">
+
                             <TextView
                                 style="@style/mine_fragment"
                                 android:layout_width="wrap_content"
@@ -1210,18 +1270,20 @@
                                 style="@style/mine_fragment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:ellipsize="end"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
                                 android:singleLine="true" />
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="horizontal">
+
                             <TextView
                                 style="@style/mine_fragment"
                                 android:layout_width="wrap_content"
@@ -1232,23 +1294,26 @@
                                 style="@style/mine_fragment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:ellipsize="end"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
                                 android:singleLine="true" />
                         </LinearLayout>
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="horizontal">
+
                             <TextView
                                 style="@style/mine_fragment"
                                 android:layout_width="wrap_content"
@@ -1259,18 +1324,20 @@
                                 style="@style/mine_fragment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:ellipsize="end"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
                                 android:singleLine="true" />
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="horizontal">
+
                             <TextView
                                 style="@style/mine_fragment"
                                 android:layout_width="wrap_content"
@@ -1281,23 +1348,26 @@
                                 style="@style/mine_fragment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:ellipsize="end"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
                                 android:singleLine="true" />
                         </LinearLayout>
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="horizontal">
+
                             <TextView
                                 style="@style/mine_fragment"
                                 android:layout_width="wrap_content"
@@ -1308,18 +1378,20 @@
                                 style="@style/mine_fragment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:ellipsize="end"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
                                 android:singleLine="true" />
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="horizontal">
+
                             <TextView
                                 style="@style/mine_fragment"
                                 android:layout_width="wrap_content"
@@ -1330,23 +1402,26 @@
                                 style="@style/mine_fragment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:ellipsize="end"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
                                 android:singleLine="true" />
                         </LinearLayout>
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="horizontal">
+
                             <TextView
                                 style="@style/mine_fragment"
                                 android:layout_width="wrap_content"
@@ -1357,18 +1432,20 @@
                                 style="@style/mine_fragment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:ellipsize="end"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
                                 android:singleLine="true" />
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="horizontal">
+
                             <TextView
                                 style="@style/mine_fragment"
                                 android:layout_width="wrap_content"
@@ -1379,11 +1456,11 @@
                                 style="@style/mine_fragment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:ellipsize="end"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
                                 android:singleLine="true" />
                         </LinearLayout>
                     </LinearLayout>
@@ -1397,143 +1474,157 @@
                 style="@style/mine_fragment4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableRight="@drawable/ic_bottom_black"
                 android:padding="10dp"
+                android:drawableRight="@drawable/ic_bottom_black"
                 android:text="活动/日期" />
+
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <TextView
-                        android:id="@+id/tv_5"
                         style="@style/mine_fragment4"
+                        android:id="@+id/tv_5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
-                        android:text="首行"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toLeftOf="@id/tv_6"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:text="首行" />
 
                     <TextView
-                        android:id="@+id/tv_6"
                         style="@style/mine_fragment4"
+                        android:id="@+id/tv_6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
-                        android:text="上一行"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toRightOf="@id/tv_5"
                         app:layout_constraintRight_toLeftOf="@id/tv_7"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:text="上一行" />
 
                     <TextView
-                        android:id="@+id/tv_7"
                         style="@style/mine_fragment4"
+                        android:id="@+id/tv_7"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
-                        android:text="下一行"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toRightOf="@id/tv_6"
                         app:layout_constraintRight_toRightOf="@id/tv_8"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:text="下一行" />
 
                     <TextView
-                        android:id="@+id/tv_8"
                         style="@style/mine_fragment4"
+                        android:id="@+id/tv_8"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
-                        android:text="末行"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toRightOf="@id/tv_7"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:text="末行" />
                 </android.support.constraint.ConstraintLayout>
+
                 <TextView
-                    android:text="工序"
                     style="@style/mine_fragment"
-                    android:background="@color/actions_background_light"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:background="@color/actions_background_light"
+                    android:text="工序" />
+
                 <LinearLayout
                     android:visibility="visible"
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
                     <LinearLayout
-                        android:orientation="horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="horizontal">
+
                             <TextView
                                 style="@style/mine_fragment"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="生产订单/行号:" />
+
                             <EditText
                                 style="@style/mine_fragment"
                                 android:layout_width="0dp"
-                                android:layout_weight="1"
                                 android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:ellipsize="end"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
                                 android:singleLine="true" />
+
                             <TextView
-                                android:minWidth="20dp"
                                 style="@style/mine_fragment"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"
+                                android:minWidth="20dp" />
                         </LinearLayout>
 
                     </LinearLayout>
 
                     <LinearLayout
-                        android:orientation="horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="horizontal">
+
                             <TextView
                                 style="@style/mine_fragment"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="序列/工序:" />
+
                             <EditText
                                 style="@style/mine_fragment"
                                 android:layout_width="0dp"
-                                android:layout_weight="1"
                                 android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:ellipsize="end"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
                                 android:singleLine="true" />
+
                             <TextView
-                                android:minWidth="20dp"
                                 style="@style/mine_fragment"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"
+                                android:minWidth="20dp" />
                         </LinearLayout>
 
                     </LinearLayout>
@@ -1542,46 +1633,52 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="horizontal">
+
                             <TextView
                                 style="@style/mine_fragment"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="工序说明:" />
+
                             <EditText
                                 style="@style/mine_fragment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:ellipsize="end"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
                                 android:singleLine="true" />
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="horizontal">
+
                             <TextView
                                 style="@style/mine_fragment"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="班次:" />
+
                             <EditText
                                 style="@style/mine_fragment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:ellipsize="end"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
                                 android:singleLine="true" />
                         </LinearLayout>
                     </LinearLayout>
@@ -1590,46 +1687,52 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="horizontal">
+
                             <TextView
                                 style="@style/mine_fragment"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="班组:" />
+
                             <EditText
                                 style="@style/mine_fragment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:ellipsize="end"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
                                 android:singleLine="true" />
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="horizontal">
+
                             <TextView
                                 style="@style/mine_fragment"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="资源:" />
+
                             <EditText
                                 style="@style/mine_fragment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:ellipsize="end"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
                                 android:singleLine="true" />
                         </LinearLayout>
                     </LinearLayout>
@@ -1638,46 +1741,52 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="horizontal">
+
                             <TextView
                                 style="@style/mine_fragment"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="设备:" />
+
                             <EditText
                                 style="@style/mine_fragment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:ellipsize="end"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
                                 android:singleLine="true" />
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="horizontal">
+
                             <TextView
                                 style="@style/mine_fragment"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="辅助设备:" />
+
                             <EditText
                                 style="@style/mine_fragment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:ellipsize="end"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
                                 android:singleLine="true" />
                         </LinearLayout>
                     </LinearLayout>
@@ -1686,46 +1795,52 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="horizontal">
+
                             <TextView
                                 style="@style/mine_fragment"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="模具:" />
+
                             <EditText
                                 style="@style/mine_fragment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:ellipsize="end"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
                                 android:singleLine="true" />
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="horizontal">
+
                             <TextView
                                 style="@style/mine_fragment"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="操作工:" />
+
                             <EditText
                                 style="@style/mine_fragment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:ellipsize="end"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
                                 android:singleLine="true" />
                         </LinearLayout>
                     </LinearLayout>
@@ -1733,69 +1848,78 @@
                 </LinearLayout>
 
                 <TextView
-                    android:text="活动"
                     style="@style/mine_fragment"
-                    android:background="@color/actions_background_light"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:background="@color/actions_background_light"
+                    android:text="活动" />
+
                 <com.bin.david.form.core.SmartTable
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content" />
+
                 <TextView
-                    android:text="实际日期"
                     style="@style/mine_fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="@color/actions_background_light"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:text="实际日期" />
+
                 <LinearLayout
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="horizontal">
+
                             <TextView
                                 style="@style/mine_fragment"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="准备开始时间:" />
+
                             <EditText
                                 style="@style/mine_fragment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:ellipsize="end"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
                                 android:singleLine="true" />
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="horizontal">
+
                             <TextView
                                 style="@style/mine_fragment"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="准备完成时间:" />
+
                             <EditText
                                 style="@style/mine_fragment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:ellipsize="end"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
                                 android:singleLine="true" />
                         </LinearLayout>
                     </LinearLayout>
@@ -1804,46 +1928,52 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="horizontal">
+
                             <TextView
                                 style="@style/mine_fragment"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="加工开始时间:" />
+
                             <EditText
                                 style="@style/mine_fragment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:ellipsize="end"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
                                 android:singleLine="true" />
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="horizontal">
+
                             <TextView
                                 style="@style/mine_fragment"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="加工完成时间:" />
+
                             <EditText
                                 style="@style/mine_fragment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:ellipsize="end"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
                                 android:singleLine="true" />
                         </LinearLayout>
                     </LinearLayout>
@@ -1852,46 +1982,52 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="horizontal">
+
                             <TextView
                                 style="@style/mine_fragment"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="拆卸开始时间:" />
+
                             <EditText
                                 style="@style/mine_fragment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:ellipsize="end"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
                                 android:singleLine="true" />
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="horizontal">
+
                             <TextView
                                 style="@style/mine_fragment"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="拆卸完成时间:" />
+
                             <EditText
                                 style="@style/mine_fragment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:ellipsize="end"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
                                 android:singleLine="true" />
                         </LinearLayout>
                     </LinearLayout>

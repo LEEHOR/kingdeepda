@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="100dp"
     android:layout_height="100dp"
-    android:layout_centerInParent="true"
     android:layout_gravity="center_horizontal"
+    android:layout_centerInParent="true"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -21,11 +21,11 @@
 
     <TextView
         android:id="@+id/tv_load_dialog"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="加载中..."
-        android:visibility="gone"
+        android:textSize="12sp"
         android:textColor="#9a9b98"
-        android:textSize="12sp" />
+        android:text="加载中..." />
 </LinearLayout>
