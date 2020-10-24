@@ -3,6 +3,7 @@ package com.jeewms.www.wms.util;
 import android.content.Context;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 
 import java.lang.reflect.Type;
@@ -20,7 +21,7 @@ public final class GsonUtils {
      * @throws JsonSyntaxException
      */
 	public static <T> T parseJSON(String json, Class<T> clazz) {
-		Gson gson = new Gson();
+		Gson gson = new GsonBuilder().serializeNulls().create();
 		T info = null;
 		try {
 			info = gson.fromJson(json, clazz);
@@ -40,7 +41,7 @@ public final class GsonUtils {
 	 * @throws JsonSyntaxException
 	 */
 	public static <T> T parseJSONArray(String jsonArr, Type type) throws JsonSyntaxException {
-		Gson gson = new Gson();
+		Gson gson = new GsonBuilder().serializeNulls().create();
 		T infos = gson.fromJson(jsonArr, type);
 		return infos;
 	}

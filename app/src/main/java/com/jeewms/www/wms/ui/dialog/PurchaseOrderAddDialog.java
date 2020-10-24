@@ -1,5 +1,6 @@
 package com.jeewms.www.wms.ui.dialog;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatDialog;
@@ -100,7 +101,7 @@ public class PurchaseOrderAddDialog extends BaseDialogFragment {
     }
 
     @Override
-    public void iniWidow(AppCompatDialog dialog) {
+    public void iniWidow(Dialog dialog) {
         if (dialog != null) {
             dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
                 @Override
@@ -120,8 +121,8 @@ public class PurchaseOrderAddDialog extends BaseDialogFragment {
             window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
             window.getDecorView().setPadding(0, 0, 0, 0);
             window.setBackgroundDrawableResource(R.drawable.bg_fff_background);
-            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-            window.setGravity(Gravity.BOTTOM);
+            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+           // window.setGravity(Gravity.BOTTOM);
             window.setWindowAnimations(R.style.bottom_in_out_animation);
         }
     }

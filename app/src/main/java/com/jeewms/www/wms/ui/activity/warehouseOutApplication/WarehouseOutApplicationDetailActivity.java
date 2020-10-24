@@ -29,12 +29,12 @@ import butterknife.ButterKnife;
 public class WarehouseOutApplicationDetailActivity extends BaseActivity1 {
 
 
-    @BindView(R.id.out_detail_title)
+    @BindView(R.id.purchase_warehousing_detail_title)
     TitleTopOrdersView outDetailTitle;
 
     @Override
     protected int getContentResId() {
-        return R.layout.activity_warehouse_out_application_detail;
+        return R.layout.activity_purchase_warehousing_detail;
     }
 
     public static void show(Context context) {

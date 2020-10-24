@@ -20,13 +20,13 @@ import com.jeewms.www.wms.App;
  */
 public class AppUtils {
     public static String getAppPackageName() {
-       return App.mContext.getPackageName();
+       return App.getmApplicationContext().getPackageName();
     }
 
     public static String getVersionName() {
         String versionName = "";
         try {
-            PackageManager pm = App.mContext.getPackageManager();
+            PackageManager pm = App.getmApplicationContext().getPackageManager();
             PackageInfo pi = pm.getPackageInfo(getAppPackageName(), 0);
             versionName = pi.versionName;
             if (versionName == null || versionName.length() <= 0) {
@@ -44,7 +44,7 @@ public class AppUtils {
     public static int getVersionCode() {
         int versioncode = 0;
         try {
-            PackageManager pm = App.mContext.getPackageManager();
+            PackageManager pm = App.getmApplicationContext().getPackageManager();
             PackageInfo pi = pm.getPackageInfo(getAppPackageName(), 0);
             versioncode = pi.versionCode;
         } catch (PackageManager.NameNotFoundException e) {

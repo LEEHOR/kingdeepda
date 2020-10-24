@@ -2,6 +2,7 @@ package com.jeewms.www.wms;
 
 import android.app.Application;
 import android.content.Context;
+import android.support.multidex.MultiDex;
 
 import com.jeewms.www.wms.util.Logutil;
 
@@ -24,14 +25,14 @@ import cn.com.heaton.blelibrary.ble.utils.UuidUtils;
  * @Version: 1.0
  */
 public class App extends Application {
-    public static Context mContext;
+    public static Context mApplicationContext;
     public static final String UPDATE_STATUS_ACTION = "com.cyht.wykc.action.UPDATE_STATUS";
     private static App mApplication;
     private String TAG = App.class.getSimpleName();
     @Override
     public void onCreate() {
         super.onCreate();
-        mContext=getApplicationContext();
+        mApplicationContext=getApplicationContext();
         mApplication=this;
         initBle();
     }
@@ -72,8 +73,16 @@ public class App extends Application {
                 });
     }
 
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
+
     public static App getInstance() {
         return mApplication;
     }
-
+    public static Context getmApplicationContext() {
+        return mApplicationContext;
+    }
 }

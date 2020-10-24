@@ -1,11 +1,12 @@
-package com.jeewms.www.wms.ui.adapter;
+package com.jeewms.www.wms.ui.dialog.adapter;
 
 import android.support.annotation.NonNull;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jeewms.www.wms.R;
-import com.jeewms.www.wms.bean.MaterialListBean;
+import com.jeewms.www.wms.bean.CurrencyBean;
+import com.jeewms.www.wms.bean.ProjectListBean;
 
 
 /**
@@ -20,14 +21,13 @@ import com.jeewms.www.wms.bean.MaterialListBean;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class MaterialDialogAdapter extends BaseQuickAdapter<MaterialListBean.DataEntity, BaseViewHolder> {
-    public MaterialDialogAdapter(int layoutResId) {
+public class CurrencyDialogAdapter extends BaseQuickAdapter<CurrencyBean.DataEntity, BaseViewHolder> {
+    public CurrencyDialogAdapter(int layoutResId) {
         super(layoutResId);
     }
 
     @Override
-    protected void convert(@NonNull BaseViewHolder helper, MaterialListBean.DataEntity item) {
-                helper.setText(R.id.tv_materialdialog,item.getFname()+"("+item.getFnumber()+")")
-                        .setText(R.id.tv_materialdialog2,item.getFspecification());
+    protected void convert(@NonNull BaseViewHolder helper, CurrencyBean.DataEntity item) {
+                helper.setText(R.id.tv_materialdialog,item.getFname()+"("+item.getFnumber()+")");
     }
 }

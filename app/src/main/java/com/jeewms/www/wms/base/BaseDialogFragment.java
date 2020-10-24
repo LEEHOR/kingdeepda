@@ -44,7 +44,7 @@ public abstract class BaseDialogFragment extends AppCompatDialogFragment {
 
     public abstract void initAnimate();
 
-    public abstract void iniWidow(AppCompatDialog dialog);
+    public abstract void iniWidow(Dialog dialog);
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,37 +61,20 @@ public abstract class BaseDialogFragment extends AppCompatDialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-     //   rootview = inflater.inflate(getLayoutId(), container, false);
-     //   bind = ButterKnife.bind(this, rootview);
-        return super.onCreateView(inflater, container, savedInstanceState);
-        //return rootview;
+        rootview = inflater.inflate(getLayoutId(), container, false);
+        bind = ButterKnife.bind(this, rootview);
+        initView();
+        initFunc();
+      //  return super.onCreateView(inflater, container, savedInstanceState);
+        return rootview;
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View contentView = LayoutInflater.from(getActivity()).inflate(getLayoutId(), null);
-        bind = ButterKnife.bind(this, contentView);
-        initView();
-        initFunc();
-        AppCompatDialog appCompatDialog = new AppCompatDialog(getContext(), R.style.DialogFullScreen);
-        appCompatDialog.setContentView(contentView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT));
-        iniWidow(appCompatDialog);
-        return appCompatDialog;
+        Dialog dialog = super.onCreateDialog(savedInstanceState);
+        iniWidow(dialog);
+        return dialog;
     }
-
-
-//    @Override
-//    public Dialog onCreateDialog(Bundle savedInstanceState) {
-//        return super.onCreateDialog(savedInstanceState);
-//    }
-
-
-//    private void inflaterView(LayoutInflater inflater, @Nullable ViewGroup container) {
-//        if (mRootView == null) {
-//            mRootView = inflater.inflate(getLayoutId(), container, false);
-//        }
-//    }
 
     @Override
     public void onDestroy() {

@@ -29,7 +29,7 @@ public class ProcessReportDetail extends BaseActivity1 {
 
     @Override
     protected int getContentResId() {
-        return R.layout.activity_process_report_detail2;
+        return R.layout.activity_process_report_detail;
     }
 
     @Override

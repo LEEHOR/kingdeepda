@@ -11,13 +11,14 @@ import com.jeewms.www.wms.base.BaseActivity1;
 import com.jeewms.www.wms.ui.view.TitleTopOrdersView;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * @ProjectName: kingdeepda
  * @Package: com.jeewms.www.wms.ui.activity.productionWarehousing
  * @ClassName: ProductionWarehousingActivity
  * @Description: java类作用描述
- * 首页跳转进来的生产入库
+ * 工序汇报页跳转的生产入库
  * @Author: 作者名
  * @CreateDate: 2020/10/23 11:26
  * @UpdateUser: 更新者：
@@ -26,12 +27,13 @@ import butterknife.BindView;
  * @Version: 1.0
  */
 public class ProductionWarehousingActivity extends BaseActivity1 {
-    @BindView(R.id.processDetail_title)
-    TitleTopOrdersView processDetailTitle;
+
+    @BindView(R.id.production_warehousing_title)
+    TitleTopOrdersView productionWarehousingTitle;
 
     @Override
     protected int getContentResId() {
-        return R.layout.activity_process_report_detail;
+        return R.layout.activity_production_wares;
     }
 
     public static void show(Context context) {
@@ -41,15 +43,15 @@ public class ProductionWarehousingActivity extends BaseActivity1 {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        processDetailTitle.getBtn_back().setOnClickListener(new View.OnClickListener() {
+        productionWarehousingTitle.getBtn_back().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
-        TextView tex_item = processDetailTitle.getTex_item();
+        TextView tex_item = productionWarehousingTitle.getTex_item();
         tex_item.setVisibility(View.VISIBLE);
-        tex_item.setText("生产入库");
+        tex_item.setText("生产入库列表页");
     }
 
     @Override
@@ -57,4 +59,10 @@ public class ProductionWarehousingActivity extends BaseActivity1 {
 
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

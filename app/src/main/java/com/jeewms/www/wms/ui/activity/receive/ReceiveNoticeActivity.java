@@ -199,7 +199,7 @@ public class ReceiveNoticeActivity extends BaseActivity1 {
             @Override
             public void onRationalShow(String... strings) {
                 Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                intent.setData(Uri.fromParts("package", App.mContext.getPackageName(), null));
+                intent.setData(Uri.fromParts("package", App.getmApplicationContext().getPackageName(), null));
                 startActivity(intent);
             }
         });

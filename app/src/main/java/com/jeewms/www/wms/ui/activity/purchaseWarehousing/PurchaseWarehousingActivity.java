@@ -3,15 +3,29 @@ package com.jeewms.www.wms.ui.activity.purchaseWarehousing;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ajguan.library.EasyRefreshLayout;
+import com.android.volley.VolleyError;
 import com.jeewms.www.wms.R;
 import com.jeewms.www.wms.base.BaseActivity1;
+import com.jeewms.www.wms.bean.InStockHeadBean;
+import com.jeewms.www.wms.constance.Constance;
+import com.jeewms.www.wms.ui.adapter.PurchaseWarehousingAdapter;
 import com.jeewms.www.wms.ui.view.TitleTopOrdersView;
+import com.jeewms.www.wms.volley.HTTPUtils;
+import com.jeewms.www.wms.volley.VolleyListener;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * @ProjectName: kingdeepda
@@ -30,6 +44,20 @@ public class PurchaseWarehousingActivity extends BaseActivity1 {
 
     @BindView(R.id.purchase_warehousing_title)
     TitleTopOrdersView purchaseWarehousingTitle;
+    @BindView(R.id.purchase_recycler)
+    RecyclerView purchaseRecycler;
+    @BindView(R.id.purchase_order_refresh)
+    EasyRefreshLayout purchaseOrderRefresh;
+    @BindView(R.id.iv_add)
+    ImageView ivAdd;
+    @BindView(R.id.iv_scan)
+    ImageView ivScan;
+    private PurchaseWarehousingAdapter adapter;
+    //条件参数
+    private Map<String, String> mapParam = new HashMap<>();
+    ;
+    private int PAGE = 1;
+    private int LIMIT = 10;
 
     @Override
     protected int getContentResId() {
@@ -56,7 +84,21 @@ public class PurchaseWarehousingActivity extends BaseActivity1 {
 
     @Override
     protected void initfun() {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        adapter = new PurchaseWarehousingAdapter(R.layout.item_purchase_order_list);
+        purchaseRecycler.setLayoutManager(linearLayoutManager);
+        purchaseRecycler.setAdapter(adapter);
+        purchaseOrderRefresh.addEasyEvent(new EasyRefreshLayout.EasyEvent() {
+            @Override
+            public void onLoadMore() {
+                getDate(1, mapParam);
+            }
 
+            @Override
+            public void onRefreshing() {
+                getDate(0, mapParam);
+            }
+        });
     }
 
     @Override
@@ -64,5 +106,68 @@ public class PurchaseWarehousingActivity extends BaseActivity1 {
         super.onResume();
 
 
+    }
+
+    //获取数据
+    private void getDate(final int loadType, Map<String, String> params) {
+        if (loadType == 0) {
+            this.PAGE = 0;
+            this.LIMIT = 10;
+            adapter.getData().clear();
+            adapter.notifyDataSetChanged();
+        }
+        params.put("page", String.valueOf(PAGE));
+        params.put("limit", String.valueOf(LIMIT));
+        String getstkInStock = Constance.getGetstkInStock();
+        HTTPUtils.postByJson(PurchaseWarehousingActivity.this, getstkInStock, InStockHeadBean.class, params, new VolleyListener<InStockHeadBean>() {
+            @Override
+            public void requestComplete() {
+
+            }
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (loadType == 0) {
+                    purchaseOrderRefresh.refreshComplete();
+                } else {
+                    purchaseOrderRefresh.loadMoreFail();
+                }
+
+            }
+
+            @Override
+            public void onResponse(InStockHeadBean response) {
+                if (response.getCode() == 0) {
+                    PAGE++;
+                    List<InStockHeadBean.DataEntity> data = response.getData();
+                    if (loadType == 0) {
+                        adapter.setNewData(data);
+                        purchaseOrderRefresh.refreshComplete();
+                    } else {
+                        if (data.size() > 0) {
+                            adapter.addData(data);
+                        }
+                        purchaseOrderRefresh.loadMoreComplete();
+                    }
+                } else {
+                    if (loadType == 0) {
+                        purchaseOrderRefresh.refreshComplete();
+                    } else {
+                        purchaseOrderRefresh.loadMoreComplete();
+                    }
+                }
+
+            }
+        });
+    }
+    @OnClick({R.id.iv_add, R.id.iv_scan})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.iv_add:
+                PurchaseWarehousingAddActivity.show(this);
+                break;
+            case R.id.iv_scan:
+                break;
+        }
     }
 }

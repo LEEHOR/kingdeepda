@@ -1,4 +1,4 @@
-package com.jeewms.www.wms.ui.adapter;
+package com.jeewms.www.wms.ui.dialog.adapter;
 
 import android.support.annotation.NonNull;
 

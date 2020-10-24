@@ -17,7 +17,7 @@ import butterknife.BindView;
  * @Package: com.jeewms.www.wms.ui.activity.productionWarehousing
  * @ClassName: ProductionWarehousingActivity
  * @Description: java类作用描述
- * 工序汇报页跳转的生产入库
+ * 首页跳转进来的生产入库
  * @Author: 作者名
  * @CreateDate: 2020/10/23 11:26
  * @UpdateUser: 更新者：
@@ -25,16 +25,17 @@ import butterknife.BindView;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class ProductionWarehousing2Activity extends BaseActivity1 {
-    @BindView(R.id.processDetail_title)
+public class ProductionWarehousingDetailActivity extends BaseActivity1 {
+    @BindView(R.id.production_warehousing_Detail_title)
     TitleTopOrdersView processDetailTitle;
 
     @Override
     protected int getContentResId() {
-        return R.layout.activity_process_report_detail;
+        return R.layout.activity_production_wares_detail;
     }
+
     public static void show(Context context) {
-        Intent intent = new Intent(context, ProductionWarehousing2Activity.class);
+        Intent intent = new Intent(context, ProductionWarehousingDetailActivity.class);
         context.startActivity(intent);
     }
 

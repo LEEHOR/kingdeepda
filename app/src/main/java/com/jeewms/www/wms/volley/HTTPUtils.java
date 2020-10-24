@@ -28,6 +28,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.jeewms.www.wms.bean.UpdatePwd;
 import com.jeewms.www.wms.constance.Shared;
@@ -72,7 +73,7 @@ public class HTTPUtils {
             @Override
             public void onResponse(JSONObject response) {
                 Logutil.print("网络日志:成功" +response.toString());
-                Gson gson=new Gson();
+                Gson gson = new GsonBuilder().serializeNulls().create();
                 T t = gson.fromJson(String.valueOf(response), tClass);
                 listener.onResponse(t);
                 listener.requestComplete();
@@ -121,8 +122,8 @@ public class HTTPUtils {
             @Override
             public void onResponse(JsonObject response) {
                 Logutil.print("网络日志:成功" +response.toString());
-                Gson gson=new Gson();
-                T t = new Gson().fromJson(response, tClass);
+                Gson gson = new GsonBuilder().serializeNulls().create();
+                T t = gson.fromJson(response, tClass);
                 listener.onResponse(t);
                 listener.requestComplete();
             }
@@ -200,7 +201,7 @@ public class HTTPUtils {
             @Override
             public void onResponse(JSONObject response) {
                 Logutil.print("网络日志:成功" +response.toString());
-                Gson gson=new Gson();
+                Gson gson = new GsonBuilder().serializeNulls().create();
                 T t = gson.fromJson(String.valueOf(response), tClass);
                 listener.onResponse(t);
                 listener.requestComplete();

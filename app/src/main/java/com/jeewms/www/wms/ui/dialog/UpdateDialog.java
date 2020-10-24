@@ -98,7 +98,7 @@ public class UpdateDialog extends BaseDialogFragment {
     }
 
     @Override
-    public void iniWidow(AppCompatDialog dialog) {
+    public void iniWidow(Dialog dialog) {
         if (dialog != null) {
             dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
                 @Override
@@ -119,7 +119,7 @@ public class UpdateDialog extends BaseDialogFragment {
             window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
             window.getDecorView().setPadding(0, 0, 0, 0);
             window.setBackgroundDrawableResource(R.drawable.bg_fff_background);
-            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
             window.setWindowAnimations(R.style.center_in_out_Animation);
         }
 

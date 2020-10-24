@@ -53,7 +53,7 @@ import butterknife.OnClick;
  * @Package: com.jeewms.www.wms.ui.activity.receiving
  * @ClassName: ReceivingPushDown
  * @Description: java类作用描述
- * 采购入库保存---收料通知跳转
+ * 采购入库
  * @Author: 作者名
  * @CreateDate: 2020/10/19 19:10
  * @UpdateUser: 更新者：
@@ -62,7 +62,7 @@ import butterknife.OnClick;
  * @Version: 1.0
  */
 public class PurchaseWarehousingDetailActivity extends BaseActivity1 {
-    @BindView(R.id.receiving_detail_title)
+    @BindView(R.id.purchase_warehousing_detail_title)
     TitleTopOrdersView receivingDetailTitle;
     @BindView(R.id.add_table)
     SmartTable addTable;
@@ -260,8 +260,8 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity1 {
                 TableBodyDate.clear();
                 if (response.getCode() == 0) {
                     //TableBodyDate = response.getData();
-                    TableBodyDate.addAll(response.getData());
-                    TableHeadData.setStkInStockEntryVo(TableBodyDate);
+                   // TableBodyDate.addAll(response.getData());
+                    TableHeadData.setStkInStockEntryVo(response.getData());
                     addTable.addData(response.getData(), false);
 
 

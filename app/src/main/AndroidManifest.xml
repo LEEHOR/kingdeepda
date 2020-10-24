@@ -39,14 +39,19 @@
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".WelComeActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen">
-             <intent-filter>
-             <action android:name="android.intent.action.MAIN" />
-             <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
+<!--             <intent-filter>-->
+<!--             <action android:name="android.intent.action.MAIN" />-->
+<!--             <category android:name="android.intent.category.LAUNCHER" />-->
+<!--             </intent-filter>-->
         </activity>
         <activity android:name=".LoginActivity" />
         <activity android:name=".base.BaseActivity" />
@@ -73,8 +78,7 @@
         <activity
             android:name=".ui.activity.mine.BluetoothSettings1Activity"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" >
-        </activity>
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name=".ui.activity.mine.ChangeIpActivity"
             android:launchMode="singleTask"
@@ -92,6 +96,10 @@
             android:launchMode="singleTask"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
+            android:name=".ui.activity.purchaseWarehousing.PurchaseWarehousingAddActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
             android:name=".ui.activity.purchaseWarehousing.PurchaseWarehousingDetailActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
@@ -104,15 +112,23 @@
             android:launchMode="singleTask"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
-            android:name=".ui.activity.productionWarehousing.ProductionWarehousing2Activity"
-            android:launchMode="singleTask"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
-        <activity
             android:name=".ui.activity.productionWarehousing.ProductionWarehousingActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
+            android:name=".ui.activity.productionWarehousing.ProductionWarehousingAddActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".ui.activity.productionWarehousing.ProductionWarehousingDetailActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
             android:name=".ui.activity.warehouseOutApplication.WarehouseOutApplicationActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".ui.activity.warehouseOutApplication.WarehouseOutApplicationDetailActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
@@ -140,7 +156,15 @@
             android:launchMode="singleTask"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
+            android:name=".ui.activity.productionPicking.ProductionPickingDetailActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
             android:name=".ui.activity.otherStockOut.OtherStockOutActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".ui.activity.otherStockOut.OtherStockOutDetailActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
@@ -149,6 +173,26 @@
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name=".ui.activity.ScanCodeCheckInventoryActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".ui.activity.operationPlan.OperationPlanActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".ui.activity.operationPlanTransfer.OperationPlanTransferInActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".ui.activity.operationPlanTransfer.OperationPlanTransferInDetailActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".ui.activity.operationPlanTransfer.OperationPlanTransferOutActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".ui.activity.operationPlanTransfer.OperationPlanTransferOutDetailActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
 <!--        二维码扫描-->

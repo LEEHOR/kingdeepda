@@ -18,7 +18,7 @@ import butterknife.ButterKnife;
  * @Package: com.jeewms.www.wms.ui.activity.salesDelivery
  * @ClassName: SalesDeliveryActivity
  * @Description: java类作用描述
- * 销售出库
+ * 销售出库列表
  * @Author: 作者名
  * @CreateDate: 2020/10/23 14:24
  * @UpdateUser: 更新者：
@@ -27,12 +27,12 @@ import butterknife.ButterKnife;
  * @Version: 1.0
  */
 public class SalesDeliveryActivity extends BaseActivity1 {
-    @BindView(R.id.sales_out_title)
-    TitleTopOrdersView salesOutTitle;
+    @BindView(R.id.sales_delivery_title)
+    TitleTopOrdersView titleTopOrdersView;
 
     @Override
     protected int getContentResId() {
-        return R.layout.activity_sales_stock_out;
+        return R.layout.activity_sales_delivery;
     }
 
     public static void show(Context context) {
@@ -42,13 +42,13 @@ public class SalesDeliveryActivity extends BaseActivity1 {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        salesOutTitle.getBtn_back().setOnClickListener(new View.OnClickListener() {
+        titleTopOrdersView.getBtn_back().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
-        TextView tex_item = salesOutTitle.getTex_item();
+        TextView tex_item = titleTopOrdersView.getTex_item();
         tex_item.setVisibility(View.VISIBLE);
         tex_item.setText("销售出库");
     }

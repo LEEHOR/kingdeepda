@@ -1,10 +1,9 @@
 package com.jeewms.www.wms.ui.dialog;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
-import android.support.v7.app.AppCompatDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -18,16 +17,14 @@ import com.jeewms.www.wms.R;
 import com.jeewms.www.wms.base.BaseDialogFragment;
 import com.jeewms.www.wms.bean.ProjectListBean;
 import com.jeewms.www.wms.constance.Constance;
-import com.jeewms.www.wms.ui.adapter.ProjectDialogAdapter;
+import com.jeewms.www.wms.ui.dialog.adapter.ProjectDialogAdapter;
 import com.jeewms.www.wms.util.GsonUtils;
 import com.jeewms.www.wms.util.LocalDisplay;
 import com.jeewms.www.wms.util.decoration.SpacesItemDecoration;
 import com.jeewms.www.wms.volley.HTTPUtils;
 import com.jeewms.www.wms.volley.VolleyListener;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -108,7 +105,7 @@ public class ProjectDialog extends BaseDialogFragment {
     }
 
     @Override
-    public void iniWidow(AppCompatDialog dialog) {
+    public void iniWidow(Dialog dialog) {
         if (dialog != null) {
             dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
                 @Override
@@ -128,8 +125,8 @@ public class ProjectDialog extends BaseDialogFragment {
             window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
             window.getDecorView().setPadding(0, 0, 0, 0);
             window.setBackgroundDrawableResource(R.drawable.bg_fff_background);
-            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-            window.setGravity(Gravity.BOTTOM);
+            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+            //window.setGravity(Gravity.BOTTOM);
             window.setWindowAnimations(R.style.bottom_in_out_animation);
         }
     }
@@ -155,9 +152,6 @@ public class ProjectDialog extends BaseDialogFragment {
             adapter.getData().clear();
             adapter.notifyDataSetChanged();
         }
-//        Map<String,String> map=new HashMap<>();
-//        map.put("page",String.valueOf(PAGE));
-//        map.put("limit",String.valueOf(LIMIT));
         String projectlist = Constance.getProjectlist();
         String s = projectlist + "?" + "page=" + PAGE + "&limit=" + LIMIT;
         HTTPUtils.get(getActivity(), s, new VolleyListener<String>() {

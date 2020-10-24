@@ -13,10 +13,14 @@ import com.jeewms.www.wms.ui.activity.ScanCodeCheckInventoryActivity;
 import com.jeewms.www.wms.ui.activity.deliverNotice.DeliveryNoticeActivity;
 import com.jeewms.www.wms.ui.activity.inventoryChecking.InventoryCheckingActivity;
 import com.jeewms.www.wms.ui.activity.materialList.MaterialListActivity;
+import com.jeewms.www.wms.ui.activity.operationPlan.OperationPlanActivity;
+import com.jeewms.www.wms.ui.activity.operationPlanTransfer.OperationPlanTransferInActivity;
+import com.jeewms.www.wms.ui.activity.operationPlanTransfer.OperationPlanTransferOutActivity;
 import com.jeewms.www.wms.ui.activity.otherStockOut.OtherStockOutActivity;
 import com.jeewms.www.wms.ui.activity.processReport.ProcessReportListActivity;
 import com.jeewms.www.wms.ui.activity.productionPicking.ProductionPickingActivity;
 import com.jeewms.www.wms.ui.activity.productionWarehousing.ProductionWarehousingActivity;
+import com.jeewms.www.wms.ui.activity.productionWarehousing.ProductionWarehousingDetailActivity;
 import com.jeewms.www.wms.ui.activity.purchaseWarehousing.PurchaseWarehousingActivity;
 import com.jeewms.www.wms.ui.activity.receive.ReceiveNoticeActivity;
 import com.jeewms.www.wms.ui.activity.salesDelivery.SalesDeliveryActivity;
@@ -88,6 +92,12 @@ public class HomeGridItemView {
             InventoryCheckingActivity.show(mActivity); //库存盘点
         } else if (Constance.btnNameList[11].equals(btnName)) {
             ScanCodeCheckInventoryActivity.show(mActivity);//扫码查库存
+        }else if (Constance.btnNameList[12].equals(btnName)) {
+            OperationPlanActivity.show(mActivity);//工序转移
+        }else if (Constance.btnNameList[13].equals(btnName)) {
+            OperationPlanTransferInActivity.show(mActivity);//转移单委外发出
+        }else if (Constance.btnNameList[14].equals(btnName)) {
+            OperationPlanTransferOutActivity.show(mActivity);//转移单委外接收
         }
     }
 }
