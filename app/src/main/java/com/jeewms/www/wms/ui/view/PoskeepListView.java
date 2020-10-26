@@ -51,8 +51,6 @@ public class PoskeepListView extends ListView
 
         super.onSizeChanged(xNew, yNew, xOld, yOld);
 
-
-
         setSelection(getCount());
 
     }

@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.jeewms.www.wms.R;
-import com.jeewms.www.wms.base.BaseActivity1;
+import com.jeewms.www.wms.base.BaseActivity;
 import com.jeewms.www.wms.ui.view.TitleTopOrdersView;
 
 import butterknife.BindView;
@@ -25,13 +25,13 @@ import butterknife.BindView;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class ProductionWarehousingAddActivity extends BaseActivity1 {
-    @BindView(R.id.production_warehousing_Detail_title)
+public class ProductionWarehousingAddActivity extends BaseActivity {
+    @BindView(R.id.production_warehousing_add_title)
     TitleTopOrdersView processDetailTitle;
 
     @Override
     protected int getContentResId() {
-        return R.layout.activity_production_wares_detail;
+        return R.layout.activity_production_wares_add;
     }
 
     public static void show(Context context) {

@@ -7,8 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.jeewms.www.wms.R;
-import com.jeewms.www.wms.base.BaseActivity1;
-import com.jeewms.www.wms.ui.activity.deliverNotice.DeliveryNoticeActivity;
+import com.jeewms.www.wms.base.BaseActivity;
 import com.jeewms.www.wms.ui.view.TitleTopOrdersView;
 
 import butterknife.BindView;
@@ -19,6 +18,7 @@ import butterknife.ButterKnife;
  * @Package: com.jeewms.www.wms.ui.activity.InventoryChecking
  * @ClassName: InventoryCheckingActivity
  * @Description: java类作用描述
+ * 库存盘点
  * @Author: 作者名
  * @CreateDate: 2020/10/23 13:57
  * @UpdateUser: 更新者：
@@ -26,7 +26,7 @@ import butterknife.ButterKnife;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class InventoryCheckingActivity extends BaseActivity1 {
+public class InventoryCheckingActivity extends BaseActivity {
     @BindView(R.id.inventory_check_title)
     TitleTopOrdersView inventoryCheckTitle;
 

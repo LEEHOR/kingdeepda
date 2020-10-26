@@ -8,7 +8,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jeewms.www.wms.R;
-import com.jeewms.www.wms.base.BaseActivity1;
+import com.jeewms.www.wms.base.BaseActivity;
 import com.jeewms.www.wms.ui.view.TitleTopOrdersView;
 
 import butterknife.BindView;
@@ -27,7 +27,7 @@ import butterknife.OnClick;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class SettingDefaultOrganActivity extends BaseActivity1 {
+public class SettingDefaultOrganActivity extends BaseActivity {
     @BindView(R.id.organ_title)
     TitleTopOrdersView organTitle;
     @BindView(R.id.warehouse_tv)

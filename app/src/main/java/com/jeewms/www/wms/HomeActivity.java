@@ -3,9 +3,10 @@ package com.jeewms.www.wms;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+
 import android.view.View;
 import android.widget.GridView;
+
 
 import com.jeewms.www.wms.base.BaseActivity;
 import com.jeewms.www.wms.bean.HomeBtnBean;
@@ -29,11 +30,20 @@ public class HomeActivity extends BaseActivity {
         Intent intent = new Intent(context, HomeActivity.class);
         context.startActivity(intent);
     }
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_home);
+    protected int getContentResId() {
+        return R.layout.fragment_home;
+    }
+
+    @Override
+    protected void initView(Bundle savedInstanceState) {
         init();
+    }
+
+    @Override
+    protected void initfun() {
+
     }
 
     private void init() {

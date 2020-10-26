@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.jeewms.www.wms.R;
-import com.jeewms.www.wms.base.BaseActivity1;
+import com.jeewms.www.wms.base.BaseActivity;
 import com.jeewms.www.wms.ui.activity.operationPlan.OperationPlanActivity;
 import com.jeewms.www.wms.ui.view.TitleTopOrdersView;
 
@@ -27,7 +27,7 @@ import butterknife.ButterKnife;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class OperationPlanTransferInActivity extends BaseActivity1 {
+public class OperationPlanTransferInActivity extends BaseActivity {
     @BindView(R.id.operation_plan_translate_in_title)
     TitleTopOrdersView operationPlanTranslateInTitle;
 

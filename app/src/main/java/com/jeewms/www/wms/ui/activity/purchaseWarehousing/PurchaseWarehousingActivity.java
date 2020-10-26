@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.ajguan.library.EasyRefreshLayout;
 import com.android.volley.VolleyError;
 import com.jeewms.www.wms.R;
-import com.jeewms.www.wms.base.BaseActivity1;
+import com.jeewms.www.wms.base.BaseActivity;
 import com.jeewms.www.wms.bean.InStockHeadBean;
 import com.jeewms.www.wms.constance.Constance;
 import com.jeewms.www.wms.ui.adapter.PurchaseWarehousingAdapter;
@@ -40,7 +40,7 @@ import butterknife.OnClick;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class PurchaseWarehousingActivity extends BaseActivity1 {
+public class PurchaseWarehousingActivity extends BaseActivity {
 
     @BindView(R.id.purchase_warehousing_title)
     TitleTopOrdersView purchaseWarehousingTitle;

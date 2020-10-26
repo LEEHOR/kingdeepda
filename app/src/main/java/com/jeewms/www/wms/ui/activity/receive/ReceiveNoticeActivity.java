@@ -19,7 +19,7 @@ import com.google.zxing.activity.CaptureActivity;
 import com.google.zxing.util.Constant;
 import com.jeewms.www.wms.App;
 import com.jeewms.www.wms.R;
-import com.jeewms.www.wms.base.BaseActivity1;
+import com.jeewms.www.wms.base.BaseActivity;
 import com.jeewms.www.wms.bean.ReceiveBillBean;
 import com.jeewms.www.wms.bean.ReceivePush;
 import com.jeewms.www.wms.constance.Constance;
@@ -56,7 +56,7 @@ import butterknife.OnClick;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class ReceiveNoticeActivity extends BaseActivity1 {
+public class ReceiveNoticeActivity extends BaseActivity {
     @BindView(R.id.receivingTitle)
     TitleTopOrdersView receivingTitle;
     @BindView(R.id.app_search)
@@ -280,12 +280,12 @@ public class ReceiveNoticeActivity extends BaseActivity1 {
                         startActivity(intent1);
                 } else {
                     ToastUtil.show(ReceiveNoticeActivity.this,"下推失败");
-                    Intent intent1=new Intent(ReceiveNoticeActivity.this, PurchaseWarehousingDetailActivity.class);
-                    Bundle bundle1=new Bundle();
-                    bundle1.putInt("fid",100049);
-                    bundle1.putString("fnumber","CGRK00004");
-                    intent1.putExtras(bundle1);
-                    startActivity(intent1);
+//                    Intent intent1=new Intent(ReceiveNoticeActivity.this, PurchaseWarehousingDetailActivity.class);
+//                    Bundle bundle1=new Bundle();
+//                    bundle1.putInt("fid",100049);
+//                    bundle1.putString("fnumber","CGRK00004");
+//                    intent1.putExtras(bundle1);
+//                    startActivity(intent1);
                 }
             }
 

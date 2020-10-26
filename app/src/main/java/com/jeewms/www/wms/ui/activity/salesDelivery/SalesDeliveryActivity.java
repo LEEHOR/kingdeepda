@@ -4,14 +4,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jeewms.www.wms.R;
-import com.jeewms.www.wms.base.BaseActivity1;
+import com.jeewms.www.wms.base.BaseActivity;
 import com.jeewms.www.wms.ui.view.TitleTopOrdersView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * @ProjectName: kingdeepda
@@ -26,9 +28,13 @@ import butterknife.ButterKnife;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class SalesDeliveryActivity extends BaseActivity1 {
+public class SalesDeliveryActivity extends BaseActivity {
     @BindView(R.id.sales_delivery_title)
     TitleTopOrdersView titleTopOrdersView;
+    @BindView(R.id.iv_add)
+    ImageView ivAdd;
+    @BindView(R.id.iv_scan)
+    ImageView ivScan;
 
     @Override
     protected int getContentResId() {
@@ -63,5 +69,16 @@ public class SalesDeliveryActivity extends BaseActivity1 {
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
+    }
+
+    @OnClick({R.id.iv_add, R.id.iv_scan})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.iv_add:
+                SalesDeliveryAddActivity.show(this);
+                break;
+            case R.id.iv_scan:
+                break;
+        }
     }
 }

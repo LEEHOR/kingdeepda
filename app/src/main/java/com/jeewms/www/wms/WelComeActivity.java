@@ -5,11 +5,9 @@ import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
 
 import com.android.volley.VolleyError;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+
 import com.jeewms.www.wms.base.BaseActivity;
 import com.jeewms.www.wms.bean.LoginVm;
-import com.jeewms.www.wms.bean.SignOut;
 import com.jeewms.www.wms.constance.Constance;
 import com.jeewms.www.wms.constance.Shared;
 import com.jeewms.www.wms.util.GsonUtils;
@@ -23,7 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
+
 
 /**
  * Created by 13799 on 2018/6/7.
@@ -35,23 +33,13 @@ public class WelComeActivity extends BaseActivity {
     @BindView(R.id.welcome_root)
     ConstraintLayout llRoot;
     private int status;
-
-    @Override
-    protected int getTitleBarResId() {
-        return -1;
-    }
-
     @Override
     protected int getContentResId() {
         return R.layout.activity_welcome;
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-       // llRoot.setBackgroundResource(R.drawable.welcome);
+    protected void initView(Bundle savedInstanceState) {
         if (!StringUtil.isEmpty(SharedPreferencesUtil.getInstance(this).getKeyValue(Constance.SHAREP.PASSWORD))) {
             doLogin(SharedPreferencesUtil.getInstance(this).getKeyValue(Constance.SHAREP.LOGINNAME), SharedPreferencesUtil.getInstance(this).getKeyValue(Constance.SHAREP.PASSWORD));
         }else {
@@ -65,19 +53,16 @@ public class WelComeActivity extends BaseActivity {
                 if (status == 0) {
                     status++;
                 } else {
-                   // HomeActivity.show(WelComeActivity.this);
+                    // HomeActivity.show(WelComeActivity.this);
                     MainActivity.show(WelComeActivity.this);
                     finish();
                 }
             }
         }, 3000);
-//        SignOut signOut=new SignOut();
-//        signOut.setAge(16);
-//        signOut.setHeight("180");
-//        signOut.setName("leehor");
-//        PurchaseOrderAddBean bean=new PurchaseOrderAddBean();
-//        JsonObject jsonObject = new Gson().toJsonTree(bean).getAsJsonObject();
-//        Logutil.print("数据",jsonObject.toString());
+    }
+
+    @Override
+    protected void initfun() {
 
     }
 
@@ -95,7 +80,7 @@ public class WelComeActivity extends BaseActivity {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                LoginActivity.show(getActivity());
+                LoginActivity.show(WelComeActivity.this);
                 finish();
             }
 
@@ -115,7 +100,7 @@ public class WelComeActivity extends BaseActivity {
                         finish();
                     }
                 } else {
-                    LoginActivity.show(getActivity());
+                    LoginActivity.show(WelComeActivity.this);
                     finish();
                 }
             }

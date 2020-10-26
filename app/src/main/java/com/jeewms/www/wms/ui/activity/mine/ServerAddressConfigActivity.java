@@ -7,7 +7,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jeewms.www.wms.R;
-import com.jeewms.www.wms.base.BaseActivity1;
+import com.jeewms.www.wms.base.BaseActivity;
 import com.jeewms.www.wms.ui.view.TitleTopOrdersView;
 
 import butterknife.BindView;
@@ -25,7 +25,7 @@ import butterknife.OnClick;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class ServerAddressConfigActivity extends BaseActivity1 {
+public class ServerAddressConfigActivity extends BaseActivity {
     @BindView(R.id.server_config_title)
     TitleTopOrdersView titleTopOrdersView;
     @BindView(R.id.printer_tv)

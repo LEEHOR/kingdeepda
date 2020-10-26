@@ -1,13 +1,11 @@
 package com.jeewms.www.wms.ui.activity.otherStockOut;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import com.jeewms.www.wms.R;
-import com.jeewms.www.wms.base.BaseActivity1;
+import com.jeewms.www.wms.base.BaseActivity;
 import com.jeewms.www.wms.ui.view.TitleTopOrdersView;
 
 import butterknife.BindView;
@@ -26,7 +24,7 @@ import butterknife.ButterKnife;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class OtherStockOutDetailActivity extends BaseActivity1 {
+public class OtherStockOutDetailActivity extends BaseActivity {
     @BindView(R.id.other_stock_out_Detail_title2)
     TitleTopOrdersView otherStockOutTitle;
 

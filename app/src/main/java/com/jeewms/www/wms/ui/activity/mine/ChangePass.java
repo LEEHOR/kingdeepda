@@ -7,7 +7,7 @@ import android.widget.EditText;
 
 import com.android.volley.VolleyError;
 import com.jeewms.www.wms.R;
-import com.jeewms.www.wms.base.BaseActivity1;
+import com.jeewms.www.wms.base.BaseActivity;
 import com.jeewms.www.wms.bean.UpdatePwd;
 import com.jeewms.www.wms.constance.Constance;
 import com.jeewms.www.wms.constance.Shared;
@@ -38,7 +38,7 @@ import butterknife.OnClick;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class ChangePass extends BaseActivity1 {
+public class ChangePass extends BaseActivity {
     @BindView(R.id.user_account)
     EditText userAccount;
     @BindView(R.id.user_oldpass)

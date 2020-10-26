@@ -7,7 +7,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.jeewms.www.wms.R;
-import com.jeewms.www.wms.base.BaseActivity1;
+import com.jeewms.www.wms.base.BaseActivity;
 import com.jeewms.www.wms.ui.view.TitleTopOrdersView;
 
 import butterknife.BindView;
@@ -26,7 +26,7 @@ import butterknife.OnClick;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class BluetoothSettingsActivity extends BaseActivity1 {
+public class BluetoothSettingsActivity extends BaseActivity {
     @BindView(R.id.bluetooth_title)
     TitleTopOrdersView bluetoothTitle;
     @BindView(R.id.bluetooth_switch)

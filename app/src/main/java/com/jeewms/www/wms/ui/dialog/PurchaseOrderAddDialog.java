@@ -181,7 +181,7 @@ public class PurchaseOrderAddDialog extends BaseDialogFragment {
                 materialDialog.Close();
             }
         });
-        materialDialog.show(getActivity().getSupportFragmentManager(),"物料");
+        materialDialog.show(getActivity().getFragmentManager(),"物料");
     }
 
     private void Projectdialog(){
@@ -199,7 +199,7 @@ public class PurchaseOrderAddDialog extends BaseDialogFragment {
                 projectDialog.Close();
             }
         });
-        projectDialog.show(getActivity().getSupportFragmentManager(),"物料");
+        projectDialog.show(getActivity().getFragmentManager(),"物料");
     }
 
     public interface OnAddOrderListener {

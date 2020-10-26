@@ -10,7 +10,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.hjm.bottomtabbar.BottomTabBar;
 import com.jeewms.www.wms.ui.fragment.HomeFragment;
 import com.jeewms.www.wms.ui.fragment.MineFragment;
 import com.jeewms.www.wms.util.ToastUtil;
@@ -29,8 +28,6 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends FragmentActivity {
 
-    @BindView(R.id.bottom_tab_bar)
-    BottomTabBar mBottomTabBar;
     @BindView(R.id.bottom_tab_bar2)
     EasyNavigationBar bottomTabBar2;
     private long exitTime = 0;
@@ -58,29 +55,6 @@ public class MainActivity extends FragmentActivity {
     protected void initView() {
         fragments.add(new HomeFragment());
         fragments.add(new MineFragment());
-//        mBottomTabBar.init(getSupportFragmentManager(), 720, 1280)
-//                .setImgSize(50, 50)
-//                .setFontSize(12)
-//                .setTabPadding(10, 0, 5)
-//                .setChangeColor(Color.parseColor("#45ACF9"), Color.parseColor("#505050"))
-//                .addTabItem("首页", R.drawable.ic_home_select, R.drawable.ic_home, HomeFragment.class)
-//                .addTabItem("好友", R.drawable.ic_friend_select, R.drawable.ic_friend, FriendsFragment.class)
-//                .addTabItem("我的", R.drawable.ic_mine_select, R.drawable.ic_mine, MineFragment.class)
-//                .isShowDivider(true)
-//                .setDividerColor(getResources().getColor(R.color.divider_color))
-//                .setTabBarBackgroundColor(Color.parseColor("#00FF0000"))
-//                //  .setTabBarBackgroundResource(getResources().getDrawable(R.drawable.bottom_bar_bg))
-//                .setOnTabChangeListener(new BottomTabBar.OnTabChangeListener() {
-//                    @Override
-//                    public void onTabChange(int position, String name, View view) {
-//
-//                    }
-//                })
-//                .setSpot(0, false)
-//                .setSpot(1, false)
-//                .setSpot(2, false)
-//                .setCurrentTab(0);
-
         bottomTabBar2.defaultSetting()
                 .titleItems(tabText)
                 .normalIconItems(normalIcon)
@@ -98,7 +72,6 @@ public class MainActivity extends FragmentActivity {
                     @Override
                     public boolean onTabSelectEvent(View view, int position) {
                         //Tab点击事件  return true 页面不会切换
-
                         return false;
                     }
 

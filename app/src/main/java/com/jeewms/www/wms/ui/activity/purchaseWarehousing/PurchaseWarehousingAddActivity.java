@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.bin.david.form.core.SmartTable;
@@ -25,14 +24,13 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.jeewms.www.wms.R;
-import com.jeewms.www.wms.base.BaseActivity1;
+import com.jeewms.www.wms.base.BaseActivity;
 import com.jeewms.www.wms.bean.InStockEntryBean;
 import com.jeewms.www.wms.bean.InStockHeadBean;
 import com.jeewms.www.wms.bean.MaterialListBean;
 import com.jeewms.www.wms.bean.ProjectListBean;
 import com.jeewms.www.wms.bean.UpdatePwd;
 import com.jeewms.www.wms.constance.Constance;
-import com.jeewms.www.wms.ui.activity.otherStockOut.OtherStockOutActivity;
 import com.jeewms.www.wms.ui.dialog.PurchaseOrderAddDialog;
 import com.jeewms.www.wms.ui.view.TitleTopOrdersView;
 import com.jeewms.www.wms.util.Logutil;
@@ -44,9 +42,7 @@ import org.json.JSONObject;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -64,8 +60,8 @@ import butterknife.OnClick;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class PurchaseWarehousingAddActivity extends BaseActivity1 {
-    @BindView(R.id.purchase_warehousing_detail_title)
+public class PurchaseWarehousingAddActivity extends BaseActivity {
+    @BindView(R.id.purchase_warehousing_add_title)
     TitleTopOrdersView receivingDetailTitle;
     @BindView(R.id.add_table)
     SmartTable addTable;
@@ -123,7 +119,7 @@ public class PurchaseWarehousingAddActivity extends BaseActivity1 {
 
     @Override
     protected int getContentResId() {
-        return R.layout.activity_purchase_warehousing_detail;
+        return R.layout.activity_purchase_warehousing_add;
     }
     public static void show(Context context) {
         Intent intent = new Intent(context, PurchaseWarehousingAddActivity.class);
@@ -139,37 +135,12 @@ public class PurchaseWarehousingAddActivity extends BaseActivity1 {
             }
         });
         receivingDetailTitle.getTex_item().setVisibility(View.VISIBLE);
-        receivingDetailTitle.getTex_item().setText("采购入库新增页");
+        receivingDetailTitle.getTex_item().setText("采购入库新增");
 
-        TextView tv_right2 = receivingDetailTitle.getTv_right2();
-        tv_right2.setVisibility(View.INVISIBLE);
-        tv_right2.setText("保存");
-        tv_right2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
-        TextView tv_right = receivingDetailTitle.getTv_right();
-        tv_right.setVisibility(View.INVISIBLE);
-        tv_right.setText("提交");
-        tv_right.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
     }
 
     @Override
     protected void initfun() {
-        if (getIntent() != null) {
-            Bundle extras = getIntent().getExtras();
-            if (extras != null) {
-                fid = extras.getInt("fid");
-            }
-        }
         addTable.getConfig().setShowYSequence(false);
         addTable.getConfig().setShowXSequence(false);
         addTable.getConfig().setShowTableTitle(false);
@@ -187,96 +158,6 @@ public class PurchaseWarehousingAddActivity extends BaseActivity1 {
             }
         });
         createTab();
-        if (fid != 0) {
-            getTableHead(String.valueOf(fid));
-        }
-
-    }
-
-    //获取单据头数据
-    private void getTableHead(String id) {
-        Map<String, String> params = new HashMap<>();
-        params.put(key_fid, id);
-        String getstkInStock = Constance.getGetstkInStock();
-        HTTPUtils.postByJson(this, getstkInStock, InStockHeadBean.class, params, new VolleyListener<InStockHeadBean>() {
-            @Override
-            public void onResponse(InStockHeadBean response) {
-                if (response.getCode() == 0) {
-                    List<InStockHeadBean.DataEntity> datas = response.getData();
-                    TableHeadData = datas.get(0);
-                  //  TableHeadData.setFSupplierId(TableHeadData.getFsupplierNumber());
-                  //  TableHeadData.setFSettleCurrId(TableHeadData.getFsettleCurrIdNumber());
-                    tvFbillTypeName.setText(TableHeadData.getFbillTypeName());
-                    tvFstockOrgNamee.setText(TableHeadData.getFstockOrgName());
-                    tvFpurchaseOrgName.setText(TableHeadData.getFpurchaseOrgName());
-                    tvFstockDeptName.setText(TableHeadData.getFstockDeptName());
-                    tvFpurchaseDeptName.setText(TableHeadData.getFpurchaseDeptName());
-                    tvFbillNo.setText(TableHeadData.getFbillNo());
-                    tvFstockerGroupName.setText(TableHeadData.getFstockerGroupName());
-                    tvFpurchaserGroupName.setText(TableHeadData.getFpurchaserGroupName());
-                    String fdate = TableHeadData.getFdate();
-                    String str1 = fdate.substring(0, fdate.indexOf("T"));
-                    tvFdate.setText(str1);
-                    tvFstockerName.setText(TableHeadData.getFstockerName());
-                    tvFpurchaserName.setText(TableHeadData.getFpurchaserName());
-                    tvFdocumentStatus.setText(TableHeadData.getFdocumentStatus());
-                    tvFsupplierName.setText(TableHeadData.getFsupplierName());
-                    tvFdemandOrgName.setText(TableHeadData.getFdemandOrgName());
-                    tvFsettleName.setText(TableHeadData.getFsettleName());
-                    tvFsupplyName.setText(TableHeadData.getFsupplyName());
-                    tvFproviderContactName.setText(TableHeadData.getFproviderContactName());
-                    tvFsupplyAddress.setText(TableHeadData.getFsupplyAddress());
-                    tvFchargeName.setText(TableHeadData.getFchargeName());
-                    if (fid != 0) {
-                        getTableBodyDate(String.valueOf(fid));
-                    }
-                }
-            }
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-
-            @Override
-            public void requestComplete() {
-
-            }
-        });
-    }
-
-    //获取单据体数据(从收料通知页跳转)
-    private void getTableBodyDate(String fid) {
-        Map<String, String> params = new HashMap<>();
-        params.put(key_fid, fid);
-        String getstkInStockEntry = Constance.getGetstkInStockEntry();
-        HTTPUtils.postByJson(this, getstkInStockEntry, InStockEntryBean.class, params, new VolleyListener<InStockEntryBean>() {
-            @Override
-            public void requestComplete() {
-
-            }
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-
-            @Override
-            public void onResponse(InStockEntryBean response) {
-                TableBodyDate.clear();
-                if (response.getCode() == 0) {
-                    //TableBodyDate = response.getData();
-                    TableBodyDate.addAll(response.getData());
-                    TableHeadData.setStkInStockEntryVo(TableBodyDate);
-                    addTable.addData(response.getData(), false);
-
-
-                    // dataEntities.addAll(data);
-                } else {
-                }
-
-            }
-        });
     }
 
     private void createTab() {
@@ -399,6 +280,6 @@ public class PurchaseWarehousingAddActivity extends BaseActivity1 {
                 purchaseOrderAddDialog.Close();
             }
         });
-        purchaseOrderAddDialog.show(getSupportFragmentManager(), "addorder");
+        purchaseOrderAddDialog.show(getFragmentManager(), "addorder");
     }
 }

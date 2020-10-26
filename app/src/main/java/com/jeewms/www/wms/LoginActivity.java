@@ -29,7 +29,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -70,24 +69,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     @Override
-    protected int getTitleBarResId() {
-        return -1;
-    }
-
-    @Override
-    protected void initView() {
-        super.initView();
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        //自动登录
-//        if (!StringUtil.isEmpty(SharedPreferencesUtil.getInstance(this).getKeyValue(Constance.SHAREP.PASSWORD))) {
-//            doLogin(SharedPreferencesUtil.getInstance(this).getKeyValue(Constance.SHAREP.LOGINNAME), SharedPreferencesUtil.getInstance(this).getKeyValue(Constance.SHAREP.PASSWORD));
-//        }
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+    protected void initView(Bundle savedInstanceState) {
         setAddress();
         if(!StringUtil.isEmpty(SharedPreferencesUtil.getInstance(this).getKeyValue(Constance.SHAREP.LOGINNAME))&&tvUserName!=null){
             tvUserName.setText(SharedPreferencesUtil.getInstance(this).getKeyValue(Constance.SHAREP.LOGINNAME));
@@ -114,6 +96,11 @@ public class LoginActivity extends BaseActivity {
                 radio1.setText(addressPer);
             }
         });
+    }
+
+    @Override
+    protected void initfun() {
+
     }
 
     @OnClick({R.id.forgetPassword, R.id.btn_login, R.id.btn_regist})

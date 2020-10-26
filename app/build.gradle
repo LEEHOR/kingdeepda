@@ -72,23 +72,25 @@ dependencies {
     implementation 'com.jakewharton:butterknife:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     implementation 'org.greenrobot:eventbus:3.0.0'
-    implementation 'com.squareup.picasso:picasso:2.5.2'
-    debugImplementation 'com.facebook.stetho:stetho:1.1.1'
+   // implementation 'com.squareup.picasso:picasso:2.5.2'
+  //  debugImplementation 'com.facebook.stetho:stetho:1.1.1'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.zhy:percent-support-extends:1.1.1'
     implementation 'com.android.support:cardview-v7:28.0.0'
     implementation 'eu.the4thfloor.volley:com.android.volley:2015.05.28'
     implementation 'com.android.support:recyclerview-v7:28.0.0'
-    implementation 'com.nhaarman.listviewanimations:lib-core:3.1.0@aar'
-    implementation 'com.nhaarman.listviewanimations:lib-manipulation:3.1.0@aar'
-    implementation 'com.nhaarman.listviewanimations:lib-core-slh:3.1.0@aar'
-    implementation 'com.nineoldandroids:library:2.4.0'
-    implementation 'com.wang.avi:library:1.0.0'
-    implementation 'com.hjm:BottomTabBar:1.2.0'
+    //implementation 'com.nhaarman.listviewanimations:lib-core:3.1.0@aar'
+   // implementation 'com.nhaarman.listviewanimations:lib-manipulation:3.1.0@aar'
+    //implementation 'com.nhaarman.listviewanimations:lib-core-slh:3.1.0@aar'
+   // implementation 'com.nineoldandroids:library:2.4.0'
+    //loadding动画
+   // implementation 'com.wang.avi:library:2.1.3'
+    //implementation 'com.hjm:BottomTabBar:1.2.0'
     implementation 'com.github.Vincent7Wong:EasyNavigation:1.5.0'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.50'
     implementation 'com.github.anzaizai:EasyRefreshLayout:1.3.1'
     implementation 'com.github.yxping:EasyPermissionUtil:v0.1.0'
+    //表格
     implementation 'com.github.huangyanbin:SmartTable:2.2.0'
     //方法超过极限，多打包
     implementation 'com.android.support:multidex:1.0.3'
@@ -96,5 +98,6 @@ dependencies {
     implementation 'cn.com.superLei:blelibrary:3.1.0'
     //数据库litepal
     implementation 'org.litepal.guolindev:core:3.2.2'
+    //扫码
     implementation project(':zxing-lib')
 }

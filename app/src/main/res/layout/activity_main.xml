@@ -24,27 +24,6 @@
         app:layout_constraintRight_toRightOf="parent"
         android:orientation="vertical" />
 
-    <com.hjm.bottomtabbar.BottomTabBar
-        android:id="@+id/bottom_tab_bar"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        hjm:tab_bar_background="#FFFFFF"
-        hjm:tab_divider_background="@color/colorPrimary"
-        hjm:tab_divider_height="5dp"
-        hjm:tab_font_size="6sp"
-        hjm:tab_img_font_padding="0dp"
-        hjm:tab_img_height="30dp"
-        hjm:tab_img_width="30dp"
-        hjm:tab_isshow_divider="true"
-        hjm:tab_padding_bottom="5dp"
-        hjm:tab_padding_top="8dp"
-        hjm:tab_selected_color="#000000"
-        hjm:tab_unselected_color="@color/colorPrimary" />
 
     <com.next.easynavigation.view.EasyNavigationBar
         android:id="@+id/bottom_tab_bar2"

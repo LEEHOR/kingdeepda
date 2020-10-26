@@ -11,11 +11,10 @@ import android.widget.TextView;
 
 import com.ajguan.library.EasyRefreshLayout;
 import com.jeewms.www.wms.R;
-import com.jeewms.www.wms.base.BaseActivity1;
+import com.jeewms.www.wms.base.BaseActivity;
 import com.jeewms.www.wms.ui.view.TitleTopOrdersView;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -31,7 +30,7 @@ import butterknife.OnClick;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class ProcessReportListActivity extends BaseActivity1 {
+public class ProcessReportListActivity extends BaseActivity {
     @BindView(R.id.process_title)
     TitleTopOrdersView processTitle;
     @BindView(R.id.app_search)

@@ -23,7 +23,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.jeewms.www.wms.R;
-import com.jeewms.www.wms.base.BaseActivity1;
+import com.jeewms.www.wms.base.BaseActivity;
 import com.jeewms.www.wms.bean.InStockEntryBean;
 import com.jeewms.www.wms.bean.InStockHeadBean;
 import com.jeewms.www.wms.bean.MaterialListBean;
@@ -61,7 +61,7 @@ import butterknife.OnClick;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class PurchaseWarehousingDetailActivity extends BaseActivity1 {
+public class PurchaseWarehousingDetailActivity extends BaseActivity {
     @BindView(R.id.purchase_warehousing_detail_title)
     TitleTopOrdersView receivingDetailTitle;
     @BindView(R.id.add_table)
@@ -390,6 +390,6 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity1 {
                 purchaseOrderAddDialog.Close();
             }
         });
-        purchaseOrderAddDialog.show(getSupportFragmentManager(), "addorder");
+        purchaseOrderAddDialog.show(getFragmentManager(), "addorder");
     }
 }

@@ -21,7 +21,7 @@ import com.google.zxing.activity.CaptureActivity;
 import com.google.zxing.util.Constant;
 import com.jeewms.www.wms.App;
 import com.jeewms.www.wms.R;
-import com.jeewms.www.wms.base.BaseActivity1;
+import com.jeewms.www.wms.base.BaseActivity;
 import com.jeewms.www.wms.bean.StockScanBean;
 import com.jeewms.www.wms.bean.StockClass;
 import com.jeewms.www.wms.constance.Constance;
@@ -61,7 +61,7 @@ import butterknife.OnClick;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class ScanCodeCheckInventoryActivity extends BaseActivity1 {
+public class ScanCodeCheckInventoryActivity extends BaseActivity {
     @BindView(R.id.stock_scan_search)
     SearchView stockSearch;
     @BindView(R.id.iv_scan)

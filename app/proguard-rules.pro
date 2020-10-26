@@ -243,12 +243,12 @@
 
 
 #Picasso混淆配置
--keep class com.parse.*{ *; }
--dontwarn com.parse.**
--dontwarn com.squareup.picasso.**
--keepclasseswithmembernames class * {
-    native <methods>;
-}
+#-keep class com.parse.*{ *; }
+#-dontwarn com.parse.**
+#-dontwarn com.squareup.picasso.**
+#-keepclasseswithmembernames class * {
+#    native <methods>;
+#}
 
 #litepal 数据库
 -keep class org.litepal.** {
@@ -260,3 +260,6 @@
 -keep class * extends org.litepal.crud.LitePalSupport {
     *;
 }
+#com.wang.avi:library:2.1.3
+#-keep class com.wang.avi.** { *; }
+#-keep class com.wang.avi.indicators.** { *; }

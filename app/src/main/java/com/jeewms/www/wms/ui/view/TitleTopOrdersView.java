@@ -19,7 +19,7 @@ import com.jeewms.www.wms.R;
  * @Package: com.jeewms.www.wms.ui.view
  * @ClassName: TitleTopOrdersView
  * @Description: java类作用描述
- * 新版订单titlebar封装
+ * 新版titlebar封装
  * @Author: 作者名
  * @CreateDate: 2020/9/28 10:30
  * @UpdateUser: 更新者：

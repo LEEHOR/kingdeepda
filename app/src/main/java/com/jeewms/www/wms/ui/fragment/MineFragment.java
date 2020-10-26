@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.android.volley.VolleyError;
 import com.jeewms.www.wms.LoginActivity;
 import com.jeewms.www.wms.R;
-import com.jeewms.www.wms.base.BaseFragment1;
+import com.jeewms.www.wms.base.BaseFragment;
 import com.jeewms.www.wms.bean.LoginVm;
 import com.jeewms.www.wms.bean.NewVersionBean;
 import com.jeewms.www.wms.constance.Constance;
@@ -44,7 +44,7 @@ import butterknife.OnClick;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class MineFragment extends BaseFragment1 {
+public class MineFragment extends BaseFragment {
     @BindView(R.id.mine_head_portrait)
     CircleImageView mineHeadPortrait;
     @BindView(R.id.userID)
@@ -191,6 +191,6 @@ public class MineFragment extends BaseFragment1 {
                // DownloadApk.startDownload(App.mContext,durl);
             }
         });
-        updateDialog.show(getFragmentManager(), "update");
+        updateDialog.show(getActivity().getFragmentManager(), "update");
     }
 }

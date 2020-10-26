@@ -23,7 +23,7 @@ import com.bin.david.form.data.format.bg.BaseCellBackgroundFormat;
 import com.bin.david.form.data.style.FontStyle;
 import com.bin.david.form.data.table.TableData;
 import com.jeewms.www.wms.R;
-import com.jeewms.www.wms.base.BaseActivity1;
+import com.jeewms.www.wms.base.BaseActivity;
 import com.jeewms.www.wms.bean.ReceiveBillBean;
 import com.jeewms.www.wms.bean.ReceiveBillEntry;
 import com.jeewms.www.wms.bean.ReceivePush;
@@ -56,7 +56,7 @@ import butterknife.OnClick;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class ReceiveNoticeDetailActivity extends BaseActivity1 {
+public class ReceiveNoticeDetailActivity extends BaseActivity {
 
     @BindView(R.id.receiving_detail_title)
     TitleTopOrdersView detailTitle;
@@ -352,12 +352,12 @@ public class ReceiveNoticeDetailActivity extends BaseActivity1 {
                     startActivity(intent1);
                 } else {
                     ToastUtil.show(ReceiveNoticeDetailActivity.this,"下推失败");
-                    Intent intent1=new Intent(ReceiveNoticeDetailActivity.this, PurchaseWarehousingDetailActivity.class);
-                    Bundle bundle1=new Bundle();
-                    bundle1.putInt("fid",100043);
-                    bundle1.putString("fnumber","CGRK00004");
-                    intent1.putExtras(bundle1);
-                    startActivity(intent1);
+//                    Intent intent1=new Intent(ReceiveNoticeDetailActivity.this, PurchaseWarehousingDetailActivity.class);
+//                    Bundle bundle1=new Bundle();
+//                    bundle1.putInt("fid",100043);
+//                    bundle1.putString("fnumber","CGRK00004");
+//                    intent1.putExtras(bundle1);
+//                    startActivity(intent1);
                 }
             }
 

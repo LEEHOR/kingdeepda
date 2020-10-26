@@ -4,21 +4,23 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jeewms.www.wms.R;
-import com.jeewms.www.wms.base.BaseActivity1;
+import com.jeewms.www.wms.base.BaseActivity;
 import com.jeewms.www.wms.ui.view.TitleTopOrdersView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * @ProjectName: kingdeepda
  * @Package: com.jeewms.www.wms.ui.activity.productionWarehousing
  * @ClassName: ProductionWarehousingActivity
  * @Description: java类作用描述
- * 工序汇报页跳转的生产入库
+ * 生产入库
  * @Author: 作者名
  * @CreateDate: 2020/10/23 11:26
  * @UpdateUser: 更新者：
@@ -26,10 +28,14 @@ import butterknife.ButterKnife;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class ProductionWarehousingActivity extends BaseActivity1 {
+public class ProductionWarehousingActivity extends BaseActivity {
 
     @BindView(R.id.production_warehousing_title)
     TitleTopOrdersView productionWarehousingTitle;
+    @BindView(R.id.iv_add)
+    ImageView ivAdd;
+    @BindView(R.id.iv_scan)
+    ImageView ivScan;
 
     @Override
     protected int getContentResId() {
@@ -64,5 +70,16 @@ public class ProductionWarehousingActivity extends BaseActivity1 {
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
+    }
+
+    @OnClick({R.id.iv_add, R.id.iv_scan})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.iv_add:
+                ProductionWarehousingActivity.show(this);
+                break;
+            case R.id.iv_scan:
+                break;
+        }
     }
 }

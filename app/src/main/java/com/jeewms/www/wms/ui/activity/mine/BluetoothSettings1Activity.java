@@ -22,9 +22,8 @@ import android.widget.ProgressBar;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jeewms.www.wms.App;
-import com.jeewms.www.wms.BleRssiDevice;
 import com.jeewms.www.wms.R;
-import com.jeewms.www.wms.base.BaseActivity1;
+import com.jeewms.www.wms.base.BaseActivity;
 import com.jeewms.www.wms.bean.BluetoothDatesEntity;
 import com.jeewms.www.wms.receiver.BTBroadcastReceiver;
 import com.jeewms.www.wms.ui.adapter.BluetoothBindAdapter;
@@ -67,7 +66,7 @@ import cn.com.heaton.blelibrary.ble.utils.ByteUtils;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class BluetoothSettings1Activity extends BaseActivity1 {
+public class BluetoothSettings1Activity extends BaseActivity {
 
 
     @BindView(R.id.bluetooth_title)
