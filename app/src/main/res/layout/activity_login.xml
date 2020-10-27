@@ -23,12 +23,12 @@
         android:layout_height="35dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
-        android:paddingLeft="10dp"
         android:background="@drawable/edit_corner"
+        android:hint="用户名"
         android:inputType="text"
+        android:paddingLeft="10dp"
         android:textSize="@dimen/text_size"
-        app:layout_widthPercent="70%w"
-        android:hint="用户名" />
+        app:layout_widthPercent="70%w" />
 
     <EditText
         android:id="@+id/tv_password"
@@ -36,23 +36,23 @@
         android:layout_height="35dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
-        android:paddingLeft="10dp"
         android:background="@drawable/edit_corner"
+        android:hint="密码"
         android:inputType="textPassword"
+        android:paddingLeft="10dp"
         android:textSize="@dimen/text_size"
-        app:layout_widthPercent="70%w"
-        android:hint="密码" />
+        app:layout_widthPercent="70%w" />
 
     <TextView
         android:id="@+id/forgetPassword"
-        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
         android:layout_marginTop="5dp"
+        android:text="忘记密码？"
         android:textSize="@dimen/text_size"
-        app:layout_marginRightPercent="20%w"
-        android:text="忘记密码？" />
+        android:visibility="gone"
+        app:layout_marginRightPercent="20%w" />
 
     <Button
         android:id="@+id/btn_login"
@@ -61,56 +61,33 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
         android:background="@drawable/btn_select"
-        android:textSize="@dimen/text_size"
-        app:layout_widthPercent="70%w"
+        android:text="登录"
         android:textColor="@color/white"
-        android:text="登录" />
+        android:textSize="@dimen/text_size"
+        app:layout_widthPercent="70%w" />
 
     <Button
         android:id="@+id/btn_regist"
-        android:visibility="gone"
         android:layout_width="0dp"
         android:layout_height="35dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
         android:background="#00000000"
+        android:text="立即注册"
         android:textSize="@dimen/text_size"
-        app:layout_widthPercent="60%w"
-        android:text="立即注册" />
-
-    <RadioGroup
-        android:visibility="invisible"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        app:layout_widthPercent="70%w">
-
-        <RadioButton
-            android:id="@+id/radio1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:checked="true" />
-
-        <RadioButton
-            android:id="@+id/radio2"
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </RadioGroup>
-
+        android:visibility="gone"
+        app:layout_widthPercent="60%w" />
     <EditText
         android:id="@+id/tv_address"
-        android:visibility="invisible"
         android:layout_width="0dp"
         android:layout_height="35dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
-        android:paddingLeft="10dp"
         android:background="@drawable/edit_corner"
-        android:textSize="@dimen/text_size"
-        app:layout_widthPercent="70%w"
+        android:imeOptions="actionDone"
         android:hint="请输入地址"
-        android:text="http://" />
-
-
+        android:paddingLeft="10dp"
+        android:textSize="@dimen/text_size"
+        android:visibility="visible"
+        app:layout_widthPercent="70%w" />
 </com.zhy.android.percent.support.PercentLinearLayout>

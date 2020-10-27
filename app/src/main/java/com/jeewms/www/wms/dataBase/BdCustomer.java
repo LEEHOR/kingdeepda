@@ -59,4 +59,79 @@ public class BdCustomer extends LitePalSupport implements Serializable {
      */
     private String faddress;
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public Long getFcustid() {
+        return fcustid;
+    }
+
+    public void setFcustid(Long fcustid) {
+        this.fcustid = fcustid;
+    }
+
+    public String getFForbidStatus() {
+        return FForbidStatus;
+    }
+
+    public void setFForbidStatus(String FForbidStatus) {
+        this.FForbidStatus = FForbidStatus;
+    }
+
+    public String getFName() {
+        return FName;
+    }
+
+    public void setFName(String FName) {
+        this.FName = FName;
+    }
+
+    public String getFNumber() {
+        return FNumber;
+    }
+
+    public void setFNumber(String FNumber) {
+        this.FNumber = FNumber;
+    }
+
+    public String getFDescription() {
+        return FDescription;
+    }
+
+    public void setFDescription(String FDescription) {
+        this.FDescription = FDescription;
+    }
+
+    public Long getFCreateOrgId() {
+        return FCreateOrgId;
+    }
+
+    public void setFCreateOrgId(Long FCreateOrgId) {
+        this.FCreateOrgId = FCreateOrgId;
+    }
+
+    public Long getFtradingcurrid() {
+        return ftradingcurrid;
+    }
+
+    public void setFtradingcurrid(Long ftradingcurrid) {
+        this.ftradingcurrid = ftradingcurrid;
+    }
+
+    public String getFCustTypeId() {
+        return FCustTypeId;
+    }
+
+    public void setFCustTypeId(String FCustTypeId) {
+        this.FCustTypeId = FCustTypeId;
+    }
+
+    public String getFaddress() {
+        return faddress;
+    }
+
+    public void setFaddress(String faddress) {
+        this.faddress = faddress;
+    }
 }

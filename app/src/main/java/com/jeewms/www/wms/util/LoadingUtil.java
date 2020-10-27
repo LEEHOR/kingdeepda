@@ -13,13 +13,15 @@ import com.jeewms.www.wms.ui.view.LoadingView;
 
 public class LoadingUtil {
 
-    private static  LoadingView loading;
-    public static void showLoading(Context context){
+    private static LoadingView loading;
+
+    public static void showLoading(Context context) {
         loading = new LoadingView(context, R.style.CustomDialog);
         loading.show();
     }
-    public static void hideLoading(){
-        if(null!=loading){
+
+    public static void hideLoading() {
+        if (null != loading) {
             new Handler().postDelayed(new Runnable() {//定义延时任务模仿网络请求
                 @Override
                 public void run() {
@@ -30,23 +32,25 @@ public class LoadingUtil {
     }
 
 
-
     private static ProgressDialog progressDialog;
+
     //进度条
-    public static void ShowProgress(Context context,String message){
-        if (progressDialog ==null){
+    public static void ShowProgress(Context context, String message) {
+        if (progressDialog == null) {
             progressDialog = new ProgressDialog(context);
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.setMessage(message);
             progressDialog.setCancelable(true);
         }
-        progressDialog.show();
-
+        if (!progressDialog.isShowing()) {
+            progressDialog.show();
+        }
     }
+
     //关闭进度条
-    public static void CancelProgress(){
-        if (progressDialog !=null){
-            if (progressDialog.isShowing()){
+    public static void CancelProgress() {
+        if (progressDialog != null) {
+            if (progressDialog.isShowing()) {
                 progressDialog.cancel();
             }
         }

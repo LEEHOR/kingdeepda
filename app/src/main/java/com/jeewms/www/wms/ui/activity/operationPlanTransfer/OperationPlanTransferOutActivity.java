@@ -37,7 +37,7 @@ public class OperationPlanTransferOutActivity extends BaseActivity {
     }
 
     public static void show(Context context) {
-        Intent intent = new Intent(context, OperationPlanActivity.class);
+        Intent intent = new Intent(context, OperationPlanTransferOutActivity.class);
         context.startActivity(intent);
     }
     @Override

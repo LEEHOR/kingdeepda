@@ -16,8 +16,10 @@ import android.widget.TextView;
 
 import com.jeewms.www.wms.R;
 import com.jeewms.www.wms.base.BaseDialogFragment;
+import com.jeewms.www.wms.bean.InStockEntryBean;
 import com.jeewms.www.wms.bean.MaterialListBean;
 import com.jeewms.www.wms.bean.ProjectListBean;
+import com.next.easynavigation.utils.NavigationUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,19 +59,21 @@ public class PurchaseOrderAddDialog extends BaseDialogFragment {
     @BindView(R.id.tv_fstockName)
     TextView tvFstockName;
     @BindView(R.id.tv_fpurorgNum)
-    TextView tvFpurorgNum;
+    EditText tvFpurorgNum;
     @BindView(R.id.tv_factreceiveQty)
-    TextView tvFactreceiveQty;
+    EditText tvFactreceiveQty;
     @BindView(R.id.tv_fsupdelQty)
-    TextView tvFsupdelQty;
+    EditText tvFsupdelQty;
     @BindView(R.id.tv_priceUnitQty)
-    TextView tvPriceUnitQty;
+    EditText tvPriceUnitQty;
     @BindView(R.id.tv_fpriceunitName)
     TextView tvFpriceunitName;
     @BindView(R.id.tv_fpurorgName)
     TextView tvFpurorgName;
-    private MaterialListBean.DataEntity materialDate;
-    private ProjectListBean.DataEntity projectDate;
+
+private InStockEntryBean.DataEntity body=new InStockEntryBean.DataEntity();
+    private int mSelect=9999;
+    private int pSelect=9999;
 
 
     public static PurchaseOrderAddDialog newInstance(String title, int type) {
@@ -122,7 +126,7 @@ public class PurchaseOrderAddDialog extends BaseDialogFragment {
             window.getDecorView().setPadding(0, 0, 0, 0);
             window.setBackgroundDrawableResource(R.drawable.bg_fff_background);
             window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-           // window.setGravity(Gravity.BOTTOM);
+            // window.setGravity(Gravity.BOTTOM);
             window.setWindowAnimations(R.style.bottom_in_out_animation);
         }
     }
@@ -139,7 +143,7 @@ public class PurchaseOrderAddDialog extends BaseDialogFragment {
     }
 
 
-    @OnClick({R.id.purchase_order_add_close, R.id.purchase_order_add_complete, R.id.tv_projectName, R.id.tv_fmaterialName, R.id.tv_fstockName})
+    @OnClick({R.id.purchase_order_add_close, R.id.purchase_order_add_complete, R.id.tv_projectName, R.id.tv_fmaterialName, R.id.tv_fstockName,R.id.tv_fpriceunitName})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.purchase_order_add_close:
@@ -149,7 +153,7 @@ public class PurchaseOrderAddDialog extends BaseDialogFragment {
                 break;
             case R.id.purchase_order_add_complete:
                 if (onAddOrderListeners != null) {
-                    onAddOrderListeners.onConfirm(materialDate, projectDate);
+                    onAddOrderListeners.onConfirm(body);
                 }
                 Close();
                 break;
@@ -160,20 +164,24 @@ public class PurchaseOrderAddDialog extends BaseDialogFragment {
                 Materialdialog();
                 break;
             case R.id.tv_fstockName:
-
+                Stock();
                 break;
         }
     }
 
-    private void Materialdialog(){
-        final MaterialDialog materialDialog = MaterialDialog.newInstance();
+    //物料
+    private void Materialdialog() {
+        final MaterialDialog materialDialog = MaterialDialog.newInstance(mSelect);
         materialDialog.setListener(new MaterialDialog.MaterialSelectListener() {
             @Override
-            public void onConfirm(MaterialListBean.DataEntity dataEntity) {
-                materialDate=dataEntity;
-                tvFmaterialName.setText(dataEntity.getFname());
-                tvFmaterialNum.setText(dataEntity.getFnumber());
-                tvFmaterialSpecification.setText(dataEntity.getFspecification());
+            public void onConfirm(String name, String number, String specification,int position) {
+                mSelect=position;
+                tvFmaterialName.setText(name);
+                tvFmaterialNum.setText(number);
+                tvFmaterialSpecification.setText(specification);
+                body.setFmaterialName(name);
+                body.setFmaterialNumber(number);
+                body.setFspecification(specification);
             }
 
             @Override
@@ -181,17 +189,19 @@ public class PurchaseOrderAddDialog extends BaseDialogFragment {
                 materialDialog.Close();
             }
         });
-        materialDialog.show(getActivity().getFragmentManager(),"物料");
+        materialDialog.show(getActivity().getFragmentManager(), "物料");
     }
 
-    private void Projectdialog(){
-        final ProjectDialog projectDialog = ProjectDialog.newInstance();
+    private void Projectdialog() {
+        final ProjectDialog projectDialog = ProjectDialog.newInstance(pSelect);
         projectDialog.setListener(new ProjectDialog.ProjectSelectListener() {
             @Override
-            public void onConfirm(ProjectListBean.DataEntity dataEntity) {
-                projectDate=dataEntity;
-                tvProjectName.setText(dataEntity.getFname());
-                tvProjectNum.setText(dataEntity.getFname());
+            public void onConfirm(String name, String number,int position) {
+                pSelect=position;
+                tvProjectName.setText(name);
+                tvProjectNum.setText(number);
+                body.setProjectName(name);
+                body.setProjectNumber(number);
             }
 
             @Override
@@ -199,12 +209,30 @@ public class PurchaseOrderAddDialog extends BaseDialogFragment {
                 projectDialog.Close();
             }
         });
-        projectDialog.show(getActivity().getFragmentManager(),"物料");
+        projectDialog.show(getActivity().getFragmentManager(), "物料");
+    }
+    //仓库
+    private void Stock(){
+        final StockDialog stockDialog=StockDialog.newInstance(999);
+        stockDialog.setListener(new StockDialog.StockSelectListener() {
+            @Override
+            public void onConfirm(String name, String number, int position) {
+                tvFstockName.setText(name);
+                body.setFstockStatusName(name);
+                body.setFstockNumber(name);
+            }
+
+            @Override
+            public void onClose() {
+                stockDialog.Close();
+            }
+        });
+        stockDialog.show(getActivity().getFragmentManager(),"仓库");
     }
 
     public interface OnAddOrderListener {
         //项目编码  物料编码
-        void onConfirm(MaterialListBean.DataEntity materialDate, ProjectListBean.DataEntity projectDate);
+        void onConfirm(InStockEntryBean.DataEntity body);
 
         void onClose();
     }

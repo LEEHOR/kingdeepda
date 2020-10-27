@@ -9,7 +9,6 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <TextView
             style="@style/mine_fragment"
             android:id="@+id/tv_materialdialog"
@@ -17,7 +16,6 @@
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
         <TextView
             style="@style/mine_fragment"
             android:id="@+id/tv_materialdialog2"

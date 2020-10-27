@@ -2,36 +2,35 @@ package com.jeewms.www.wms.ui.dialog;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.ajguan.library.EasyRefreshLayout;
-import com.android.volley.VolleyError;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jeewms.www.wms.R;
 import com.jeewms.www.wms.base.BaseDialogFragment;
-import com.jeewms.www.wms.bean.MaterialListBean;
-import com.jeewms.www.wms.bean.SupplierBean;
-import com.jeewms.www.wms.constance.Constance;
-import com.jeewms.www.wms.ui.dialog.adapter.MaterialDialogAdapter;
+import com.jeewms.www.wms.dataBase.BdStock;
+import com.jeewms.www.wms.dataBase.BdSupplier;
 import com.jeewms.www.wms.ui.dialog.adapter.SupplierDialogAdapter;
-import com.jeewms.www.wms.util.GsonUtils;
+import com.jeewms.www.wms.util.LitepalSelect;
 import com.jeewms.www.wms.util.LocalDisplay;
 import com.jeewms.www.wms.util.decoration.SpacesItemDecoration;
-import com.jeewms.www.wms.volley.HTTPUtils;
-import com.jeewms.www.wms.volley.VolleyListener;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 /**
  * @ProjectName: kingdeepda
@@ -53,14 +52,25 @@ public class SupplierDialog extends BaseDialogFragment {
     RecyclerView dialogRecycler;
     @BindView(R.id.dialog_refresh)
     EasyRefreshLayout dialogRefresh;
+    @BindView(R.id.dialog_title)
+    TextView dialogTitle;
+    @BindView(R.id.dialog_search)
+    SearchView dialogSearch;
+    Unbinder unbinder;
     private SupplierDialogAdapter adapter;
-    private int PAGE = 1;
-    private int LIMIT = 10;
 
-    public static SupplierDialog newInstance() {
+    //起始偏移
+    private int OFFSET = 0;
+    private int SELECTION = 9999;
+
+    public static SupplierDialog newInstance(int selection) {
         SupplierDialog purchaseOrderAddDialog = new SupplierDialog();
+        Bundle bundle = new Bundle();
+        bundle.putInt("select", selection);
+        purchaseOrderAddDialog.setArguments(bundle);
         return purchaseOrderAddDialog;
     }
+
     @Override
     protected int getLayoutId() {
         return R.layout.dialog_material;
@@ -68,12 +78,29 @@ public class SupplierDialog extends BaseDialogFragment {
 
     @Override
     protected void initView() {
-        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getActivity());
+        if (getArguments() != null) {
+            SELECTION = getArguments().getInt("select");
+        }
+        dialogTitle.setText("供应商选择");
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         adapter = new SupplierDialogAdapter(R.layout.item_dialog_material_select);
         dialogRecycler.setLayoutManager(linearLayoutManager);
         dialogRecycler.setAdapter(adapter);
         LocalDisplay.init(getActivity());
-        dialogRecycler.addItemDecoration(new SpacesItemDecoration(LocalDisplay.dp2px(5),LocalDisplay.dp2px(5),getResources().getColor(R.color.actions_background_light)));
+        dialogRecycler.addItemDecoration(new SpacesItemDecoration(LocalDisplay.dp2px(5), LocalDisplay.dp2px(5), getResources().getColor(R.color.actions_background_light)));
+        dialogSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                searchLike(s);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                searchLike(s);
+                return false;
+            }
+        });
     }
 
     @Override
@@ -93,9 +120,9 @@ public class SupplierDialog extends BaseDialogFragment {
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                SupplierBean.DataEntity dataEntity= (SupplierBean.DataEntity) adapter.getItem(position);
+                BdSupplier dataEntity = (BdSupplier) adapter.getItem(position);
                 if (listener != null) {
-                    listener.onConfirm(dataEntity);
+                    listener.onConfirm(dataEntity.getFname(), dataEntity.getFnumber(), position);
                 }
                 Close();
             }
@@ -105,6 +132,15 @@ public class SupplierDialog extends BaseDialogFragment {
     @Override
     public void initAnimate() {
 
+    }
+
+    private void searchLike(String s) {
+        adapter.getData().clear();
+        adapter.notifyDataSetChanged();
+        List<BdSupplier> byLike = LitepalSelect.findByLike(BdSupplier.class, s);
+        if (byLike != null && byLike.size() > 0) {
+            adapter.setNewData(byLike);
+        }
     }
 
     @Override
@@ -129,7 +165,7 @@ public class SupplierDialog extends BaseDialogFragment {
             window.getDecorView().setPadding(0, 0, 0, 0);
             window.setBackgroundDrawableResource(R.drawable.bg_fff_background);
             window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-           // window.setGravity(Gravity.BOTTOM);
+            // window.setGravity(Gravity.BOTTOM);
             window.setWindowAnimations(R.style.bottom_in_out_animation);
         }
     }
@@ -139,6 +175,7 @@ public class SupplierDialog extends BaseDialogFragment {
         super.onResume();
         getMaterialList(0);
     }
+
     @OnClick(R.id.dialog_close)
     public void onViewClicked() {
         if (listener != null) {
@@ -146,67 +183,61 @@ public class SupplierDialog extends BaseDialogFragment {
         }
     }
 
-    private void getMaterialList(final int type){
-        if (type==0) {
-            this.PAGE=1;
+    private void getMaterialList(final int type) {
+        if (type == 0) {
+            this.OFFSET = 0;
             adapter.getData().clear();
             adapter.notifyDataSetChanged();
         }
-        String supplier = Constance.getSupplier();
-        String s = supplier + "?" + "page=" + PAGE + "&limit=" + LIMIT;
-        HTTPUtils.get(getActivity(), s, new VolleyListener<String>() {
-            @Override
-            public void requestComplete() {
-
-            }
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                if (type == 1) {
-                    dialogRefresh.refreshComplete();
-                } else {
-                    dialogRefresh.loadMoreFail();
+        List<BdSupplier> byAll = LitepalSelect.findByAll(BdSupplier.class, OFFSET);
+        if (byAll != null) {
+            OFFSET += 10;
+            if (type == 0) {
+                adapter.setSelect(byAll, SELECTION, type);
+                dialogRefresh.refreshComplete();
+            } else {
+                dialogRefresh.loadMoreComplete();
+                if (byAll.size() > 0) {
+                    adapter.setSelect(byAll, SELECTION, type);
                 }
             }
-
-            @Override
-            public void onResponse(String response) {
-                SupplierBean vm = GsonUtils.parseJSON(response, SupplierBean.class);
-                if (vm.getCode()==0){
-                    PAGE++;
-                    List<SupplierBean.DataEntity> data = vm.getData();
-                    if (type==0){
-                        adapter.setNewData(vm.getData());
-                        dialogRefresh.refreshComplete();
-                    } else {
-                        dialogRefresh.loadMoreComplete();
-                        if (data.size() > 0) {
-                            adapter.addData(data);
-                        }
-                    }
-                } else {
-                    if (type==0){
-                        dialogRefresh.refreshComplete();
-                    } else {
-                        dialogRefresh.loadMoreComplete();
-                    }
-                }
+        } else {
+            if (type == 0) {
+                dialogRefresh.refreshComplete();
+            } else {
+                dialogRefresh.loadMoreComplete();
             }
-        });
+        }
+
     }
 
     public void Close() {
         this.dismiss();
     }
+
     private SupplierSelectListener listener;
 
     public void setListener(SupplierSelectListener supplierSelectListener) {
         this.listener = supplierSelectListener;
     }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
     public interface SupplierSelectListener {
         //项目编码  物料编码
-        void onConfirm(SupplierBean.DataEntity dataEntity);
+        void onConfirm(String name, String number, int position);
 
         void onClose();
     }

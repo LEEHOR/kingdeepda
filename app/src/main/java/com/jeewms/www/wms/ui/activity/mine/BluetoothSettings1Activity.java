@@ -119,7 +119,6 @@ public class BluetoothSettings1Activity extends BaseActivity {
     protected void initfun() {
         ble = Ble.getInstance();
         initBleStatus();
-        LocalDisplay.init(App.getmApplicationContext());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         bluetoothBindAdapter = new BluetoothBindAdapter(R.layout.item_bluetooth, BluetoothDatesEntity.bleDevices);
         optionRecyclerView.setLayoutManager(linearLayoutManager);

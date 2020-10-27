@@ -74,4 +74,99 @@ public class BdEmpinfo extends LitePalSupport implements Serializable {
      */
     private Integer status;
 
+    public Long getFid() {
+        return fid;
+    }
+
+    public void setFid(Long fid) {
+        this.fid = fid;
+    }
+
+    public String getFforbidstatus() {
+        return fforbidstatus;
+    }
+
+    public void setFforbidstatus(String fforbidstatus) {
+        this.fforbidstatus = fforbidstatus;
+    }
+
+    public String getFname() {
+        return fname;
+    }
+
+    public void setFname(String fname) {
+        this.fname = fname;
+    }
+
+    public String getFnumber() {
+        return fnumber;
+    }
+
+    public void setFnumber(String fnumber) {
+        this.fnumber = fnumber;
+    }
+
+    public String getFstaffnumber() {
+        return fstaffnumber;
+    }
+
+    public void setFstaffnumber(String fstaffnumber) {
+        this.fstaffnumber = fstaffnumber;
+    }
+
+    public String getFmobile() {
+        return fmobile;
+    }
+
+    public void setFmobile(String fmobile) {
+        this.fmobile = fmobile;
+    }
+
+    public String getFemail() {
+        return femail;
+    }
+
+    public void setFemail(String femail) {
+        this.femail = femail;
+    }
+
+    public String getFtel() {
+        return ftel;
+    }
+
+    public void setFtel(String ftel) {
+        this.ftel = ftel;
+    }
+
+    public String getFdescription() {
+        return fdescription;
+    }
+
+    public void setFdescription(String fdescription) {
+        this.fdescription = fdescription;
+    }
+
+    public Integer getPdaFlag() {
+        return pdaFlag;
+    }
+
+    public void setPdaFlag(Integer pdaFlag) {
+        this.pdaFlag = pdaFlag;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 }

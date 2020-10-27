@@ -80,38 +80,27 @@ public class MineFragment extends BaseFragment {
 
     }
 
-    private void sign_out() {
-        Map<String, String> params = new HashMap<>();
-        String loginURL = Constance.getLoginURL();
-        HTTPUtils.post(getActivity(), loginURL, params, new VolleyListener<String>() {
-            @Override
-            public void requestComplete() {
-
-            }
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                ToastUtil.show(getActivity(), "网络连接失败");
-            }
-
-            @Override
-            public void onResponse(String response) {
-                LoginVm vm = GsonUtils.parseJSON(response, LoginVm.class);
-                if (vm.getCode() == 0) {
-                    removeUerInfo();
-                    LoginActivity.show(getActivity());
-                } else {
-                    ToastUtil.show(getActivity(), vm.getMsg());
-                }
-            }
-        });
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden){
+            String user_account = SharedPreferencesUtil.getInstance(getActivity()).getKeyValue(Shared.userAccount);
+            String user_phone = SharedPreferencesUtil.getInstance(getActivity()).getKeyValue(Shared.userPhone);
+            userAccount.setText(user_account);
+            userID.setText(user_phone);
+        }
     }
 
     /**
      * 清除用户信息
      */
     private void removeUerInfo() {
-        SharedPreferencesUtil.getInstance(getActivity()).clear();
+        SharedPreferencesUtil.getInstance(getActivity()).remove(Shared.PASSWORD);
+        SharedPreferencesUtil.getInstance(getActivity()).remove(Shared.userAccount);
+        SharedPreferencesUtil.getInstance(getActivity()).remove(Shared.userPhone);
+        SharedPreferencesUtil.getInstance(getActivity()).remove(Shared.TOKEN);
+        SharedPreferencesUtil.getInstance(getActivity()).remove(Shared.userID);
+        LoginActivity.show(getActivity());
     }
 
     private void showDialog() {
@@ -119,7 +108,7 @@ public class MineFragment extends BaseFragment {
                 .setMessage(getResources().getString(R.string.mine_dialog_msg)).setPositiveButton(getResources().getString(R.string.mine_dialog_ok), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        //sign_out();
+                        removeUerInfo();
                     }
                 }).setNegativeButton(getResources().getString(R.string.mine_dialog_cancel), new DialogInterface.OnClickListener() {
                     @Override
@@ -160,12 +149,11 @@ public class MineFragment extends BaseFragment {
     private void checkVersion(){
         Map<String,String> params=new HashMap<>();
         String newVersionUrl = Constance.getNewVersion();
-        HTTPUtils.post(getActivity(), newVersionUrl, params, new VolleyListener<String>() {
+        HTTPUtils.getInstance(getActivity()).post(getActivity(), newVersionUrl, params, new VolleyListener<String>() {
             @Override
             public void requestComplete() {
 
             }
-
             @Override
             public void onErrorResponse(VolleyError error) {
                 ToastUtil.show(getActivity(), error.getMessage());
@@ -181,14 +169,36 @@ public class MineFragment extends BaseFragment {
                 }
             }
         });
+//        HTTPUtils.post(getActivity(), newVersionUrl, params, new VolleyListener<String>() {
+//            @Override
+//            public void requestComplete() {
+//
+//            }
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                ToastUtil.show(getActivity(), error.getMessage());
+//            }
+//
+//            @Override
+//            public void onResponse(String response) {
+//                NewVersionBean vm = GsonUtils.parseJSON(response, NewVersionBean.class);
+//                if (vm.getCode()==0){
+//                    DialogVersion(vm.getVersion(),vm.getFocusUpdate(),vm.getRemark(),vm.getUrl());
+//                }else {
+//                    ToastUtil.show(getActivity(), vm.getMsg());
+//                }
+//            }
+//        });
 
     }
     private void DialogVersion(String versionName, int isForceUpdate, String remark, final String durl){
-        UpdateDialog updateDialog = UpdateDialog.newInstance(versionName,isForceUpdate,remark);
+        final UpdateDialog updateDialog = UpdateDialog.newInstance(versionName,isForceUpdate,remark);
         updateDialog.setOnUpdateListener(new UpdateDialog.OnUpdateListener() {
             @Override
             public void onConfirm() {
-               // DownloadApk.startDownload(App.mContext,durl);
+                if (durl==null){
+                    updateDialog.dismiss();
+                }
             }
         });
         updateDialog.show(getActivity().getFragmentManager(), "update");

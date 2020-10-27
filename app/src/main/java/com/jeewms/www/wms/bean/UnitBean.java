@@ -1,5 +1,7 @@
 package com.jeewms.www.wms.bean;
 
+import com.jeewms.www.wms.dataBase.BdUnit;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -17,61 +19,37 @@ import java.util.List;
  */
 public class UnitBean  implements Serializable {
 
+
     /**
+     * msg : 操作成功
      * code : 0
-     * data : [{"fname":"米","fnumber":"m"},{"fname":"千米","fnumber":"km"},{"fname":"厘米","fnumber":"cm"},{"fname":"千克","fnumber":"kg"},{"fname":"吨","fnumber":"ton"}]
-     * count : 35
+     * data : [{"fdocumentStatus":"C","fname":"米","fforbidStatus":"A","funitid":10087,"fnumber":"m","funitGroupId":10081},{"fdocumentStatus":"C","fname":"千米","fforbidStatus":"A","funitid":10088,"fnumber":"km","funitGroupId":10081}]
      */
+    private String msg;
     private int code;
-    private List<DataEntity> data;
-    private int count;
+    private List<BdUnit> data;
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
 
     public void setCode(int code) {
         this.code = code;
     }
 
-    public void setData(List<DataEntity> data) {
+    public void setData(List<BdUnit> data) {
         this.data = data;
     }
 
-    public void setCount(int count) {
-        this.count = count;
+    public String getMsg() {
+        return msg;
     }
 
     public int getCode() {
         return code;
     }
 
-    public List<DataEntity> getData() {
+    public List<BdUnit> getData() {
         return data;
-    }
-
-    public int getCount() {
-        return count;
-    }
-
-    public class DataEntity {
-        /**
-         * fname : 米
-         * fnumber : m
-         */
-        private String fname;
-        private String fnumber;
-
-        public void setFname(String fname) {
-            this.fname = fname;
-        }
-
-        public void setFnumber(String fnumber) {
-            this.fnumber = fnumber;
-        }
-
-        public String getFname() {
-            return fname;
-        }
-
-        public String getFnumber() {
-            return fnumber;
-        }
     }
 }

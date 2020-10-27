@@ -2,36 +2,34 @@ package com.jeewms.www.wms.ui.dialog;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.ajguan.library.EasyRefreshLayout;
-import com.android.volley.VolleyError;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jeewms.www.wms.R;
 import com.jeewms.www.wms.base.BaseDialogFragment;
-import com.jeewms.www.wms.bean.CurrencyBean;
-import com.jeewms.www.wms.bean.MaterialListBean;
-import com.jeewms.www.wms.constance.Constance;
+import com.jeewms.www.wms.dataBase.BdCurrency;
 import com.jeewms.www.wms.ui.dialog.adapter.CurrencyDialogAdapter;
-import com.jeewms.www.wms.ui.dialog.adapter.MaterialDialogAdapter;
-import com.jeewms.www.wms.util.GsonUtils;
+import com.jeewms.www.wms.util.LitepalSelect;
 import com.jeewms.www.wms.util.LocalDisplay;
 import com.jeewms.www.wms.util.decoration.SpacesItemDecoration;
-import com.jeewms.www.wms.volley.HTTPUtils;
-import com.jeewms.www.wms.volley.VolleyListener;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 /**
  * @ProjectName: kingdeepda
@@ -53,14 +51,23 @@ public class CurrencyDialog extends BaseDialogFragment {
     RecyclerView dialogRecycler;
     @BindView(R.id.dialog_refresh)
     EasyRefreshLayout dialogRefresh;
-    private CurrencyDialogAdapter adapter;
-    private int PAGE = 1;
-    private int LIMIT = 10;
+    @BindView(R.id.dialog_title)
+    TextView dialogTitle;
+    @BindView(R.id.dialog_search)
+    SearchView dialogSearch;
+    Unbinder unbinder;
+    private CurrencyDialogAdapter adapters;
+    private int OFFSET = 0;
+    private int SELECTION = 9999;
 
-    public static CurrencyDialog newInstance() {
+    public static CurrencyDialog newInstance(int selection) {
         CurrencyDialog purchaseOrderAddDialog = new CurrencyDialog();
+        Bundle bundle = new Bundle();
+        bundle.putInt("select", selection);
+        purchaseOrderAddDialog.setArguments(bundle);
         return purchaseOrderAddDialog;
     }
+
     @Override
     protected int getLayoutId() {
         return R.layout.dialog_material;
@@ -68,12 +75,29 @@ public class CurrencyDialog extends BaseDialogFragment {
 
     @Override
     protected void initView() {
-        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getActivity());
-        adapter = new CurrencyDialogAdapter(R.layout.item_dialog_material_select);
+        if (getArguments() != null) {
+            SELECTION = getArguments().getInt("select");
+        }
+        dialogTitle.setText("币别选择");
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        adapters = new CurrencyDialogAdapter(R.layout.item_dialog_material_select, getActivity());
         dialogRecycler.setLayoutManager(linearLayoutManager);
-        dialogRecycler.setAdapter(adapter);
+        dialogRecycler.setAdapter(adapters);
         LocalDisplay.init(getActivity());
-        dialogRecycler.addItemDecoration(new SpacesItemDecoration(LocalDisplay.dp2px(5),LocalDisplay.dp2px(5),getResources().getColor(R.color.actions_background_light)));
+        dialogRecycler.addItemDecoration(new SpacesItemDecoration(LocalDisplay.dp2px(5), LocalDisplay.dp2px(5), getResources().getColor(R.color.actions_background_light)));
+        dialogSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                searchLike(s);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                searchLike(s);
+                return false;
+            }
+        });
     }
 
     @Override
@@ -81,21 +105,23 @@ public class CurrencyDialog extends BaseDialogFragment {
         dialogRefresh.addEasyEvent(new EasyRefreshLayout.EasyEvent() {
             @Override
             public void onLoadMore() {
-                getMaterialList(1);
+                getBdCurrency(1);
             }
 
             @Override
             public void onRefreshing() {
-                getMaterialList(0);
+                getBdCurrency(0);
             }
         });
 
-        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+        adapters.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                CurrencyBean.DataEntity dataEntity= (CurrencyBean.DataEntity) adapter.getItem(position);
+                BdCurrency dataEntity = (BdCurrency) adapter.getItem(position);
+                adapters.setSelectPosition(position);
+                adapters.notifyDataSetChanged();
                 if (listener != null) {
-                    listener.onConfirm(dataEntity);
+                    listener.onConfirm(dataEntity.getFname(), dataEntity.getFname());
                 }
                 Close();
             }
@@ -129,7 +155,7 @@ public class CurrencyDialog extends BaseDialogFragment {
             window.getDecorView().setPadding(0, 0, 0, 0);
             window.setBackgroundDrawableResource(R.drawable.bg_fff_background);
             window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-           // window.setGravity(Gravity.BOTTOM);
+            // window.setGravity(Gravity.BOTTOM);
             window.setWindowAnimations(R.style.bottom_in_out_animation);
         }
     }
@@ -137,8 +163,9 @@ public class CurrencyDialog extends BaseDialogFragment {
     @Override
     public void onResume() {
         super.onResume();
-        getMaterialList(0);
+        getBdCurrency(0);
     }
+
     @OnClick(R.id.dialog_close)
     public void onViewClicked() {
         if (listener != null) {
@@ -146,67 +173,69 @@ public class CurrencyDialog extends BaseDialogFragment {
         }
     }
 
-    private void getMaterialList(final int type){
-        if (type==0) {
-            this.PAGE=1;
-            adapter.getData().clear();
-            adapter.notifyDataSetChanged();
+    private void searchLike(String s){
+        adapters.getData().clear();
+        adapters.notifyDataSetChanged();
+        List<BdCurrency> byLike = LitepalSelect.findByLike(BdCurrency.class, s);
+        if (byLike != null && byLike.size()>0) {
+            adapters.setNewData(byLike);
         }
-        String current = Constance.getCurrent();
-        String s = current + "?" + "page=" + PAGE + "&limit=" + LIMIT;
-        HTTPUtils.get(getActivity(), s, new VolleyListener<String>() {
-            @Override
-            public void requestComplete() {
+    }
 
-            }
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                if (type == 1) {
-                    dialogRefresh.refreshComplete();
-                } else {
-                    dialogRefresh.loadMoreFail();
+    private void getBdCurrency(final int type) {
+        if (type == 0) {
+            this.OFFSET = 0;
+            adapters.getData().clear();
+            adapters.notifyDataSetChanged();
+        }
+        List<BdCurrency> byAll = LitepalSelect.findByAll(BdCurrency.class, OFFSET);
+        if (byAll != null) {
+            OFFSET += 10;
+            if (type == 0) {
+                adapters.setSelect(byAll, type);
+                dialogRefresh.refreshComplete();
+            } else {
+                dialogRefresh.loadMoreComplete();
+                if (byAll.size() > 0) {
+                    adapters.setSelect(byAll, type);
                 }
             }
-
-            @Override
-            public void onResponse(String response) {
-                CurrencyBean vm = GsonUtils.parseJSON(response, CurrencyBean.class);
-                if (vm.getCode()==0){
-                    PAGE++;
-                    List<CurrencyBean.DataEntity> data = vm.getData();
-                    if (type==0){
-                        adapter.setNewData(vm.getData());
-                        dialogRefresh.refreshComplete();
-                    } else {
-                        dialogRefresh.loadMoreComplete();
-                        if (data.size() > 0) {
-                            adapter.addData(data);
-                        }
-                    }
-                } else {
-                    if (type==0){
-                        dialogRefresh.refreshComplete();
-                    } else {
-                        dialogRefresh.loadMoreComplete();
-                    }
-                }
+        } else {
+            if (type == 0) {
+                dialogRefresh.refreshComplete();
+            } else {
+                dialogRefresh.loadMoreComplete();
             }
-        });
+        }
     }
 
     public void Close() {
         this.dismiss();
     }
+
     private CurrencySelectListener listener;
 
     public void setListener(CurrencySelectListener currencySelectListener) {
         this.listener = currencySelectListener;
     }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
     public interface CurrencySelectListener {
         //项目编码  物料编码
-        void onConfirm(CurrencyBean.DataEntity currencyBean);
+        void onConfirm(String name, String number);
 
         void onClose();
     }

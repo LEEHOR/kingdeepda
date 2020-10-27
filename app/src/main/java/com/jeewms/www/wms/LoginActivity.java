@@ -18,6 +18,7 @@ import com.jeewms.www.wms.base.BaseActivity;
 import com.jeewms.www.wms.bean.LoginVm;
 import com.jeewms.www.wms.constance.Constance;
 import com.jeewms.www.wms.constance.Shared;
+import com.jeewms.www.wms.ui.dialog.UpdateBaseDataDialog;
 import com.jeewms.www.wms.util.GsonUtils;
 import com.jeewms.www.wms.util.SharedPreferencesUtil;
 import com.jeewms.www.wms.util.StringUtil;
@@ -49,14 +50,8 @@ public class LoginActivity extends BaseActivity {
     Button btnRegist;
     @BindView(R.id.tv_address)
     EditText tvAddress;
-    @BindView(R.id.radio1)
-    RadioButton radio1;
-    @BindView(R.id.radio2)
-    RadioButton radio2;
-    String addressTemp;
     String addressPer;
     private long exitTime = 0;
-
     public static void show(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);
         context.startActivity(intent);
@@ -70,7 +65,8 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        setAddress();
+        String keyValue = SharedPreferencesUtil.getInstance(this).getKeyValue(Shared.BASEURL,Constance.getBaseUrl());
+        tvAddress.setText(keyValue);
         if(!StringUtil.isEmpty(SharedPreferencesUtil.getInstance(this).getKeyValue(Constance.SHAREP.LOGINNAME))&&tvUserName!=null){
             tvUserName.setText(SharedPreferencesUtil.getInstance(this).getKeyValue(Constance.SHAREP.LOGINNAME));
             tvPassword.setFocusable(true);
@@ -91,17 +87,14 @@ public class LoginActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                radio2.setText(addressTemp);
-                radio2.setVisibility(View.VISIBLE);
-                radio1.setText(addressPer);
             }
         });
     }
 
     @Override
     protected void initfun() {
-
     }
+
 
     @OnClick({R.id.forgetPassword, R.id.btn_login, R.id.btn_regist})
     public void onViewClicked(View view) {
@@ -119,6 +112,8 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void check() {
+        setAddress();
+        HTTPUtils.getInstance(this).cleanerCathe();
         if (StringUtil.isEmpty(tvUserName.getText().toString())) {
             ToastUtil.show(this, "请输入用户名");
             return;
@@ -134,17 +129,8 @@ public class LoginActivity extends BaseActivity {
         Map<String, String> params = new HashMap<>();
         params.put("username", username);
         params.put("password", password);
-        if(radio1!=null) {
-            if (radio1.isChecked()) {
-                Constance.setBaseUrl(radio1.getText().toString());
-            } else {
-                Constance.setBaseUrl(radio2.getText().toString());
-            }
-        }else{
-            Constance.setBaseUrl(SharedPreferencesUtil.getInstance(this).getKeyValue(Constance.SHAREP.HTTPADDRESS));
-        }
         String loginURL = Constance.getLoginURL();
-        HTTPUtils.post(this, loginURL, params, new VolleyListener<String>() {
+        HTTPUtils.getInstance(this).post(this, loginURL, params, new VolleyListener<String>() {
             @Override
             public void requestComplete() {
 
@@ -159,53 +145,55 @@ public class LoginActivity extends BaseActivity {
             public void onResponse(String response) {
                 LoginVm vm = GsonUtils.parseJSON(response, LoginVm.class);
                 if (vm.getCode()==0) {
-
                     savePassword(vm.getData().getFuserAccount(),vm.getData().getFuserID(),vm.getData().getFphone(),vm.getAccess_token());
                 } else {
                     ToastUtil.show(LoginActivity.this, vm.getMsg());
                 }
             }
         });
+//        HTTPUtils.post(this, loginURL, params, new VolleyListener<String>() {
+//            @Override
+//            public void requestComplete() {
+//
+//            }
+//
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                ToastUtil.show(LoginActivity.this, "网络连接失败");
+//            }
+//
+//            @Override
+//            public void onResponse(String response) {
+//                LoginVm vm = GsonUtils.parseJSON(response, LoginVm.class);
+//                if (vm.getCode()==0) {
+//                    savePassword(vm.getData().getFuserAccount(),vm.getData().getFuserID(),vm.getData().getFphone(),vm.getAccess_token());
+//                } else {
+//                    ToastUtil.show(LoginActivity.this, vm.getMsg());
+//                }
+//            }
+//        });
     }
 
     private void savePassword(String userAccount,int userId,String phone,String token) {
         ToastUtil.show(this, "登陆成功");
         if (!StringUtil.isEmpty(tvPassword.getText().toString())) {
-            SharedPreferencesUtil.getInstance(this).setKeyValue(Constance.SHAREP.LOGINNAME, tvUserName.getText().toString());
             SharedPreferencesUtil.getInstance(this).setKeyValue(Shared.userAccount, userAccount);
             SharedPreferencesUtil.getInstance(this).setKeyValue(Shared.userPhone, phone);
             SharedPreferencesUtil.getInstance(this).setKeyValue(Shared.userID, userId);
             SharedPreferencesUtil.getInstance(this).setKeyValue(Shared.TOKEN, token);
-            if(!radio1.getText().toString().equals(radio2.getText().toString()))
+            SharedPreferencesUtil.getInstance(this).setKeyValue(Constance.SHAREP.LOGINNAME, tvUserName.getText().toString());
             SharedPreferencesUtil.getInstance(this).setKeyValue(Constance.SHAREP.PASSWORD, tvPassword.getText().toString());
-
         }
-        //HomeActivity.show(this);
         MainActivity.show(this);
-        saveAddress();
         finish();
     }
     //初始化地址
     private void setAddress(){
         //如果为保存地址，则使用最初地址
-        if(StringUtil.isEmpty(SharedPreferencesUtil.getInstance(this).getKeyValue(Constance.SHAREP.HTTPADDRESS))){
-            SharedPreferencesUtil.getInstance(this).setKeyValue(Constance.SHAREP.HTTPADDRESS,Constance.COMMON_URL);
-            radio1.setText(Constance.COMMON_URL);
-        }else{
-            radio1.setText(SharedPreferencesUtil.getInstance(this).getKeyValue(Constance.SHAREP.HTTPADDRESS));
+        if (!StringUtil.isEmpty(addressPer)){
+            SharedPreferencesUtil.getInstance(this).setKeyValue(Shared.BASEURL,addressPer);
         }
-        if(!StringUtil.isEmpty(SharedPreferencesUtil.getInstance(this).getKeyValue(Constance.SHAREP.HTTPADDRESS1))){
-            radio2.setText(SharedPreferencesUtil.getInstance(this).getKeyValue(Constance.SHAREP.HTTPADDRESS1));
-            radio2.setVisibility(View.VISIBLE);
-        }
-        addressTemp=radio1.getText().toString();
-    }
-    //保存输入地址
-    private void saveAddress(){
-       if(radio1.isChecked()){
-           SharedPreferencesUtil.getInstance(this).setKeyValue(Constance.SHAREP.HTTPADDRESS,radio1.getText().toString());
-           SharedPreferencesUtil.getInstance(this).setKeyValue(Constance.SHAREP.HTTPADDRESS1,radio2.getText().toString());
-       }
+
     }
 
     @Override

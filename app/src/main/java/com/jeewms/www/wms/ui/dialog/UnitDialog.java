@@ -2,32 +2,35 @@ package com.jeewms.www.wms.ui.dialog;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.ajguan.library.EasyRefreshLayout;
-import com.android.volley.VolleyError;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jeewms.www.wms.R;
 import com.jeewms.www.wms.base.BaseDialogFragment;
-import com.jeewms.www.wms.bean.UnitBean;
-import com.jeewms.www.wms.constance.Constance;
+import com.jeewms.www.wms.dataBase.BdSupplier;
+import com.jeewms.www.wms.dataBase.BdUnit;
 import com.jeewms.www.wms.ui.dialog.adapter.UnitDialogAdapter;
-import com.jeewms.www.wms.util.GsonUtils;
+import com.jeewms.www.wms.util.LitepalSelect;
 import com.jeewms.www.wms.util.LocalDisplay;
 import com.jeewms.www.wms.util.decoration.SpacesItemDecoration;
-import com.jeewms.www.wms.volley.HTTPUtils;
-import com.jeewms.www.wms.volley.VolleyListener;
 
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 /**
  * @ProjectName: kingdeepda
@@ -49,13 +52,21 @@ public class UnitDialog extends BaseDialogFragment {
     RecyclerView dialogRecycler;
     @BindView(R.id.dialog_refresh)
     EasyRefreshLayout dialogRefresh;
-    private UnitDialogAdapter
-            adapter;
-    private int PAGE = 1;
-    private int LIMIT = 10;
+    @BindView(R.id.dialog_title)
+    TextView dialogTitle;
+    @BindView(R.id.dialog_search)
+    SearchView dialogSearch;
+    Unbinder unbinder;
+    private UnitDialogAdapter adapter;
 
-    public static UnitDialog newInstance() {
+    private int OFFSET = 0;
+    private int SELECTION = 9999;
+
+    public static UnitDialog newInstance(int selection) {
         UnitDialog purchaseOrderAddDialog = new UnitDialog();
+        Bundle bundle = new Bundle();
+        bundle.putInt("select", selection);
+        purchaseOrderAddDialog.setArguments(bundle);
         return purchaseOrderAddDialog;
     }
 
@@ -66,12 +77,30 @@ public class UnitDialog extends BaseDialogFragment {
 
     @Override
     protected void initView() {
+        if (getArguments() != null) {
+            SELECTION = getArguments().getInt("select");
+        }
+        dialogTitle.setText("计量单位选择");
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         adapter = new UnitDialogAdapter(R.layout.item_dialog_material_select);
         dialogRecycler.setLayoutManager(linearLayoutManager);
         dialogRecycler.setAdapter(adapter);
         LocalDisplay.init(getActivity());
         dialogRecycler.addItemDecoration(new SpacesItemDecoration(LocalDisplay.dp2px(5), LocalDisplay.dp2px(5), getResources().getColor(R.color.actions_background_light)));
+        dialogSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                searchLike(s);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                searchLike(s);
+                return false;
+            }
+        });
+
     }
 
     @Override
@@ -79,21 +108,21 @@ public class UnitDialog extends BaseDialogFragment {
         dialogRefresh.addEasyEvent(new EasyRefreshLayout.EasyEvent() {
             @Override
             public void onLoadMore() {
-                getMaterialList(1);
+                getBdUntil(1);
             }
 
             @Override
             public void onRefreshing() {
-                getMaterialList(0);
+                getBdUntil(0);
             }
         });
 
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                UnitBean.DataEntity dataEntity = (UnitBean.DataEntity) adapter.getItem(position);
+                BdUnit dataEntity = (BdUnit) adapter.getItem(position);
                 if (listener != null) {
-                    listener.onConfirm(dataEntity);
+                    listener.onConfirm(dataEntity.getFname(), dataEntity.getFnumber());
                 }
                 Close();
             }
@@ -103,6 +132,15 @@ public class UnitDialog extends BaseDialogFragment {
     @Override
     public void initAnimate() {
 
+    }
+
+    private void searchLike(String s) {
+        adapter.getData().clear();
+        adapter.notifyDataSetChanged();
+        List<BdUnit> byLike = LitepalSelect.findByLike(BdUnit.class, s);
+        if (byLike != null && byLike.size() > 0) {
+            adapter.setNewData(byLike);
+        }
     }
 
     @Override
@@ -135,7 +173,7 @@ public class UnitDialog extends BaseDialogFragment {
     @Override
     public void onResume() {
         super.onResume();
-        getMaterialList(0);
+        getBdUntil(0);
     }
 
     @OnClick(R.id.dialog_close)
@@ -145,53 +183,33 @@ public class UnitDialog extends BaseDialogFragment {
         }
     }
 
-    private void getMaterialList(final int type) {
+    //获取计量单位
+    private void getBdUntil(final int type) {
         if (type == 0) {
-            this.PAGE = 1;
+            this.OFFSET = 0;
             adapter.getData().clear();
             adapter.notifyDataSetChanged();
         }
-        String unit = Constance.getUnit();
-        String s = unit + "?" + "page=" + PAGE + "&limit=" + LIMIT;
-        HTTPUtils.get(getActivity(), s, new VolleyListener<String>() {
-            @Override
-            public void requestComplete() {
-
-            }
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                if (type == 1) {
-                    dialogRefresh.refreshComplete();
-                } else {
-                    dialogRefresh.loadMoreFail();
+        List<BdUnit> byAll = LitepalSelect.findByAll(BdUnit.class, OFFSET);
+        if (byAll != null) {
+            OFFSET += 10;
+            if (type == 0) {
+                adapter.setSelect(byAll, SELECTION, type);
+                dialogRefresh.refreshComplete();
+            } else {
+                dialogRefresh.loadMoreComplete();
+                if (byAll.size() > 0) {
+                    adapter.setSelect(byAll, SELECTION, type);
                 }
             }
-
-            @Override
-            public void onResponse(String response) {
-                UnitBean vm = GsonUtils.parseJSON(response, UnitBean.class);
-                if (vm.getCode() == 0) {
-                    PAGE++;
-                    List<UnitBean.DataEntity> data = vm.getData();
-                    if (type == 0) {
-                        adapter.setNewData(vm.getData());
-                        dialogRefresh.refreshComplete();
-                    } else {
-                        dialogRefresh.loadMoreComplete();
-                        if (data.size() > 0) {
-                            adapter.addData(data);
-                        }
-                    }
-                } else {
-                    if (type == 0) {
-                        dialogRefresh.refreshComplete();
-                    } else {
-                        dialogRefresh.loadMoreComplete();
-                    }
-                }
+        } else {
+            if (type == 0) {
+                dialogRefresh.refreshComplete();
+            } else {
+                dialogRefresh.loadMoreComplete();
             }
-        });
+        }
+
     }
 
     public void Close() {
@@ -204,9 +222,23 @@ public class UnitDialog extends BaseDialogFragment {
         this.listener = unitSelectListener;
     }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
     public interface UnitSelectListener {
         //项目编码  物料编码
-        void onConfirm(UnitBean.DataEntity dataEntity);
+        void onConfirm(String name, String number);
 
         void onClose();
     }

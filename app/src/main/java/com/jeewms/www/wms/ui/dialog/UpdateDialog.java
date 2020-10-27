@@ -81,7 +81,7 @@ public class UpdateDialog extends BaseDialogFragment {
     protected void initFunc() {
         update_versionName.setText(versionName);
         if (isForceUpdate==1){
-            updateCancel.setVisibility(View.INVISIBLE);
+            updateCancel.setVisibility(View.VISIBLE);
         } else {
             updateCancel.setText(getResources().getText(R.string.mine15));
         }

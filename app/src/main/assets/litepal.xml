@@ -9,7 +9,7 @@
         <mapping class="com.jeewms.www.wms.dataBase.BdEmpinfo"/>
         <mapping class="com.jeewms.www.wms.dataBase.BdMaterial"/>
         <mapping class="com.jeewms.www.wms.dataBase.BdMaterialcategory"/>
-        <mapping class="com.jeewms.www.wms.dataBase.BdOrgOrganizations"/>
+        <mapping class="com.jeewms.www.wms.dataBase.BdOrganizations"/>
         <mapping class="com.jeewms.www.wms.dataBase.BdProject"/>
         <mapping class="com.jeewms.www.wms.dataBase.BdSecUser"/>
         <mapping class="com.jeewms.www.wms.dataBase.BdStock"/>

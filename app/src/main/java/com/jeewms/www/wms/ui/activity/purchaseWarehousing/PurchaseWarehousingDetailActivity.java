@@ -28,11 +28,15 @@ import com.jeewms.www.wms.bean.InStockEntryBean;
 import com.jeewms.www.wms.bean.InStockHeadBean;
 import com.jeewms.www.wms.bean.MaterialListBean;
 import com.jeewms.www.wms.bean.ProjectListBean;
+import com.jeewms.www.wms.bean.PurchaseAddBean;
 import com.jeewms.www.wms.bean.UpdatePwd;
 import com.jeewms.www.wms.constance.Constance;
 import com.jeewms.www.wms.ui.dialog.PurchaseOrderAddDialog;
+import com.jeewms.www.wms.ui.view.LoadingView;
 import com.jeewms.www.wms.ui.view.TitleTopOrdersView;
+import com.jeewms.www.wms.util.LoadingUtil;
 import com.jeewms.www.wms.util.Logutil;
+import com.jeewms.www.wms.util.ToastUtil;
 import com.jeewms.www.wms.volley.HTTPUtils;
 import com.jeewms.www.wms.volley.VolleyListener;
 
@@ -113,9 +117,10 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
     @BindView(R.id.tv_fchargeName)
     EditText tvFchargeName;
     private InStockHeadBean.DataEntity TableHeadData;
-    private List<InStockEntryBean.DataEntity> TableBodyDate=new ArrayList<>();
+    private List<InStockEntryBean.DataEntity> TableBodyDate = new ArrayList<>();
     private int fid = 0;
     private String key_fid = "fid";
+    private List<InStockEntryBean.DataEntity> dataEntityList;
 
 
     @Override
@@ -188,19 +193,19 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
     }
 
     //获取单据头数据
-    private void getTableHead( String id) {
+    private void getTableHead(String id) {
         Map<String, String> params = new HashMap<>();
         params.put(key_fid, id);
         String getstkInStock = Constance.getGetstkInStock();
-        HTTPUtils.postByJson(this, getstkInStock, InStockHeadBean.class, params, new VolleyListener<InStockHeadBean>() {
+        HTTPUtils.getInstance(this).postByJson(this, getstkInStock, InStockHeadBean.class, params, new VolleyListener<InStockHeadBean>() {
 
             @Override
             public void onResponse(InStockHeadBean response) {
                 if (response.getCode() == 0) {
                     List<InStockHeadBean.DataEntity> datas = response.getData();
                     TableHeadData = datas.get(0);
-                  //  TableHeadData.setFSupplierId(TableHeadData.getFsupplierNumber());
-                  //  TableHeadData.setFSettleCurrId(TableHeadData.getFsettleCurrIdNumber());
+                    //  TableHeadData.setFSupplierId(TableHeadData.getFsupplierNumber());
+                    //  TableHeadData.setFSettleCurrId(TableHeadData.getFsettleCurrIdNumber());
                     tvFbillTypeName.setText(TableHeadData.getFbillTypeName());
                     tvFstockOrgNamee.setText(TableHeadData.getFstockOrgName());
                     tvFpurchaseOrgName.setText(TableHeadData.getFpurchaseOrgName());
@@ -238,6 +243,52 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
 
             }
         });
+//        HTTPUtils.postByJson(this, getstkInStock, InStockHeadBean.class, params, new VolleyListener<InStockHeadBean>() {
+//
+//            @Override
+//            public void onResponse(InStockHeadBean response) {
+//                if (response.getCode() == 0) {
+//                    List<InStockHeadBean.DataEntity> datas = response.getData();
+//                    TableHeadData = datas.get(0);
+//                    //  TableHeadData.setFSupplierId(TableHeadData.getFsupplierNumber());
+//                    //  TableHeadData.setFSettleCurrId(TableHeadData.getFsettleCurrIdNumber());
+//                    tvFbillTypeName.setText(TableHeadData.getFbillTypeName());
+//                    tvFstockOrgNamee.setText(TableHeadData.getFstockOrgName());
+//                    tvFpurchaseOrgName.setText(TableHeadData.getFpurchaseOrgName());
+//                    tvFstockDeptName.setText(TableHeadData.getFstockDeptName());
+//                    tvFpurchaseDeptName.setText(TableHeadData.getFpurchaseDeptName());
+//                    tvFbillNo.setText(TableHeadData.getFbillNo());
+//                    tvFstockerGroupName.setText(TableHeadData.getFstockerGroupName());
+//                    tvFpurchaserGroupName.setText(TableHeadData.getFpurchaserGroupName());
+//                    String fdate = TableHeadData.getFdate();
+//                    String str1 = fdate.substring(0, fdate.indexOf("T"));
+//                    tvFdate.setText(str1);
+//                    tvFstockerName.setText(TableHeadData.getFstockerName());
+//                    tvFpurchaserName.setText(TableHeadData.getFpurchaserName());
+//                    tvFdocumentStatus.setText(TableHeadData.getFdocumentStatus());
+//                    tvFsupplierName.setText(TableHeadData.getFsupplierName());
+//                    tvFdemandOrgName.setText(TableHeadData.getFdemandOrgName());
+//                    tvFsettleName.setText(TableHeadData.getFsettleName());
+//                    tvFsupplyName.setText(TableHeadData.getFsupplyName());
+//                    tvFproviderContactName.setText(TableHeadData.getFproviderContactName());
+//                    tvFsupplyAddress.setText(TableHeadData.getFsupplyAddress());
+//                    tvFchargeName.setText(TableHeadData.getFchargeName());
+//                    if (fid != 0) {
+//                        getTableBodyDate(String.valueOf(fid));
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//
+//            }
+//
+//            @Override
+//            public void requestComplete() {
+//
+//            }
+//        });
     }
 
     //获取单据体数据(从收料通知页跳转)
@@ -245,7 +296,7 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
         Map<String, String> params = new HashMap<>();
         params.put(key_fid, fid);
         String getstkInStockEntry = Constance.getGetstkInStockEntry();
-        HTTPUtils.postByJson(this, getstkInStockEntry, InStockEntryBean.class, params, new VolleyListener<InStockEntryBean>() {
+        HTTPUtils.getInstance(this).postByJson(this, getstkInStockEntry, InStockEntryBean.class, params, new VolleyListener<InStockEntryBean>() {
             @Override
             public void requestComplete() {
 
@@ -260,14 +311,37 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
             public void onResponse(InStockEntryBean response) {
                 TableBodyDate.clear();
                 if (response.getCode() == 0) {
-                    List<InStockEntryBean.DataEntity> data = response.getData();
-                        TableHeadData.setStkInStockEntryVo(data);
-                        addTable.addData(data, false);
+                    dataEntityList = response.getData();
+                    TableHeadData.setStkInStockEntryVoList(dataEntityList);
+                    addTable.addData(dataEntityList, false);
                 } else {
                 }
 
             }
         });
+//        HTTPUtils.postByJson(this, getstkInStockEntry, InStockEntryBean.class, params, new VolleyListener<InStockEntryBean>() {
+//            @Override
+//            public void requestComplete() {
+//
+//            }
+//
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//
+//            }
+//
+//            @Override
+//            public void onResponse(InStockEntryBean response) {
+//                TableBodyDate.clear();
+//                if (response.getCode() == 0) {
+//                    dataEntityList = response.getData();
+//                    TableHeadData.setStkInStockEntryVoList(dataEntityList);
+//                    addTable.addData(dataEntityList, false);
+//                } else {
+//                }
+//
+//            }
+//        });
     }
 
     private void createTab() {
@@ -326,6 +400,17 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
         TableData<InStockEntryBean.DataEntity> listTableData = new TableData<>("收料通知订单详情列表", new ArrayList<InStockEntryBean.DataEntity>()
                 , c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20);
         addTable.setTableData(listTableData);
+
+        addTable.getTableData().setOnRowClickListener(new TableData.OnRowClickListener() {
+            @Override
+            public void onClick(Column column, Object o, int col, int row) {
+                List<InStockEntryBean.DataEntity> t = addTable.getTableData().getT();
+                if (t != null) {
+                    InStockEntryBean.DataEntity dataEntity = dataEntityList.get(row);
+                    Logutil.print("打印", dataEntity.getProjectNumber());
+                }
+            }
+        });
     }
 
     @OnClick({R.id.iv_add, R.id.iv_scan})
@@ -348,40 +433,67 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
     //保存
     private void SaveDate() {
         Gson gson = new GsonBuilder().serializeNulls().create();
-        String s = gson.toJson(TableHeadData);
-        JSONObject jsonObject=null;
-        try {
-             jsonObject = new JSONObject(s);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        Logutil.print("数据11", jsonObject.toString());
-        JsonObject asJsonObject =gson.toJsonTree(TableHeadData).getAsJsonObject();
+        JsonObject asJsonObject = gson.toJsonTree(TableHeadData).getAsJsonObject();
         Logutil.print("数据", asJsonObject.toString());
         String stkInStockAdd = Constance.getStkInStockAdd();
-        HTTPUtils.postByJson(this, stkInStockAdd, UpdatePwd.class, asJsonObject, new VolleyListener<UpdatePwd>() {
+        LoadingUtil.ShowProgress(PurchaseWarehousingDetailActivity.this, "正在保存入库");
+        HTTPUtils.getInstance(this).postByJson(this, stkInStockAdd, PurchaseAddBean.class, asJsonObject, new VolleyListener<PurchaseAddBean>() {
             @Override
             public void requestComplete() {
-
+                LoadingUtil.CancelProgress();
             }
 
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                ToastUtil.show(PurchaseWarehousingDetailActivity.this, error.getMessage());
             }
 
             @Override
-            public void onResponse(UpdatePwd response) {
-
+            public void onResponse(PurchaseAddBean response) {
+                if (response.getCode() == 0) {
+                    ToastUtil.show(PurchaseWarehousingDetailActivity.this, response.getMsg());
+                } else {
+                    List<PurchaseAddBean.DataEntity> data = response.getData();
+                    StringBuilder stringBuilder = new StringBuilder();
+                    for (PurchaseAddBean.DataEntity d : data) {
+                        stringBuilder.append(d.getMessage());
+                    }
+                    ToastUtil.showLong(PurchaseWarehousingDetailActivity.this, stringBuilder.toString());
+                }
             }
         });
+//        HTTPUtils.postByJson(this, stkInStockAdd, PurchaseAddBean.class, asJsonObject, new VolleyListener<PurchaseAddBean>() {
+//            @Override
+//            public void requestComplete() {
+//                LoadingUtil.CancelProgress();
+//            }
+//
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                ToastUtil.show(PurchaseWarehousingDetailActivity.this, error.getMessage());
+//            }
+//
+//            @Override
+//            public void onResponse(PurchaseAddBean response) {
+//                if (response.getCode() == 0) {
+//                    ToastUtil.show(PurchaseWarehousingDetailActivity.this, response.getMsg());
+//                } else {
+//                    List<PurchaseAddBean.DataEntity> data = response.getData();
+//                    StringBuilder stringBuilder = new StringBuilder();
+//                    for (PurchaseAddBean.DataEntity d : data) {
+//                        stringBuilder.append(d.getMessage());
+//                    }
+//                    ToastUtil.showLong(PurchaseWarehousingDetailActivity.this, stringBuilder.toString());
+//                }
+//            }
+//        });
     }
 
     private void AddOrderDialog(String title, int type) {
         final PurchaseOrderAddDialog purchaseOrderAddDialog = PurchaseOrderAddDialog.newInstance(title, type);
         purchaseOrderAddDialog.setOnAddOrderListener(new PurchaseOrderAddDialog.OnAddOrderListener() {
             @Override
-            public void onConfirm(MaterialListBean.DataEntity materialDate, ProjectListBean.DataEntity projectDate) {
+            public void onConfirm(InStockEntryBean.DataEntity body) {
 
             }
 

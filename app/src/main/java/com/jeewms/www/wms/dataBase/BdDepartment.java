@@ -12,44 +12,87 @@ import java.io.Serializable;
  */
 public class BdDepartment extends LitePalSupport implements Serializable {
 
-    /**
-     * 部门ID
-     */
-    private Long fdeptid;
 
     /**
-     * 名称
+     * fname : 董事办
+     * fisRoot : 1
+     * fdeptid : 153603
+     * fdepth : 1
+     * fparentID : 0
+     * flevelCode : .153603.
+     * fnumber : JHF0001
+     * fdescription :
      */
-    private String FName;
+    private String fname;
+    private int fisRoot;
+    private int fdeptid;
+    private int fdepth;
+    private String fparentID;
+    private String flevelCode;
+    private String fnumber;
+    private String fdescription;
 
-    /**
-     * 编码
-     */
-    private String FNumber;
+    public void setFname(String fname) {
+        this.fname = fname;
+    }
 
-    /**
-     * 描述
-     */
-    private String FDescription;
+    public void setFisRoot(int fisRoot) {
+        this.fisRoot = fisRoot;
+    }
 
-    /**
-     * 上级ID
-     */
-    private String FParentID;
+    public void setFdeptid(int fdeptid) {
+        this.fdeptid = fdeptid;
+    }
 
-    /**
-     * 层级code
-     */
-    private String FLevelCode;
+    public void setFdepth(int fdepth) {
+        this.fdepth = fdepth;
+    }
 
-    /**
-     * 深度
-     */
-    private Integer FDepth;
+    public void setFparentID(String fparentID) {
+        this.fparentID = fparentID;
+    }
 
-    /**
-     * 是否根结点
-     */
-    private Integer FIsRoot;
+    public void setFlevelCode(String flevelCode) {
+        this.flevelCode = flevelCode;
+    }
 
+    public void setFnumber(String fnumber) {
+        this.fnumber = fnumber;
+    }
+
+    public void setFdescription(String fdescription) {
+        this.fdescription = fdescription;
+    }
+
+    public String getFname() {
+        return fname;
+    }
+
+    public int getFisRoot() {
+        return fisRoot;
+    }
+
+    public int getFdeptid() {
+        return fdeptid;
+    }
+
+    public int getFdepth() {
+        return fdepth;
+    }
+
+    public String getFparentID() {
+        return fparentID;
+    }
+
+    public String getFlevelCode() {
+        return flevelCode;
+    }
+
+    public String getFnumber() {
+        return fnumber;
+    }
+
+    public String getFdescription() {
+        return fdescription;
+    }
 }

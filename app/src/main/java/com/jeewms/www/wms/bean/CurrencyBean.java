@@ -1,5 +1,7 @@
 package com.jeewms.www.wms.bean;
 
+import com.jeewms.www.wms.dataBase.BdCurrency;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -18,60 +20,36 @@ import java.util.List;
 public class CurrencyBean implements Serializable {
 
     /**
+     * msg : 操作成功
      * code : 0
-     * data : [{"fname":"人民币","fnumber":"PRE001"},{"fname":"香港元","fnumber":"PRE002"},{"fname":"欧元","fnumber":"PRE003"},{"fname":"日本日元","fnumber":"PRE004"},{"fname":"新台币元","fnumber":"PRE005"}]
-     * count : 7
+     * data : [{"fname":"人民币","froundType":1,"fforbidStatus":"A","famountdigits":2,"fpricedigits":6,"fnumber":"PRE001","fcurrencyid":1,"fcode":"CNY"},{"fname":"香港元","froundType":1,"fforbidStatus":"A","famountdigits":2,"fpricedigits":6,"fnumber":"PRE002","fcurrencyid":2,"fcode":"HKD"},{"fname":"欧元","froundType":1,"fforbidStatus":"A","famountdigits":2,"fpricedigits":6,"fnumber":"PRE003","fcurrencyid":3,"fcode":"EUR"}]
      */
+    private String msg;
     private int code;
-    private List<DataEntity> data;
-    private int count;
+    private List<BdCurrency> data;
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
 
     public void setCode(int code) {
         this.code = code;
     }
 
-    public void setData(List<DataEntity> data) {
-        this.data = data;
-    }
 
-    public void setCount(int count) {
-        this.count = count;
+    public String getMsg() {
+        return msg;
     }
 
     public int getCode() {
         return code;
     }
 
-    public List<DataEntity> getData() {
+    public List<BdCurrency> getData() {
         return data;
     }
 
-    public int getCount() {
-        return count;
-    }
-
-    public class DataEntity {
-        /**
-         * fname : 人民币
-         * fnumber : PRE001
-         */
-        private String fname;
-        private String fnumber;
-
-        public void setFname(String fname) {
-            this.fname = fname;
-        }
-
-        public void setFnumber(String fnumber) {
-            this.fnumber = fnumber;
-        }
-
-        public String getFname() {
-            return fname;
-        }
-
-        public String getFnumber() {
-            return fnumber;
-        }
+    public void setData(List<BdCurrency> data) {
+        this.data = data;
     }
 }

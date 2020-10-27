@@ -12,26 +12,46 @@ import java.io.Serializable;
  */
 public class BdMaterialcategory extends LitePalSupport implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
     /**
-     * 存货类别ID
-     */
-    private Long fcategoryid;
-
-    /**
-     * 名称
+     * fname : 原材料
+     * fcategoryid : 237
+     * fnumber : CHLB01_SYS
+     * fdescription :
      */
     private String fname;
-
-    /**
-     * 编码
-     */
+    private int fcategoryid;
     private String fnumber;
-
-    /**
-     * 描述
-     */
     private String fdescription;
 
+    public void setFname(String fname) {
+        this.fname = fname;
+    }
+
+    public void setFcategoryid(int fcategoryid) {
+        this.fcategoryid = fcategoryid;
+    }
+
+    public void setFnumber(String fnumber) {
+        this.fnumber = fnumber;
+    }
+
+    public void setFdescription(String fdescription) {
+        this.fdescription = fdescription;
+    }
+
+    public String getFname() {
+        return fname;
+    }
+
+    public int getFcategoryid() {
+        return fcategoryid;
+    }
+
+    public String getFnumber() {
+        return fnumber;
+    }
+
+    public String getFdescription() {
+        return fdescription;
+    }
 }

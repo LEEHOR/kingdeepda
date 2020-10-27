@@ -24,7 +24,7 @@
     <TextView
         style="@style/mine_fragment"
         android:id="@+id/stock_number"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"

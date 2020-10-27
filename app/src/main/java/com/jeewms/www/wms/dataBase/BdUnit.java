@@ -13,36 +13,67 @@ import java.io.Serializable;
  */
 public class BdUnit extends LitePalSupport implements Serializable {
 
-    private static final long serialVersionUID = 1L;
 
     /**
-     * 实体主键
+     * fdocumentStatus : C
+     * fname : 米
+     * fforbidStatus : A
+     * funitid : 10087
+     * fnumber : m
+     * funitGroupId : 10081
      */
-    private Long funitid;
+    private String fdocumentStatus;
+    private String fname;
+    private String fforbidStatus;
+    private int funitid;
+    private String fnumber;
+    private int funitGroupId;
 
-    /**
-     * 数据状态
-     */
-    private String FDocumentStatus;
+    public void setFdocumentStatus(String fdocumentStatus) {
+        this.fdocumentStatus = fdocumentStatus;
+    }
 
-    /**
-     * 禁用状态
-     */
-    private String FForbidStatus;
+    public void setFname(String fname) {
+        this.fname = fname;
+    }
 
-    /**
-     * 名称 (必填项)
-     */
-    private String FName;
+    public void setFforbidStatus(String fforbidStatus) {
+        this.fforbidStatus = fforbidStatus;
+    }
 
-    /**
-     * 编码
-     */
-    private String FNumber;
+    public void setFunitid(int funitid) {
+        this.funitid = funitid;
+    }
 
-    /**
-     * 所属组别(必填项)
-     */
-    private Long FUnitGroupId;
+    public void setFnumber(String fnumber) {
+        this.fnumber = fnumber;
+    }
 
+    public void setFunitGroupId(int funitGroupId) {
+        this.funitGroupId = funitGroupId;
+    }
+
+    public String getFdocumentStatus() {
+        return fdocumentStatus;
+    }
+
+    public String getFname() {
+        return fname;
+    }
+
+    public String getFforbidStatus() {
+        return fforbidStatus;
+    }
+
+    public int getFunitid() {
+        return funitid;
+    }
+
+    public String getFnumber() {
+        return fnumber;
+    }
+
+    public int getFunitGroupId() {
+        return funitGroupId;
+    }
 }

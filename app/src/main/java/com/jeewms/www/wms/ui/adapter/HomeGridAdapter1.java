@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.jeewms.www.wms.bean.HomeBtnBean;
-import com.jeewms.www.wms.ui.itemview.HomeGridItemView;
+import com.jeewms.www.wms.ui.itemview.HomeGridItemView1;
 
 import java.util.ArrayList;
 
@@ -14,12 +14,13 @@ import java.util.ArrayList;
  * Created by 13799 on 2018/6/2.
  */
 
-public class HomeGridAdapter extends BaseAdapter{
+public class HomeGridAdapter1 extends BaseAdapter{
 
     ArrayList<HomeBtnBean> list=new ArrayList<>();
-
-    public void setList(ArrayList<HomeBtnBean> list){
+    private int mType;
+    public void setList(ArrayList<HomeBtnBean> list,int type){
         this.list=list;
+        this.mType=type;
     }
     @Override
     public int getCount() {
@@ -38,15 +39,15 @@ public class HomeGridAdapter extends BaseAdapter{
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        HomeGridItemView itemView=null;
+        HomeGridItemView1 itemView=null;
         if(view==null){
-            itemView=new HomeGridItemView((Activity) viewGroup.getContext());
+            itemView=new HomeGridItemView1((Activity) viewGroup.getContext());
             view=itemView.getView();
             view.setTag(itemView);
         }else{
-            itemView= (HomeGridItemView) view.getTag();
+            itemView= (HomeGridItemView1) view.getTag();
         }
-        itemView.bindView(list.get(i));
+        itemView.bindView(list.get(i),mType);
 
         return view;
     }

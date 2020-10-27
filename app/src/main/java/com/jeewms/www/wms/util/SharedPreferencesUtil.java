@@ -38,10 +38,17 @@ public class SharedPreferencesUtil {
         editor.commit();
     }
 
+    //设置值
+    public void setKeyValue(String key, boolean value) {
+        editor.putBoolean(key, value);
+        editor.commit();
+    }
+
     //获取值
     public String getKeyValue(String key) {
         return sp.getString(key, "");
     }
+
 
     /**
      * 可以设置默认值得
@@ -57,6 +64,15 @@ public class SharedPreferencesUtil {
 
     public int getIntKeyValue(String key) {
         return sp.getInt(key,0);
+    }
+
+    public boolean getBooleanKeyValue(String key) {
+        return sp.getBoolean(key,false);
+    }
+
+    public void remove(String key){
+        editor.remove(key);
+        editor.commit();
     }
 
     public void clear() {

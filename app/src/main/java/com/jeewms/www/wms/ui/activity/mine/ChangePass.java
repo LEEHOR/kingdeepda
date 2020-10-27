@@ -101,7 +101,7 @@ public class ChangePass extends BaseActivity {
         params.put("oldPwd",userOldPass);
         params.put("newPwd",password);
         String updatePwdUrl = Constance.getUpdatePwd();
-        HTTPUtils.post(ChangePass.this, updatePwdUrl, params, new VolleyListener<String>() {
+        HTTPUtils.getInstance(this).post(ChangePass.this, updatePwdUrl, params, new VolleyListener<String>() {
             @Override
             public void requestComplete() {
 
@@ -123,6 +123,28 @@ public class ChangePass extends BaseActivity {
                 }
             }
         });
+//        HTTPUtils.post(ChangePass.this, updatePwdUrl, params, new VolleyListener<String>() {
+//            @Override
+//            public void requestComplete() {
+//
+//            }
+//
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                ToastUtil.show(ChangePass.this, "网络连接失败");
+//            }
+//
+//            @Override
+//            public void onResponse(String response) {
+//                UpdatePwd updatePwd = GsonUtils.parseJSON(response, UpdatePwd.class);
+//                if (updatePwd.getCode()==0) {
+//                    ToastUtil.show(ChangePass.this, updatePwd.getMsg());
+//                    updateUserInfo(inputPass2.getText().toString().trim());
+//                } else {
+//                    ToastUtil.show(ChangePass.this, updatePwd.getMsg());
+//                }
+//            }
+//        });
     }
 
     @OnClick(R.id.btn_confirm)

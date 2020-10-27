@@ -70,41 +70,74 @@ public class WelComeActivity extends BaseActivity {
         Map<String, String> params = new HashMap<>();
         params.put("username", username);
         params.put("password", password);
+        Constance.setBaseUrl(SharedPreferencesUtil.getInstance(this).getKeyValue(Shared.BASEURL));
+       HTTPUtils.getInstance(this).post(this, Constance.getLoginURL(), params, new VolleyListener<String>() {
+           @Override
+           public void requestComplete() {
 
-        Constance.setBaseUrl(SharedPreferencesUtil.getInstance(this).getKeyValue(Constance.SHAREP.HTTPADDRESS));
-        HTTPUtils.post(this, Constance.getLoginURL(), params, new VolleyListener<String>() {
-            @Override
-            public void requestComplete() {
+           }
 
-            }
+           @Override
+           public void onErrorResponse(VolleyError error) {
+               LoginActivity.show(WelComeActivity.this);
+               finish();
+           }
 
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                LoginActivity.show(WelComeActivity.this);
-                finish();
-            }
+           @Override
+           public void onResponse(String response) {
+               LoginVm vm = GsonUtils.parseJSON(response, LoginVm.class);
+               if (vm.getCode()==0) {
+                   if (status == 0) {
+                       status++;
+                   } else {
+                       SharedPreferencesUtil.getInstance(WelComeActivity.this).setKeyValue(Shared.userPhone, vm.getData().getFphone());
+                       SharedPreferencesUtil.getInstance(WelComeActivity.this).setKeyValue(Shared.userID, vm.getData().getFuserID());
+                       SharedPreferencesUtil.getInstance(WelComeActivity.this).setKeyValue(Shared.TOKEN, vm.getAccess_token());
+                       Logutil.print(vm.getAccess_token());
+                       //HomeActivity.show(WelComeActivity.this);
+                       MainActivity.show(WelComeActivity.this);
+                       finish();
+                   }
+               } else {
+                   LoginActivity.show(WelComeActivity.this);
+                   finish();
+               }
+           }
+       });
 
-            @Override
-            public void onResponse(String response) {
-                LoginVm vm = GsonUtils.parseJSON(response, LoginVm.class);
-                if (vm.getCode()==0) {
-                    if (status == 0) {
-                        status++;
-                    } else {
-                        SharedPreferencesUtil.getInstance(WelComeActivity.this).setKeyValue(Shared.userPhone, vm.getData().getFphone());
-                        SharedPreferencesUtil.getInstance(WelComeActivity.this).setKeyValue(Shared.userID, vm.getData().getFuserID());
-                        SharedPreferencesUtil.getInstance(WelComeActivity.this).setKeyValue(Shared.TOKEN, vm.getAccess_token());
-                        Logutil.print(vm.getAccess_token());
-                        //HomeActivity.show(WelComeActivity.this);
-                        MainActivity.show(WelComeActivity.this);
-                        finish();
-                    }
-                } else {
-                    LoginActivity.show(WelComeActivity.this);
-                    finish();
-                }
-            }
-        });
+//        HTTPUtils.post(this, Constance.getLoginURL(), params, new VolleyListener<String>() {
+//            @Override
+//            public void requestComplete() {
+//
+//            }
+//
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                LoginActivity.show(WelComeActivity.this);
+//                finish();
+//            }
+//
+//            @Override
+//            public void onResponse(String response) {
+//                LoginVm vm = GsonUtils.parseJSON(response, LoginVm.class);
+//                if (vm.getCode()==0) {
+//                    if (status == 0) {
+//                        status++;
+//                    } else {
+//                        SharedPreferencesUtil.getInstance(WelComeActivity.this).setKeyValue(Shared.userPhone, vm.getData().getFphone());
+//                        SharedPreferencesUtil.getInstance(WelComeActivity.this).setKeyValue(Shared.userID, vm.getData().getFuserID());
+//                        SharedPreferencesUtil.getInstance(WelComeActivity.this).setKeyValue(Shared.TOKEN, vm.getAccess_token());
+//                        Logutil.print(vm.getAccess_token());
+//                        //HomeActivity.show(WelComeActivity.this);
+//                        MainActivity.show(WelComeActivity.this);
+//                        finish();
+//                    }
+//                } else {
+//                    LoginActivity.show(WelComeActivity.this);
+//                    finish();
+//                }
+//            }
+//        });
     }
 
 }

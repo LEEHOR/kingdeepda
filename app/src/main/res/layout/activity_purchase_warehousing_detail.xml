@@ -762,6 +762,6 @@
             android:layout_height="wrap_content"
             android:background="@drawable/btn_bg_blue"
             android:textColor="@color/white"
-            android:text="保存" />
+            android:text="保存入库" />
     </LinearLayout>
 </LinearLayout>

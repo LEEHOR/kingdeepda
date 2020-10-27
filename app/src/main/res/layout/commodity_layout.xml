@@ -3,9 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white">
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/commodityMenu_recycler"
+    <com.ajguan.library.EasyRefreshLayout
+        android:id="@+id/refresh"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/commodityMenu_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.ajguan.library.EasyRefreshLayout>
 </LinearLayout>

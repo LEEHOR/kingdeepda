@@ -2,6 +2,8 @@ package com.jeewms.www.wms.dataBase;
 import org.litepal.crud.LitePalSupport;
 
 import java.io.Serializable;
+import java.util.List;
+
 /**
  * <p>
  * 币别
@@ -11,45 +13,76 @@ import java.io.Serializable;
  * @since 2020-09-29
  */
 public class BdCurrency extends LitePalSupport implements Serializable {
-
-    /**
-     * 实体主键
-     */
-    private Long fcurrencyid;
-
-    /**
-     * 禁用状态
-     */
-    private String FForbidStatus;
-
-    /**
-     * 名称(必填项)
-     */
-    private String FName;
-
-    /**
-     * 编码(必填项)
-     */
-    private String FNumber;
-
-    /**
-     * 货币代码(必填项)
-     */
+    private String fname;
+    private int froundType;
+    private String fforbidStatus;
+    private int famountdigits;
+    private int fpricedigits;
+    private String fnumber;
+    private int fcurrencyid;
     private String fcode;
 
-    /**
-     * 舍入类型(必填项)
-     */
-    private Integer FRoundType;
+    public String getFname() {
+        return fname;
+    }
 
-    /**
-     * 单价精度
-     */
-    private Integer fpricedigits;
+    public void setFname(String fname) {
+        this.fname = fname;
+    }
 
-    /**
-     * 金额精度
-     */
-    private Integer famountdigits;
+    public int getFroundType() {
+        return froundType;
+    }
 
+    public void setFroundType(int froundType) {
+        this.froundType = froundType;
+    }
+
+    public String getFforbidStatus() {
+        return fforbidStatus;
+    }
+
+    public void setFforbidStatus(String fforbidStatus) {
+        this.fforbidStatus = fforbidStatus;
+    }
+
+    public int getFamountdigits() {
+        return famountdigits;
+    }
+
+    public void setFamountdigits(int famountdigits) {
+        this.famountdigits = famountdigits;
+    }
+
+    public int getFpricedigits() {
+        return fpricedigits;
+    }
+
+    public void setFpricedigits(int fpricedigits) {
+        this.fpricedigits = fpricedigits;
+    }
+
+    public String getFnumber() {
+        return fnumber;
+    }
+
+    public void setFnumber(String fnumber) {
+        this.fnumber = fnumber;
+    }
+
+    public int getFcurrencyid() {
+        return fcurrencyid;
+    }
+
+    public void setFcurrencyid(int fcurrencyid) {
+        this.fcurrencyid = fcurrencyid;
+    }
+
+    public String getFcode() {
+        return fcode;
+    }
+
+    public void setFcode(String fcode) {
+        this.fcode = fcode;
+    }
 }

@@ -1,12 +1,18 @@
 package com.jeewms.www.wms.ui.dialog.adapter;
 
+import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jeewms.www.wms.R;
 import com.jeewms.www.wms.bean.CurrencyBean;
 import com.jeewms.www.wms.bean.SupplierBean;
+import com.jeewms.www.wms.dataBase.BdStock;
+import com.jeewms.www.wms.dataBase.BdSupplier;
+
+import java.util.List;
 
 
 /**
@@ -21,13 +27,38 @@ import com.jeewms.www.wms.bean.SupplierBean;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class SupplierDialogAdapter extends BaseQuickAdapter<SupplierBean.DataEntity, BaseViewHolder> {
+public class SupplierDialogAdapter extends BaseQuickAdapter<BdSupplier, BaseViewHolder> {
+    private int selectPosition;
     public SupplierDialogAdapter(int layoutResId) {
         super(layoutResId);
     }
 
+    public int getSelectPosition() {
+        return selectPosition;
+    }
+
+    public void setSelectPosition(int selectPosition) {
+        this.selectPosition = selectPosition;
+    }
+
+    @SuppressLint("ResourceType")
     @Override
-    protected void convert(@NonNull BaseViewHolder helper, SupplierBean.DataEntity item) {
-                helper.setText(R.id.tv_materialdialog,item.getFname()+"("+item.getFnumber()+")");
+    protected void convert(@NonNull BaseViewHolder helper, BdSupplier item) {
+        TextView textView = helper.getView(R.id.tv_materialdialog);
+        textView.setText(String.format("%s(%s)", item.getFname(), item.getFnumber()));
+        if (helper.getAdapterPosition()==getSelectPosition()){
+            textView.setTextColor(mContext.getResources().getColor(R.color.titlebar_color));
+        } else {
+            textView.setTextColor(mContext.getResources().getColor(R.color.black));
+        }
+    }
+
+    public void setSelect(List<BdSupplier> currencyList, int position, int type){
+        this.selectPosition=position;
+        if (type==0){
+            setNewData(currencyList);
+        } else {
+            addData(currencyList);
+        }
     }
 }

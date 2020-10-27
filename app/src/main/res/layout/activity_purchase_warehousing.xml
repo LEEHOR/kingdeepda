@@ -25,6 +25,7 @@
         android:id="@+id/purchase_order_refresh"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@color/actions_background_light"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/in_view"

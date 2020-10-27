@@ -196,7 +196,7 @@ public class ReceiveNoticeDetailActivity extends BaseActivity {
         Map<String, String> params = new HashMap<>();
         params.put(key_fid, fid);
         String billDetail = Constance.getGetReceivingBillDetail();
-        HTTPUtils.postByJson(this, billDetail, ReceiveBillEntry.class, params, new VolleyListener<ReceiveBillEntry>() {
+        HTTPUtils.getInstance(this).postByJson(this, billDetail, ReceiveBillEntry.class, params, new VolleyListener<ReceiveBillEntry>() {
             @Override
             public void requestComplete() {
             }
@@ -227,6 +227,37 @@ public class ReceiveNoticeDetailActivity extends BaseActivity {
 
             }
         });
+//        HTTPUtils.postByJson(this, billDetail, ReceiveBillEntry.class, params, new VolleyListener<ReceiveBillEntry>() {
+//            @Override
+//            public void requestComplete() {
+//            }
+//
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//
+//            }
+//
+//            @Override
+//            public void onResponse(ReceiveBillEntry response) {
+//                if (response.getCode() == 0) {
+//                    List<ReceiveBillEntry.DataEntity> data = response.getData();
+//                    for (int i = 0; i < data.size(); i++) {
+//                        count1 += data.get(i).getFactreceiveQty();
+//                        count2 += data.get(i).getFsupdelQty();
+//                        count3 += data.get(i).getPriceUnitQty();
+//                    }
+//                    tvFactreceiveQty.setText(String.valueOf(count1));
+//                    tvFsupdelQty.setText(String.valueOf(count2));
+//                    tvPriceUnitQty.setText(String.valueOf(count3));
+//                    noticeDetailTab.addData(data, false);
+//                } else {
+//                    tvFactreceiveQty.setText(String.valueOf(0));
+//                    tvFsupdelQty.setText(String.valueOf(0));
+//                    tvPriceUnitQty.setText(String.valueOf(0));
+//                }
+//
+//            }
+//        });
     }
 
     //创建表格
@@ -338,7 +369,7 @@ public class ReceiveNoticeDetailActivity extends BaseActivity {
         Map<String,String> map=new HashMap<>();
         map.put("fid",String.valueOf(fid));
         String pushReceiving = Constance.getPushReceiving();
-        HTTPUtils.postByJson(ReceiveNoticeDetailActivity.this, pushReceiving, ReceivePush.class, map, new VolleyListener<ReceivePush>() {
+        HTTPUtils.getInstance(this).postByJson(ReceiveNoticeDetailActivity.this, pushReceiving, ReceivePush.class, map, new VolleyListener<ReceivePush>() {
             @Override
             public void onResponse(ReceivePush response) {
                 if (response.getCode()==0) {
@@ -371,5 +402,38 @@ public class ReceiveNoticeDetailActivity extends BaseActivity {
 
             }
         });
+//        HTTPUtils.postByJson(ReceiveNoticeDetailActivity.this, pushReceiving, ReceivePush.class, map, new VolleyListener<ReceivePush>() {
+//            @Override
+//            public void onResponse(ReceivePush response) {
+//                if (response.getCode()==0) {
+//                    ToastUtil.show(ReceiveNoticeDetailActivity.this,"下推成功");
+//                    //跳转到采购入库详情
+//                    Intent intent1=new Intent(ReceiveNoticeDetailActivity.this, PurchaseWarehousingDetailActivity.class);
+//                    Bundle bundle1=new Bundle();
+//                    bundle1.putInt("fid",response.getData().getId());
+//                    bundle1.putString("fnumber",response.getData().getNumber());
+//                    intent1.putExtras(bundle1);
+//                    startActivity(intent1);
+//                } else {
+//                    ToastUtil.show(ReceiveNoticeDetailActivity.this,"下推失败");
+////                    Intent intent1=new Intent(ReceiveNoticeDetailActivity.this, PurchaseWarehousingDetailActivity.class);
+////                    Bundle bundle1=new Bundle();
+////                    bundle1.putInt("fid",100043);
+////                    bundle1.putString("fnumber","CGRK00004");
+////                    intent1.putExtras(bundle1);
+////                    startActivity(intent1);
+//                }
+//            }
+//
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                ToastUtil.show(ReceiveNoticeDetailActivity.this,error.getMessage());
+//            }
+//
+//            @Override
+//            public void requestComplete() {
+//
+//            }
+//        });
     }
 }

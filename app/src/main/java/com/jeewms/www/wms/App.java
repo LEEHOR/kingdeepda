@@ -4,7 +4,10 @@ import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
+import com.jeewms.www.wms.util.LocalDisplay;
 import com.jeewms.www.wms.util.Logutil;
+
+import org.litepal.LitePal;
 
 import java.util.UUID;
 import cn.com.heaton.blelibrary.ble.Ble;
@@ -34,6 +37,8 @@ public class App extends Application {
         super.onCreate();
         mApplicationContext=getApplicationContext();
         mApplication=this;
+        LitePal.initialize(this);
+        LocalDisplay.init(this);
         initBle();
     }
 

@@ -2,25 +2,135 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <include
-        android:id="@+id/in_view"
-        android:layout_width="0dp"
+    android:layout_height="match_parent">
+<ScrollView
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    android:layout_width="0dp"
+    android:layout_height="0dp">
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        layout="@layout/include_view_search" />
+        android:orientation="vertical">
+        <android.support.v7.widget.CardView
+            app:cardCornerRadius="8dp"
+            app:contentPadding="10dp"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    style="@style/mine_fragment4"
+                    android:text="采购管理"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <com.jeewms.www.wms.ui.view.NonScrollGridView
+                    android:id="@+id/gv_home1"
+                    android:numColumns="4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
 
-    <GridView
-        android:id="@+id/gv_home"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/in_view"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:numColumns="3"></GridView>
+        <android.support.v7.widget.CardView
+            app:cardCornerRadius="8dp"
+            app:contentPadding="10dp"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    style="@style/mine_fragment4"
+                    android:text="销售管理"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <com.jeewms.www.wms.ui.view.NonScrollGridView
+                    android:numColumns="4"
+                    android:id="@+id/gv_home2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            app:cardCornerRadius="8dp"
+            app:contentPadding="10dp"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    style="@style/mine_fragment4"
+                    android:text="仓存管理"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <com.jeewms.www.wms.ui.view.NonScrollGridView
+                    android:numColumns="4"
+                    android:id="@+id/gv_home3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.CardView
+            app:cardCornerRadius="8dp"
+            app:contentPadding="10dp"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    style="@style/mine_fragment4"
+                    android:text="生产管理"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <com.jeewms.www.wms.ui.view.NonScrollGridView
+                    android:numColumns="4"
+                    android:id="@+id/gv_home4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            app:cardCornerRadius="8dp"
+            app:contentPadding="10dp"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    style="@style/mine_fragment4"
+                    android:text="工序管理"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <com.jeewms.www.wms.ui.view.NonScrollGridView
+                    android:numColumns="3"
+                    android:id="@+id/gv_home5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+</ScrollView>
+
 </android.support.constraint.ConstraintLayout>

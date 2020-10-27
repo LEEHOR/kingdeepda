@@ -111,7 +111,7 @@
     <string name="receiving_3_6">业务类型：</string>
     <string name="receiving_3_7">供应商：</string>
     <string name="receiving_5">单据详情</string>
-    <string name="receiving_6">采购入库</string>
+    <string name="receiving_6">下推入库</string>
     <string name="receiving_7">默认仓库</string>
     <string name="receiving_8">申请入库</string>
 <!--    我的模块-->

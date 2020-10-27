@@ -34,11 +34,10 @@ public class MainActivity extends FragmentActivity {
 
     private String[] tabText = {"首页", "我的"};
     //未选中是icon
-    private int[] normalIcon ={ R.drawable.ic_home,R.drawable.ic_mine};
+    private int[] normalIcon = {R.drawable.ic_home, R.drawable.ic_mine};
     //选中时icon
     private int[] selectIcon = {R.drawable.ic_home_select, R.drawable.ic_mine_select};
-    //
-    private List<Fragment> fragments = new ArrayList<>();
+
     public static void show(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
         context.startActivity(intent);
@@ -53,6 +52,7 @@ public class MainActivity extends FragmentActivity {
     }
 
     protected void initView() {
+        List<Fragment> fragments = new ArrayList<>();
         fragments.add(new HomeFragment());
         fragments.add(new MineFragment());
         bottomTabBar2.defaultSetting()
@@ -84,40 +84,40 @@ public class MainActivity extends FragmentActivity {
                 .setOnCenterTabClickListener(new EasyNavigationBar.OnCenterTabSelectListener() {
                     @Override
                     public boolean onCenterTabSelectEvent(View view) {
-                        ToastUtil.show(MainActivity.this,"暂无页面");
+                        ToastUtil.show(MainActivity.this, "暂无页面");
                         return false;
                     }
                 })
                 .smoothScroll(false)  //点击Tab  Viewpager切换是否有动画
                 .canScroll(true)    //Viewpager能否左右滑动
-                .mode(EasyNavigationBar.NavigationMode.MODE_ADD)   //默认MODE_NORMAL 普通模式  //MODE_ADD 带加号模式
+                .mode(EasyNavigationBar.NavigationMode.MODE_NORMAL)   //默认MODE_NORMAL 普通模式  //MODE_ADD 带加号模式
                 .anim(Anim.ZoomIn)                //点击Tab时的动画
-               // .centerTextStr("发现")
-                .centerImageRes(R.drawable.ic_friend_select)
-                .centerIconSize(40)    //中间加号图片的大小
-                .centerLayoutHeight(100)   //包含加号的布局高度 背景透明  所以加号看起来突出一块
+                // .centerTextStr("发现")
+               // .centerImageRes(R.drawable.ic_friend_select)
+              //  .centerIconSize(40)    //中间加号图片的大小
+              //  .centerLayoutHeight(100)   //包含加号的布局高度 背景透明  所以加号看起来突出一块
                 .navigationHeight(60)  //导航栏高度
                 .lineHeight(1)         //分割线高度  默认1px
                 .lineColor(Color.parseColor("#B2B2B2"))
-               // .centerLayoutRule(EasyNavigationBar.RULE_BOTTOM) //RULE_CENTER 加号居中addLayoutHeight调节位置 EasyNavigationBar.RULE_BOTTOM 加号在导航栏靠下
+                // .centerLayoutRule(EasyNavigationBar.RULE_BOTTOM) //RULE_CENTER 加号居中addLayoutHeight调节位置 EasyNavigationBar.RULE_BOTTOM 加号在导航栏靠下
                 .centerLayoutBottomMargin(10)   //加号到底部的距离
                 .hasPadding(true)    //true ViewPager布局在导航栏之上 false有重叠
-               // .hintPointLeft(-3)  //调节提示红点的位置hintPointLeft hintPointTop（看文档说明）
-              //  .hintPointTop(-3)
-               // .hintPointSize(6)    //提示红点的大小
-               // .msgPointLeft(-10)  //调节数字消息的位置msgPointLeft msgPointTop（看文档说明）
-               // .msgPointTop(-10)
-              //  .msgPointTextSize(9)  //数字消息中字体大小
-              //  .msgPointSize(18)    //数字消息红色背景的大小
-             //   .centerAlignBottom(true)  //加号是否同Tab文字底部对齐  RULE_BOTTOM时有效；
-               // .centerTextTopMargin(50)  //加号文字距离加号图片的距离
-               // .centerTextSize(15)      //加号文字大小
-               // .centerNormalTextColor(Color.parseColor("#ff0000"))    //加号文字未选中时字体颜色
-               // .centerSelectTextColor(Color.parseColor("#00ff00"))    //加号文字选中时字体颜色
-               // .setMsgPointColor(Color.BLUE) //数字消息、红点背景颜色
-               // .setMsgPointMoreRadius(5) //消息99+角度半径
-               // .setMsgPointMoreWidth(50)  //消息99+宽度
-               // .setMsgPointMoreHeight(40)  //消息99+高度
+                // .hintPointLeft(-3)  //调节提示红点的位置hintPointLeft hintPointTop（看文档说明）
+                //  .hintPointTop(-3)
+                // .hintPointSize(6)    //提示红点的大小
+                // .msgPointLeft(-10)  //调节数字消息的位置msgPointLeft msgPointTop（看文档说明）
+                // .msgPointTop(-10)
+                //  .msgPointTextSize(9)  //数字消息中字体大小
+                //  .msgPointSize(18)    //数字消息红色背景的大小
+                //   .centerAlignBottom(true)  //加号是否同Tab文字底部对齐  RULE_BOTTOM时有效；
+                // .centerTextTopMargin(50)  //加号文字距离加号图片的距离
+                // .centerTextSize(15)      //加号文字大小
+                // .centerNormalTextColor(Color.parseColor("#ff0000"))    //加号文字未选中时字体颜色
+                // .centerSelectTextColor(Color.parseColor("#00ff00"))    //加号文字选中时字体颜色
+                // .setMsgPointColor(Color.BLUE) //数字消息、红点背景颜色
+                // .setMsgPointMoreRadius(5) //消息99+角度半径
+                // .setMsgPointMoreWidth(50)  //消息99+宽度
+                // .setMsgPointMoreHeight(40)  //消息99+高度
                 .textSizeType(EasyNavigationBar.TextSizeType.TYPE_DP)  //字体单位 建议使用DP  可切换SP
                 .setOnTabLoadListener(new EasyNavigationBar.OnTabLoadListener() { //Tab加载完毕回调
                     @Override
@@ -128,7 +128,6 @@ public class MainActivity extends FragmentActivity {
                 //.setupWithViewPager(new ViewPager(AllActivity.this))
                 //.setupWithViewPager(new ViewPager2(AllActivity.this))
                 .build();
-
     }
 
     @Override

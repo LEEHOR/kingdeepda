@@ -4,8 +4,10 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -39,6 +41,7 @@ import com.yxp.permission.util.lib.callback.PermissionResultCallBack;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -93,6 +96,7 @@ public class ReceiveNoticeActivity extends BaseActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+        ivAdd.setVisibility(View.GONE);
         receivingTitle.setViewVisibility(View.VISIBLE, View.VISIBLE, View.INVISIBLE, View.INVISIBLE, View.INVISIBLE, View.INVISIBLE, View.INVISIBLE);
         receivingTitle.getBtn_back().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,13 +167,9 @@ public class ReceiveNoticeActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.iv_scan,R.id.iv_add})
+    @OnClick({R.id.iv_scan})
     public void onViewClicked(View view) {
         switch (view.getId()){
-            case R.id.iv_add:
-                Intent intent=new Intent(ReceiveNoticeActivity.this, PurchaseWarehousingActivity.class);
-               startActivity(intent);
-                break;
             case R.id.iv_scan:
                 wantCameraPermission();
                 break;
@@ -217,7 +217,7 @@ public class ReceiveNoticeActivity extends BaseActivity {
         params.put("page", String.valueOf(PAGE));
         params.put("limit", String.valueOf(LIMIT));
         String receivingBill = Constance.getReceivingBillList();
-        HTTPUtils.postByJson(ReceiveNoticeActivity.this, receivingBill, ReceiveBillBean.class, params, new VolleyListener<ReceiveBillBean>() {
+        HTTPUtils.getInstance(this).postByJson(ReceiveNoticeActivity.this, receivingBill, ReceiveBillBean.class, params, new VolleyListener<ReceiveBillBean>() {
             @Override
             public void requestComplete() {
 
@@ -233,11 +233,18 @@ public class ReceiveNoticeActivity extends BaseActivity {
 
             }
 
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse(ReceiveBillBean response) {
                 if (response.getCode()==0){
                     PAGE++;
                     List<ReceiveBillBean.DataEntity> data = response.getData();
+                    data.removeIf(new Predicate<ReceiveBillBean.DataEntity>() {  //过滤
+                        @Override
+                        public boolean test(ReceiveBillBean.DataEntity dataEntity) {
+                            return dataEntity.getDocumentStatus().equals("C") || dataEntity.getDocumentStatus().equals("D");
+                        }
+                    });
                     if (loadType==0){
                         receivingAdapter.setNewData(data);
                         receivingRefresh.refreshComplete();
@@ -257,6 +264,53 @@ public class ReceiveNoticeActivity extends BaseActivity {
 
             }
         });
+//        HTTPUtils.postByJson(ReceiveNoticeActivity.this, receivingBill, ReceiveBillBean.class, params, new VolleyListener<ReceiveBillBean>() {
+//            @Override
+//            public void requestComplete() {
+//
+//            }
+//
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                if (loadType==0){
+//                    receivingRefresh.refreshComplete();
+//                } else {
+//                    receivingRefresh.loadMoreFail();
+//                }
+//
+//            }
+//
+//            @RequiresApi(api = Build.VERSION_CODES.N)
+//            @Override
+//            public void onResponse(ReceiveBillBean response) {
+//                if (response.getCode()==0){
+//                    PAGE++;
+//                    List<ReceiveBillBean.DataEntity> data = response.getData();
+//                    data.removeIf(new Predicate<ReceiveBillBean.DataEntity>() {  //过滤
+//                        @Override
+//                        public boolean test(ReceiveBillBean.DataEntity dataEntity) {
+//                            return dataEntity.getDocumentStatus().equals("C") || dataEntity.getDocumentStatus().equals("D");
+//                        }
+//                    });
+//                    if (loadType==0){
+//                        receivingAdapter.setNewData(data);
+//                        receivingRefresh.refreshComplete();
+//                    } else {
+//                        if (data.size() > 0) {
+//                            receivingAdapter.addData(data);
+//                        }
+//                        receivingRefresh.loadMoreComplete();
+//                    }
+//                } else {
+//                    if (loadType == 0) {
+//                        receivingRefresh.refreshComplete();
+//                    } else {
+//                        receivingRefresh.loadMoreComplete();
+//                    }
+//                }
+//
+//            }
+//        });
     }
 
 
@@ -265,33 +319,27 @@ public class ReceiveNoticeActivity extends BaseActivity {
         Map<String,String> map=new HashMap<>();
         map.put("fid",String.valueOf(fid));
         String pushReceiving = Constance.getPushReceiving();
-        HTTPUtils.postByJson(ReceiveNoticeActivity.this, pushReceiving, ReceivePush.class, map, new VolleyListener<ReceivePush>() {
+        HTTPUtils.getInstance(this).postByJson(ReceiveNoticeActivity.this, pushReceiving, ReceivePush.class, map, new VolleyListener<ReceivePush>() {
             @Override
             public void onResponse(ReceivePush response) {
                 if (response.getCode()==0) {
                     ToastUtil.show(ReceiveNoticeActivity.this,"下推成功");
                     Logutil.print("下推",response.getData().getId()+"/"+response.getData().getNumber());
-                       //跳转到采购入库详情
-                        Intent intent1=new Intent(ReceiveNoticeActivity.this, PurchaseWarehousingDetailActivity.class);
-                        Bundle bundle1=new Bundle();
-                        bundle1.putInt("fid",response.getData().getId());
-                        bundle1.putString("fnumber",response.getData().getNumber());
-                        intent1.putExtras(bundle1);
-                        startActivity(intent1);
+                    //跳转到采购入库详情
+                    Intent intent1=new Intent(ReceiveNoticeActivity.this, PurchaseWarehousingDetailActivity.class);
+                    Bundle bundle1=new Bundle();
+                    bundle1.putInt("fid",response.getData().getId());
+                    bundle1.putString("fnumber",response.getData().getNumber());
+                    intent1.putExtras(bundle1);
+                    startActivity(intent1);
                 } else {
                     ToastUtil.show(ReceiveNoticeActivity.this,"下推失败");
-//                    Intent intent1=new Intent(ReceiveNoticeActivity.this, PurchaseWarehousingDetailActivity.class);
-//                    Bundle bundle1=new Bundle();
-//                    bundle1.putInt("fid",100049);
-//                    bundle1.putString("fnumber","CGRK00004");
-//                    intent1.putExtras(bundle1);
-//                    startActivity(intent1);
                 }
             }
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                ToastUtil.show(ReceiveNoticeActivity.this,error.getMessage());
+                //  ToastUtil.show(ReceiveNoticeActivity.this,error.getMessage());
             }
 
             @Override
@@ -299,6 +347,34 @@ public class ReceiveNoticeActivity extends BaseActivity {
 
             }
         });
+//        HTTPUtils.postByJson(ReceiveNoticeActivity.this, pushReceiving, ReceivePush.class, map, new VolleyListener<ReceivePush>() {
+//            @Override
+//            public void onResponse(ReceivePush response) {
+//                if (response.getCode()==0) {
+//                    ToastUtil.show(ReceiveNoticeActivity.this,"下推成功");
+//                    Logutil.print("下推",response.getData().getId()+"/"+response.getData().getNumber());
+//                       //跳转到采购入库详情
+//                        Intent intent1=new Intent(ReceiveNoticeActivity.this, PurchaseWarehousingDetailActivity.class);
+//                        Bundle bundle1=new Bundle();
+//                        bundle1.putInt("fid",response.getData().getId());
+//                        bundle1.putString("fnumber",response.getData().getNumber());
+//                        intent1.putExtras(bundle1);
+//                        startActivity(intent1);
+//                } else {
+//                    ToastUtil.show(ReceiveNoticeActivity.this,"下推失败");
+//                }
+//            }
+//
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//              //  ToastUtil.show(ReceiveNoticeActivity.this,error.getMessage());
+//            }
+//
+//            @Override
+//            public void requestComplete() {
+//
+//            }
+//        });
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -7,6 +7,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 
 import java.lang.reflect.Type;
+import java.util.List;
 
 public final class GsonUtils {
 
@@ -30,7 +31,7 @@ public final class GsonUtils {
 		}
 		return info;
 	}
-	
+
 	/**
 	 * Type type = new TypeToken&lt;ArrayList&lt;TypeInfo>>(){}.getType();
 	   Type所在的包：java.lang.reflect
@@ -45,6 +46,5 @@ public final class GsonUtils {
 		T infos = gson.fromJson(jsonArr, type);
 		return infos;
 	}
-	
 	private GsonUtils(){}
 }

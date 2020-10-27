@@ -11,12 +11,16 @@ import android.widget.TextView;
 
 import com.ajguan.library.EasyRefreshLayout;
 import com.android.volley.VolleyError;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jeewms.www.wms.R;
 import com.jeewms.www.wms.base.BaseActivity;
 import com.jeewms.www.wms.bean.InStockHeadBean;
 import com.jeewms.www.wms.constance.Constance;
+import com.jeewms.www.wms.ui.activity.receive.ReceiveNoticeActivity;
 import com.jeewms.www.wms.ui.adapter.PurchaseWarehousingAdapter;
 import com.jeewms.www.wms.ui.view.TitleTopOrdersView;
+import com.jeewms.www.wms.util.LocalDisplay;
+import com.jeewms.www.wms.util.decoration.SpacesItemDecoration;
 import com.jeewms.www.wms.volley.HTTPUtils;
 import com.jeewms.www.wms.volley.VolleyListener;
 
@@ -78,7 +82,7 @@ public class PurchaseWarehousingActivity extends BaseActivity {
             }
         });
         TextView tex_item = purchaseWarehousingTitle.getTex_item();
-        tex_item.setVisibility(View.INVISIBLE);
+        tex_item.setVisibility(View.VISIBLE);
         tex_item.setText("采购入库列表");
     }
 
@@ -88,6 +92,7 @@ public class PurchaseWarehousingActivity extends BaseActivity {
         adapter = new PurchaseWarehousingAdapter(R.layout.item_purchase_order_list);
         purchaseRecycler.setLayoutManager(linearLayoutManager);
         purchaseRecycler.setAdapter(adapter);
+        purchaseRecycler.addItemDecoration(new SpacesItemDecoration(LocalDisplay.designedDP2px(8), LocalDisplay.designedDP2px(8), getResources().getColor(R.color.transparent)));
         purchaseOrderRefresh.addEasyEvent(new EasyRefreshLayout.EasyEvent() {
             @Override
             public void onLoadMore() {
@@ -99,12 +104,26 @@ public class PurchaseWarehousingActivity extends BaseActivity {
                 getDate(0, mapParam);
             }
         });
+
+
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                InStockHeadBean.DataEntity item = (InStockHeadBean.DataEntity) adapter.getItem(position);
+                Intent intent1 = new Intent(PurchaseWarehousingActivity.this, PurchaseWarehousingDetailActivity.class);
+                Bundle bundle1 = new Bundle();
+                bundle1.putInt("fid", item.getFid());
+                bundle1.putString("fnumber", item.getFbillNo());
+                intent1.putExtras(bundle1);
+                startActivity(intent1);
+            }
+        });
+        getDate(0, mapParam);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
 
     }
 
@@ -119,7 +138,7 @@ public class PurchaseWarehousingActivity extends BaseActivity {
         params.put("page", String.valueOf(PAGE));
         params.put("limit", String.valueOf(LIMIT));
         String getstkInStock = Constance.getGetstkInStock();
-        HTTPUtils.postByJson(PurchaseWarehousingActivity.this, getstkInStock, InStockHeadBean.class, params, new VolleyListener<InStockHeadBean>() {
+        HTTPUtils.getInstance(this).postByJson(PurchaseWarehousingActivity.this, getstkInStock, InStockHeadBean.class, params, new VolleyListener<InStockHeadBean>() {
             @Override
             public void requestComplete() {
 
@@ -159,6 +178,46 @@ public class PurchaseWarehousingActivity extends BaseActivity {
 
             }
         });
+//        HTTPUtils.postByJson(PurchaseWarehousingActivity.this, getstkInStock, InStockHeadBean.class, params, new VolleyListener<InStockHeadBean>() {
+//            @Override
+//            public void requestComplete() {
+//
+//            }
+//
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                if (loadType == 0) {
+//                    purchaseOrderRefresh.refreshComplete();
+//                } else {
+//                    purchaseOrderRefresh.loadMoreFail();
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onResponse(InStockHeadBean response) {
+//                if (response.getCode() == 0) {
+//                    PAGE++;
+//                    List<InStockHeadBean.DataEntity> data = response.getData();
+//                    if (loadType == 0) {
+//                        adapter.setNewData(data);
+//                        purchaseOrderRefresh.refreshComplete();
+//                    } else {
+//                        if (data.size() > 0) {
+//                            adapter.addData(data);
+//                        }
+//                        purchaseOrderRefresh.loadMoreComplete();
+//                    }
+//                } else {
+//                    if (loadType == 0) {
+//                        purchaseOrderRefresh.refreshComplete();
+//                    } else {
+//                        purchaseOrderRefresh.loadMoreComplete();
+//                    }
+//                }
+//
+//            }
+//        });
     }
     @OnClick({R.id.iv_add, R.id.iv_scan})
     public void onViewClicked(View view) {

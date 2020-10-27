@@ -19,7 +19,6 @@ import java.util.List;
  */
 public class InStockHeadBean implements Serializable {
 
-
     /**
      * msg : 操作成功
      * code : 0
@@ -53,7 +52,7 @@ public class InStockHeadBean implements Serializable {
         return data;
     }
 
-    public class DataEntity {
+    public static class DataEntity {
         /**
          * fid : 100006
          * fdemandOrgName : 金锋馥（滁州）输送机械有限公司
@@ -155,14 +154,14 @@ public class InStockHeadBean implements Serializable {
         private String fbillTypeNumber;
         private String fsettleCurrIdName;
         private String fbillNo;
-        private List<InStockEntryBean.DataEntity> stkInStockEntryVo=new ArrayList<>();
+        private List<InStockEntryBean.DataEntity> stkInStockEntryVoList;
 
-        public List<InStockEntryBean.DataEntity> getStkInStockEntryVo() {
-            return stkInStockEntryVo;
+        public List<InStockEntryBean.DataEntity> getStkInStockEntryVoList() {
+            return stkInStockEntryVoList;
         }
 
-        public void setStkInStockEntryVo(List<InStockEntryBean.DataEntity> stkInStockEntryVo) {
-            this.stkInStockEntryVo = stkInStockEntryVo;
+        public void setStkInStockEntryVoList(List<InStockEntryBean.DataEntity> stkInStockEntryVoList) {
+            this.stkInStockEntryVoList = stkInStockEntryVoList;
         }
 
         public void setFid(int fid) {

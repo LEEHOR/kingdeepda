@@ -16,43 +16,85 @@ public class BdStock extends LitePalSupport implements Serializable {
 
 
     /**
-     * 实体主键
-     */
-    private Long fstockid;
-
-    /**
-     * 禁用状态
-     */
-    private String fforbidstatus;
-
-    /**
-     * 名称
+     * fname : 原材料仓库
+     * faddress :
+     * ftel : 0
+     * fforbidstatus : A
+     * fprincipal :
+     * fstockid : 165767
+     * fnumber : null
+     * fdescription : DQ001
      */
     private String fname;
-
-    /**
-     * 编码
-     */
+    private String faddress;
+    private String ftel;
+    private String fforbidstatus;
+    private String fprincipal;
+    private int fstockid;
     private String fnumber;
-
-    /**
-     * 描述
-     */
     private String fdescription;
 
-    /**
-     * 仓库负责人
-     */
-    private String fprincipal;
+    public void setFname(String fname) {
+        this.fname = fname;
+    }
 
-    /**
-     * 联系电话
-     */
-    private String ftel;
+    public void setFaddress(String faddress) {
+        this.faddress = faddress;
+    }
 
-    /**
-     * 仓库地址：
-     */
-    private String faddress;
+    public void setFtel(String ftel) {
+        this.ftel = ftel;
+    }
 
+    public void setFforbidstatus(String fforbidstatus) {
+        this.fforbidstatus = fforbidstatus;
+    }
+
+    public void setFprincipal(String fprincipal) {
+        this.fprincipal = fprincipal;
+    }
+
+    public void setFstockid(int fstockid) {
+        this.fstockid = fstockid;
+    }
+
+    public void setFnumber(String fnumber) {
+        this.fnumber = fnumber;
+    }
+
+    public void setFdescription(String fdescription) {
+        this.fdescription = fdescription;
+    }
+
+    public String getFname() {
+        return fname;
+    }
+
+    public String getFaddress() {
+        return faddress;
+    }
+
+    public String getFtel() {
+        return ftel;
+    }
+
+    public String getFforbidstatus() {
+        return fforbidstatus;
+    }
+
+    public String getFprincipal() {
+        return fprincipal;
+    }
+
+    public int getFstockid() {
+        return fstockid;
+    }
+
+    public String getFnumber() {
+        return fnumber;
+    }
+
+    public String getFdescription() {
+        return fdescription;
+    }
 }

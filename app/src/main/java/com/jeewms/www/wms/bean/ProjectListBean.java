@@ -1,5 +1,7 @@
 package com.jeewms.www.wms.bean;
 
+import com.jeewms.www.wms.dataBase.BdProject;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -19,15 +21,13 @@ import java.util.List;
 public class ProjectListBean implements Serializable {
 
     /**
-     * msg : null
+     * msg : 操作成功
      * code : 0
-     * data : [{"fid":184419,"fcreateorgid":"110779","fname":"京东物流转运中心（东南）","fprojectstageid":"0","fprojectmanagerid":"0","fpbxqprojectstatus":"0","fforbidstatus":"A","fdescription":" ","fpbxqproject":"0","fprojectproperty":" ","fnumber":"cs0001","fuseorgid":"110779","fcustomerid":"0","fcustomertel":" "}]
-     * count : 7
+     * data : [{"fid":184419,"fcreateorgid":"110779","fname":"京东物流转运中心（东南）","fprojectstageid":"0","fprojectmanagerid":"0","fpbxqprojectstatus":"0","fforbidstatus":"A","fdescription":" ","fpbxqproject":"0","fprojectproperty":" ","fnumber":"cs0001","fuseorgid":"110779","fcustomerid":"0","fcustomertel":" "},{"fid":184420,"fcreateorgid":"110779","fname":"京邦达物流转运中心","fprojectstageid":"0","fprojectmanagerid":"0","fpbxqprojectstatus":"0","fforbidstatus":"A","fdescription":" ","fpbxqproject":"0","fprojectproperty":"Project","fnumber":"cs002","fuseorgid":"110779","fcustomerid":"182240","fcustomertel":" "}]
      */
     private String msg;
     private int code;
-    private List<DataEntity> data;
-    private int count;
+    private List<BdProject> data;
 
     public void setMsg(String msg) {
         this.msg = msg;
@@ -36,15 +36,6 @@ public class ProjectListBean implements Serializable {
     public void setCode(int code) {
         this.code = code;
     }
-
-    public void setData(List<DataEntity> data) {
-        this.data = data;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
-
     public String getMsg() {
         return msg;
     }
@@ -53,156 +44,11 @@ public class ProjectListBean implements Serializable {
         return code;
     }
 
-    public List<DataEntity> getData() {
+    public List<BdProject> getData() {
         return data;
     }
 
-    public int getCount() {
-        return count;
-    }
-
-    public class DataEntity {
-        /**
-         * fid : 184419
-         * fcreateorgid : 110779
-         * fname : 京东物流转运中心（东南）
-         * fprojectstageid : 0
-         * fprojectmanagerid : 0
-         * fpbxqprojectstatus : 0
-         * fforbidstatus : A
-         * fdescription :
-         * fpbxqproject : 0
-         * fprojectproperty :
-         * fnumber : cs0001
-         * fuseorgid : 110779
-         * fcustomerid : 0
-         * fcustomertel :
-         */
-        private int fid;
-        private String fcreateorgid;
-        private String fname;
-        private String fprojectstageid;
-        private String fprojectmanagerid;
-        private String fpbxqprojectstatus;
-        private String fforbidstatus;
-        private String fdescription;
-        private String fpbxqproject;
-        private String fprojectproperty;
-        private String fnumber;
-        private String fuseorgid;
-        private String fcustomerid;
-        private String fcustomertel;
-
-        public void setFid(int fid) {
-            this.fid = fid;
-        }
-
-        public void setFcreateorgid(String fcreateorgid) {
-            this.fcreateorgid = fcreateorgid;
-        }
-
-        public void setFname(String fname) {
-            this.fname = fname;
-        }
-
-        public void setFprojectstageid(String fprojectstageid) {
-            this.fprojectstageid = fprojectstageid;
-        }
-
-        public void setFprojectmanagerid(String fprojectmanagerid) {
-            this.fprojectmanagerid = fprojectmanagerid;
-        }
-
-        public void setFpbxqprojectstatus(String fpbxqprojectstatus) {
-            this.fpbxqprojectstatus = fpbxqprojectstatus;
-        }
-
-        public void setFforbidstatus(String fforbidstatus) {
-            this.fforbidstatus = fforbidstatus;
-        }
-
-        public void setFdescription(String fdescription) {
-            this.fdescription = fdescription;
-        }
-
-        public void setFpbxqproject(String fpbxqproject) {
-            this.fpbxqproject = fpbxqproject;
-        }
-
-        public void setFprojectproperty(String fprojectproperty) {
-            this.fprojectproperty = fprojectproperty;
-        }
-
-        public void setFnumber(String fnumber) {
-            this.fnumber = fnumber;
-        }
-
-        public void setFuseorgid(String fuseorgid) {
-            this.fuseorgid = fuseorgid;
-        }
-
-        public void setFcustomerid(String fcustomerid) {
-            this.fcustomerid = fcustomerid;
-        }
-
-        public void setFcustomertel(String fcustomertel) {
-            this.fcustomertel = fcustomertel;
-        }
-
-        public int getFid() {
-            return fid;
-        }
-
-        public String getFcreateorgid() {
-            return fcreateorgid;
-        }
-
-        public String getFname() {
-            return fname;
-        }
-
-        public String getFprojectstageid() {
-            return fprojectstageid;
-        }
-
-        public String getFprojectmanagerid() {
-            return fprojectmanagerid;
-        }
-
-        public String getFpbxqprojectstatus() {
-            return fpbxqprojectstatus;
-        }
-
-        public String getFforbidstatus() {
-            return fforbidstatus;
-        }
-
-        public String getFdescription() {
-            return fdescription;
-        }
-
-        public String getFpbxqproject() {
-            return fpbxqproject;
-        }
-
-        public String getFprojectproperty() {
-            return fprojectproperty;
-        }
-
-        public String getFnumber() {
-            return fnumber;
-        }
-
-        public String getFuseorgid() {
-            return fuseorgid;
-        }
-
-        public String getFcustomerid() {
-            return fcustomerid;
-        }
-
-        public String getFcustomertel() {
-            return fcustomertel;
-        }
+    public void setData(List<BdProject> data) {
+        this.data = data;
     }
 }

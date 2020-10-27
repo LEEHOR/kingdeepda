@@ -19,7 +19,7 @@
     <!--标题风格-->
     <style name="AppTitlebarStyle">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">?actionBarSize</item>
+        <item name="android:layout_height">40dp</item>
         <item name="android:background">@drawable/titlebar_bg</item>
     </style>
     <!--标题风格-->

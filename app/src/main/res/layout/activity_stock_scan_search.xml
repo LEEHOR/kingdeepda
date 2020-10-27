@@ -80,7 +80,7 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/tv_Warehouse"
+            app:layout_constraintRight_toLeftOf="@+id/tv_stock"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:drawableEnd="@drawable/ic_bottom_black"
@@ -88,7 +88,7 @@
 
         <TextView
             style="@style/mine_fragment"
-            android:id="@+id/tv_Warehouse"
+            android:id="@+id/tv_stock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"

@@ -45,6 +45,11 @@ public abstract class BaseDialogFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -64,10 +69,9 @@ public abstract class BaseDialogFragment extends DialogFragment {
     }
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Dialog dialog = super.onCreateDialog(savedInstanceState);
-        iniWidow(dialog);
-        return dialog;
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        iniWidow(getDialog());
     }
 
     @Override

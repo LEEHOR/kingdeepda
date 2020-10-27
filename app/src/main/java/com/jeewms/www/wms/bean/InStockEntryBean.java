@@ -53,7 +53,7 @@ public class InStockEntryBean implements Serializable {
         return data;
     }
 
-    public class DataEntity {
+    public static class DataEntity {
         /**
          * fid : null
          * flotNumber : null

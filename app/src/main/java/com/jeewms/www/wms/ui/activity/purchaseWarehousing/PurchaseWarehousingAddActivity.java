@@ -27,11 +27,12 @@ import com.jeewms.www.wms.R;
 import com.jeewms.www.wms.base.BaseActivity;
 import com.jeewms.www.wms.bean.InStockEntryBean;
 import com.jeewms.www.wms.bean.InStockHeadBean;
-import com.jeewms.www.wms.bean.MaterialListBean;
-import com.jeewms.www.wms.bean.ProjectListBean;
 import com.jeewms.www.wms.bean.UpdatePwd;
 import com.jeewms.www.wms.constance.Constance;
+import com.jeewms.www.wms.ui.dialog.DepartmentDialog;
+import com.jeewms.www.wms.ui.dialog.OrganizationsDialog;
 import com.jeewms.www.wms.ui.dialog.PurchaseOrderAddDialog;
+import com.jeewms.www.wms.ui.dialog.SupplierDialog;
 import com.jeewms.www.wms.ui.view.TitleTopOrdersView;
 import com.jeewms.www.wms.util.Logutil;
 import com.jeewms.www.wms.volley.HTTPUtils;
@@ -45,6 +46,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -111,16 +113,21 @@ public class PurchaseWarehousingAddActivity extends BaseActivity {
     EditText tvFsupplyAddress;
     @BindView(R.id.tv_fchargeName)
     EditText tvFchargeName;
-    private InStockHeadBean.DataEntity TableHeadData;
-    private List<InStockEntryBean.DataEntity> TableBodyDate=new ArrayList<>();
-    private int fid = 0;
-    private String key_fid = "fid";
-
+    private InStockHeadBean.DataEntity TableHeadData=new InStockHeadBean.DataEntity();
+    private List<InStockEntryBean.DataEntity> TableBodyDate = new ArrayList<>();
+    //选择记录
+   private int organization=9999;
+    private int department=9999;
+    private int supplier=9999;
+    private OrganizationsDialog organizationsDialog;
+    private DepartmentDialog departmentDialog;
+    private SupplierDialog supplierDialog;
 
     @Override
     protected int getContentResId() {
         return R.layout.activity_purchase_warehousing_add;
     }
+
     public static void show(Context context) {
         Intent intent = new Intent(context, PurchaseWarehousingAddActivity.class);
         context.startActivity(intent);
@@ -158,6 +165,55 @@ public class PurchaseWarehousingAddActivity extends BaseActivity {
             }
         });
         createTab();
+        Dialog();
+    }
+    private void Dialog(){
+        //组织
+        organizationsDialog = OrganizationsDialog.newInstance(organization);
+        organizationsDialog.setListener(new OrganizationsDialog.OrganizationSelectListener() {
+            @Override
+            public void onConfirm(String name, String number, int position) {
+                organization=position;
+                tvFpurchaseOrgName.setText(name);
+                TableHeadData.setFpurchaseOrgNumber(number);
+            }
+
+            @Override
+            public void onClose() {
+                organizationsDialog.Close();
+               // organizationsDialog.Close();
+            }
+        });
+        //部门
+        departmentDialog = DepartmentDialog.newInstance(department);
+        departmentDialog.setListener(new DepartmentDialog.DepartmentSelectListener() {
+            @Override
+            public void onConfirm(String name, String number, int position) {
+                department=position;
+                tvFstockDeptName.setText(name);
+                TableHeadData.setFstockDeptNumber(number);
+            }
+
+            @Override
+            public void onClose() {
+                departmentDialog.Close();
+            }
+        });
+        //供应商
+        supplierDialog = SupplierDialog.newInstance(supplier);
+        supplierDialog.setListener(new SupplierDialog.SupplierSelectListener() {
+            @Override
+            public void onConfirm(String name, String number,int position) {
+                supplier=position;
+                tvFsupplierName.setText(name);
+                TableHeadData.setFsupplierNumber(number);
+            }
+
+            @Override
+            public void onClose() {
+                supplierDialog.Close();
+            }
+        });
     }
 
     private void createTab() {
@@ -216,40 +272,38 @@ public class PurchaseWarehousingAddActivity extends BaseActivity {
         TableData<InStockEntryBean.DataEntity> listTableData = new TableData<>("收料通知订单详情列表", new ArrayList<InStockEntryBean.DataEntity>()
                 , c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20);
         addTable.setTableData(listTableData);
-    }
-
-    @OnClick({R.id.iv_add, R.id.iv_scan})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.iv_add:
-                AddOrderDialog("手动添加明细", 1);
-                break;
-            case R.id.iv_scan:
-                AddOrderDialog("扫码添加明细", 2);
-                break;
-        }
+        addTable.getTableData().setOnRowClickListener(new TableData.OnRowClickListener() {
+            @Override
+            public void onClick(Column column, Object o, int col, int row) {
+                List<InStockEntryBean.DataEntity> t = addTable.getTableData().getT();
+                if (t != null) {
+                    InStockEntryBean.DataEntity dataEntity = t.get(row);
+                    Logutil.print("打印",dataEntity.getProjectNumber());
+                }
+            }
+        });
     }
 
     @OnClick(R.id.btn_push)
     public void onViewClicked() {
-        SaveDate();
+       // SaveDate();
     }
 
     //保存
     private void SaveDate() {
         Gson gson = new GsonBuilder().serializeNulls().create();
         String s = gson.toJson(TableHeadData);
-        JSONObject jsonObject=null;
+        JSONObject jsonObject = null;
         try {
-             jsonObject = new JSONObject(s);
+            jsonObject = new JSONObject(s);
         } catch (JSONException e) {
             e.printStackTrace();
         }
         Logutil.print("数据11", jsonObject.toString());
-        JsonObject asJsonObject =gson.toJsonTree(TableHeadData).getAsJsonObject();
+        JsonObject asJsonObject = gson.toJsonTree(TableHeadData).getAsJsonObject();
         Logutil.print("数据", asJsonObject.toString());
         String stkInStockAdd = Constance.getStkInStockAdd();
-        HTTPUtils.postByJson(this, stkInStockAdd, UpdatePwd.class, asJsonObject, new VolleyListener<UpdatePwd>() {
+        HTTPUtils.getInstance(this).postByJson(this, stkInStockAdd, UpdatePwd.class, asJsonObject, new VolleyListener<UpdatePwd>() {
             @Override
             public void requestComplete() {
 
@@ -265,14 +319,32 @@ public class PurchaseWarehousingAddActivity extends BaseActivity {
 
             }
         });
+//        HTTPUtils.postByJson(this, stkInStockAdd, UpdatePwd.class, asJsonObject, new VolleyListener<UpdatePwd>() {
+//            @Override
+//            public void requestComplete() {
+//
+//            }
+//
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//
+//            }
+//
+//            @Override
+//            public void onResponse(UpdatePwd response) {
+//
+//            }
+//        });
     }
 
     private void AddOrderDialog(String title, int type) {
+        TableBodyDate.clear();
         final PurchaseOrderAddDialog purchaseOrderAddDialog = PurchaseOrderAddDialog.newInstance(title, type);
         purchaseOrderAddDialog.setOnAddOrderListener(new PurchaseOrderAddDialog.OnAddOrderListener() {
             @Override
-            public void onConfirm(MaterialListBean.DataEntity materialDate, ProjectListBean.DataEntity projectDate) {
-
+            public void onConfirm(InStockEntryBean.DataEntity body) {
+                TableBodyDate.add(body);
+                addTable.addData(TableBodyDate,false);
             }
 
             @Override
@@ -281,5 +353,61 @@ public class PurchaseWarehousingAddActivity extends BaseActivity {
             }
         });
         purchaseOrderAddDialog.show(getFragmentManager(), "addorder");
+    }
+
+    @OnClick({R.id.iv_add, R.id.iv_scan,R.id.tv_fbillTypeName, R.id.tv_fstockOrgNamee, R.id.tv_fpurchaseOrgName, R.id.tv_fbusinessType, R.id.tv_fstockDeptName, R.id.tv_fpurchaseDeptName, R.id.tv_fbillNo, R.id.tv_fstockerGroupName, R.id.tv_fpurchaserGroupName, R.id.tv_fdate, R.id.tv_fstockerName, R.id.tv_fpurchaserName, R.id.tv_fdocumentStatus, R.id.tv_fsupplierName, R.id.tv_fdemandOrgName, R.id.tv_fsettleName, R.id.tv_fsupplyName, R.id.tv_fproviderContactName, R.id.tv_fsupplyAddress, R.id.tv_fchargeName})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.iv_add:
+                AddOrderDialog("手动添加明细", 1);
+                break;
+            case R.id.iv_scan:
+                AddOrderDialog("扫码添加明细", 2);
+                break;
+            case R.id.tv_fbillTypeName:
+                break;
+            case R.id.tv_fstockOrgNamee:
+                break;
+            case R.id.tv_fpurchaseOrgName://组织
+                organizationsDialog.setPosition(organization);
+                organizationsDialog.show(getFragmentManager(),"组织");
+                break;
+            case R.id.tv_fbusinessType:
+                break;
+            case R.id.tv_fstockDeptName: //采购部门
+                departmentDialog.show(getFragmentManager(),"部门");
+                break;
+            case R.id.tv_fpurchaseDeptName:
+                break;
+            case R.id.tv_fbillNo:
+                break;
+            case R.id.tv_fstockerGroupName:
+                break;
+            case R.id.tv_fpurchaserGroupName:
+                break;
+            case R.id.tv_fdate:
+                break;
+            case R.id.tv_fstockerName:
+                break;
+            case R.id.tv_fpurchaserName:
+                break;
+            case R.id.tv_fdocumentStatus:
+                break;
+            case R.id.tv_fsupplierName: //供应商
+                supplierDialog.show(getFragmentManager(),"供应商");
+                break;
+            case R.id.tv_fdemandOrgName:
+                break;
+            case R.id.tv_fsettleName:
+                break;
+            case R.id.tv_fsupplyName:
+                break;
+            case R.id.tv_fproviderContactName:
+                break;
+            case R.id.tv_fsupplyAddress:
+                break;
+            case R.id.tv_fchargeName:
+                break;
+        }
     }
 }

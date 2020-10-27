@@ -11,7 +11,7 @@ import android.widget.GridView;
 import com.jeewms.www.wms.base.BaseActivity;
 import com.jeewms.www.wms.bean.HomeBtnBean;
 import com.jeewms.www.wms.constance.Constance;
-import com.jeewms.www.wms.ui.adapter.HomeGridAdapter;
+import com.jeewms.www.wms.ui.adapter.HomeGridAdapter1;
 import com.jeewms.www.wms.util.SharedPreferencesUtil;
 
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 public class HomeActivity extends BaseActivity {
 
-    HomeGridAdapter adapter;
+    HomeGridAdapter1 adapter;
     GridView gvHome;
     ArrayList<HomeBtnBean> list = new ArrayList<>();
 
@@ -55,8 +55,7 @@ public class HomeActivity extends BaseActivity {
                 finish();
             }
         });
-        adapter = new HomeGridAdapter();
-        gvHome =findViewById(R.id.gv_home);
+        adapter = new HomeGridAdapter1();
         gvHome.setAdapter(adapter);
         addBtn();
 
@@ -67,7 +66,7 @@ public class HomeActivity extends BaseActivity {
         for (int i = 0; i < Constance.btnNameList.length; i++) {
             addBtn2List(Constance.btnNameList[i], Constance.btnImgList[i]);
         }
-        adapter.setList(list);
+        adapter.setList(list,1);
         adapter.notifyDataSetChanged();
     }
 
