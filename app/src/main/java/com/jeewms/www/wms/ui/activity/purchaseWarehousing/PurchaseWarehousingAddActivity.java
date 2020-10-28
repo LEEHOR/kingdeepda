@@ -303,7 +303,7 @@ public class PurchaseWarehousingAddActivity extends BaseActivity {
         JsonObject asJsonObject = gson.toJsonTree(TableHeadData).getAsJsonObject();
         Logutil.print("数据", asJsonObject.toString());
         String stkInStockAdd = Constance.getStkInStockAdd();
-        HTTPUtils.getInstance(this).postByJson(this, stkInStockAdd, UpdatePwd.class, asJsonObject, new VolleyListener<UpdatePwd>() {
+        HTTPUtils.getInstance(this).postByJson(stkInStockAdd, UpdatePwd.class, asJsonObject, new VolleyListener<UpdatePwd>() {
             @Override
             public void requestComplete() {
 
@@ -319,22 +319,6 @@ public class PurchaseWarehousingAddActivity extends BaseActivity {
 
             }
         });
-//        HTTPUtils.postByJson(this, stkInStockAdd, UpdatePwd.class, asJsonObject, new VolleyListener<UpdatePwd>() {
-//            @Override
-//            public void requestComplete() {
-//
-//            }
-//
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//
-//            }
-//
-//            @Override
-//            public void onResponse(UpdatePwd response) {
-//
-//            }
-//        });
     }
 
     private void AddOrderDialog(String title, int type) {

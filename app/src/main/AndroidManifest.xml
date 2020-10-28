@@ -39,13 +39,16 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
 
-        <activity android:name=".MainActivity">
+        <activity
+            android:launchMode="singleTask"
+            android:name=".MainActivity">
             <!--            <intent-filter>-->
             <!--                <action android:name="android.intent.action.MAIN"/>-->
             <!--                <category android:name="android.intent.category.LAUNCHER"/>-->
             <!--            </intent-filter>-->
         </activity>
         <activity
+            android:launchMode="singleTask"
             android:name=".WelComeActivity"
             android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar.Fullscreen">
             <intent-filter>
@@ -53,7 +56,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" />
+        <activity
+            android:launchMode="singleTask"
+            android:name=".LoginActivity" />
         <activity
             android:name=".HomeActivity"
             android:launchMode="singleTask" />

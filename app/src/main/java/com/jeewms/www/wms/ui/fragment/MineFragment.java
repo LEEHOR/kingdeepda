@@ -149,7 +149,7 @@ public class MineFragment extends BaseFragment {
     private void checkVersion(){
         Map<String,String> params=new HashMap<>();
         String newVersionUrl = Constance.getNewVersion();
-        HTTPUtils.getInstance(getActivity()).post(getActivity(), newVersionUrl, params, new VolleyListener<String>() {
+        HTTPUtils.getInstance(getActivity()).post( newVersionUrl, params, new VolleyListener<String>() {
             @Override
             public void requestComplete() {
 
@@ -169,27 +169,6 @@ public class MineFragment extends BaseFragment {
                 }
             }
         });
-//        HTTPUtils.post(getActivity(), newVersionUrl, params, new VolleyListener<String>() {
-//            @Override
-//            public void requestComplete() {
-//
-//            }
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                ToastUtil.show(getActivity(), error.getMessage());
-//            }
-//
-//            @Override
-//            public void onResponse(String response) {
-//                NewVersionBean vm = GsonUtils.parseJSON(response, NewVersionBean.class);
-//                if (vm.getCode()==0){
-//                    DialogVersion(vm.getVersion(),vm.getFocusUpdate(),vm.getRemark(),vm.getUrl());
-//                }else {
-//                    ToastUtil.show(getActivity(), vm.getMsg());
-//                }
-//            }
-//        });
-
     }
     private void DialogVersion(String versionName, int isForceUpdate, String remark, final String durl){
         final UpdateDialog updateDialog = UpdateDialog.newInstance(versionName,isForceUpdate,remark);

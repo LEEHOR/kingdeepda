@@ -334,13 +334,16 @@ public class HomeFragment extends BaseFragment {
             DownloadCount++;
             getBdUnit();
         }
+        if(DownloadCount ==0){
+            updateDialog.Close();
+        }
     }
 
     //请求币别代码
     private void getBdCurrency() {
         String current = Constance.getCurrent();
 
-        HTTPUtils.getInstance(getActivity()).get(getActivity(), current, new VolleyListener<String>() {
+        HTTPUtils.getInstance(getActivity()).get(current, new VolleyListener<String>() {
             @Override
             public void requestComplete() {
                 myHandler.sendEmptyMessage(COUNT);
@@ -390,7 +393,7 @@ public class HomeFragment extends BaseFragment {
     //请求部门
     private void getBdDepartment() {
         String department = Constance.getDepartment();
-        HTTPUtils.getInstance(getActivity()).get(getActivity(), department, new VolleyListener<String>() {
+        HTTPUtils.getInstance(getActivity()).get( department, new VolleyListener<String>() {
             @Override
             public void requestComplete() {
                 myHandler.sendEmptyMessage(COUNT);
@@ -443,7 +446,7 @@ public class HomeFragment extends BaseFragment {
     //请求金蝶物料表
     private void getBdMaterial() {
         String materriallist = Constance.getMaterial();
-        HTTPUtils.getInstance(getActivity()).get(getActivity(), materriallist, new VolleyListener<String>() {
+        HTTPUtils.getInstance(getActivity()).get(materriallist, new VolleyListener<String>() {
             @Override
             public void requestComplete() {
                 myHandler.sendEmptyMessage(COUNT);
@@ -493,7 +496,7 @@ public class HomeFragment extends BaseFragment {
     //请求存货类别
     private void getBdMaterialCategory() {
         String materialcategory = Constance.getMaterialcategory();
-        HTTPUtils.getInstance(getActivity()).get(getActivity(), materialcategory, new VolleyListener<String>() {
+        HTTPUtils.getInstance(getActivity()).get(materialcategory, new VolleyListener<String>() {
             @Override
             public void requestComplete() {
                 myHandler.sendEmptyMessage(COUNT);
@@ -545,7 +548,7 @@ public class HomeFragment extends BaseFragment {
     //请求组织机构类别
     private void getBdOrganization() {
         final String organization = Constance.getOrganization();
-        HTTPUtils.getInstance(getActivity()).get(getActivity(), organization, new VolleyListener<String>() {
+        HTTPUtils.getInstance(getActivity()).get(organization, new VolleyListener<String>() {
             @Override
             public void requestComplete() {
                 myHandler.sendEmptyMessage(COUNT);
@@ -595,7 +598,7 @@ public class HomeFragment extends BaseFragment {
     //请求项目
     private void getBdProject() {
         String projectlist = Constance.getProjectlist();
-        HTTPUtils.getInstance(getActivity()).get(getActivity(), projectlist, new VolleyListener<String>() {
+        HTTPUtils.getInstance(getActivity()).get(projectlist, new VolleyListener<String>() {
             @Override
             public void requestComplete() {
                 myHandler.sendEmptyMessage(COUNT);
@@ -646,7 +649,7 @@ public class HomeFragment extends BaseFragment {
     //请求仓库
     private void getBdStock() {
         String stockList = Constance.getStockList();
-        HTTPUtils.getInstance(getActivity()).get(getActivity(), stockList, new VolleyListener<String>() {
+        HTTPUtils.getInstance(getActivity()).get(stockList, new VolleyListener<String>() {
             @Override
             public void requestComplete() {
                 myHandler.sendEmptyMessage(COUNT);
@@ -696,7 +699,7 @@ public class HomeFragment extends BaseFragment {
     //请求供应商
     private void getBdSupplier() {
         String supplier = Constance.getSupplier();
-        HTTPUtils.getInstance(getActivity()).get(getActivity(), supplier, new VolleyListener<String>() {
+        HTTPUtils.getInstance(getActivity()).get(supplier, new VolleyListener<String>() {
             @Override
             public void requestComplete() {
                 myHandler.sendEmptyMessage(COUNT);
@@ -749,7 +752,7 @@ public class HomeFragment extends BaseFragment {
     //请求计量单位代码
     private void getBdUnit() {
         String unit = Constance.getUnit();
-        HTTPUtils.getInstance(getActivity()).get(getActivity(), unit, new VolleyListener<String>() {
+        HTTPUtils.getInstance(getActivity()).get( unit, new VolleyListener<String>() {
             @Override
             public void requestComplete() {
                 myHandler.sendEmptyMessage(COUNT);

@@ -46,11 +46,15 @@ public class CurrencyDialogAdapter extends BaseQuickAdapter<BdCurrency, BaseView
     @Override
     protected void convert(@NonNull BaseViewHolder helper, BdCurrency item) {
         TextView textView = helper.getView(R.id.tv_materialdialog);
+        TextView textView1 = helper.getView(R.id.tv_materialdialog2);
+        textView1.setText(item.getFcode());
         textView.setText(String.format("%s(%s)", item.getFname(), item.getFnumber()));
         if (helper.getLayoutPosition()==getSelectPosition()){
             textView.setTextColor(context.getResources().getColor(R.color.titlebar_color));
+            textView1.setTextColor(context.getResources().getColor(R.color.titlebar_color));
         } else {
             textView.setTextColor(context.getResources().getColor(R.color.black));
+            textView1.setTextColor(context.getResources().getColor(R.color.titlebar_color));
         }
     }
 

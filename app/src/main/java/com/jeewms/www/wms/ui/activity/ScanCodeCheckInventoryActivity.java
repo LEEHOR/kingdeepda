@@ -254,7 +254,7 @@ public class ScanCodeCheckInventoryActivity extends BaseActivity {
         params.put("page", String.valueOf(PAGE));
         params.put("limit", String.valueOf(LIMIT));
         String inventoryUrl = Constance.getInventory();
-        HTTPUtils.getInstance(this).postByJson(this, inventoryUrl, StockScanBean.class, params, new VolleyListener<StockScanBean>() {
+        HTTPUtils.getInstance(this).postByJson( inventoryUrl, StockScanBean.class, params, new VolleyListener<StockScanBean>() {
 
             @Override
             public void requestComplete() {
@@ -295,47 +295,6 @@ public class ScanCodeCheckInventoryActivity extends BaseActivity {
                 }
             }
         });
-//        HTTPUtils.postByJson(this, inventoryUrl, StockScanBean.class, params, new VolleyListener<StockScanBean>() {
-//
-//            @Override
-//            public void requestComplete() {
-//                //  LoadingUtil.CancelProgress();
-//            }
-//
-//            @Override
-//            public void onResponse(StockScanBean response) {
-//                stockScanAdapter.setEmptyView(R.layout.view_empt, (ViewGroup) stockRecycler.getParent());
-//                if (response.getCode() == 0) {
-//                    PAGE++;
-//                    List<StockScanBean.DataEntity> data = response.getData();
-//                    if (loadType == 0) {
-//                        stockScanAdapter.setNewData(data);
-//                        stockRefresh.refreshComplete();
-//                    } else {
-//                        stockRefresh.loadMoreComplete();
-//                        if (data.size() > 0) {
-//                            stockScanAdapter.addData(data);
-//                        }
-//                    }
-//                } else {
-//                    if (loadType == 0) {
-//                        stockRefresh.refreshComplete();
-//                    } else {
-//                        stockRefresh.loadMoreComplete();
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                stockScanAdapter.setEmptyView(R.layout.view_error, (ViewGroup) stockRecycler.getParent());
-//                if (loadType == 1) {
-//                    stockRefresh.refreshComplete();
-//                } else {
-//                    stockRefresh.loadMoreFail();
-//                }
-//            }
-//        });
     }
 
     @OnClick(R.id.iv_scan)

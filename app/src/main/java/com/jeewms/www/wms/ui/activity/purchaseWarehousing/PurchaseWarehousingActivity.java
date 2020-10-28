@@ -138,7 +138,7 @@ public class PurchaseWarehousingActivity extends BaseActivity {
         params.put("page", String.valueOf(PAGE));
         params.put("limit", String.valueOf(LIMIT));
         String getstkInStock = Constance.getGetstkInStock();
-        HTTPUtils.getInstance(this).postByJson(PurchaseWarehousingActivity.this, getstkInStock, InStockHeadBean.class, params, new VolleyListener<InStockHeadBean>() {
+        HTTPUtils.getInstance(this).postByJson( getstkInStock, InStockHeadBean.class, params, new VolleyListener<InStockHeadBean>() {
             @Override
             public void requestComplete() {
 
@@ -178,46 +178,6 @@ public class PurchaseWarehousingActivity extends BaseActivity {
 
             }
         });
-//        HTTPUtils.postByJson(PurchaseWarehousingActivity.this, getstkInStock, InStockHeadBean.class, params, new VolleyListener<InStockHeadBean>() {
-//            @Override
-//            public void requestComplete() {
-//
-//            }
-//
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                if (loadType == 0) {
-//                    purchaseOrderRefresh.refreshComplete();
-//                } else {
-//                    purchaseOrderRefresh.loadMoreFail();
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onResponse(InStockHeadBean response) {
-//                if (response.getCode() == 0) {
-//                    PAGE++;
-//                    List<InStockHeadBean.DataEntity> data = response.getData();
-//                    if (loadType == 0) {
-//                        adapter.setNewData(data);
-//                        purchaseOrderRefresh.refreshComplete();
-//                    } else {
-//                        if (data.size() > 0) {
-//                            adapter.addData(data);
-//                        }
-//                        purchaseOrderRefresh.loadMoreComplete();
-//                    }
-//                } else {
-//                    if (loadType == 0) {
-//                        purchaseOrderRefresh.refreshComplete();
-//                    } else {
-//                        purchaseOrderRefresh.loadMoreComplete();
-//                    }
-//                }
-//
-//            }
-//        });
     }
     @OnClick({R.id.iv_add, R.id.iv_scan})
     public void onViewClicked(View view) {

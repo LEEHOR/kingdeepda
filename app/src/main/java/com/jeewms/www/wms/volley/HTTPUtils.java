@@ -92,15 +92,13 @@ public class HTTPUtils {
 
     /**
      * Json方式请求
-     *
-     * @param context
      * @param url
      * @param tClass
      * @param params
      * @param listener
      * @param <T>
      */
-    public <T> void postByJson(final Context context, final String url, final Class<T> tClass, final Map<String, String> params, final VolleyListener<T> listener) {
+    public <T> void postByJson( final String url, final Class<T> tClass, final Map<String, String> params, final VolleyListener<T> listener) {
         JSONObject jsonObject = new JSONObject(params);
         JsonObjectRequest jsonRequest = new JsonObjectRequest(Method.POST, url, jsonObject, new Listener<JSONObject>() {
             @Override
@@ -146,13 +144,12 @@ public class HTTPUtils {
      * Gson 方式
      *
      * @param <T>
-     * @param context
      * @param url
      * @param tClass
      * @param jsonObject
      * @param listener
      */
-    public <T> void postByJson(final Context context, final String url, final Class<T> tClass, JsonObject jsonObject, final VolleyListener<T> listener) {
+    public <T> void postByJson( final String url, final Class<T> tClass, JsonObject jsonObject, final VolleyListener<T> listener) {
         com.jeewms.www.wms.volley.JsonObjectRequest jsonObjectRequest = new com.jeewms.www.wms.volley.JsonObjectRequest(Method.POST, url, jsonObject, new Listener<JsonObject>() {
             @Override
             public void onResponse(JsonObject response) {
@@ -199,13 +196,12 @@ public class HTTPUtils {
      * org.gson
      *
      * @param <T>
-     * @param context
      * @param url
      * @param tClass
      * @param jsonObject
      * @param listener
      */
-    public <T> void postByJson(final Context context, final String url, final Class<T> tClass, JSONObject jsonObject, final VolleyListener<T> listener) {
+    public <T> void postByJson( final String url, final Class<T> tClass, JSONObject jsonObject, final VolleyListener<T> listener) {
         JsonObjectRequest jsonRequest = new JsonObjectRequest(Method.POST, url, jsonObject, new Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -248,7 +244,7 @@ public class HTTPUtils {
 
 
     //JSON解析
-    public <T> void postJson(final Context context, final String url, Class<T> clazz, final Map<String, String> params, final VolleyListener<T> listener) {
+    public <T> void postJson( final String url, Class<T> clazz, final Map<String, String> params, final VolleyListener<T> listener) {
         GsonRequest<T> gsonRequest = new GsonRequest<T>(Method.POST, url, clazz, new Listener<T>() {
             @Override
             public void onResponse(T response) {
@@ -292,7 +288,7 @@ public class HTTPUtils {
         addToRequestQueue(gsonRequest);
     }
 
-    public void post(final Context context, final String url, final Map<String, String> params, final VolleyListener<String> listener) {
+    public void post( final String url, final Map<String, String> params, final VolleyListener<String> listener) {
         StringRequest myReq = new UTFStringRequest(Method.POST, url, new Listener<String>() {
             public void onResponse(String response) {
                 if (response.contains("<!DOCTYPE")) {
@@ -345,7 +341,7 @@ public class HTTPUtils {
 
     }
 
-    public void get(final Context context, final String url,
+    public void get(final String url,
                     final VolleyListener<String> listener) {
         StringRequest myReq = new UTFStringRequest(Method.GET, url, new Listener<String>() {
             public void onResponse(String response) {
@@ -395,7 +391,7 @@ public class HTTPUtils {
 
     }
 
-    public void get(final Context context, final String url, final Map<String, String> params,
+    public void get(final String url, final Map<String, String> params,
                     final VolleyListener<String> listener) {
         StringRequest myReq = new UTFStringRequest(Method.GET, url, new Listener<String>() {
             public void onResponse(String response) {

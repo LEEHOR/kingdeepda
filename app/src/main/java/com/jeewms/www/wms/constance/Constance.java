@@ -92,8 +92,6 @@ public class Constance {
     public static final String DEPARMENT = "/api/pda/base/departmentList";
     //存货类别
     public static final String materialcategory = "/api/pda/base/materialcategoryList";
-
-
     //收料通知单列表
     public static final String GETRECEIVINGBILLLIST = "/api/pda/receiveBill/getReceiveBill";
     //收料通知单详情

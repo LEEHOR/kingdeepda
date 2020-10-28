@@ -130,7 +130,7 @@ public class LoginActivity extends BaseActivity {
         params.put("username", username);
         params.put("password", password);
         String loginURL = Constance.getLoginURL();
-        HTTPUtils.getInstance(this).post(this, loginURL, params, new VolleyListener<String>() {
+        HTTPUtils.getInstance(this).post( loginURL, params, new VolleyListener<String>() {
             @Override
             public void requestComplete() {
 
@@ -151,27 +151,6 @@ public class LoginActivity extends BaseActivity {
                 }
             }
         });
-//        HTTPUtils.post(this, loginURL, params, new VolleyListener<String>() {
-//            @Override
-//            public void requestComplete() {
-//
-//            }
-//
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                ToastUtil.show(LoginActivity.this, "网络连接失败");
-//            }
-//
-//            @Override
-//            public void onResponse(String response) {
-//                LoginVm vm = GsonUtils.parseJSON(response, LoginVm.class);
-//                if (vm.getCode()==0) {
-//                    savePassword(vm.getData().getFuserAccount(),vm.getData().getFuserID(),vm.getData().getFphone(),vm.getAccess_token());
-//                } else {
-//                    ToastUtil.show(LoginActivity.this, vm.getMsg());
-//                }
-//            }
-//        });
     }
 
     private void savePassword(String userAccount,int userId,String phone,String token) {

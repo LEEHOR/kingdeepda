@@ -197,7 +197,7 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
         Map<String, String> params = new HashMap<>();
         params.put(key_fid, id);
         String getstkInStock = Constance.getGetstkInStock();
-        HTTPUtils.getInstance(this).postByJson(this, getstkInStock, InStockHeadBean.class, params, new VolleyListener<InStockHeadBean>() {
+        HTTPUtils.getInstance(this).postByJson( getstkInStock, InStockHeadBean.class, params, new VolleyListener<InStockHeadBean>() {
 
             @Override
             public void onResponse(InStockHeadBean response) {
@@ -243,52 +243,6 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
 
             }
         });
-//        HTTPUtils.postByJson(this, getstkInStock, InStockHeadBean.class, params, new VolleyListener<InStockHeadBean>() {
-//
-//            @Override
-//            public void onResponse(InStockHeadBean response) {
-//                if (response.getCode() == 0) {
-//                    List<InStockHeadBean.DataEntity> datas = response.getData();
-//                    TableHeadData = datas.get(0);
-//                    //  TableHeadData.setFSupplierId(TableHeadData.getFsupplierNumber());
-//                    //  TableHeadData.setFSettleCurrId(TableHeadData.getFsettleCurrIdNumber());
-//                    tvFbillTypeName.setText(TableHeadData.getFbillTypeName());
-//                    tvFstockOrgNamee.setText(TableHeadData.getFstockOrgName());
-//                    tvFpurchaseOrgName.setText(TableHeadData.getFpurchaseOrgName());
-//                    tvFstockDeptName.setText(TableHeadData.getFstockDeptName());
-//                    tvFpurchaseDeptName.setText(TableHeadData.getFpurchaseDeptName());
-//                    tvFbillNo.setText(TableHeadData.getFbillNo());
-//                    tvFstockerGroupName.setText(TableHeadData.getFstockerGroupName());
-//                    tvFpurchaserGroupName.setText(TableHeadData.getFpurchaserGroupName());
-//                    String fdate = TableHeadData.getFdate();
-//                    String str1 = fdate.substring(0, fdate.indexOf("T"));
-//                    tvFdate.setText(str1);
-//                    tvFstockerName.setText(TableHeadData.getFstockerName());
-//                    tvFpurchaserName.setText(TableHeadData.getFpurchaserName());
-//                    tvFdocumentStatus.setText(TableHeadData.getFdocumentStatus());
-//                    tvFsupplierName.setText(TableHeadData.getFsupplierName());
-//                    tvFdemandOrgName.setText(TableHeadData.getFdemandOrgName());
-//                    tvFsettleName.setText(TableHeadData.getFsettleName());
-//                    tvFsupplyName.setText(TableHeadData.getFsupplyName());
-//                    tvFproviderContactName.setText(TableHeadData.getFproviderContactName());
-//                    tvFsupplyAddress.setText(TableHeadData.getFsupplyAddress());
-//                    tvFchargeName.setText(TableHeadData.getFchargeName());
-//                    if (fid != 0) {
-//                        getTableBodyDate(String.valueOf(fid));
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//
-//            }
-//
-//            @Override
-//            public void requestComplete() {
-//
-//            }
-//        });
     }
 
     //获取单据体数据(从收料通知页跳转)
@@ -296,7 +250,7 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
         Map<String, String> params = new HashMap<>();
         params.put(key_fid, fid);
         String getstkInStockEntry = Constance.getGetstkInStockEntry();
-        HTTPUtils.getInstance(this).postByJson(this, getstkInStockEntry, InStockEntryBean.class, params, new VolleyListener<InStockEntryBean>() {
+        HTTPUtils.getInstance(this).postByJson( getstkInStockEntry, InStockEntryBean.class, params, new VolleyListener<InStockEntryBean>() {
             @Override
             public void requestComplete() {
 
@@ -319,29 +273,6 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
 
             }
         });
-//        HTTPUtils.postByJson(this, getstkInStockEntry, InStockEntryBean.class, params, new VolleyListener<InStockEntryBean>() {
-//            @Override
-//            public void requestComplete() {
-//
-//            }
-//
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//
-//            }
-//
-//            @Override
-//            public void onResponse(InStockEntryBean response) {
-//                TableBodyDate.clear();
-//                if (response.getCode() == 0) {
-//                    dataEntityList = response.getData();
-//                    TableHeadData.setStkInStockEntryVoList(dataEntityList);
-//                    addTable.addData(dataEntityList, false);
-//                } else {
-//                }
-//
-//            }
-//        });
     }
 
     private void createTab() {
@@ -437,7 +368,7 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
         Logutil.print("数据", asJsonObject.toString());
         String stkInStockAdd = Constance.getStkInStockAdd();
         LoadingUtil.ShowProgress(PurchaseWarehousingDetailActivity.this, "正在保存入库");
-        HTTPUtils.getInstance(this).postByJson(this, stkInStockAdd, PurchaseAddBean.class, asJsonObject, new VolleyListener<PurchaseAddBean>() {
+        HTTPUtils.getInstance(this).postByJson( stkInStockAdd, PurchaseAddBean.class, asJsonObject, new VolleyListener<PurchaseAddBean>() {
             @Override
             public void requestComplete() {
                 LoadingUtil.CancelProgress();
@@ -462,31 +393,6 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
                 }
             }
         });
-//        HTTPUtils.postByJson(this, stkInStockAdd, PurchaseAddBean.class, asJsonObject, new VolleyListener<PurchaseAddBean>() {
-//            @Override
-//            public void requestComplete() {
-//                LoadingUtil.CancelProgress();
-//            }
-//
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                ToastUtil.show(PurchaseWarehousingDetailActivity.this, error.getMessage());
-//            }
-//
-//            @Override
-//            public void onResponse(PurchaseAddBean response) {
-//                if (response.getCode() == 0) {
-//                    ToastUtil.show(PurchaseWarehousingDetailActivity.this, response.getMsg());
-//                } else {
-//                    List<PurchaseAddBean.DataEntity> data = response.getData();
-//                    StringBuilder stringBuilder = new StringBuilder();
-//                    for (PurchaseAddBean.DataEntity d : data) {
-//                        stringBuilder.append(d.getMessage());
-//                    }
-//                    ToastUtil.showLong(PurchaseWarehousingDetailActivity.this, stringBuilder.toString());
-//                }
-//            }
-//        });
     }
 
     private void AddOrderDialog(String title, int type) {

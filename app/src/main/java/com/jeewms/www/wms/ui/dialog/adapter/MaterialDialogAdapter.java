@@ -2,6 +2,7 @@ package com.jeewms.www.wms.ui.dialog.adapter;
 
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
+import android.view.View;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -44,11 +45,15 @@ public class MaterialDialogAdapter extends BaseQuickAdapter<BdMaterial, BaseView
     @Override
     protected void convert(@NonNull BaseViewHolder helper,BdMaterial item) {
         TextView textView = helper.getView(R.id.tv_materialdialog);
+        TextView textView1 = helper.getView(R.id.tv_materialdialog2);
+        textView1.setText(item.getFspecification());
         textView.setText(String.format("%s(%s)", item.getFname(), item.getFnumber()));
         if (helper.getLayoutPosition()==getSelectPosition()){
             textView.setTextColor(mContext.getResources().getColor(R.color.titlebar_color));
+            textView1.setTextColor(mContext.getResources().getColor(R.color.titlebar_color));
         } else {
             textView.setTextColor(mContext.getResources().getColor(R.color.black));
+            textView1.setTextColor(mContext.getResources().getColor(R.color.titlebar_color));
         }
 
     }
