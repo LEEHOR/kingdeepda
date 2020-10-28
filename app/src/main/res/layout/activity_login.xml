@@ -85,9 +85,20 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/edit_corner"
         android:imeOptions="actionDone"
-        android:hint="请输入地址"
+        android:inputType="textUri"
+        android:digits="0123456789.:"
+        android:hint="请输入IP地址"
         android:paddingLeft="10dp"
         android:textSize="@dimen/text_size"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_widthPercent="70%w" />
+    <Button
+        android:id="@+id/btn_ipChange"
+        android:text="设置IP地址"
+        android:background="@drawable/btn_select"
+        android:textColor="@color/white"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 </com.zhy.android.percent.support.PercentLinearLayout>

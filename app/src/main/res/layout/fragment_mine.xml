@@ -61,6 +61,13 @@
         app:layout_constraintGuide_percent="0.52"
         android:orientation="horizontal" />
 
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintGuide_percent="0.60"
+        android:orientation="horizontal" />
+
     <com.jeewms.www.wms.ui.view.CircleImageView
         android:id="@+id/mine_head_portrait"
         android:layout_width="0dp"
@@ -255,13 +262,48 @@
         android:background="@color/actions_background_light" />
 
     <RelativeLayout
-        android:id="@+id/re_sign_out"
+        android:id="@+id/re_update_base"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintLeft_toLeftOf="@id/guideline1"
         app:layout_constraintRight_toRightOf="@id/guideline2"
         app:layout_constraintTop_toBottomOf="@+id/guideline8"
         app:layout_constraintBottom_toBottomOf="@+id/guideline9">
+
+        <TextView
+            style="@style/mine_fragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:drawableLeft="@drawable/mine_05"
+            android:drawablePadding="5dp"
+            android:text="@string/mine_5_1" />
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/gray_right" />
+    </RelativeLayout>
+    <View
+        android:id="@+id/view6"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/guideline9"
+        android:background="@color/actions_background_light" />
+    <RelativeLayout
+        android:id="@+id/re_sign_out"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toLeftOf="@id/guideline1"
+        app:layout_constraintRight_toRightOf="@id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/guideline9"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline10">
 
         <TextView
             style="@style/mine_fragment"

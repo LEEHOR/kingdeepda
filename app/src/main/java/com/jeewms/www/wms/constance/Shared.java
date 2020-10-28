@@ -10,6 +10,8 @@ public class Shared {
          */
 
         public static final String BASEURL="baseurl";
+
+        public static final String BASEIP="baseip";
         //登录密码
         public static final String PASSWORD = "passWord";
         //TOKEN

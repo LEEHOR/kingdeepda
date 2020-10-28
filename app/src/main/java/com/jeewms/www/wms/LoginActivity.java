@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
@@ -18,7 +17,6 @@ import com.jeewms.www.wms.base.BaseActivity;
 import com.jeewms.www.wms.bean.LoginVm;
 import com.jeewms.www.wms.constance.Constance;
 import com.jeewms.www.wms.constance.Shared;
-import com.jeewms.www.wms.ui.dialog.UpdateBaseDataDialog;
 import com.jeewms.www.wms.util.GsonUtils;
 import com.jeewms.www.wms.util.SharedPreferencesUtil;
 import com.jeewms.www.wms.util.StringUtil;
@@ -30,6 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -51,7 +50,10 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.tv_address)
     EditText tvAddress;
     String addressPer;
+    @BindView(R.id.btn_ipChange)
+    Button btnIpChange;
     private long exitTime = 0;
+
     public static void show(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);
         context.startActivity(intent);
@@ -65,9 +67,9 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        String keyValue = SharedPreferencesUtil.getInstance(this).getKeyValue(Shared.BASEURL,Constance.getBaseUrl());
+        String keyValue = Constance.getBaseIp();
         tvAddress.setText(keyValue);
-        if(!StringUtil.isEmpty(SharedPreferencesUtil.getInstance(this).getKeyValue(Constance.SHAREP.LOGINNAME))&&tvUserName!=null){
+        if (!StringUtil.isEmpty(SharedPreferencesUtil.getInstance(this).getKeyValue(Constance.SHAREP.LOGINNAME)) && tvUserName != null) {
             tvUserName.setText(SharedPreferencesUtil.getInstance(this).getKeyValue(Constance.SHAREP.LOGINNAME));
             tvPassword.setFocusable(true);
             tvPassword.setFocusableInTouchMode(true);
@@ -82,7 +84,7 @@ public class LoginActivity extends BaseActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                addressPer=charSequence+"";
+                addressPer = charSequence + "";
             }
 
             @Override
@@ -130,7 +132,7 @@ public class LoginActivity extends BaseActivity {
         params.put("username", username);
         params.put("password", password);
         String loginURL = Constance.getLoginURL();
-        HTTPUtils.getInstance(this).post( loginURL, params, new VolleyListener<String>() {
+        HTTPUtils.getInstance(this).post(loginURL, params, new VolleyListener<String>() {
             @Override
             public void requestComplete() {
 
@@ -144,8 +146,8 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onResponse(String response) {
                 LoginVm vm = GsonUtils.parseJSON(response, LoginVm.class);
-                if (vm.getCode()==0) {
-                    savePassword(vm.getData().getFuserAccount(),vm.getData().getFuserID(),vm.getData().getFphone(),vm.getAccess_token());
+                if (vm.getCode() == 0) {
+                    savePassword(vm.getData().getFuserAccount(), vm.getData().getFuserID(), vm.getData().getFphone(), vm.getAccess_token());
                 } else {
                     ToastUtil.show(LoginActivity.this, vm.getMsg());
                 }
@@ -153,7 +155,7 @@ public class LoginActivity extends BaseActivity {
         });
     }
 
-    private void savePassword(String userAccount,int userId,String phone,String token) {
+    private void savePassword(String userAccount, int userId, String phone, String token) {
         ToastUtil.show(this, "登陆成功");
         if (!StringUtil.isEmpty(tvPassword.getText().toString())) {
             SharedPreferencesUtil.getInstance(this).setKeyValue(Shared.userAccount, userAccount);
@@ -166,11 +168,12 @@ public class LoginActivity extends BaseActivity {
         MainActivity.show(this);
         finish();
     }
+
     //初始化地址
-    private void setAddress(){
+    private void setAddress() {
         //如果为保存地址，则使用最初地址
-        if (!StringUtil.isEmpty(addressPer)){
-            SharedPreferencesUtil.getInstance(this).setKeyValue(Shared.BASEURL,addressPer);
+        if (!StringUtil.isEmpty(addressPer) && tvAddress.getVisibility()== View.VISIBLE) {
+            SharedPreferencesUtil.getInstance(this).setKeyValue(Shared.BASEIP, addressPer);
         }
 
     }
@@ -189,5 +192,14 @@ public class LoginActivity extends BaseActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @OnClick(R.id.btn_ipChange)
+    public void onViewClicked() {
+        if (tvAddress.getVisibility()== View.VISIBLE) {
+            tvAddress.setVisibility(View.INVISIBLE);
+        } else {
+            tvAddress.setVisibility(View.VISIBLE);
+        }
     }
 }

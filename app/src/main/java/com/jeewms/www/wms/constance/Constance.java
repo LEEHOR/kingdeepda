@@ -11,7 +11,8 @@ import java.util.UUID;
  */
 
 public class Constance {
-    public static String COMMON_URL = "http://192.168.0.200:8081";
+    public static String COMMON_PROTOCOL="http://";
+    public static String COMMON_IP = "192.168.0.200:8081";
     public static UUID SPP_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
     //主界面按钮图片   //R.drawable.home11,
@@ -49,15 +50,20 @@ public class Constance {
     public static final int[] home5 = {R.drawable.home21, R.drawable.home22, R.drawable.home23, R.drawable.home24,
             R.drawable.home25, R.drawable.home26};
     //首页区域 工序管理文字
-    public static final String[] tv_home5 = {"工序计划", "转移单(委外发出)", "转移单(委外接收)", "工序汇报","工序转移","生产入库"};
+    public static final String[] tv_home5 = {"工序计划", "转移单委外发出", "转移单委外接收", "工序汇报","工序转移","生产入库"};
 
-    public static void setBaseUrl(String baseUrl) {
-        SharedPreferencesUtil.getInstance(App.getmApplicationContext()).setKeyValue(Shared.BASEURL, baseUrl);
+    //设置baseip
+    public static void setBaseIp(String baseIP) {
+        SharedPreferencesUtil.getInstance(App.getmApplicationContext()).setKeyValue(Shared.BASEIP, baseIP);
+    }
+    //读取baseip
+    public static String getBaseIp(){
+       return SharedPreferencesUtil.getInstance(App.getmApplicationContext()).getKeyValue(Shared.BASEIP, COMMON_IP);
     }
 
     //读取baseurl
     public static String getBaseUrl() {
-        return SharedPreferencesUtil.getInstance(App.getmApplicationContext()).getKeyValue(Shared.BASEURL, COMMON_URL);
+        return COMMON_PROTOCOL+SharedPreferencesUtil.getInstance(App.getmApplicationContext()).getKeyValue(Shared.BASEIP, COMMON_IP);
     }
 
 

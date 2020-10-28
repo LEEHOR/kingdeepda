@@ -97,13 +97,10 @@ public class HomeFragment extends BaseFragment {
     private final int supplier_finish = 107;
     //单位
     private final int unit_finish = 108;
-    //计数
-    private final int COUNT = 109;
-
     //需要下载基础数据的数量
     private int DownloadCount = 0;
-    //已经下载的基础数据数量
-    private int HasDownloadCount = 0;
+    //下载的数量
+    private int hasDownload=0;
     private Message message;
     private UpdateBaseDataDialog updateDialog;
 
@@ -241,36 +238,39 @@ public class HomeFragment extends BaseFragment {
             switch (msg.what) {
                 case currency_finish:
                     SharedPreferencesUtil.getInstance(getActivity()).setKeyValue(Shared.key_currency, (boolean) msg.obj);
+                    closeDialog();
                     break;
                 case department_finish:
                     SharedPreferencesUtil.getInstance(getActivity()).setKeyValue(Shared.key_department, (boolean) msg.obj);
+                    closeDialog();
                     break;
                 case material_finish:
                     SharedPreferencesUtil.getInstance(getActivity()).setKeyValue(Shared.key_material, (boolean) msg.obj);
+                    closeDialog();
                     break;
                 case materialCategory_finish:
                     SharedPreferencesUtil.getInstance(getActivity()).setKeyValue(Shared.key_materialCategory, (boolean) msg.obj);
+                    closeDialog();
                     break;
                 case organization_finish:
                     SharedPreferencesUtil.getInstance(getActivity()).setKeyValue(Shared.key_organization, (boolean) msg.obj);
+                    closeDialog();
                     break;
                 case project_finish:
                     SharedPreferencesUtil.getInstance(getActivity()).setKeyValue(Shared.key_project, (boolean) msg.obj);
+                    closeDialog();
                     break;
                 case stock_finish:
                     SharedPreferencesUtil.getInstance(getActivity()).setKeyValue(Shared.key_stock, (boolean) msg.obj);
+                    closeDialog();
                     break;
                 case supplier_finish:
                     SharedPreferencesUtil.getInstance(getActivity()).setKeyValue(Shared.key_supplier, (boolean) msg.obj);
+                    closeDialog();
                     break;
                 case unit_finish:
                     SharedPreferencesUtil.getInstance(getActivity()).setKeyValue(Shared.key_unit, (boolean) msg.obj);
-                    break;
-                case COUNT:
-                    HasDownloadCount++;
-                    if (DownloadCount == HasDownloadCount) {
-                        updateDialog.Close();
-                    }
+                    closeDialog();
                     break;
             }
         }
@@ -346,7 +346,6 @@ public class HomeFragment extends BaseFragment {
         HTTPUtils.getInstance(getActivity()).get(current, new VolleyListener<String>() {
             @Override
             public void requestComplete() {
-                myHandler.sendEmptyMessage(COUNT);
             }
 
             @Override
@@ -396,7 +395,6 @@ public class HomeFragment extends BaseFragment {
         HTTPUtils.getInstance(getActivity()).get( department, new VolleyListener<String>() {
             @Override
             public void requestComplete() {
-                myHandler.sendEmptyMessage(COUNT);
             }
 
             @Override
@@ -449,7 +447,6 @@ public class HomeFragment extends BaseFragment {
         HTTPUtils.getInstance(getActivity()).get(materriallist, new VolleyListener<String>() {
             @Override
             public void requestComplete() {
-                myHandler.sendEmptyMessage(COUNT);
             }
 
             @Override
@@ -499,7 +496,6 @@ public class HomeFragment extends BaseFragment {
         HTTPUtils.getInstance(getActivity()).get(materialcategory, new VolleyListener<String>() {
             @Override
             public void requestComplete() {
-                myHandler.sendEmptyMessage(COUNT);
             }
 
             @Override
@@ -551,7 +547,6 @@ public class HomeFragment extends BaseFragment {
         HTTPUtils.getInstance(getActivity()).get(organization, new VolleyListener<String>() {
             @Override
             public void requestComplete() {
-                myHandler.sendEmptyMessage(COUNT);
             }
 
             @Override
@@ -601,7 +596,6 @@ public class HomeFragment extends BaseFragment {
         HTTPUtils.getInstance(getActivity()).get(projectlist, new VolleyListener<String>() {
             @Override
             public void requestComplete() {
-                myHandler.sendEmptyMessage(COUNT);
             }
 
             @Override
@@ -652,7 +646,6 @@ public class HomeFragment extends BaseFragment {
         HTTPUtils.getInstance(getActivity()).get(stockList, new VolleyListener<String>() {
             @Override
             public void requestComplete() {
-                myHandler.sendEmptyMessage(COUNT);
             }
 
             @Override
@@ -702,7 +695,6 @@ public class HomeFragment extends BaseFragment {
         HTTPUtils.getInstance(getActivity()).get(supplier, new VolleyListener<String>() {
             @Override
             public void requestComplete() {
-                myHandler.sendEmptyMessage(COUNT);
             }
 
             @Override
@@ -755,7 +747,6 @@ public class HomeFragment extends BaseFragment {
         HTTPUtils.getInstance(getActivity()).get( unit, new VolleyListener<String>() {
             @Override
             public void requestComplete() {
-                myHandler.sendEmptyMessage(COUNT);
             }
 
             @Override
@@ -799,5 +790,13 @@ public class HomeFragment extends BaseFragment {
 
             }
         });
+    }
+    private void closeDialog(){
+        hasDownload++;
+        if (DownloadCount==hasDownload){
+            if (updateDialog != null) {
+                updateDialog.Close();
+            }
+        }
     }
 }
