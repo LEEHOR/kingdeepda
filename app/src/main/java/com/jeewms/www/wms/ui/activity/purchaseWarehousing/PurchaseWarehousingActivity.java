@@ -87,6 +87,7 @@ public class PurchaseWarehousingActivity extends BaseActivity {
         TextView tex_item = purchaseWarehousingTitle.getTex_item();
         tex_item.setVisibility(View.VISIBLE);
         tex_item.setText("采购入库列表");
+        ivAdd.setVisibility(View.GONE);
     }
 
     @Override

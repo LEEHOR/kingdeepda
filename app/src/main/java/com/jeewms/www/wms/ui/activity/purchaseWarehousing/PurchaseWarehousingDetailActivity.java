@@ -227,9 +227,7 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
                     tvFproviderContactName.setText(TableHeadData.getFproviderContactName());
                     tvFsupplyAddress.setText(TableHeadData.getFsupplyAddress());
                     tvFchargeName.setText(TableHeadData.getFchargeName());
-                    if (fid != 0) {
-                        getTableBodyDate(String.valueOf(fid));
-                    }
+
                 } else if (code == 900) {
                     AlertDialog alertDialog = CreateDialog(PurchaseWarehousingDetailActivity.this, response.getMsg());
                     if (!alertDialog.isShowing()) {
@@ -242,12 +240,14 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                ToastUtil.show(PurchaseWarehousingDetailActivity.this,error.getMessage());
             }
 
             @Override
             public void requestComplete() {
-
+                if (fid != 0) {
+                    getTableBodyDate(String.valueOf(fid));
+                }
             }
         });
     }

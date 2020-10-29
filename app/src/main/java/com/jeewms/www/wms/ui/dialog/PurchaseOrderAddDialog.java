@@ -45,19 +45,19 @@ public class PurchaseOrderAddDialog extends BaseDialogFragment {
     @BindView(R.id.tv_projectName)
     EditText tvProjectName;
     @BindView(R.id.tv_projectNum)
-    EditText tvProjectNum;
+    TextView tvProjectNum;
     @BindView(R.id.tv_fmaterialName)
     EditText tvFmaterialName;
     @BindView(R.id.tv_fmaterialNum)
-    EditText tvFmaterialNum;
+    TextView tvFmaterialNum;
     @BindView(R.id.tv_fmaterialSpecification)
     TextView tvFmaterialSpecification;
     @BindView(R.id.tv_fstockName)
-    TextView tvFstockName;
+    EditText tvFstockName;
     @BindView(R.id.tv_fpriceunitName)
-    TextView tvFpriceunitName;
+    EditText tvFpriceunitName;
     @BindView(R.id.tv_fremainInStockUnitName)
-    TextView tvFremainInStockUnitName;
+    EditText tvFremainInStockUnitName;
     @BindView(R.id.tv_fremainInStockQty)
     EditText tvFremainInStockQty;
     @BindView(R.id.tv_fpriceUnitQty)
@@ -67,7 +67,7 @@ public class PurchaseOrderAddDialog extends BaseDialogFragment {
     @BindView(R.id.tv_frealQty)
     EditText tvFrealQty;
     @BindView(R.id.tv_funitName)
-    TextView tvFunitName;
+    EditText tvFunitName;
     Unbinder unbinder;
     private InStockEntryBean.DataEntity body = new InStockEntryBean.DataEntity();
     private int mSelect = 9999;

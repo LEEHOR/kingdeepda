@@ -86,7 +86,7 @@
                             android:layout_height="wrap_content">
 
                             <TextView
-                                style="@style/mine_fragment3"
+                                style="@style/mine_fragment4"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 app:layout_constraintLeft_toLeftOf="parent"
@@ -153,7 +153,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="项目编码:" />
 
-                                <EditText
+                                <TextView
                                     style="@style/mine_fragment"
                                     android:id="@+id/tv_projectNum"
                                     android:layout_width="match_parent"
@@ -182,7 +182,7 @@
                             android:layout_height="wrap_content">
 
                             <TextView
-                                style="@style/mine_fragment3"
+                                style="@style/mine_fragment4"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 app:layout_constraintLeft_toLeftOf="parent"
@@ -248,7 +248,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="物料编码:" />
 
-                                <EditText
+                                <TextView
                                     style="@style/mine_fragment"
                                     android:id="@+id/tv_fmaterialNum"
                                     android:layout_width="match_parent"
@@ -313,7 +313,7 @@
                             android:layout_height="wrap_content">
 
                             <TextView
-                                style="@style/mine_fragment3"
+                                style="@style/mine_fragment4"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 app:layout_constraintLeft_toLeftOf="parent"
@@ -342,13 +342,13 @@
                                 android:layout_height="wrap_content"
                                 android:text="仓库名称:" />
 
-                            <TextView
+                            <EditText
                                 style="@style/mine_fragment"
                                 android:id="@+id/tv_fstockName"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:paddingTop="10dp"
-                                android:paddingBottom="10dp"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
                                 android:drawableRight="@drawable/ic_sanjiao1"
                                 android:singleLine="true" />
                         </LinearLayout>
@@ -491,7 +491,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="计价单位:" />
 
-                                <TextView
+                                <EditText
                                     android:paddingTop="5dp"
                                     android:paddingBottom="5dp"
                                     android:gravity="center"
@@ -499,6 +499,8 @@
                                     android:id="@+id/tv_fpriceunitName"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:focusable="false"
+                                    android:focusableInTouchMode="false"
                                     android:drawableRight="@drawable/ic_sanjiao1"
                                     android:singleLine="true" />
                             </LinearLayout>
@@ -516,7 +518,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="库存单位:" />
 
-                                <TextView
+                                <EditText
                                     android:paddingTop="5dp"
                                     android:paddingBottom="5dp"
                                     style="@style/mine_fragment"
@@ -524,6 +526,8 @@
                                     android:id="@+id/tv_funitName"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:focusable="false"
+                                    android:focusableInTouchMode="false"
                                     android:drawableRight="@drawable/ic_sanjiao1"
                                     android:singleLine="true" />
                             </LinearLayout>
@@ -552,7 +556,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="采购单位:" />
 
-                                <TextView
+                                <EditText
                                     android:paddingTop="5dp"
                                     android:paddingBottom="5dp"
                                     style="@style/mine_fragment"
@@ -560,6 +564,8 @@
                                     android:id="@+id/tv_fremainInStockUnitName"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:focusable="false"
+                                    android:focusableInTouchMode="false"
                                     android:drawableRight="@drawable/ic_sanjiao1"
                                     android:singleLine="true" />
                             </LinearLayout>
