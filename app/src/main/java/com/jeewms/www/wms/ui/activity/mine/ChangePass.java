@@ -142,12 +142,6 @@ public class ChangePass extends BaseActivity {
         check();
     }
 
-    /**
-     * 清除用户信息
-     */
-    private void removeUerInfo() {
-        SharedPreferencesUtil.getInstance(this).clear();
-    }
 
     private void updateUserInfo(String pwd) {
         SharedPreferencesUtil.getInstance(this).setKeyValue(Shared.PASSWORD, pwd);

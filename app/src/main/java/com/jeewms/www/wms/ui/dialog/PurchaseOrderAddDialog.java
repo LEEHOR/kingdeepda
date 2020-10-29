@@ -56,8 +56,8 @@ public class PurchaseOrderAddDialog extends BaseDialogFragment {
     TextView tvFstockName;
     @BindView(R.id.tv_fpriceunitName)
     TextView tvFpriceunitName;
-    @BindView(R.id.tv_fpurorgName)
-    TextView tvFpurorgName;
+    @BindView(R.id.tv_fremainInStockUnitName)
+    TextView tvFremainInStockUnitName;
     @BindView(R.id.tv_fremainInStockQty)
     EditText tvFremainInStockQty;
     @BindView(R.id.tv_fpriceUnitQty)
@@ -66,11 +66,18 @@ public class PurchaseOrderAddDialog extends BaseDialogFragment {
     EditText tvFmustQty;
     @BindView(R.id.tv_frealQty)
     EditText tvFrealQty;
+    @BindView(R.id.tv_funitName)
+    TextView tvFunitName;
     Unbinder unbinder;
-
     private InStockEntryBean.DataEntity body = new InStockEntryBean.DataEntity();
     private int mSelect = 9999;
     private int pSelect = 9999;
+    private MaterialDialog materialDialog;
+    private ProjectDialog projectDialog;
+    private StockDialog stockDialog;
+    private UnitDialog priceUnit;
+    private UnitDialog funitName;
+    private UnitDialog fremainInStockUnitName;
 
 
     public static PurchaseOrderAddDialog newInstance(String title, int type) {
@@ -94,6 +101,105 @@ public class PurchaseOrderAddDialog extends BaseDialogFragment {
 
     @Override
     protected void initFunc() {
+        materialDialog = MaterialDialog.newInstance(mSelect);
+        materialDialog.setListener(new MaterialDialog.MaterialSelectListener() {
+            @Override
+            public void onConfirm(String name, String number, String specification, int position) {
+                mSelect = position;
+                tvFmaterialName.setText(name);
+                tvFmaterialNum.setText(number);
+                tvFmaterialSpecification.setText(specification);
+                body.setFmaterialName(name);
+                body.setFmaterialNumber(number);
+                body.setFspecification(specification);
+            }
+
+            @Override
+            public void onClose() {
+                materialDialog.Close();
+            }
+        });
+
+        projectDialog = ProjectDialog.newInstance(pSelect);
+        projectDialog.setListener(new ProjectDialog.ProjectSelectListener() {
+            @Override
+            public void onConfirm(String name, String number, int position) {
+                pSelect = position;
+                tvProjectName.setText(name);
+                tvProjectNum.setText(number);
+                body.setProjectName(name);
+                body.setProjectNumber(number);
+            }
+
+            @Override
+            public void onClose() {
+                projectDialog.Close();
+            }
+        });
+
+        stockDialog = StockDialog.newInstance(999);
+        stockDialog.setListener(new StockDialog.StockSelectListener() {
+            @Override
+            public void onConfirm(String name, String number, int position) {
+                tvFstockName.setText(name);
+                body.setFstockName(name);
+                body.setFstockNumber(name);
+            }
+
+            @Override
+            public void onClose() {
+                stockDialog.Close();
+            }
+        });
+
+        //计价单位
+        priceUnit = UnitDialog.newInstance(9999);
+        priceUnit.setListener(new UnitDialog.UnitSelectListener() {
+            @Override
+            public void onConfirm(String name, String number) {
+                tvFpriceunitName.setText(name);
+                body.setFpriceUnitName(name);
+                body.setFpriceUnitNumber(number);
+            }
+
+            @Override
+            public void onClose() {
+                priceUnit.Close();
+            }
+        });
+
+        //库存单位
+        funitName = UnitDialog.newInstance(9999);
+        funitName.setListener(new UnitDialog.UnitSelectListener() {
+            @Override
+            public void onConfirm(String name, String number) {
+                tvFunitName.setText(name);
+                body.setFunitName(name);
+                body.setFunitNumber(number);
+            }
+
+            @Override
+            public void onClose() {
+                funitName.Close();
+            }
+        });
+
+        //采购单位
+        //fremainInStockUnitName
+        fremainInStockUnitName = UnitDialog.newInstance(9999);
+        fremainInStockUnitName.setListener(new UnitDialog.UnitSelectListener() {
+            @Override
+            public void onConfirm(String name, String number) {
+                tvFremainInStockUnitName.setText(name);
+                body.setFremainInStockUnitName(name);
+                body.setFremainInStockUnitNumber(number);
+            }
+
+            @Override
+            public void onClose() {
+                fremainInStockUnitName.Close();
+            }
+        });
     }
 
     @Override
@@ -140,7 +246,9 @@ public class PurchaseOrderAddDialog extends BaseDialogFragment {
     }
 
 
-    @OnClick({R.id.purchase_order_add_close, R.id.purchase_order_add_complete, R.id.tv_projectName, R.id.tv_fmaterialName, R.id.tv_fstockName, R.id.tv_fpriceunitName})
+    @OnClick({R.id.purchase_order_add_close, R.id.purchase_order_add_complete, R.id.tv_projectName,
+            R.id.tv_fmaterialName, R.id.tv_fstockName, R.id.tv_fpriceunitName,
+            R.id.tv_fremainInStockUnitName,R.id.tv_funitName})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.purchase_order_add_close:
@@ -150,16 +258,16 @@ public class PurchaseOrderAddDialog extends BaseDialogFragment {
                 break;
             case R.id.purchase_order_add_complete:
                 if (onAddOrderListeners != null) {
-                    if (StringUtil.isEmpty(tvFremainInStockQty.getText().toString().trim())) {
+                    if (!StringUtil.isEmpty(tvFremainInStockQty.getText().toString().trim())) {
                         body.setFremainInStockQty(Integer.parseInt(tvFremainInStockQty.getText().toString().trim()));
                     }
-                    if (StringUtil.isEmpty(tvFpriceUnitQty.getText().toString().trim())){
+                    if (!StringUtil.isEmpty(tvFpriceUnitQty.getText().toString().trim())) {
                         body.setFpriceUnitQty(Integer.parseInt(tvFpriceUnitQty.getText().toString().trim()));
                     }
-                    if (StringUtil.isEmpty(tvFmustQty.getText().toString().trim())){
+                    if (!StringUtil.isEmpty(tvFmustQty.getText().toString().trim())) {
                         body.setFmustQty(Integer.parseInt(tvFmustQty.getText().toString().trim()));
                     }
-                    if (StringUtil.isEmpty(tvFrealQty.getText().toString().trim())){
+                    if (!StringUtil.isEmpty(tvFrealQty.getText().toString().trim())) {
                         body.setFrealQty(Integer.parseInt(tvFrealQty.getText().toString().trim()));
                     }
 
@@ -168,78 +276,26 @@ public class PurchaseOrderAddDialog extends BaseDialogFragment {
                 Close();
                 break;
             case R.id.tv_projectName:
-                Projectdialog();
+                projectDialog.show(getActivity().getFragmentManager(), "物料");
                 break;
             case R.id.tv_fmaterialName:
-                Materialdialog();
+                materialDialog.show(getActivity().getFragmentManager(), "物料");
                 break;
             case R.id.tv_fstockName:
-                Stock();
+                stockDialog.show(getActivity().getFragmentManager(), "仓库");
+                break;
+            case R.id.tv_fpriceunitName: //计价
+                priceUnit.show(getActivity().getFragmentManager(), "计价");
+                break;
+            case R.id.tv_funitName: //库存
+                funitName.show(getActivity().getFragmentManager(), "库存");
+                break;
+            case R.id.tv_fremainInStockUnitName://采购
+                fremainInStockUnitName.show(getActivity().getFragmentManager(), "库存");
                 break;
         }
     }
 
-    //物料
-    private void Materialdialog() {
-        final MaterialDialog materialDialog = MaterialDialog.newInstance(mSelect);
-        materialDialog.setListener(new MaterialDialog.MaterialSelectListener() {
-            @Override
-            public void onConfirm(String name, String number, String specification, int position) {
-                mSelect = position;
-                tvFmaterialName.setText(name);
-                tvFmaterialNum.setText(number);
-                tvFmaterialSpecification.setText(specification);
-                body.setFmaterialName(name);
-                body.setFmaterialNumber(number);
-                body.setFspecification(specification);
-            }
-
-            @Override
-            public void onClose() {
-                materialDialog.Close();
-            }
-        });
-        materialDialog.show(getActivity().getFragmentManager(), "物料");
-    }
-
-    private void Projectdialog() {
-        final ProjectDialog projectDialog = ProjectDialog.newInstance(pSelect);
-        projectDialog.setListener(new ProjectDialog.ProjectSelectListener() {
-            @Override
-            public void onConfirm(String name, String number, int position) {
-                pSelect = position;
-                tvProjectName.setText(name);
-                tvProjectNum.setText(number);
-                body.setProjectName(name);
-                body.setProjectNumber(number);
-            }
-
-            @Override
-            public void onClose() {
-                projectDialog.Close();
-            }
-        });
-        projectDialog.show(getActivity().getFragmentManager(), "物料");
-    }
-
-    //仓库
-    private void Stock() {
-        final StockDialog stockDialog = StockDialog.newInstance(999);
-        stockDialog.setListener(new StockDialog.StockSelectListener() {
-            @Override
-            public void onConfirm(String name, String number, int position) {
-                tvFstockName.setText(name);
-                body.setFstockStatusName(name);
-                body.setFstockNumber(name);
-            }
-
-            @Override
-            public void onClose() {
-                stockDialog.Close();
-            }
-        });
-        stockDialog.show(getActivity().getFragmentManager(), "仓库");
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -254,6 +310,7 @@ public class PurchaseOrderAddDialog extends BaseDialogFragment {
         super.onDestroyView();
         unbinder.unbind();
     }
+
 
     public interface OnAddOrderListener {
         //项目编码  物料编码

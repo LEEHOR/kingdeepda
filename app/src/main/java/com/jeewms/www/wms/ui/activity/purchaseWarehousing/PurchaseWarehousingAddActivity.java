@@ -328,7 +328,7 @@ public class PurchaseWarehousingAddActivity extends BaseActivity {
             @Override
             public void onConfirm(InStockEntryBean.DataEntity body) {
                 TableBodyDate.add(body);
-                addTable.addData(TableBodyDate,false);
+                addTable.addData(TableBodyDate,true);
             }
 
             @Override

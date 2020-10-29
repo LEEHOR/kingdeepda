@@ -37,7 +37,6 @@ import com.jeewms.www.wms.dataBase.BdStock;
 import com.jeewms.www.wms.dataBase.BdSupplier;
 import com.jeewms.www.wms.dataBase.BdUnit;
 import com.jeewms.www.wms.ui.dialog.UpdateBaseDataDialog;
-import com.jeewms.www.wms.ui.fragment.MineFragment;
 import com.jeewms.www.wms.util.GsonUtils;
 import com.jeewms.www.wms.util.SharedPreferencesUtil;
 import com.jeewms.www.wms.util.ToastUtil;
@@ -517,7 +516,6 @@ public abstract class BaseFragment extends Fragment {
                     message.obj = false;
                     myHandler.sendMessage(message);
                 }
-
 
             }
         });
