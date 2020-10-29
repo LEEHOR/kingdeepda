@@ -16,7 +16,9 @@ package com.jeewms.www.wms.volley;
  * limitations under the License.
  */
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -31,6 +33,9 @@ import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import com.jeewms.www.wms.LoginActivity;
+import com.jeewms.www.wms.R;
+import com.jeewms.www.wms.bean.BaseObjectBean;
 import com.jeewms.www.wms.bean.UpdatePwd;
 import com.jeewms.www.wms.constance.Shared;
 import com.jeewms.www.wms.util.Logutil;
@@ -54,6 +59,7 @@ public class HTTPUtils {
     private static HTTPUtils singleQueue;
     private RequestQueue requestQueue;
     private static Context context;
+
 
     //私有化构造
     private HTTPUtils(Context context) {
@@ -113,6 +119,7 @@ public class HTTPUtils {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Logutil.print("网络日志:失败" + error.getMessage());
+                ToastUtil.show(context,error.getMessage());
                 listener.onErrorResponse(error);
                 listener.requestComplete();
             }
@@ -162,6 +169,7 @@ public class HTTPUtils {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                ToastUtil.show(context,error.getMessage());
                 Logutil.print("网络日志:失败" + error.getMessage());
                 listener.onErrorResponse(error);
                 listener.requestComplete();
@@ -178,9 +186,6 @@ public class HTTPUtils {
                 }
             }
         };
-//        if (mRequestQueue == null) {
-//            init(context);
-//        }
         try {
             Logutil.print("网络日志", "\n[\n" + jsonObjectRequest.getBodyContentType() + "\n" + jsonObjectRequest.getHeaders().toString() + "\n" + jsonObjectRequest.getUrl() + "\n" + "POST" + "\n" + jsonObject.toString() + "\n]");
         } catch (AuthFailureError authFailureError) {
@@ -214,6 +219,7 @@ public class HTTPUtils {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                ToastUtil.show(context,error.getMessage());
                 Logutil.print("网络日志:失败" + error.getMessage());
                 listener.onErrorResponse(error);
                 listener.requestComplete();
@@ -244,11 +250,11 @@ public class HTTPUtils {
 
 
     //JSON解析
-    public <T> void postJson( final String url, Class<T> clazz, final Map<String, String> params, final VolleyListener<T> listener) {
-        GsonRequest<T> gsonRequest = new GsonRequest<T>(Method.POST, url, clazz, new Listener<T>() {
+    public <T> void postJson(final Context context, final String url,Class<T> clazz, final Map<String, String> params, final VolleyListener<T> listener){
+        GsonRequest<T> gsonRequest = new GsonRequest<T>(Method.POST, url,clazz, new Listener<T>() {
             @Override
             public void onResponse(T response) {
-                Logutil.print("网络日志:成功" + response.toString());
+                Logutil.print("网络日志:成功" +response.toString());
                 listener.onResponse(response);
                 listener.requestComplete();
             }
@@ -256,10 +262,10 @@ public class HTTPUtils {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Logutil.print("网络日志:错误" + error.getMessage());
-                ToastUtil.show(context, error.getMessage() == null ? "网络连接错误" : error.getMessage());
+                ToastUtil.show(context, error.getMessage()==null?"网络连接错误": error.getMessage());
                 listener.onErrorResponse(error);
             }
-        }) {
+        }){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 return params;
@@ -277,16 +283,14 @@ public class HTTPUtils {
             }
         };
         try {
-            Logutil.print("网络日志", "\n[\n" + gsonRequest.getBodyContentType() + "\n" + gsonRequest.getHeaders().toString() + "\n" + gsonRequest.getUrl() + "\n" + gsonRequest.getMethod() + "\n" + params.toString() + "\n]");
+            Logutil.print("网络日志", "\n[\n" + gsonRequest.getBodyContentType() + "\n" + gsonRequest.getHeaders().toString() + "\n" + gsonRequest.getUrl() + "\n" + gsonRequest.getMethod()+"\n"+ params.toString() + "\n]");
         } catch (AuthFailureError authFailureError) {
             authFailureError.printStackTrace();
         }
-//        if (mRequestQueue == null) {
-//            init(context);
-//        }
-        // mRequestQueue.add(gsonRequest);
+
         addToRequestQueue(gsonRequest);
     }
+
 
     public void post( final String url, final Map<String, String> params, final VolleyListener<String> listener) {
         StringRequest myReq = new UTFStringRequest(Method.POST, url, new Listener<String>() {
@@ -324,14 +328,6 @@ public class HTTPUtils {
 
             }
         };
-//        if (mRequestQueue == null) {
-//            init(context);
-//        }
-
-        // 请用缓存
-        //myReq.setShouldCache(true);
-        // 设置缓存时间10分钟
-        // myReq.setCacheTime(10*60);
         try {
             Logutil.print("网络日志", "\n[\n" + myReq.getBodyContentType() + "\n" + myReq.getHeaders().toString() + "\n" + myReq.getUrl() + "\n" + myReq.getMethod() + "\n" + params.toString() + "\n]");
         } catch (AuthFailureError authFailureError) {
@@ -378,15 +374,11 @@ public class HTTPUtils {
 
             }
         };
-//        if (mRequestQueue == null) {
-//            init(context);
-//        }
         try {
             Logutil.print("网络日志", "\n[\n" + myReq.getBodyContentType() + "\n" + myReq.getHeaders().toString() + "\n" + myReq.getUrl() + "\n" + myReq.getMethod() + "\n]");
         } catch (AuthFailureError authFailureError) {
             authFailureError.printStackTrace();
         }
-        // mRequestQueue.add(myReq);
         addToRequestQueue(myReq);
 
     }
@@ -434,16 +426,14 @@ public class HTTPUtils {
 
             }
         };
-//        if (mRequestQueue == null) {
-//            init(context);
-//        }
         try {
             Logutil.print("网络日志", "\n[\n" + myReq.getBodyContentType() + "\n" + myReq.getHeaders().toString() + "\n" + myReq.getUrl() + "\n" + myReq.getMethod() + "\n]");
         } catch (AuthFailureError authFailureError) {
             authFailureError.printStackTrace();
         }
-        //  mRequestQueue.add(myReq);
         addToRequestQueue(myReq);
     }
+
+
 
 }

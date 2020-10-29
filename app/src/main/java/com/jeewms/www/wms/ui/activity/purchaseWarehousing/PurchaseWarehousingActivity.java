@@ -1,5 +1,6 @@
 package com.jeewms.www.wms.ui.activity.purchaseWarehousing;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,9 +18,11 @@ import com.jeewms.www.wms.base.BaseActivity;
 import com.jeewms.www.wms.bean.InStockHeadBean;
 import com.jeewms.www.wms.constance.Constance;
 import com.jeewms.www.wms.ui.activity.receive.ReceiveNoticeActivity;
+import com.jeewms.www.wms.ui.activity.receive.ReceiveNoticeDetailActivity;
 import com.jeewms.www.wms.ui.adapter.PurchaseWarehousingAdapter;
 import com.jeewms.www.wms.ui.view.TitleTopOrdersView;
 import com.jeewms.www.wms.util.LocalDisplay;
+import com.jeewms.www.wms.util.ToastUtil;
 import com.jeewms.www.wms.util.decoration.SpacesItemDecoration;
 import com.jeewms.www.wms.volley.HTTPUtils;
 import com.jeewms.www.wms.volley.VolleyListener;
@@ -156,6 +159,7 @@ public class PurchaseWarehousingActivity extends BaseActivity {
 
             @Override
             public void onResponse(InStockHeadBean response) {
+                int code = response.getCode();
                 if (response.getCode() == 0) {
                     PAGE++;
                     List<InStockHeadBean.DataEntity> data = response.getData();
@@ -168,7 +172,18 @@ public class PurchaseWarehousingActivity extends BaseActivity {
                         }
                         purchaseOrderRefresh.loadMoreComplete();
                     }
+//                } else if (code==900) {
+//                    if (loadType == 0) {
+//                        purchaseOrderRefresh.refreshComplete();
+//                    } else {
+//                        purchaseOrderRefresh.loadMoreComplete();
+//                    }
+//                    AlertDialog alertDialog = CreateDialog(PurchaseWarehousingActivity.this, response.getMsg());
+//                    if (!alertDialog.isShowing()) {
+//                        alertDialog.show();
+//                    }
                 } else {
+                    ToastUtil.show(PurchaseWarehousingActivity.this,response.getMsg());
                     if (loadType == 0) {
                         purchaseOrderRefresh.refreshComplete();
                     } else {

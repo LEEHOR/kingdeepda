@@ -1,8 +1,15 @@
 package com.jeewms.www.wms.base;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+
+import com.jeewms.www.wms.LoginActivity;
+import com.jeewms.www.wms.R;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -21,6 +28,8 @@ import butterknife.Unbinder;
 public abstract class BaseActivity extends Activity {
 
     private Unbinder bind;
+
+    private AlertDialog.Builder builder;
 
     protected abstract int getContentResId();
 
@@ -41,5 +50,26 @@ public abstract class BaseActivity extends Activity {
     protected void onDestroy() {
         super.onDestroy();
         bind.unbind();
+    }
+    private  void LoginDialog(final Context context, String msg){
+        builder = new AlertDialog.Builder(context).setIcon(R.mipmap.ic_launcher).setTitle("提示")
+                .setMessage(msg).setPositiveButton("重新登录", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        LoginActivity.show(context);
+                    }
+                }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+    }
+
+    public AlertDialog CreateDialog(Context context, String msg){
+        if (builder ==null){
+            LoginDialog( context, msg);
+        }
+       return builder.create();
     }
 }

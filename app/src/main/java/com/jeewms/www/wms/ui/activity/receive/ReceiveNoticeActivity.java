@@ -1,6 +1,7 @@
 package com.jeewms.www.wms.ui.activity.receive;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -22,6 +23,7 @@ import com.google.zxing.util.Constant;
 import com.jeewms.www.wms.App;
 import com.jeewms.www.wms.R;
 import com.jeewms.www.wms.base.BaseActivity;
+import com.jeewms.www.wms.bean.BaseObjectBean;
 import com.jeewms.www.wms.bean.ReceiveBillBean;
 import com.jeewms.www.wms.bean.ReceivePush;
 import com.jeewms.www.wms.constance.Constance;
@@ -74,14 +76,15 @@ public class ReceiveNoticeActivity extends BaseActivity {
     EasyRefreshLayout receivingRefresh;
 
     //入参
-    private String key_fid="fid";
-    private String key_billNo="billNo";
-    private String key_billNoLike="billNoLike";
+    private String key_fid = "fid";
+    private String key_billNo = "billNo";
+    private String key_billNoLike = "billNoLike";
     private int PAGE = 1;
     private int LIMIT = 10;
 
     //条件参数
-    private Map<String, String> mapParam = new HashMap<>();;
+    private Map<String, String> mapParam = new HashMap<>();
+    ;
     private ReceivingAdapter receivingAdapter;
 
     @Override
@@ -105,7 +108,7 @@ public class ReceiveNoticeActivity extends BaseActivity {
             }
         });
         receivingTitle.getTex_item().setText("收料通知单");
-        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(ReceiveNoticeActivity.this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ReceiveNoticeActivity.this);
         receivingAdapter = new ReceivingAdapter(R.layout.item_receiving_notice);
         receivingRecycler.setLayoutManager(linearLayoutManager);
         receivingRecycler.setAdapter(receivingAdapter);
@@ -114,18 +117,18 @@ public class ReceiveNoticeActivity extends BaseActivity {
 
     @Override
     protected void initfun() {
-        getDate(0,mapParam);
+        getDate(0, mapParam);
         receivingRefresh.addEasyEvent(new EasyRefreshLayout.EasyEvent() {
             @Override
             public void onLoadMore() {
-                getDate(1,mapParam);
+                getDate(1, mapParam);
             }
 
             @Override
             public void onRefreshing() {
                 appSearch.setQuery("", false);
                 mapParam.clear();
-                getDate(0,mapParam);
+                getDate(0, mapParam);
             }
         });
         //搜索框文字变化监听
@@ -148,13 +151,13 @@ public class ReceiveNoticeActivity extends BaseActivity {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 int id = view.getId();
-               ReceiveBillBean.DataEntity dataEntity= (ReceiveBillBean.DataEntity) adapter.getData().get(position);
-                switch (id){
+                ReceiveBillBean.DataEntity dataEntity = (ReceiveBillBean.DataEntity) adapter.getData().get(position);
+                switch (id) {
                     case R.id.receiving_detail:
                         //跳转到详情
-                        Intent intent=new Intent(ReceiveNoticeActivity.this, ReceiveNoticeDetailActivity.class);
-                        Bundle bundle=new Bundle();
-                        bundle.putSerializable("date",dataEntity);
+                        Intent intent = new Intent(ReceiveNoticeActivity.this, ReceiveNoticeDetailActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("date", dataEntity);
                         intent.putExtras(bundle);
                         startActivity(intent);
                         break;
@@ -169,13 +172,14 @@ public class ReceiveNoticeActivity extends BaseActivity {
 
     @OnClick({R.id.iv_scan})
     public void onViewClicked(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.iv_scan:
                 wantCameraPermission();
                 break;
         }
 
     }
+
     //申请相机权限
     private void wantCameraPermission() {
         PermissionUtil.getInstance().request(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -217,7 +221,7 @@ public class ReceiveNoticeActivity extends BaseActivity {
         params.put("page", String.valueOf(PAGE));
         params.put("limit", String.valueOf(LIMIT));
         String receivingBill = Constance.getReceivingBillList();
-        HTTPUtils.getInstance(this).postByJson( receivingBill, ReceiveBillBean.class, params, new VolleyListener<ReceiveBillBean>() {
+        HTTPUtils.getInstance(this).postByJson(receivingBill, ReceiveBillBean.class, params, new VolleyListener<ReceiveBillBean>() {
             @Override
             public void requestComplete() {
 
@@ -225,7 +229,8 @@ public class ReceiveNoticeActivity extends BaseActivity {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                if (loadType==0){
+                ToastUtil.show(ReceiveNoticeActivity.this,error.getMessage());
+                if (loadType == 0) {
                     receivingRefresh.refreshComplete();
                 } else {
                     receivingRefresh.loadMoreFail();
@@ -236,7 +241,8 @@ public class ReceiveNoticeActivity extends BaseActivity {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse(ReceiveBillBean response) {
-                if (response.getCode()==0){
+                int code = response.getCode();
+                if (code == 0) {
                     PAGE++;
                     List<ReceiveBillBean.DataEntity> data = response.getData();
                     data.removeIf(new Predicate<ReceiveBillBean.DataEntity>() {  //过滤
@@ -245,7 +251,7 @@ public class ReceiveNoticeActivity extends BaseActivity {
                             return dataEntity.getDocumentStatus().equals("C") || dataEntity.getDocumentStatus().equals("D");
                         }
                     });
-                    if (loadType==0){
+                    if (loadType == 0) {
                         receivingAdapter.setNewData(data);
                         receivingRefresh.refreshComplete();
                     } else {
@@ -254,7 +260,18 @@ public class ReceiveNoticeActivity extends BaseActivity {
                         }
                         receivingRefresh.loadMoreComplete();
                     }
+                } else if (code == 900) {
+                    if (loadType == 0) {
+                        receivingRefresh.refreshComplete();
+                    } else {
+                        receivingRefresh.loadMoreComplete();
+                    }
+                    AlertDialog alertDialog = CreateDialog(ReceiveNoticeActivity.this, response.getMsg());
+                    if (!alertDialog.isShowing()) {
+                        alertDialog.show();
+                    }
                 } else {
+                    ToastUtil.show(ReceiveNoticeActivity.this,response.getMsg());
                     if (loadType == 0) {
                         receivingRefresh.refreshComplete();
                     } else {
@@ -269,31 +286,37 @@ public class ReceiveNoticeActivity extends BaseActivity {
 
 
     //下推
-    private void pushDate(int fid){
-        Map<String,String> map=new HashMap<>();
-        map.put("fid",String.valueOf(fid));
+    private void pushDate(int fid) {
+        Map<String, String> map = new HashMap<>();
+        map.put("fid", String.valueOf(fid));
         String pushReceiving = Constance.getPushReceiving();
-        HTTPUtils.getInstance(this).postByJson( pushReceiving, ReceivePush.class, map, new VolleyListener<ReceivePush>() {
+        HTTPUtils.getInstance(this).postByJson(pushReceiving, ReceivePush.class, map, new VolleyListener<ReceivePush>() {
             @Override
             public void onResponse(ReceivePush response) {
-                if (response.getCode()==0) {
-                    ToastUtil.show(ReceiveNoticeActivity.this,"下推成功");
-                    Logutil.print("下推",response.getData().getId()+"/"+response.getData().getNumber());
+                int code = response.getCode();
+                if (response.getCode() == 0) {
+                    ToastUtil.show(ReceiveNoticeActivity.this, response.getMsg());
+                    Logutil.print("下推", response.getData().getId() + "/" + response.getData().getNumber());
                     //跳转到采购入库详情
-                    Intent intent1=new Intent(ReceiveNoticeActivity.this, PurchaseWarehousingDetailActivity.class);
-                    Bundle bundle1=new Bundle();
-                    bundle1.putInt("fid",response.getData().getId());
-                    bundle1.putString("fnumber",response.getData().getNumber());
+                    Intent intent1 = new Intent(ReceiveNoticeActivity.this, PurchaseWarehousingDetailActivity.class);
+                    Bundle bundle1 = new Bundle();
+                    bundle1.putInt("fid", response.getData().getId());
+                    bundle1.putString("fnumber", response.getData().getNumber());
                     intent1.putExtras(bundle1);
                     startActivity(intent1);
+//                } else if (code == 900) {
+//                    AlertDialog alertDialog = CreateDialog(ReceiveNoticeActivity.this, response.getMsg());
+//                    if (!alertDialog.isShowing()) {
+//                        alertDialog.show();
+//                    }
                 } else {
-                    ToastUtil.show(ReceiveNoticeActivity.this,"下推失败");
+                    ToastUtil.show(ReceiveNoticeActivity.this, response.getMsg());
                 }
             }
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                //  ToastUtil.show(ReceiveNoticeActivity.this,error.getMessage());
+                  ToastUtil.show(ReceiveNoticeActivity.this,error.getMessage());
             }
 
             @Override
@@ -302,6 +325,7 @@ public class ReceiveNoticeActivity extends BaseActivity {
             }
         });
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -312,8 +336,8 @@ public class ReceiveNoticeActivity extends BaseActivity {
             //将扫描出的信息显示出来并搜索
             appSearch.setQuery(scanResult, false);
             mapParam.clear();
-            mapParam.put(key_billNo,scanResult);
-            getDate(0,mapParam);
+            mapParam.put(key_billNo, scanResult);
+            getDate(0, mapParam);
         }
     }
 }

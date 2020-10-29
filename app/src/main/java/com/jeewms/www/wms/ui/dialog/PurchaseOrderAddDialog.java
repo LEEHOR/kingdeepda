@@ -3,8 +3,6 @@ package com.jeewms.www.wms.ui.dialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatDialog;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,9 +15,7 @@ import android.widget.TextView;
 import com.jeewms.www.wms.R;
 import com.jeewms.www.wms.base.BaseDialogFragment;
 import com.jeewms.www.wms.bean.InStockEntryBean;
-import com.jeewms.www.wms.bean.MaterialListBean;
-import com.jeewms.www.wms.bean.ProjectListBean;
-import com.next.easynavigation.utils.NavigationUtil;
+import com.jeewms.www.wms.util.StringUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -58,22 +54,23 @@ public class PurchaseOrderAddDialog extends BaseDialogFragment {
     TextView tvFmaterialSpecification;
     @BindView(R.id.tv_fstockName)
     TextView tvFstockName;
-    @BindView(R.id.tv_fpurorgNum)
-    EditText tvFpurorgNum;
-    @BindView(R.id.tv_factreceiveQty)
-    EditText tvFactreceiveQty;
-    @BindView(R.id.tv_fsupdelQty)
-    EditText tvFsupdelQty;
-    @BindView(R.id.tv_priceUnitQty)
-    EditText tvPriceUnitQty;
     @BindView(R.id.tv_fpriceunitName)
     TextView tvFpriceunitName;
     @BindView(R.id.tv_fpurorgName)
     TextView tvFpurorgName;
+    @BindView(R.id.tv_fremainInStockQty)
+    EditText tvFremainInStockQty;
+    @BindView(R.id.tv_fpriceUnitQty)
+    EditText tvFpriceUnitQty;
+    @BindView(R.id.tv_fmustQty)
+    EditText tvFmustQty;
+    @BindView(R.id.tv_frealQty)
+    EditText tvFrealQty;
+    Unbinder unbinder;
 
-private InStockEntryBean.DataEntity body=new InStockEntryBean.DataEntity();
-    private int mSelect=9999;
-    private int pSelect=9999;
+    private InStockEntryBean.DataEntity body = new InStockEntryBean.DataEntity();
+    private int mSelect = 9999;
+    private int pSelect = 9999;
 
 
     public static PurchaseOrderAddDialog newInstance(String title, int type) {
@@ -143,7 +140,7 @@ private InStockEntryBean.DataEntity body=new InStockEntryBean.DataEntity();
     }
 
 
-    @OnClick({R.id.purchase_order_add_close, R.id.purchase_order_add_complete, R.id.tv_projectName, R.id.tv_fmaterialName, R.id.tv_fstockName,R.id.tv_fpriceunitName})
+    @OnClick({R.id.purchase_order_add_close, R.id.purchase_order_add_complete, R.id.tv_projectName, R.id.tv_fmaterialName, R.id.tv_fstockName, R.id.tv_fpriceunitName})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.purchase_order_add_close:
@@ -153,6 +150,19 @@ private InStockEntryBean.DataEntity body=new InStockEntryBean.DataEntity();
                 break;
             case R.id.purchase_order_add_complete:
                 if (onAddOrderListeners != null) {
+                    if (StringUtil.isEmpty(tvFremainInStockQty.getText().toString().trim())) {
+                        body.setFremainInStockQty(Integer.parseInt(tvFremainInStockQty.getText().toString().trim()));
+                    }
+                    if (StringUtil.isEmpty(tvFpriceUnitQty.getText().toString().trim())){
+                        body.setFpriceUnitQty(Integer.parseInt(tvFpriceUnitQty.getText().toString().trim()));
+                    }
+                    if (StringUtil.isEmpty(tvFmustQty.getText().toString().trim())){
+                        body.setFmustQty(Integer.parseInt(tvFmustQty.getText().toString().trim()));
+                    }
+                    if (StringUtil.isEmpty(tvFrealQty.getText().toString().trim())){
+                        body.setFrealQty(Integer.parseInt(tvFrealQty.getText().toString().trim()));
+                    }
+
                     onAddOrderListeners.onConfirm(body);
                 }
                 Close();
@@ -174,8 +184,8 @@ private InStockEntryBean.DataEntity body=new InStockEntryBean.DataEntity();
         final MaterialDialog materialDialog = MaterialDialog.newInstance(mSelect);
         materialDialog.setListener(new MaterialDialog.MaterialSelectListener() {
             @Override
-            public void onConfirm(String name, String number, String specification,int position) {
-                mSelect=position;
+            public void onConfirm(String name, String number, String specification, int position) {
+                mSelect = position;
                 tvFmaterialName.setText(name);
                 tvFmaterialNum.setText(number);
                 tvFmaterialSpecification.setText(specification);
@@ -196,8 +206,8 @@ private InStockEntryBean.DataEntity body=new InStockEntryBean.DataEntity();
         final ProjectDialog projectDialog = ProjectDialog.newInstance(pSelect);
         projectDialog.setListener(new ProjectDialog.ProjectSelectListener() {
             @Override
-            public void onConfirm(String name, String number,int position) {
-                pSelect=position;
+            public void onConfirm(String name, String number, int position) {
+                pSelect = position;
                 tvProjectName.setText(name);
                 tvProjectNum.setText(number);
                 body.setProjectName(name);
@@ -211,9 +221,10 @@ private InStockEntryBean.DataEntity body=new InStockEntryBean.DataEntity();
         });
         projectDialog.show(getActivity().getFragmentManager(), "物料");
     }
+
     //仓库
-    private void Stock(){
-        final StockDialog stockDialog=StockDialog.newInstance(999);
+    private void Stock() {
+        final StockDialog stockDialog = StockDialog.newInstance(999);
         stockDialog.setListener(new StockDialog.StockSelectListener() {
             @Override
             public void onConfirm(String name, String number, int position) {
@@ -227,7 +238,21 @@ private InStockEntryBean.DataEntity body=new InStockEntryBean.DataEntity();
                 stockDialog.Close();
             }
         });
-        stockDialog.show(getActivity().getFragmentManager(),"仓库");
+        stockDialog.show(getActivity().getFragmentManager(), "仓库");
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 
     public interface OnAddOrderListener {

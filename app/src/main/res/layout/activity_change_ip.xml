@@ -43,13 +43,14 @@
             android:id="@+id/app_ip"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/userIcon"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:background="@null"
             android:inputType="textUri"
             android:digits="0123456789.:"
             android:lines="1"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
             android:textSize="16dp"
             android:hint="请输入IP地址" />
         <!-- android:inputType="number"-->

@@ -17,6 +17,7 @@ import com.jeewms.www.wms.base.BaseActivity;
 import com.jeewms.www.wms.bean.LoginVm;
 import com.jeewms.www.wms.constance.Constance;
 import com.jeewms.www.wms.constance.Shared;
+import com.jeewms.www.wms.ui.activity.mine.ChangeIpActivity;
 import com.jeewms.www.wms.util.GsonUtils;
 import com.jeewms.www.wms.util.SharedPreferencesUtil;
 import com.jeewms.www.wms.util.StringUtil;
@@ -47,11 +48,9 @@ public class LoginActivity extends BaseActivity {
     Button btnLogin;
     @BindView(R.id.btn_regist)
     Button btnRegist;
-    @BindView(R.id.tv_address)
-    EditText tvAddress;
-    String addressPer;
     @BindView(R.id.btn_ipChange)
-    Button btnIpChange;
+    TextView btnIpChange;
+    String addressPer;
     private long exitTime = 0;
 
     public static void show(Context context) {
@@ -62,13 +61,11 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected int getContentResId() {
-        return R.layout.activity_login;
+        return R.layout.activity_login1;
     }
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        String keyValue = Constance.getBaseIp();
-        tvAddress.setText(keyValue);
         if (!StringUtil.isEmpty(SharedPreferencesUtil.getInstance(this).getKeyValue(Constance.SHAREP.LOGINNAME)) && tvUserName != null) {
             tvUserName.setText(SharedPreferencesUtil.getInstance(this).getKeyValue(Constance.SHAREP.LOGINNAME));
             tvPassword.setFocusable(true);
@@ -77,20 +74,6 @@ public class LoginActivity extends BaseActivity {
             this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 
         }
-        tvAddress.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                addressPer = charSequence + "";
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-            }
-        });
     }
 
     @Override
@@ -98,7 +81,7 @@ public class LoginActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.forgetPassword, R.id.btn_login, R.id.btn_regist})
+    @OnClick({R.id.forgetPassword, R.id.btn_login, R.id.btn_regist,R.id.btn_ipChange})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.forgetPassword:
@@ -109,6 +92,9 @@ public class LoginActivity extends BaseActivity {
                 break;
             case R.id.btn_regist:
                 ToastUtil.show(this, "注册");
+                break;
+            case R.id.btn_ipChange:
+                ChangeIpActivity.show(LoginActivity.this);
                 break;
         }
     }
@@ -171,10 +157,7 @@ public class LoginActivity extends BaseActivity {
 
     //初始化地址
     private void setAddress() {
-        //如果为保存地址，则使用最初地址
-        if (!StringUtil.isEmpty(addressPer) && tvAddress.getVisibility()== View.VISIBLE) {
-            SharedPreferencesUtil.getInstance(this).setKeyValue(Shared.BASEIP, addressPer);
-        }
+
 
     }
 
@@ -192,14 +175,5 @@ public class LoginActivity extends BaseActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
-    }
-
-    @OnClick(R.id.btn_ipChange)
-    public void onViewClicked() {
-        if (tvAddress.getVisibility()== View.VISIBLE) {
-            tvAddress.setVisibility(View.INVISIBLE);
-        } else {
-            tvAddress.setVisibility(View.VISIBLE);
-        }
     }
 }

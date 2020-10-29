@@ -51,7 +51,7 @@ public class ReceiveBillBean implements Serializable {
         return data;
     }
 
-    public class DataEntity implements Serializable {
+    public class DataEntity implements Serializable{
         /**
          * fid : 100027
          * date : 2020-10-15T00:00:00
@@ -194,5 +194,6 @@ public class ReceiveBillBean implements Serializable {
         public String getBillNo() {
             return billNo;
         }
+
     }
 }

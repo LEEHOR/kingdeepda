@@ -1,5 +1,8 @@
 package com.jeewms.www.wms.ui.activity.mine;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +14,8 @@ import com.jeewms.www.wms.base.BaseActivity;
 import com.jeewms.www.wms.bean.UpdatePwd;
 import com.jeewms.www.wms.constance.Constance;
 import com.jeewms.www.wms.constance.Shared;
+import com.jeewms.www.wms.ui.activity.purchaseWarehousing.PurchaseWarehousingDetailActivity;
+import com.jeewms.www.wms.ui.activity.salesDelivery.SalesDeliveryAddActivity;
 import com.jeewms.www.wms.ui.view.TitleTopOrdersView;
 import com.jeewms.www.wms.util.GsonUtils;
 import com.jeewms.www.wms.util.SharedPreferencesUtil;
@@ -57,9 +62,10 @@ public class ChangePass extends BaseActivity {
         return R.layout.activity_change_pass;
     }
 
+
     @Override
     protected void initView(Bundle savedInstanceState) {
-        changePassTitle.setViewVisibility(View.VISIBLE,View.VISIBLE,View.GONE,View.GONE,View.GONE,View.GONE,View.GONE);
+        changePassTitle.setViewVisibility(View.VISIBLE, View.VISIBLE, View.GONE, View.GONE, View.GONE, View.GONE, View.GONE);
         changePassTitle.getTex_item().setText(R.string.mine09);
         changePassTitle.getBtn_back().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,7 +93,7 @@ public class ChangePass extends BaseActivity {
             ToastUtil.show(this, "再输入一次密码");
             return;
         }
-        if (!inputPass1.getText().toString().trim().equals(inputPass2.getText().toString().trim())){
+        if (!inputPass1.getText().toString().trim().equals(inputPass2.getText().toString().trim())) {
             ToastUtil.show(this, "两次输入的密码不一致");
             return;
         }
@@ -97,11 +103,11 @@ public class ChangePass extends BaseActivity {
     //修改密码
     public void doChangePass(String userOldPass, String password) {
         Map<String, String> params = new HashMap<>();
-        params.put("username",SharedPreferencesUtil.getInstance(this).getKeyValue(Shared.userAccount));
-        params.put("oldPwd",userOldPass);
-        params.put("newPwd",password);
+        params.put("username", SharedPreferencesUtil.getInstance(this).getKeyValue(Shared.userAccount));
+        params.put("oldPwd", userOldPass);
+        params.put("newPwd", password);
         String updatePwdUrl = Constance.getUpdatePwd();
-        HTTPUtils.getInstance(this).post( updatePwdUrl, params, new VolleyListener<String>() {
+        HTTPUtils.getInstance(this).post(updatePwdUrl, params, new VolleyListener<String>() {
             @Override
             public void requestComplete() {
 
@@ -115,9 +121,15 @@ public class ChangePass extends BaseActivity {
             @Override
             public void onResponse(String response) {
                 UpdatePwd updatePwd = GsonUtils.parseJSON(response, UpdatePwd.class);
-                if (updatePwd.getCode()==0) {
+                int code = updatePwd.getCode();
+                if (code == 0) {
                     ToastUtil.show(ChangePass.this, updatePwd.getMsg());
                     updateUserInfo(inputPass2.getText().toString().trim());
+//                } else if (code == 900) {
+//                    AlertDialog alertDialog = CreateDialog(ChangePass.this, updatePwd.getMsg());
+//                    if (!alertDialog.isShowing()) {
+//                        alertDialog.show();
+//                    }
                 } else {
                     ToastUtil.show(ChangePass.this, updatePwd.getMsg());
                 }
@@ -133,11 +145,11 @@ public class ChangePass extends BaseActivity {
     /**
      * 清除用户信息
      */
-    private  void removeUerInfo(){
+    private void removeUerInfo() {
         SharedPreferencesUtil.getInstance(this).clear();
     }
 
-    private void updateUserInfo(String pwd){
-        SharedPreferencesUtil.getInstance(this).setKeyValue(Shared.PASSWORD,pwd);
+    private void updateUserInfo(String pwd) {
+        SharedPreferencesUtil.getInstance(this).setKeyValue(Shared.PASSWORD, pwd);
     }
 }

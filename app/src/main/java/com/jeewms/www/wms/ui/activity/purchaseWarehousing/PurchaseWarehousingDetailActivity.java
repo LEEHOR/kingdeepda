@@ -1,5 +1,6 @@
 package com.jeewms.www.wms.ui.activity.purchaseWarehousing;
 
+import android.app.AlertDialog;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -120,8 +121,6 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
     private List<InStockEntryBean.DataEntity> TableBodyDate = new ArrayList<>();
     private int fid = 0;
     private String key_fid = "fid";
-    private List<InStockEntryBean.DataEntity> dataEntityList;
-
 
     @Override
     protected int getContentResId() {
@@ -197,11 +196,12 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
         Map<String, String> params = new HashMap<>();
         params.put(key_fid, id);
         String getstkInStock = Constance.getGetstkInStock();
-        HTTPUtils.getInstance(this).postByJson( getstkInStock, InStockHeadBean.class, params, new VolleyListener<InStockHeadBean>() {
+        HTTPUtils.getInstance(this).postByJson(getstkInStock, InStockHeadBean.class, params, new VolleyListener<InStockHeadBean>() {
 
             @Override
             public void onResponse(InStockHeadBean response) {
-                if (response.getCode() == 0) {
+                int code = response.getCode();
+                if (code == 0) {
                     List<InStockHeadBean.DataEntity> datas = response.getData();
                     TableHeadData = datas.get(0);
                     //  TableHeadData.setFSupplierId(TableHeadData.getFsupplierNumber());
@@ -230,6 +230,13 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
                     if (fid != 0) {
                         getTableBodyDate(String.valueOf(fid));
                     }
+                } else if (code == 900) {
+                    AlertDialog alertDialog = CreateDialog(PurchaseWarehousingDetailActivity.this, response.getMsg());
+                    if (!alertDialog.isShowing()) {
+                        alertDialog.show();
+                    }
+                } else {
+                    ToastUtil.show(PurchaseWarehousingDetailActivity.this,response.getMsg());
                 }
             }
 
@@ -250,7 +257,7 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
         Map<String, String> params = new HashMap<>();
         params.put(key_fid, fid);
         String getstkInStockEntry = Constance.getGetstkInStockEntry();
-        HTTPUtils.getInstance(this).postByJson( getstkInStockEntry, InStockEntryBean.class, params, new VolleyListener<InStockEntryBean>() {
+        HTTPUtils.getInstance(this).postByJson(getstkInStockEntry, InStockEntryBean.class, params, new VolleyListener<InStockEntryBean>() {
             @Override
             public void requestComplete() {
 
@@ -263,12 +270,19 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
 
             @Override
             public void onResponse(InStockEntryBean response) {
-                TableBodyDate.clear();
-                if (response.getCode() == 0) {
-                    dataEntityList = response.getData();
-                    TableHeadData.setStkInStockEntryVoList(dataEntityList);
-                    addTable.addData(dataEntityList, false);
+
+                int code = response.getCode();
+                if (code == 0) {
+                    TableBodyDate.clear();
+                    TableHeadData.setStkInStockEntryVoList(response.getData());
+                    addTable.addData(response.getData(), false);
+                } else if (code == 900) {
+                    AlertDialog alertDialog = CreateDialog(PurchaseWarehousingDetailActivity.this, response.getMsg());
+                    if (!alertDialog.isShowing()) {
+                        alertDialog.show();
+                    }
                 } else {
+                    ToastUtil.show(PurchaseWarehousingDetailActivity.this,response.getMsg());
                 }
 
             }
@@ -337,7 +351,7 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
             public void onClick(Column column, Object o, int col, int row) {
                 List<InStockEntryBean.DataEntity> t = addTable.getTableData().getT();
                 if (t != null) {
-                    InStockEntryBean.DataEntity dataEntity = dataEntityList.get(row);
+                    InStockEntryBean.DataEntity dataEntity = t.get(row);
                     Logutil.print("打印", dataEntity.getProjectNumber());
                 }
             }
@@ -368,7 +382,7 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
         Logutil.print("数据", asJsonObject.toString());
         String stkInStockAdd = Constance.getStkInStockAdd();
         LoadingUtil.ShowProgress(PurchaseWarehousingDetailActivity.this, "正在保存入库");
-        HTTPUtils.getInstance(this).postByJson( stkInStockAdd, PurchaseAddBean.class, asJsonObject, new VolleyListener<PurchaseAddBean>() {
+        HTTPUtils.getInstance(this).postByJson(stkInStockAdd, PurchaseAddBean.class, asJsonObject, new VolleyListener<PurchaseAddBean>() {
             @Override
             public void requestComplete() {
                 LoadingUtil.CancelProgress();
@@ -381,13 +395,21 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
 
             @Override
             public void onResponse(PurchaseAddBean response) {
+                int code = response.getCode();
                 if (response.getCode() == 0) {
                     ToastUtil.show(PurchaseWarehousingDetailActivity.this, response.getMsg());
+//                } else if (code == 900) {
+//                    AlertDialog alertDialog = CreateDialog(PurchaseWarehousingDetailActivity.this, response.getMsg());
+//                    if (!alertDialog.isShowing()) {
+//                        alertDialog.show();
+//                    }
                 } else {
                     List<PurchaseAddBean.DataEntity> data = response.getData();
                     StringBuilder stringBuilder = new StringBuilder();
-                    for (PurchaseAddBean.DataEntity d : data) {
-                        stringBuilder.append(d.getMessage());
+                    if (data != null) {
+                        for (PurchaseAddBean.DataEntity d : data) {
+                            stringBuilder.append(d.getMessage());
+                        }
                     }
                     ToastUtil.showLong(PurchaseWarehousingDetailActivity.this, stringBuilder.toString());
                 }
@@ -400,7 +422,9 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
         purchaseOrderAddDialog.setOnAddOrderListener(new PurchaseOrderAddDialog.OnAddOrderListener() {
             @Override
             public void onConfirm(InStockEntryBean.DataEntity body) {
-
+                TableBodyDate.clear();
+                TableBodyDate.add(body);
+                addTable.addData(TableBodyDate, false);
             }
 
             @Override

@@ -1,5 +1,6 @@
 package com.jeewms.www.wms.ui.activity.receive;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -103,6 +104,7 @@ public class ReceiveNoticeDetailActivity extends BaseActivity {
 
     private String date;
     private String billNo;
+
     @Override
     protected int getContentResId() {
         return R.layout.activity_receiving_notice_details;
@@ -125,7 +127,7 @@ public class ReceiveNoticeDetailActivity extends BaseActivity {
         if (getIntent() != null) {
             Bundle extras = getIntent().getExtras();
             if (extras != null) {
-                ReceiveBillBean.DataEntity dataEntity= (ReceiveBillBean.DataEntity) extras.get("date");
+                ReceiveBillBean.DataEntity dataEntity = (ReceiveBillBean.DataEntity) extras.get("date");
                 assert dataEntity != null;
                 this.fid = dataEntity.getFid();
                 this.date = dataEntity.getDate();
@@ -190,7 +192,6 @@ public class ReceiveNoticeDetailActivity extends BaseActivity {
     }
 
 
-
     //获取表体数据
     private void getTableBodyDate(String fid) {
         Map<String, String> params = new HashMap<>();
@@ -203,12 +204,12 @@ public class ReceiveNoticeDetailActivity extends BaseActivity {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-
             }
 
             @Override
             public void onResponse(ReceiveBillEntry response) {
-                if (response.getCode() == 0) {
+                int code = response.getCode();
+                if (code == 0) {
                     List<ReceiveBillEntry.DataEntity> data = response.getData();
                     for (int i = 0; i < data.size(); i++) {
                         count1 += data.get(i).getFactreceiveQty();
@@ -219,7 +220,13 @@ public class ReceiveNoticeDetailActivity extends BaseActivity {
                     tvFsupdelQty.setText(String.valueOf(count2));
                     tvPriceUnitQty.setText(String.valueOf(count3));
                     noticeDetailTab.addData(data, false);
-                } else {
+//                } else if (code == 900) {
+//                    AlertDialog alertDialog = CreateDialog(ReceiveNoticeDetailActivity.this, response.getMsg());
+//                    if (!alertDialog.isShowing()) {
+//                        alertDialog.show();
+//                    }
+//                } else {
+                    ToastUtil.show(ReceiveNoticeDetailActivity.this, response.getMsg());
                     tvFactreceiveQty.setText(String.valueOf(0));
                     tvFsupdelQty.setText(String.valueOf(0));
                     tvPriceUnitQty.setText(String.valueOf(0));
@@ -329,35 +336,41 @@ public class ReceiveNoticeDetailActivity extends BaseActivity {
 
     @OnClick(R.id.btn_push)
     public void onViewClicked() {
-        if (fid !=0){
+        if (fid != 0) {
             pushDate(fid);
         }
     }
 
-    private void pushDate(int fid){
-        Map<String,String> map=new HashMap<>();
-        map.put("fid",String.valueOf(fid));
+    private void pushDate(int fid) {
+        Map<String, String> map = new HashMap<>();
+        map.put("fid", String.valueOf(fid));
         String pushReceiving = Constance.getPushReceiving();
-        HTTPUtils.getInstance(this).postByJson( pushReceiving, ReceivePush.class, map, new VolleyListener<ReceivePush>() {
+        HTTPUtils.getInstance(this).postByJson(pushReceiving, ReceivePush.class, map, new VolleyListener<ReceivePush>() {
             @Override
             public void onResponse(ReceivePush response) {
-                if (response.getCode()==0) {
-                    ToastUtil.show(ReceiveNoticeDetailActivity.this,"下推成功");
+                int code = response.getCode();
+                if (code == 0) {
+                    ToastUtil.show(ReceiveNoticeDetailActivity.this,  response.getMsg());
                     //跳转到采购入库详情
-                    Intent intent1=new Intent(ReceiveNoticeDetailActivity.this, PurchaseWarehousingDetailActivity.class);
-                    Bundle bundle1=new Bundle();
-                    bundle1.putInt("fid",response.getData().getId());
-                    bundle1.putString("fnumber",response.getData().getNumber());
+                    Intent intent1 = new Intent(ReceiveNoticeDetailActivity.this, PurchaseWarehousingDetailActivity.class);
+                    Bundle bundle1 = new Bundle();
+                    bundle1.putInt("fid", response.getData().getId());
+                    bundle1.putString("fnumber", response.getData().getNumber());
                     intent1.putExtras(bundle1);
                     startActivity(intent1);
+//                } else if (code == 900) {
+//                    AlertDialog alertDialog = CreateDialog(ReceiveNoticeDetailActivity.this, response.getMsg());
+//                    if (!alertDialog.isShowing()) {
+//                        alertDialog.show();
+//                    }
                 } else {
-                    ToastUtil.show(ReceiveNoticeDetailActivity.this,"下推失败");
+                    ToastUtil.show(ReceiveNoticeDetailActivity.this, response.getMsg());
                 }
             }
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                ToastUtil.show(ReceiveNoticeDetailActivity.this,error.getMessage());
+                ToastUtil.show(ReceiveNoticeDetailActivity.this, error.getMessage());
             }
 
             @Override

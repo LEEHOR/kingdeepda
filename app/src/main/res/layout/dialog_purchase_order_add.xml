@@ -378,7 +378,7 @@
 
                                 <EditText
                                     style="@style/mine_fragment"
-                                    android:id="@+id/tv_fpurorgNum"
+                                    android:id="@+id/tv_fremainInStockQty"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:inputType="number"
@@ -396,11 +396,11 @@
                                     style="@style/mine_fragment"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="交货数量:" />
+                                    android:text="计价数量:" />
 
                                 <EditText
                                     style="@style/mine_fragment"
-                                    android:id="@+id/tv_factreceiveQty"
+                                    android:id="@+id/tv_fpriceUnitQty"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:inputType="number"
@@ -429,11 +429,11 @@
                                     style="@style/mine_fragment"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="供应商交货数量:" />
+                                    android:text="应收数量:" />
 
                                 <EditText
                                     style="@style/mine_fragment"
-                                    android:id="@+id/tv_fsupdelQty"
+                                    android:id="@+id/tv_fmustQty"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:inputType="number"
@@ -451,11 +451,11 @@
                                     style="@style/mine_fragment"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="计价数量:" />
+                                    android:text="实收数量:" />
 
                                 <EditText
                                     style="@style/mine_fragment"
-                                    android:id="@+id/tv_priceUnitQty"
+                                    android:id="@+id/tv_frealQty"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:inputType="number"

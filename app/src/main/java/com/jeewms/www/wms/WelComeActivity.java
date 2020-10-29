@@ -32,8 +32,6 @@ public class WelComeActivity extends BaseActivity {
 
     @BindView(R.id.welcome_root)
     ConstraintLayout llRoot;
-    private int status;
-
     @Override
     protected int getContentResId() {
         return R.layout.activity_welcome;
@@ -47,19 +45,6 @@ public class WelComeActivity extends BaseActivity {
             LoginActivity.show(this);
             finish();
         }
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (status == 0) {
-                    status++;
-                } else {
-                    // HomeActivity.show(WelComeActivity.this);
-                    MainActivity.show(WelComeActivity.this);
-                    finish();
-                }
-            }
-        }, 3000);
     }
 
     @Override
@@ -88,17 +73,12 @@ public class WelComeActivity extends BaseActivity {
             public void onResponse(String response) {
                 LoginVm vm = GsonUtils.parseJSON(response, LoginVm.class);
                 if (vm.getCode() == 0) {
-                    if (status == 0) {
-                        status++;
-                    } else {
                         SharedPreferencesUtil.getInstance(WelComeActivity.this).setKeyValue(Shared.userPhone, vm.getData().getFphone());
                         SharedPreferencesUtil.getInstance(WelComeActivity.this).setKeyValue(Shared.userID, vm.getData().getFuserID());
                         SharedPreferencesUtil.getInstance(WelComeActivity.this).setKeyValue(Shared.TOKEN, vm.getAccess_token());
                         Logutil.print(vm.getAccess_token());
-                        //HomeActivity.show(WelComeActivity.this);
                         MainActivity.show(WelComeActivity.this);
                         finish();
-                    }
                 } else {
                     LoginActivity.show(WelComeActivity.this);
                     finish();

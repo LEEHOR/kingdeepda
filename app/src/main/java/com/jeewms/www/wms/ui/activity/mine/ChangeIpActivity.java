@@ -1,9 +1,12 @@
 package com.jeewms.www.wms.ui.activity.mine;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.jeewms.www.wms.R;
 import com.jeewms.www.wms.base.BaseActivity;
@@ -42,9 +45,17 @@ public class ChangeIpActivity extends BaseActivity {
         return R.layout.activity_change_ip;
     }
 
+    public static void show(Context context) {
+        Intent intent = new Intent(context, ChangeIpActivity.class);
+        context.startActivity(intent);
+    }
+
     @Override
     protected void initView(Bundle savedInstanceState) {
-        changeIpTitle.setViewVisibility(View.VISIBLE,View.INVISIBLE,View.INVISIBLE,View.INVISIBLE,View.INVISIBLE,View.INVISIBLE,View.INVISIBLE);
+
+        TextView tex_item = changeIpTitle.getTex_item();
+        tex_item.setVisibility(View.VISIBLE);
+        tex_item.setText("设置IP地址");
         changeIpTitle.getBtn_back().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
