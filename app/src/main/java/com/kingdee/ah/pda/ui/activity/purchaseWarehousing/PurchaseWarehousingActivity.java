@@ -231,14 +231,12 @@ public class PurchaseWarehousingActivity extends BaseActivity {
                 supplierSelectMenu.dismiss();
             }
         });
-
         getDate(0, mapParam);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
     }
 
     private void onSearch(String s) {

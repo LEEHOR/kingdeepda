@@ -152,7 +152,6 @@ public class ReceiveNoticeDetailActivity extends BaseActivity {
             }
         });
         createTable();
-        getTableBodyDate(String.valueOf(fid));
     }
 
 
@@ -293,11 +292,9 @@ public class ReceiveNoticeDetailActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
+        if (fid!=0){
+            getTableBodyDate(String.valueOf(fid));
+        }
     }
 
     @OnClick(R.id.btn_push)

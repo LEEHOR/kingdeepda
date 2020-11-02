@@ -293,6 +293,11 @@ public class ReceiveNoticeActivity extends BaseActivity {
         getDate(0, mapParam);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
     //获取数据
     private void getDate(final int loadType, Map<String, String> params) {
         if (loadType == 0) {

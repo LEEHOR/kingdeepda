@@ -37,7 +37,7 @@ public class MainActivity extends FragmentActivity {
     private int[] normalIcon = {R.drawable.ic_home, R.drawable.ic_mine};
     //选中时icon
     private int[] selectIcon = {R.drawable.ic_home_select, R.drawable.ic_mine_select};
-
+    private List<Fragment> fragments = new ArrayList<>();
     public static void show(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
         context.startActivity(intent);
@@ -52,7 +52,6 @@ public class MainActivity extends FragmentActivity {
     }
 
     protected void initView() {
-        List<Fragment> fragments = new ArrayList<>();
         fragments.add(new HomeFragment());
         fragments.add(new MineFragment());
         bottomTabBar2.defaultSetting()

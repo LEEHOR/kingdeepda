@@ -402,4 +402,12 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
             //将扫描出的信息显示出来并搜索
         }
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (fid != 0) {
+            getTableHead(String.valueOf(fid));
+        }
+    }
 }

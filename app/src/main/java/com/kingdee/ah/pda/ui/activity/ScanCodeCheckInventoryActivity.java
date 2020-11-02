@@ -224,13 +224,13 @@ public class ScanCodeCheckInventoryActivity extends BaseActivity {
                 getSearch(0, mapParam);
             }
         });
-
-        getSearch(0, mapParam);
+        getSearch(0,mapParam);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
     }
 
     //消除searchView下划线
