@@ -38,181 +38,177 @@
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
-
         <activity
-            android:launchMode="singleTop"
+            android:launchMode="singleTask"
             android:name="com.kingdee.ah.pda.MainActivity">
-                        <intent-filter>
-                            <action android:name="android.intent.action.MAIN"/>
-                            <category android:name="android.intent.category.LAUNCHER"/>
-                        </intent-filter>
+<!--                        <intent-filter>-->
+<!--                            <action android:name="android.intent.action.MAIN"/>-->
+<!--                            <category android:name="android.intent.category.LAUNCHER"/>-->
+<!--                        </intent-filter>-->
         </activity>
         <activity
-            android:launchMode="standard"
             android:name="com.kingdee.ah.pda.WelComeActivity"
             android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar.Fullscreen">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
-            android:launchMode="singleTop"
             android:name="com.kingdee.ah.pda.LoginActivity" />
         <activity
-            android:name="com.kingdee.ah.pda.HomeActivity"
-            android:launchMode="singleTask" />
+            android:name="com.kingdee.ah.pda.HomeActivity" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.mine.ChangePass"
-            android:launchMode="standard"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.mine.ServerAddressConfigActivity"
-            android:launchMode="standard"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.mine.SettingDefaultOrganActivity"
-            android:launchMode="standard"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.mine.BluetoothSettingsActivity"
-            android:launchMode="standard"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.mine.BluetoothSettings1Activity"
-            android:launchMode="standard"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.mine.ChangeIpActivity"
-            android:launchMode="standard"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.receive.ReceiveNoticeActivity"
-            android:launchMode="standard"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.receive.ReceiveNoticeDetailActivity"
-            android:launchMode="standard"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.purchaseWarehousing.PurchaseWarehousingActivity"
-            android:launchMode="standard"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.purchaseWarehousing.PurchaseWarehousingAddActivity"
-            android:launchMode="standard"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.purchaseWarehousing.PurchaseWarehousingDetailActivity"
-            android:launchMode="standard"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.processReport.ProcessReportListActivity"
-            android:launchMode="standard"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.processReport.ProcessReportDetail"
-            android:launchMode="standard"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.productionWarehousing.ProductionWarehousingActivity"
-            android:launchMode="standard"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.productionWarehousing.ProductionWarehousingAddActivity"
-            android:launchMode="standard"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.productionWarehousing.ProductionWarehousingDetailActivity"
-            android:launchMode="standard"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.warehouseOutApplication.WarehouseOutApplicationActivity"
-            android:launchMode="standard"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.warehouseOutApplication.WarehouseOutApplicationDetailActivity"
-            android:launchMode="standard"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.deliverNotice.DeliveryNoticeActivity"
-            android:launchMode="standard"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.deliverNotice.DeliveryNoticeDetailActivity"
-            android:launchMode="standard"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.inventoryChecking.InventoryCheckingActivity"
-            android:launchMode="standard"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.materialList.MaterialListActivity"
-            android:launchMode="standard"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.materialList.MaterialListDetailActivity"
-            android:launchMode="standard"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.productionPicking.ProductionPickingActivity"
-            android:launchMode="standard"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.productionPicking.ProductionPickingAddActivity"
-            android:launchMode="standard"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.productionPicking.ProductionPickingDetailActivity"
-            android:launchMode="standard"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.otherStockOut.OtherStockOutActivity"
-            android:launchMode="standard"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.otherStockOut.OtherStockOutAddActivity"
-            android:launchMode="standard"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.otherStockOut.OtherStockOutDetailActivity"
-            android:launchMode="standard"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.salesDelivery.SalesDeliveryActivity"
-            android:launchMode="standard"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.salesDelivery.SalesDeliveryAddActivity"
-            android:launchMode="standard"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.salesDelivery.SalesDeliveryDetailActivity"
-            android:launchMode="standard"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.ScanCodeCheckInventoryActivity"
-            android:launchMode="standard"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.operationPlan.OperationPlanActivity"
-            android:launchMode="standard"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.operationPlanTransfer.OperationPlanTransferInActivity"
-            android:launchMode="standard"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.operationPlanTransfer.OperationPlanTransferInDetailActivity"
-            android:launchMode="standard"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.operationPlanTransfer.OperationPlanTransferOutActivity"
-            android:launchMode="standard"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.operationPlanTransfer.OperationPlanTransferOutDetailActivity"
-            android:launchMode="standard"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <!--        二维码扫描-->
         <activity

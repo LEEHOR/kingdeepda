@@ -29,6 +29,7 @@ import com.kingdee.ah.pda.bean.ReceiveBillEntry;
 import com.kingdee.ah.pda.bean.ReceivePush;
 import com.kingdee.ah.pda.constance.Constance;
 import com.kingdee.ah.pda.ui.activity.purchaseWarehousing.PurchaseWarehousingDetailActivity;
+import com.kingdee.ah.pda.ui.view.LoadingView;
 import com.kingdee.ah.pda.ui.view.TitleTopOrdersView;
 import com.kingdee.ah.pda.util.LoadingUtil;
 import com.kingdee.ah.pda.util.ToastUtil;
@@ -138,8 +139,9 @@ public class ReceiveNoticeDetailActivity extends BaseActivity {
         noticeDetailTab.getConfig().setShowYSequence(false);
         noticeDetailTab.getConfig().setShowXSequence(false);
         noticeDetailTab.getConfig().setShowTableTitle(false);
-        noticeDetailTab.getConfig().setContentStyle(new FontStyle(30, Color.BLUE));
-        noticeDetailTab.getConfig().setColumnTitleStyle(new FontStyle(35, Color.WHITE));
+        noticeDetailTab.getConfig().setVerticalPadding(24);
+        noticeDetailTab.getConfig().setContentStyle(new FontStyle(45, Color.BLUE));
+        noticeDetailTab.getConfig().setColumnTitleStyle(new FontStyle(45, Color.WHITE));
         noticeDetailTab.getConfig().setColumnTitleBackground(new BaseBackgroundFormat(getResources().getColor(R.color.titlebar_color)));
         noticeDetailTab.getConfig().setContentCellBackgroundFormat(new BaseCellBackgroundFormat<CellInfo>() {
             @Override
@@ -152,6 +154,9 @@ public class ReceiveNoticeDetailActivity extends BaseActivity {
             }
         });
         createTable();
+        if (fid!=0){
+            getTableBodyDate(String.valueOf(fid));
+        }
     }
 
 
@@ -159,7 +164,7 @@ public class ReceiveNoticeDetailActivity extends BaseActivity {
     private void getTableBodyDate(String fid) {
         Map<String, String> params = new HashMap<>();
         params.put(key_fid, fid);
-        LoadingUtil.ShowProgress(this,"正在加载...",true);
+        LoadingUtil.ShowProgress(ReceiveNoticeDetailActivity.this,"正在加载...",false);
         String billDetail = Constance.getGetReceivingBillDetail();
         HTTPUtils.getInstance(this).postByJson(billDetail, ReceiveBillEntry.class, params, new VolleyListener<ReceiveBillEntry>() {
             @Override
@@ -292,9 +297,7 @@ public class ReceiveNoticeDetailActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (fid!=0){
-            getTableBodyDate(String.valueOf(fid));
-        }
+
     }
 
     @OnClick(R.id.btn_push)

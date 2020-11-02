@@ -35,16 +35,15 @@ public class LoadingUtil {
     private static ProgressDialog progressDialog;
 
     //进度条
-    public static void ShowProgress(Context context, String message,boolean Cancelable) {
-        if (progressDialog == null) {
+    public static void ShowProgress(Context context, String message, boolean Cancelable) {
             progressDialog = new ProgressDialog(context);
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.setMessage(message);
             progressDialog.setCancelable(Cancelable);
-        }
         if (!progressDialog.isShowing()) {
             progressDialog.show();
         }
+
     }
 
     //关闭进度条

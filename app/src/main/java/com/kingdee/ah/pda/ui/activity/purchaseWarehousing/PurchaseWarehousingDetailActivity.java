@@ -133,7 +133,8 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
         addTable.getConfig().setShowYSequence(false);
         addTable.getConfig().setShowXSequence(false);
         addTable.getConfig().setShowTableTitle(false);
-        addTable.getConfig().setContentStyle(new FontStyle(40, Color.BLUE));
+        addTable.getConfig().setVerticalPadding(24);
+        addTable.getConfig().setContentStyle(new FontStyle(45, Color.BLUE));
         addTable.getConfig().setColumnTitleStyle(new FontStyle(45, Color.WHITE));
         addTable.getConfig().setColumnTitleBackground(new BaseBackgroundFormat(getResources().getColor(R.color.titlebar_color)));
         addTable.getConfig().setContentCellBackgroundFormat(new BaseCellBackgroundFormat<CellInfo>() {
@@ -150,14 +151,13 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
         if (fid != 0) {
             getTableHead(String.valueOf(fid));
         }
-
     }
 
     //获取单据头数据
     private void getTableHead(String id) {
         Map<String, String> params = new HashMap<>();
         params.put(key_fid, id);
-        LoadingUtil.ShowProgress(this,"正在加载...",true);
+        LoadingUtil.ShowProgress(PurchaseWarehousingDetailActivity.this,"正在加载...",false);
         String getstkInStock = Constance.getGetstkInStock();
         HTTPUtils.getInstance(this).postByJson(getstkInStock, InStockHeadBean.class, params, new VolleyListener<InStockHeadBean>() {
             @Override
@@ -406,8 +406,5 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (fid != 0) {
-            getTableHead(String.valueOf(fid));
-        }
     }
 }

@@ -25,23 +25,24 @@ public class LoadingView extends ProgressDialog {
       }
     }, 3000);
   }*/
-
+private Context mcontext;
 
     public LoadingView(Context context) {
         super(context);
     }
     public LoadingView(Context context, int theme) {
         super(context, theme);
+        this.mcontext=context;
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        init(getContext());
+        init(mcontext);
     }
     private void init(Context context) {
-        setCancelable(true);
+        setCancelable(false);
         setCanceledOnTouchOutside(false);
-        setContentView(R.layout.loading);//loading的xml文件
+        setContentView(R.layout.view_loading2);//loading的xml文件
         WindowManager.LayoutParams params = getWindow().getAttributes();
         params.width = WindowManager.LayoutParams.WRAP_CONTENT;
         params.height = WindowManager.LayoutParams.WRAP_CONTENT;
