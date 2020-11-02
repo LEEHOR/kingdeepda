@@ -68,7 +68,7 @@
         app:layout_constraintGuide_percent="0.60"
         android:orientation="horizontal" />
 
-    <com.jeewms.www.wms.ui.view.CircleImageView
+    <com.kingdee.ah.pda.ui.view.CircleImageView
         android:id="@+id/mine_head_portrait"
         android:layout_width="0dp"
         android:layout_height="0dp"

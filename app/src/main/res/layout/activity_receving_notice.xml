@@ -1,53 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
+
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tool="http://schemas.android.com/tools">
+    android:layout_height="match_parent">
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline1"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
+        android:orientation="vertical"
         app:layout_constraintGuide_percent="0.05"
-        app:layout_constraintTop_toTopOf="parent"
-        android:orientation="vertical" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline2"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
+        android:orientation="vertical"
         app:layout_constraintGuide_percent="0.95"
-        app:layout_constraintTop_toTopOf="parent"
-        android:orientation="vertical" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <com.jeewms.www.wms.ui.view.TitleTopOrdersView
+    <com.kingdee.ah.pda.ui.view.TitleTopOrdersView
         android:id="@+id/receivingTitle"
-        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="visible"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <include
         android:id="@+id/include_1"
+        layout="@layout/include_view_scan"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="@id/guideline1"
         app:layout_constraintRight_toRightOf="@id/guideline2"
-        app:layout_constraintTop_toBottomOf="@id/receivingTitle"
-        layout="@layout/include_view_scan" />
+        app:layout_constraintTop_toBottomOf="@id/receivingTitle" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:id="@+id/cts_1"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include_1">
+
+        <TextView
+            android:id="@+id/menu1"
+            style="@style/mine_fragment"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/ic_bottom_black"
+            android:padding="10dp"
+            android:text="@string/menu_1" />
+
+        <TextView
+            android:id="@+id/menu2"
+            style="@style/mine_fragment"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/ic_bottom_black"
+            android:padding="10dp"
+            android:text="@string/menu_4" />
+
+        <TextView
+            android:id="@+id/menu3"
+            style="@style/mine_fragment"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/ic_bottom_black"
+            android:padding="10dp"
+            android:text="@string/menu_3" />
+    </LinearLayout>
 
     <com.ajguan.library.EasyRefreshLayout
         android:id="@+id/receiving_refresh"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@id/guideline1"
         app:layout_constraintRight_toRightOf="@id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/include_1"
-        app:layout_constraintBottom_toBottomOf="parent">
-
+        app:layout_constraintTop_toBottomOf="@+id/cts_1">
         <android.support.v7.widget.RecyclerView
             android:id="@+id/receiving_recycler"
             android:layout_width="match_parent"

@@ -179,9 +179,9 @@
 #--------(实体Model不能混淆，否则找不到对应的属性获取不到值)-----
 #
 -dontwarn com.jeewms.www.wms.bean.**
--keep class com.jeewms.www.wms.bean.** { *; }
+-keep class com.kingdee.ah.pda.bean.** { *; }
 -dontwarn com.jeewms.www.wms.dataBase.**
--keep class com.jeewms.www.wms.dataBase.** { *; }
+-keep class com.kingdee.ah.pda.dataBase.** { *; }
 #对含有反射类的处理
 #
 # ----------------------------- 其他的 -----------------------------
@@ -214,8 +214,8 @@
 -keep class com.google.gson.stream.** { *; }
 -keep class com.google.gson.examples.android.model.** { *; }
 # 将下面替换成自己的实体类
--keep class com.jeewms.www.wms.bean.** { *; }
--keep class com.jeewms.www.wms.dataBase.** { *; }
+-keep class com.kingdee.ah.pda.bean.** { *; }
+-keep class com.kingdee.ah.pda.dataBase.** { *; }
 
 
 # ButterKnife

@@ -22,7 +22,7 @@
         app:layout_widthPercent="30%w"
         app:layout_heightPercent="30%w" />
 
-    <com.jeewms.www.wms.ui.view.CircleImageView
+    <com.kingdee.ah.pda.ui.view.CircleImageView
         android:visibility="gone"
         android:layout_width="0dp"
         android:layout_height="0dp"

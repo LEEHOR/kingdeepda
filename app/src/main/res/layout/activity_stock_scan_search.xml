@@ -9,17 +9,17 @@
         android:id="@+id/guideline1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintGuide_percent="0.05"
-        android:orientation="vertical" />
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintGuide_percent="0.95"
-        android:orientation="vertical" />
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
 
-    <com.jeewms.www.wms.ui.view.TitleTopOrdersView
+    <com.kingdee.ah.pda.ui.view.TitleTopOrdersView
         android:id="@+id/stock_scan_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -41,73 +41,83 @@
             android:layout_width="0dp"
             android:layout_height="35dp"
             android:layout_marginEnd="5dp"
+            android:background="@drawable/search_corner"
+            android:imeOptions="actionSearch"
+            app:iconifiedByDefault="false"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/iv_scan"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:background="@drawable/search_corner"
-            app:iconifiedByDefault="false"
-            app:queryHint="@string/stock_8"
-            android:imeOptions="actionSearch" />
+            app:queryHint="@string/stock_8" />
 
         <ImageView
             android:id="@+id/iv_scan"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:src="@drawable/ic_scan_blu"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@+id/stock_scan_search"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:src="@drawable/ic_scan_blu" />
+            app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
 
-    <android.support.constraint.ConstraintLayout
+    <LinearLayout
         android:id="@+id/cts_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cts"
-        android:background="@color/white">
+        app:layout_constraintTop_toBottomOf="@+id/cts">
 
-        <TextView
-            style="@style/mine_fragment"
-            android:id="@+id/tv_classification"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/tv_stock"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:drawableEnd="@drawable/ic_bottom_black"
-            android:text="@string/stock_6" />
+            android:layout_weight="1"
+            android:gravity="center">
+            <TextView
+                android:id="@+id/tv_classification"
+                style="@style/mine_fragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/ic_bottom_black"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/stock_6" />
+        </LinearLayout>
 
-        <TextView
-            style="@style/mine_fragment"
-            android:id="@+id/tv_stock"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            app:layout_constraintLeft_toRightOf="@id/tv_classification"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:drawableEnd="@drawable/ic_bottom_black"
-            android:text="@string/stock_7" />
-    </android.support.constraint.ConstraintLayout>
+            android:layout_weight="1"
+            android:gravity="center">
+            <TextView
+                android:id="@+id/tv_stock"
+                style="@style/mine_fragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/ic_bottom_black"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/stock_7" />
+        </LinearLayout>
+
+
+    </LinearLayout>
 
     <com.ajguan.library.EasyRefreshLayout
         android:id="@+id/stock_scan_refresh"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@id/guideline1"
         app:layout_constraintRight_toRightOf="@id/guideline2"
-        app:layout_constraintTop_toBottomOf="@id/cts_1"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/cts_1">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/stock_scan_recycler"

@@ -85,11 +85,11 @@
     <string name="zhanyongchuwei">占用储位：</string>
     <string name="order_search">查询</string>
     <string name="order_search_cancel">取消</string>
-<!--    =======================================================================================================   -->
-<!--全局使用-->
+    <!--    =======================================================================================================   -->
+    <!--全局使用-->
     <string name="app_tv1">空空如也…</string>
     <string name="app_tv2">加载出错了…</string>
-<!--  库存  -->
+    <!--  扫码查库存  -->
     <string name="stock_1">请输入商品编号</string>
     <string name="stock_2">物料编码：</string>
     <string name="stock_3">所属仓库：</string>
@@ -99,7 +99,7 @@
     <string name="stock_7">仓库列表</string>
     <string name="stock_8">请输入搜索内容</string>
     <string name="stock_9">扫码查库存</string>
-<!--    收料通知单-->
+    <!--    收料通知单-->
     <string name="receiving_1">单据编号：</string>
     <string name="receiving_2">单据状态：</string>
     <string name="receiving_3">收料日期：</string>
@@ -110,11 +110,12 @@
     <string name="receiving_3_5">采购组织：</string>
     <string name="receiving_3_6">业务类型：</string>
     <string name="receiving_3_7">供应商：</string>
+    <string name="receiving_3_8">收料仓库：</string>
     <string name="receiving_5">单据详情</string>
     <string name="receiving_6">下推入库</string>
     <string name="receiving_7">默认仓库</string>
     <string name="receiving_8">申请入库</string>
-<!--    我的模块-->
+    <!--    我的模块-->
     <string name="mine_1">版本升级</string>
     <string name="mine_2">修改密码</string>
     <string name="mine_3">设置默认组织</string>
@@ -163,6 +164,9 @@
     <string name="setting_20">搜索结束…</string>
     <string name="setting_21">请输入ip地址</string>
     <string name="setting_22">确定</string>
-
-
+    <!--过滤条件-->
+    <string name="menu_1">单据状态</string>
+    <string name="menu_2">单据类型</string>
+    <string name="menu_3">供应商</string>
+    <string name="menu_4">时间</string>
 </resources>

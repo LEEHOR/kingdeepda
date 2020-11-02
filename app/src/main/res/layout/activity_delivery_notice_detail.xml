@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.jeewms.www.wms.ui.view.TitleTopOrdersView
+    <com.kingdee.ah.pda.ui.view.TitleTopOrdersView
         android:id="@+id/delivery_notice_detail_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -36,59 +36,139 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="基本信息" />
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                        <LinearLayout
-                            android:layout_width="0dp"
+                        <TextView
+                            style="@style/mine_fragment"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="horizontal">
+                            android:text="单据编号:" />
 
-                            <TextView
-                                style="@style/mine_fragment"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="单据编号:" />
-
-                            <EditText
-                                style="@style/mine_fragment"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
-                                android:ellipsize="end"
-                                android:focusable="false"
-                                android:focusableInTouchMode="false"
-                                android:singleLine="true" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
+                        <EditText
+                            style="@style/mine_fragment"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="horizontal">
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:ellipsize="end"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:singleLine="true" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
-                            <TextView
-                                style="@style/mine_fragment"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="单据类型:" />
+                        <TextView
+                            style="@style/mine_fragment"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="单据类型:" />
 
-                            <EditText
-                                style="@style/mine_fragment"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
-                                android:ellipsize="end"
-                                android:focusable="false"
-                                android:focusableInTouchMode="false"
-                                android:singleLine="true" />
-                        </LinearLayout>
+                        <EditText
+                            style="@style/mine_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:ellipsize="end"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:singleLine="true" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/mine_fragment"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="日期:" />
+
+                        <EditText
+                            style="@style/mine_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:ellipsize="end"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:singleLine="true" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/mine_fragment"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="结算币别:" />
+
+                        <EditText
+                            style="@style/mine_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:ellipsize="end"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:singleLine="true" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/mine_fragment"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="销售组织:" />
+
+                        <EditText
+                            style="@style/mine_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:ellipsize="end"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:singleLine="true" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/mine_fragment"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="客户:" />
+
+                        <EditText
+                            style="@style/mine_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:ellipsize="end"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:singleLine="true" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -96,323 +176,22 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                        <LinearLayout
-                            android:layout_width="0dp"
+                        <TextView
+                            style="@style/mine_fragment"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="horizontal">
+                            android:text="发货组织:" />
 
-                            <TextView
-                                style="@style/mine_fragment"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="日期:" />
-
-                            <EditText
-                                style="@style/mine_fragment"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
-                                android:ellipsize="end"
-                                android:focusable="false"
-                                android:focusableInTouchMode="false"
-                                android:singleLine="true" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
+                        <EditText
+                            style="@style/mine_fragment"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                style="@style/mine_fragment"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="结算币别:" />
-
-                            <EditText
-                                style="@style/mine_fragment"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
-                                android:ellipsize="end"
-                                android:focusable="false"
-                                android:focusableInTouchMode="false"
-                                android:singleLine="true" />
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                style="@style/mine_fragment"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="销售组织:" />
-
-                            <EditText
-                                style="@style/mine_fragment"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
-                                android:ellipsize="end"
-                                android:focusable="false"
-                                android:focusableInTouchMode="false"
-                                android:singleLine="true" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                style="@style/mine_fragment"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="客户:" />
-
-                            <EditText
-                                style="@style/mine_fragment"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
-                                android:ellipsize="end"
-                                android:focusable="false"
-                                android:focusableInTouchMode="false"
-                                android:singleLine="true" />
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                style="@style/mine_fragment"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="交货方式:" />
-
-                            <EditText
-                                style="@style/mine_fragment"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
-                                android:ellipsize="end"
-                                android:focusable="false"
-                                android:focusableInTouchMode="false"
-                                android:singleLine="true" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                style="@style/mine_fragment"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="交货地点:" />
-
-                            <EditText
-                                style="@style/mine_fragment"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
-                                android:ellipsize="end"
-                                android:focusable="false"
-                                android:focusableInTouchMode="false"
-                                android:singleLine="true" />
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                style="@style/mine_fragment"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="承运商:" />
-
-                            <EditText
-                                style="@style/mine_fragment"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
-                                android:ellipsize="end"
-                                android:focusable="false"
-                                android:focusableInTouchMode="false"
-                                android:singleLine="true" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                style="@style/mine_fragment"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="运输单号:" />
-
-                            <EditText
-                                style="@style/mine_fragment"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
-                                android:ellipsize="end"
-                                android:focusable="false"
-                                android:focusableInTouchMode="false"
-                                android:singleLine="true" />
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                style="@style/mine_fragment"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="发货组织:" />
-
-                            <EditText
-                                style="@style/mine_fragment"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
-                                android:ellipsize="end"
-                                android:focusable="false"
-                                android:focusableInTouchMode="false"
-                                android:singleLine="true" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                style="@style/mine_fragment"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="发货部门:" />
-
-                            <EditText
-                                style="@style/mine_fragment"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
-                                android:ellipsize="end"
-                                android:focusable="false"
-                                android:focusableInTouchMode="false"
-                                android:singleLine="true" />
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                style="@style/mine_fragment"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="库存组:" />
-
-                            <EditText
-                                style="@style/mine_fragment"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
-                                android:ellipsize="end"
-                                android:focusable="false"
-                                android:focusableInTouchMode="false"
-                                android:singleLine="true" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                style="@style/mine_fragment"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="仓管员:" />
-
-                            <EditText
-                                style="@style/mine_fragment"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
-                                android:ellipsize="end"
-                                android:focusable="false"
-                                android:focusableInTouchMode="false"
-                                android:singleLine="true" />
-                        </LinearLayout>
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:ellipsize="end"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:singleLine="true" />
                     </LinearLayout>
 
                 </LinearLayout>

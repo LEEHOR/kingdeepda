@@ -166,4 +166,14 @@
         <item>库存盘点</item>
         <item>工序条码</item>
     </string-array>
+
+    <string-array name="menu_receive1">
+        <item>全部</item>
+        <item>已审核</item>
+        <item>重新审核</item>
+    </string-array>
+    <string-array name="menu_receive2">
+        <item>全部</item>
+        <item>标准收料单</item>
+    </string-array>
 </resources>

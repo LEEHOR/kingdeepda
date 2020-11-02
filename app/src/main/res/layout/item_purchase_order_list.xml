@@ -1,153 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="2dp"
+    app:contentPadding="10dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
 
-    <android.support.v7.widget.CardView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:contentPadding="10dp">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                style="@style/mine_fragment"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:text="单据编号:" />
 
-                <TextView
-                    style="@style/mine_fragment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="单据编号:" />
-
-                <TextView
-                    style="@style/mine_fragment"
-                    android:id="@+id/tv_fbillNo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-            <View
+            <TextView
+                android:id="@+id/tv_fbillNo"
+                style="@style/mine_fragment"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/actions_background_light" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    style="@style/mine_fragment1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="入库时间:" />
-
-                <TextView
-                    style="@style/mine_fragment"
-                    android:id="@+id/tv_fdate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    style="@style/mine_fragment1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="供应商:" />
-
-                <TextView
-                    style="@style/mine_fragment"
-                    android:id="@+id/tv_fsupplierName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    style="@style/mine_fragment1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="单据状态:" />
-
-                <TextView
-                    style="@style/mine_fragment"
-                    android:id="@+id/tv_fdocumentStatus"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:visibility="gone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    style="@style/mine_fragment1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="物料编码:" />
-
-                <TextView
-                    style="@style/mine_fragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:visibility="gone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    style="@style/mine_fragment1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="物料名称:" />
-
-                <TextView
-                    style="@style/mine_fragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:visibility="gone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    style="@style/mine_fragment1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="仓库:" />
-
-                <TextView
-                    style="@style/mine_fragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
+                android:layout_height="wrap_content" />
         </LinearLayout>
-    </android.support.v7.widget.CardView>
 
-</android.support.constraint.ConstraintLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/actions_background_light" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/mine_fragment1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="入库日期:" />
+
+            <TextView
+                android:id="@+id/tv_fdate"
+                style="@style/mine_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/mine_fragment1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="供应商:" />
+
+            <TextView
+                android:id="@+id/tv_fsupplierName"
+                style="@style/mine_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/mine_fragment1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="单据状态:" />
+
+            <TextView
+                android:id="@+id/tv_fdocumentStatus"
+                style="@style/mine_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                style="@style/mine_fragment1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="物料编码:" />
+
+            <TextView
+                style="@style/mine_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                style="@style/mine_fragment1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="物料名称:" />
+
+            <TextView
+                style="@style/mine_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                style="@style/mine_fragment1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="仓库:" />
+
+            <TextView
+                style="@style/mine_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

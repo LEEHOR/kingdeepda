@@ -6,7 +6,7 @@
     xmlns:tool="http://schemas.android.com/tools"
     tool:context=".ui.activity.mine.ServerAddressConfigActivity">
 
-    <com.jeewms.www.wms.ui.view.TitleTopOrdersView
+    <com.kingdee.ah.pda.ui.view.TitleTopOrdersView
         android:id="@+id/server_config_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

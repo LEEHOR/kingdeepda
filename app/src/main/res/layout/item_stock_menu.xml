@@ -6,8 +6,8 @@
     android:layout_height="wrap_content"
     android:paddingLeft="15dp"
     android:paddingRight="15dp"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp">
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp">
 
     <TextView
         style="@style/mine_fragment"
@@ -18,8 +18,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:lines="1"
-        app:layout_constrainedWidth="true"
-        android:text="哈哈哈哈哈哈哈" />
+        app:layout_constrainedWidth="true" />
 
     <TextView
         style="@style/mine_fragment"

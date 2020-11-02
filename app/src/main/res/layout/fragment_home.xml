@@ -31,7 +31,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
-                <com.jeewms.www.wms.ui.view.NonScrollGridView
+                <com.kingdee.ah.pda.ui.view.NonScrollGridView
                     android:id="@+id/gv_home1"
                     android:numColumns="4"
                     android:layout_width="match_parent"
@@ -56,7 +56,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
-                <com.jeewms.www.wms.ui.view.NonScrollGridView
+                <com.kingdee.ah.pda.ui.view.NonScrollGridView
                     android:numColumns="4"
                     android:id="@+id/gv_home2"
                     android:layout_width="match_parent"
@@ -81,7 +81,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
-                <com.jeewms.www.wms.ui.view.NonScrollGridView
+                <com.kingdee.ah.pda.ui.view.NonScrollGridView
                     android:numColumns="4"
                     android:id="@+id/gv_home3"
                     android:layout_width="match_parent"
@@ -107,7 +107,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
-                <com.jeewms.www.wms.ui.view.NonScrollGridView
+                <com.kingdee.ah.pda.ui.view.NonScrollGridView
                     android:numColumns="4"
                     android:id="@+id/gv_home4"
                     android:layout_width="match_parent"
@@ -132,7 +132,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
-                <com.jeewms.www.wms.ui.view.NonScrollGridView
+                <com.kingdee.ah.pda.ui.view.NonScrollGridView
                     android:numColumns="3"
                     android:id="@+id/gv_home5"
                     android:layout_width="match_parent"

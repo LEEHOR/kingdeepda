@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <com.jeewms.www.wms.ui.view.TitleTopOrdersView
+    <com.kingdee.ah.pda.ui.view.TitleTopOrdersView
         android:id="@+id/receiving_detail_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -41,7 +41,15 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintGuide_percent="0.5"
                 android:orientation="vertical" />
-
+            <TextView
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                style="@style/mine_fragment4"
+                android:text="基本信息"
+                android:id="@+id/tv1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
             <LinearLayout
                 style="@style/mine_fragment1"
                 android:id="@+id/line1"
@@ -51,8 +59,8 @@
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 app:layout_constraintLeft_toLeftOf="@id/guideline1"
-                app:layout_constraintRight_toRightOf="@id/guideline3"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="@id/guideline2"
+                app:layout_constraintTop_toBottomOf="@id/tv1"
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
 
@@ -75,38 +83,6 @@
                     android:singleLine="true" />
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/line2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:paddingLeft="3dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                app:layout_constraintLeft_toLeftOf="@id/guideline3"
-                app:layout_constraintRight_toRightOf="@id/guideline2"
-                app:layout_constraintTop_toTopOf="@+id/line1"
-                app:layout_constraintBottom_toBottomOf="@id/line1"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-
-                <TextView
-                    style="@style/mine_fragment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="收料部门:" />
-
-
-                <EditText
-                    style="@style/mine_fragment"
-                    android:id="@+id/tv_freceiveDeptName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
-                    android:singleLine="true" />
-            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/line3"
@@ -116,7 +92,7 @@
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 app:layout_constraintLeft_toLeftOf="@id/guideline1"
-                app:layout_constraintRight_toRightOf="@id/guideline3"
+                app:layout_constraintRight_toRightOf="@id/guideline2"
                 app:layout_constraintTop_toBottomOf="@id/line1"
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
@@ -130,40 +106,7 @@
 
                 <EditText
                     style="@style/mine_fragment"
-                    android:id="@+id/tv_fstockOrgName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
-                    android:ellipsize="end"
-                    android:singleLine="true" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/line4"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:paddingLeft="3dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                app:layout_constraintLeft_toLeftOf="@id/guideline3"
-                app:layout_constraintRight_toRightOf="@id/guideline2"
-                app:layout_constraintTop_toTopOf="@id/line3"
-                app:layout_constraintBottom_toBottomOf="@+id/line3"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-
-                <TextView
-                    style="@style/mine_fragment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="需求组织:" />
-
-                <EditText
-                    style="@style/mine_fragment"
-                    android:id="@+id/tv_fdemandOrgName"
+                    android:id="@+id/tv_fReceiving_organization"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="5dp"
@@ -181,7 +124,7 @@
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 app:layout_constraintLeft_toLeftOf="@id/guideline1"
-                app:layout_constraintRight_toRightOf="@id/guideline3"
+                app:layout_constraintRight_toRightOf="@id/guideline2"
                 app:layout_constraintTop_toBottomOf="@id/line3"
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
@@ -194,7 +137,7 @@
 
                 <EditText
                     style="@style/mine_fragment"
-                    android:id="@+id/tv_fpurOrgName"
+                    android:id="@+id/tv_fPurchasing_organization"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="5dp"
@@ -205,16 +148,16 @@
                     android:singleLine="true" />
             </LinearLayout>
 
+
             <LinearLayout
-                android:id="@+id/line6"
+                android:id="@+id/line7"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                app:layout_constraintLeft_toLeftOf="@id/guideline3"
+                app:layout_constraintLeft_toLeftOf="@id/guideline1"
                 app:layout_constraintRight_toRightOf="@id/guideline2"
-                app:layout_constraintTop_toTopOf="@id/line5"
-                app:layout_constraintBottom_toBottomOf="@+id/line5"
+                app:layout_constraintTop_toBottomOf="@id/line5"
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
 
@@ -226,38 +169,7 @@
 
                 <EditText
                     style="@style/mine_fragment"
-                    android:id="@+id/tv_fsupplierName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
-                    android:ellipsize="end"
-                    android:singleLine="true" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/line7"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                app:layout_constraintLeft_toLeftOf="@id/guideline1"
-                app:layout_constraintRight_toRightOf="@id/guideline3"
-                app:layout_constraintTop_toBottomOf="@id/line5"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-
-                <TextView
-                    style="@style/mine_fragment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="业务类型:" />
-
-                <EditText
-                    style="@style/mine_fragment"
-                    android:id="@+id/tv_fbusinessType"
+                    android:id="@+id/tv_fsupplier"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="5dp"
@@ -274,10 +186,9 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                app:layout_constraintLeft_toLeftOf="@id/guideline3"
+                app:layout_constraintLeft_toLeftOf="@id/guideline1"
                 app:layout_constraintRight_toRightOf="@id/guideline2"
-                app:layout_constraintTop_toTopOf="@id/line7"
-                app:layout_constraintBottom_toBottomOf="@+id/line7"
+                app:layout_constraintTop_toBottomOf="@id/line7"
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
 
@@ -285,11 +196,11 @@
                     style="@style/mine_fragment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="单据编号:" />
+                    android:text="仓库:" />
 
                 <EditText
                     style="@style/mine_fragment"
-                    android:id="@+id/tv_billNo"
+                    android:id="@+id/tv_stock"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="5dp"
@@ -307,10 +218,10 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:barrierDirection="bottom"
-                app:constraint_referenced_ids="line7,line8" />
+                app:constraint_referenced_ids="line8" />
 
             <android.support.constraint.ConstraintLayout
-                android:id="@+id/cts_1"
+                android:id="@+id/cts_2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:paddingTop="5dp"
@@ -322,47 +233,6 @@
 
                 <TextView
                     style="@style/mine_fragment"
-                    android:id="@+id/details_tv_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:minWidth="60dp"
-                    android:text="单据状态:" />
-
-                <EditText
-                    style="@style/mine_fragment"
-                    android:id="@+id/tv_documentStatus"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    app:layout_constraintHorizontal_weight="1"
-                    app:layout_constraintLeft_toRightOf="@+id/details_tv_1"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constrainedWidth="true"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
-                    android:ellipsize="end"
-                    android:singleLine="true" />
-            </android.support.constraint.ConstraintLayout>
-
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/cts_2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                app:layout_constraintLeft_toLeftOf="@id/guideline1"
-                app:layout_constraintRight_toRightOf="@id/guideline2"
-                app:layout_constraintTop_toBottomOf="@id/cts_1"
-                android:orientation="horizontal">
-
-                <TextView
-                    style="@style/mine_fragment"
                     android:id="@+id/details_tv_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -370,7 +240,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:minWidth="60dp"
-                    android:text="单据日期:" />
+                    android:text="收料日期:" />
 
                 <EditText
                     style="@style/mine_fragment"
@@ -400,14 +270,122 @@
                 app:barrierDirection="bottom"
                 app:constraint_referenced_ids="cts_2" />
 
+            <TextView
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bar_2"
+                style="@style/mine_fragment4"
+                android:text="供应商信息"
+                android:id="@+id/tv2"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:id="@+id/line9"
+                android:orientation="vertical"
+                app:layout_constraintLeft_toLeftOf="@id/guideline1"
+                app:layout_constraintRight_toRightOf="@id/guideline2"
+                app:layout_constraintTop_toBottomOf="@id/tv2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    style="@style/mine_fragment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="供货方:" />
+
+                <EditText
+                    style="@style/mine_fragment"
+                    android:id="@+id/tv_Supplier"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:ellipsize="end"
+                    android:singleLine="true" />
+            </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        style="@style/mine_fragment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="结算方:" />
+
+                    <EditText
+                        style="@style/mine_fragment"
+                        android:id="@+id/tv_Party_settlement"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:ellipsize="end"
+                        android:singleLine="true" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        style="@style/mine_fragment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="收款方:" />
+
+                    <EditText
+                        style="@style/mine_fragment"
+                        android:id="@+id/tv_Payee"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:ellipsize="end"
+                        android:singleLine="true" />
+                </LinearLayout>
+            </LinearLayout>
+            <TextView
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/line9"
+                style="@style/mine_fragment4"
+                android:text="明细信息"
+                android:id="@+id/tv3"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
             <com.bin.david.form.core.SmartTable
                 android:id="@+id/detail_table"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:minHeight="400dp"
                 app:layout_constraintLeft_toLeftOf="@id/guideline1"
                 app:layout_constraintRight_toRightOf="@id/guideline2"
-                app:layout_constraintTop_toBottomOf="@id/bar_2" />
+                app:layout_constraintTop_toBottomOf="@id/tv3" />
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
 
@@ -418,11 +396,9 @@
         android:layout_marginRight="10dp"
         android:layout_marginBottom="15dp"
         android:orientation="vertical">
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
             <TextView
                 style="@style/mine_fragment3"
                 android:id="@+id/tv_1"
@@ -431,7 +407,6 @@
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
                 android:text="交货数量:" />
-
             <TextView
                 style="@style/mine_fragment3"
                 android:id="@+id/tv_factreceiveQty"

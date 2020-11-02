@@ -3,17 +3,17 @@
     <dbname value="kingdeepda" />
     <version value="1" />
     <list>
-        <mapping class="com.jeewms.www.wms.dataBase.BdCurrency"/>
-        <mapping class="com.jeewms.www.wms.dataBase.BdCustomer"/>
-        <mapping class="com.jeewms.www.wms.dataBase.BdDepartment"/>
-        <mapping class="com.jeewms.www.wms.dataBase.BdEmpinfo"/>
-        <mapping class="com.jeewms.www.wms.dataBase.BdMaterial"/>
-        <mapping class="com.jeewms.www.wms.dataBase.BdMaterialcategory"/>
-        <mapping class="com.jeewms.www.wms.dataBase.BdOrganizations"/>
-        <mapping class="com.jeewms.www.wms.dataBase.BdProject"/>
-        <mapping class="com.jeewms.www.wms.dataBase.BdSecUser"/>
-        <mapping class="com.jeewms.www.wms.dataBase.BdStock"/>
-        <mapping class="com.jeewms.www.wms.dataBase.BdSupplier"/>
-        <mapping class="com.jeewms.www.wms.dataBase.BdUnit"/>
+        <mapping class="com.kingdee.ah.pda.dataBase.BdCurrency"/>
+        <mapping class="com.kingdee.ah.pda.dataBase.BdCustomer"/>
+        <mapping class="com.kingdee.ah.pda.dataBase.BdDepartment"/>
+        <mapping class="com.kingdee.ah.pda.dataBase.BdEmpinfo"/>
+        <mapping class="com.kingdee.ah.pda.dataBase.BdMaterial"/>
+        <mapping class="com.kingdee.ah.pda.dataBase.BdMaterialcategory"/>
+        <mapping class="com.kingdee.ah.pda.dataBase.BdOrganizations"/>
+        <mapping class="com.kingdee.ah.pda.dataBase.BdProject"/>
+        <mapping class="com.kingdee.ah.pda.dataBase.BdSecUser"/>
+        <mapping class="com.kingdee.ah.pda.dataBase.BdStock"/>
+        <mapping class="com.kingdee.ah.pda.dataBase.BdSupplier"/>
+        <mapping class="com.kingdee.ah.pda.dataBase.BdUnit"/>
     </list>
 </litepal>
