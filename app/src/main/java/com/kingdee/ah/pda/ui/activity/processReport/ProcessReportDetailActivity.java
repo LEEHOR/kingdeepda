@@ -80,6 +80,18 @@ public class ProcessReportDetailActivity extends BaseActivity {
         tex_item.setVisibility(View.INVISIBLE);
         tex_item.setText("工序汇报详情页");
 
+
+    }
+
+    @Override
+    protected void initfun() {
+        createTable();
+        getData();
+    }
+
+
+    //创建表格列
+    private void createTable() {
         processDetailTable.getConfig().setShowYSequence(false);
         processDetailTable.getConfig().setShowXSequence(false);
         processDetailTable.getConfig().setShowTableTitle(false);
@@ -94,21 +106,10 @@ public class ProcessReportDetailActivity extends BaseActivity {
                     return ContextCompat.getColor(ProcessReportDetailActivity.this, R.color.actions_background_light);
                 } else {
                     return ContextCompat.getColor(ProcessReportDetailActivity.this, R.color.yellowF23757);
-                   // return TableConfig.INVALID_COLOR; //返回无效颜色，不会绘制
+                    // return TableConfig.INVALID_COLOR; //返回无效颜色，不会绘制
                 }
             }
         });
-    }
-
-    @Override
-    protected void initfun() {
-        createTable();
-        getData();
-    }
-
-
-    //创建表格列
-    private void createTable() {
         Column<String> c1 = new Column<>("moNumber", "moNumber");
         c1.setTextAlign(Paint.Align.LEFT);
         Column<String> c2 = new Column<>("seqNumber", "seqNumber");

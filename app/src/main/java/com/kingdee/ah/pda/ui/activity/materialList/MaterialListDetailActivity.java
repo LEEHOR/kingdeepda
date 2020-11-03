@@ -2,10 +2,12 @@ package com.kingdee.ah.pda.ui.activity.materialList;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.kingdee.ah.pda.R;
 import com.kingdee.ah.pda.base.BaseActivity;
+import com.kingdee.ah.pda.bean.MaterialBean;
 import com.kingdee.ah.pda.ui.view.TitleTopOrdersView;
 
 import butterknife.BindView;
@@ -28,6 +30,27 @@ public class MaterialListDetailActivity extends BaseActivity {
 
     @BindView(R.id.material_list_detail_title)
     TitleTopOrdersView materialListDetailTitle;
+    @BindView(R.id.tv_fbillNo)
+    EditText tvFbillNo;
+    @BindView(R.id.tv_fmaterialNumber)
+    EditText tvFmaterialNumber;
+    @BindView(R.id.tv_fmaterialName)
+    EditText tvFmaterialName;
+    @BindView(R.id.tv_fmaterialSpecification)
+    EditText tvFmaterialSpecification;
+    @BindView(R.id.tv_fbomnumber)
+    EditText tvFbomnumber;
+    @BindView(R.id.tv_fprdOrgName)
+    EditText tvFprdOrgName;
+    @BindView(R.id.tv_fworkshopName)
+    EditText tvFworkshopName;
+    @BindView(R.id.tv_funitName)
+    EditText tvFunitName;
+    @BindView(R.id.tv_fmobillNO)
+    EditText tvFmobillNO;
+    @BindView(R.id.tv_fdocumentStatus)
+    EditText tvFdocumentStatus;
+
 
     @Override
     protected int getContentResId() {
@@ -49,13 +72,26 @@ public class MaterialListDetailActivity extends BaseActivity {
 
     @Override
     protected void initfun() {
+        if (getIntent() != null) {
+            Bundle materialHead = getIntent().getBundleExtra("materialHead");
+            MaterialBean.DataEntity dataEntity = (MaterialBean.DataEntity) materialHead.get("material");
+            tvFbillNo.setText(dataEntity.getFbillNo());
+            tvFmaterialNumber.setText(dataEntity.getFmaterialNumber());
+            tvFmaterialName.setText(dataEntity.getFmaterialName());
+            tvFmaterialSpecification.setText(dataEntity.getFmaterialSpecification());
+            tvFbomnumber.setText(dataEntity.getFbomnumber());
+            tvFprdOrgName.setText(dataEntity.getFprdOrgName());
+            tvFworkshopName.setText(dataEntity.getFworkshopName());
+            tvFunitName.setText(dataEntity.getFunitName());
+            tvFmobillNO.setText(dataEntity.getFmobillNO());
+            tvFdocumentStatus.setText(dataEntity.getFdocumentStatus());
+        }
+    }
+
+    //获取表体
+    private void getDetail() {
 
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
+
 }

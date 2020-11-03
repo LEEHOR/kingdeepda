@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="5dp"
-    app:cardElevation="2dp"
+    app:cardElevation="2sp"
     app:contentPadding="10dp"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintLeft_toLeftOf="parent"
@@ -47,10 +47,9 @@
                 style="@style/mine_fragment1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="产品编码:" />
+                android:text="单据类型:" />
 
             <TextView
-                android:id="@+id/tv_fmaterialNumber"
                 style="@style/mine_fragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -64,10 +63,10 @@
                 style="@style/mine_fragment1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="产品名称:" />
+                android:text="日期:" />
 
             <TextView
-                android:id="@+id/tv_fmaterialName"
+                android:id="@+id/tv_date"
                 style="@style/mine_fragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -81,10 +80,9 @@
                 style="@style/mine_fragment1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="规格型号:" />
+                android:text="结算币别:" />
 
             <TextView
-                android:id="@+id/tv_fmaterialSpecification"
                 style="@style/mine_fragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -98,10 +96,9 @@
                 style="@style/mine_fragment1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="BOM版本:" />
+                android:text="销售组织:" />
 
             <TextView
-                android:id="@+id/tv_fbomnumber"
                 style="@style/mine_fragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -115,10 +112,9 @@
                 style="@style/mine_fragment1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="生产组织:" />
+                android:text="客户:" />
 
             <TextView
-                android:id="@+id/tv_fprdOrgName"
                 style="@style/mine_fragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -132,61 +128,9 @@
                 style="@style/mine_fragment1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="生产车间:" />
+                android:text="发货组织:" />
 
             <TextView
-                android:id="@+id/tv_fworkshopName"
-                style="@style/mine_fragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                style="@style/mine_fragment1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="单位:" />
-
-            <TextView
-                android:id="@+id/tv_funitName"
-                style="@style/mine_fragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                style="@style/mine_fragment1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="生产订单编号:" />
-
-            <TextView
-                android:id="@+id/tv_fmobillNO"
-                style="@style/mine_fragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                style="@style/mine_fragment1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="单据状态:" />
-
-            <TextView
-                android:id="@+id/tv_fdocumentStatus"
                 style="@style/mine_fragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -199,32 +143,31 @@
             android:layout_marginBottom="5dp">
 
             <TextView
-                android:id="@+id/btn_detail"
                 style="@style/mine_fragment2"
+                android:id="@+id/receiving_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/btn_bg_white"
                 android:padding="5dp"
-                android:text="@string/receiving_5"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/btn_push"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintRight_toLeftOf="@id/receiving_purchase_warehousing"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="@drawable/btn_bg_white"
+                android:text="@string/receiving_5" />
 
             <TextView
-                android:id="@+id/btn_push"
                 style="@style/mine_fragment2"
+                android:id="@+id/receiving_purchase_warehousing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/btn_bg_white"
                 android:padding="5dp"
-                android:text="@string/receiving_6"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/btn_detail"
+                app:layout_constraintLeft_toRightOf="@id/receiving_detail"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="@drawable/btn_bg_white"
+                android:text="@string/receiving_6" />
         </android.support.constraint.ConstraintLayout>
-
     </LinearLayout>
 </android.support.v7.widget.CardView>

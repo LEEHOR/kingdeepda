@@ -74,16 +74,15 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1">
-
                     <TextView
                         style="@style/mine_fragment1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="加工组织:" />
+                        android:text="加工车间:" />
 
                     <TextView
                         style="@style/mine_fragment"
-                        android:id="@+id/tv_prdOrgName"
+                        android:id="@+id/tv_workShopName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
@@ -105,13 +104,27 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+                <TextView
+                    style="@style/mine_fragment1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="单据状态:" />
+                <TextView
+                    android:id="@+id/tv_documentStatus"
+                    style="@style/mine_fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="5dp">
-
                 <TextView
                     style="@style/mine_fragment2"
                     android:id="@+id/btn_detail"

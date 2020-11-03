@@ -67,7 +67,6 @@ public abstract class BaseDialogFragment extends AppCompatDialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootview = inflater.inflate(getLayoutId(), container, false);
         bind = ButterKnife.bind(this, rootview);
-        this.setCancelable(false);
         initView();
         initFunc();
       //  return super.onCreateView(inflater, container, savedInstanceState);
@@ -76,7 +75,6 @@ public abstract class BaseDialogFragment extends AppCompatDialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        this.setCancelable(false);
         return super.onCreateDialog(savedInstanceState);
     }
 

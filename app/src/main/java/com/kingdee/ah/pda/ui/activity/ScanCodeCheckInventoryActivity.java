@@ -268,44 +268,44 @@ public class ScanCodeCheckInventoryActivity extends BaseActivity {
 
             @Override
             public void requestComplete() {
-                //  LoadingUtil.CancelProgress();
-                if (stockRefresh !=null){
-                    if (loadType == 0) {
-                        stockRefresh.refreshComplete();
-                    } else {
-                        stockRefresh.loadMoreFail();
-                    }
-                }
             }
 
             @Override
             public void onResponse(StockScanBean response) {
-                if (stockScanAdapter != null && stockRecycler !=null) {
+                if (stockScanAdapter == null && stockRecycler ==null) {
+                    return;
+                }
                     if (response.getCode() == 0) {
                         PAGE++;
                         List<StockScanBean.DataEntity> data = response.getData();
-                        if (data != null) {
                             if (loadType == 0) {
                                 stockScanAdapter.setNewData(data);
+                                stockRefresh.refreshComplete();
                             } else {
                                 if (data.size() > 0) {
                                     stockScanAdapter.addData(data);
+                                    stockRefresh.loadMoreComplete();
+                                } else {
+                                    stockRefresh.loadNothing();
                                 }
                             }
-                        } else {
                             stockScanAdapter.setEmptyView(R.layout.view_empt,stockRecycler);
-                        }
                     } else {
                         stockScanAdapter.setEmptyView(R.layout.view_error,stockRecycler);
                         ToastUtil.show(ScanCodeCheckInventoryActivity.this,response.getMsg());
                     }
                 }
-            }
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                if (stockScanAdapter != null && stockRecycler !=null) {
-                    stockScanAdapter.setEmptyView(R.layout.view_error,stockRecycler);
+                if (stockScanAdapter == null && stockRecycler ==null) {
+                    return;
+                }
+                stockScanAdapter.setEmptyView(R.layout.view_error,stockRecycler);
+                if (loadType == 0) {
+                    stockRefresh.refreshComplete();
+                } else {
+                    stockRefresh.loadMoreFail();
                 }
             }
         });

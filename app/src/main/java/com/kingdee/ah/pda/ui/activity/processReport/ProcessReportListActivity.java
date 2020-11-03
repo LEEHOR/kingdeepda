@@ -22,10 +22,14 @@ import com.kingdee.ah.pda.App;
 import com.kingdee.ah.pda.R;
 import com.kingdee.ah.pda.base.BaseActivity;
 import com.kingdee.ah.pda.bean.ProcessReportBean;
+import com.kingdee.ah.pda.bean.PushProcessReportBean;
 import com.kingdee.ah.pda.constance.Constance;
+import com.kingdee.ah.pda.ui.activity.productionWarehousing.ProductionWarehousingDetailActivity;
 import com.kingdee.ah.pda.ui.activity.receive.ReceiveNoticeActivity;
 import com.kingdee.ah.pda.ui.adapter.ProcessReportAdapter;
+import com.kingdee.ah.pda.ui.dialog.MsgShowDialog;
 import com.kingdee.ah.pda.ui.view.TitleTopOrdersView;
+import com.kingdee.ah.pda.util.GsonUtils;
 import com.kingdee.ah.pda.util.LocalDisplay;
 import com.kingdee.ah.pda.util.ToastUtil;
 import com.kingdee.ah.pda.util.decoration.SpacesItemDecoration;
@@ -69,6 +73,8 @@ public class ProcessReportListActivity extends BaseActivity {
     EasyRefreshLayout processRefresh;
     private ProcessReportAdapter reportAdapter;
     private Map<String, String> mapParams = new HashMap<>();
+    private int PAGE = 1;
+    private int LIMIT = 10;
 
     @Override
     protected int getContentResId() {
@@ -159,10 +165,14 @@ public class ProcessReportListActivity extends BaseActivity {
     //获取数据
     private void getData(final int type) {
         String processreport = Constance.getProcessreport();
+
         if (type == 0) {
+            PAGE=1;
             reportAdapter.getData().clear();
             reportAdapter.notifyDataSetChanged();
         }
+        mapParams.put("page",String.valueOf(PAGE));
+        mapParams.put("limit",String.valueOf(LIMIT));
         HTTPUtils.getInstance(ProcessReportListActivity.this).postByJson(processreport,
                 ProcessReportBean.class, mapParams, new VolleyListener<ProcessReportBean>() {
                     @Override
@@ -190,6 +200,7 @@ public class ProcessReportListActivity extends BaseActivity {
                         }
                         int code = response.getCode();
                         if (code == 0) {
+                            PAGE++;
                             List<ProcessReportBean.DataEntity> data = response.getData();
                                 if (type == 0) {
                                     reportAdapter.setNewData(data);
@@ -221,10 +232,11 @@ public class ProcessReportListActivity extends BaseActivity {
     //推送到云端
     private void push(int fid){
         String pushProcess = Constance.getPushProcess();
+        ShowProgress(this,"正在下推...",false);
         HTTPUtils.getInstance(this).get(pushProcess + fid, new VolleyListener<String>() {
             @Override
             public void requestComplete() {
-
+            CancelProgress();
             }
 
             @Override
@@ -234,7 +246,19 @@ public class ProcessReportListActivity extends BaseActivity {
 
             @Override
             public void onResponse(String response) {
-
+                PushProcessReportBean pushProcessReportBean = GsonUtils.parseJSON(response, PushProcessReportBean.class);
+                if (pushProcessReportBean.getCode()==0) {
+                    Intent intent=new Intent(ProcessReportListActivity.this, ProductionWarehousingDetailActivity.class);
+                    Bundle bundle=new Bundle();
+                    bundle.putSerializable("process",pushProcessReportBean);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                } else if (pushProcessReportBean.getCode()==500){
+                    MsgShowDialog msgShowDialog=MsgShowDialog.newInstance(pushProcessReportBean.getMsg());
+                    msgShowDialog.show(getSupportFragmentManager(),"msg");
+                } else {
+                    ToastUtil.show(ProcessReportListActivity.this,pushProcessReportBean.getMsg());
+                }
             }
         });
     }

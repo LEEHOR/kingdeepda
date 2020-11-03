@@ -1,7 +1,6 @@
 package com.kingdee.ah.pda.ui.activity.receive;
 
 import android.Manifest;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -13,7 +12,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -27,7 +25,7 @@ import com.kingdee.ah.pda.App;
 import com.kingdee.ah.pda.R;
 import com.kingdee.ah.pda.base.BaseActivity;
 import com.kingdee.ah.pda.bean.ReceiveBillBean;
-import com.kingdee.ah.pda.bean.ReceivePush;
+import com.kingdee.ah.pda.bean.ReceivePushBean;
 import com.kingdee.ah.pda.constance.Constance;
 import com.kingdee.ah.pda.ui.activity.purchaseWarehousing.PurchaseWarehousingDetailActivity;
 import com.kingdee.ah.pda.ui.adapter.ReceivingAdapter;
@@ -53,7 +51,6 @@ import java.util.Map;
 import java.util.function.Predicate;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -301,7 +298,7 @@ public class ReceiveNoticeActivity extends BaseActivity {
     //获取数据
     private void getDate(final int loadType, Map<String, String> params) {
         if (loadType == 0) {
-            this.PAGE = 0;
+            this.PAGE = 1;
             this.LIMIT = 10;
             receivingAdapter.getData().clear();
             receivingAdapter.notifyDataSetChanged();
@@ -338,22 +335,23 @@ public class ReceiveNoticeActivity extends BaseActivity {
                 if (code == 0) {
                     PAGE++;
                     List<ReceiveBillBean.DataEntity> data = response.getData();
-                    data.removeIf(new Predicate<ReceiveBillBean.DataEntity>() {  //过滤
-                        @Override
-                        public boolean test(ReceiveBillBean.DataEntity dataEntity) {
-                            return dataEntity.getDocumentStatus().equals("C") || dataEntity.getDocumentStatus().equals("D");
-                        }
-                    });
+//                    data.removeIf(new Predicate<ReceiveBillBean.DataEntity>() {  //过滤
+//                        @Override
+//                        public boolean test(ReceiveBillBean.DataEntity dataEntity) {
+//                            return dataEntity.getDocumentStatus().equals("C") || dataEntity.getDocumentStatus().equals("D");
+//                        }
+//                    });
                         if (loadType == 0) {
                             receivingAdapter.setNewData(data);
                             receivingRefresh.refreshComplete();
                         } else {
                             if (data.size()>0){
-                                receivingAdapter.addData(data);
                                 receivingRefresh.loadMoreComplete();
+                                receivingAdapter.addData(data);
                             } else {
                                 receivingRefresh.loadNothing();
                             }
+
                         }
                     receivingAdapter.setEmptyView(R.layout.view_empt, receivingRecycler);
                 } else {
@@ -376,9 +374,10 @@ public class ReceiveNoticeActivity extends BaseActivity {
         Map<String, String> map = new HashMap<>();
         map.put("fid", String.valueOf(fid));
         String pushReceiving = Constance.getPushReceiving();
-        HTTPUtils.getInstance(this).postByJson(pushReceiving, ReceivePush.class, map, new VolleyListener<ReceivePush>() {
+        ShowProgress(this,"正在下推...",false);
+        HTTPUtils.getInstance(this).postByJson(pushReceiving, ReceivePushBean.class, map, new VolleyListener<ReceivePushBean>() {
             @Override
-            public void onResponse(ReceivePush response) {
+            public void onResponse(ReceivePushBean response) {
                 int code = response.getCode();
                 if (code == 0) {
                     ToastUtil.show(ReceiveNoticeActivity.this, response.getMsg());
@@ -402,7 +401,7 @@ public class ReceiveNoticeActivity extends BaseActivity {
 
             @Override
             public void requestComplete() {
-
+                CancelProgress();
             }
         });
     }

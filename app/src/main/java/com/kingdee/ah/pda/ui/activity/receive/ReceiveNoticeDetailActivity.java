@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.bin.david.form.core.SmartTable;
-import com.bin.david.form.core.TableConfig;
 import com.bin.david.form.data.CellInfo;
 import com.bin.david.form.data.column.Column;
 import com.bin.david.form.data.format.IFormat;
@@ -26,10 +25,9 @@ import com.kingdee.ah.pda.R;
 import com.kingdee.ah.pda.base.BaseActivity;
 import com.kingdee.ah.pda.bean.ReceiveBillBean;
 import com.kingdee.ah.pda.bean.ReceiveBillEntry;
-import com.kingdee.ah.pda.bean.ReceivePush;
+import com.kingdee.ah.pda.bean.ReceivePushBean;
 import com.kingdee.ah.pda.constance.Constance;
 import com.kingdee.ah.pda.ui.activity.purchaseWarehousing.PurchaseWarehousingDetailActivity;
-import com.kingdee.ah.pda.ui.view.LoadingView;
 import com.kingdee.ah.pda.ui.view.TitleTopOrdersView;
 import com.kingdee.ah.pda.util.LoadingUtil;
 import com.kingdee.ah.pda.util.ToastUtil;
@@ -307,9 +305,9 @@ public class ReceiveNoticeDetailActivity extends BaseActivity {
         map.put("fid", String.valueOf(fid));
         String pushReceiving = Constance.getPushReceiving();
         ShowProgress(ReceiveNoticeDetailActivity.this,"正在加载...",false);
-        HTTPUtils.getInstance(this).postByJson(pushReceiving, ReceivePush.class, map, new VolleyListener<ReceivePush>() {
+        HTTPUtils.getInstance(this).postByJson(pushReceiving, ReceivePushBean.class, map, new VolleyListener<ReceivePushBean>() {
             @Override
-            public void onResponse(ReceivePush response) {
+            public void onResponse(ReceivePushBean response) {
                 int code = response.getCode();
                 if (code == 0) {
                     ToastUtil.show(ReceiveNoticeDetailActivity.this, response.getMsg());

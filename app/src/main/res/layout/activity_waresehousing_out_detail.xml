@@ -52,6 +52,7 @@
                             android:text="货主类型:" />
 
                         <EditText
+                            android:id="@+id/tv_ownerTypeIdHead"
                             style="@style/mine_fragment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -75,6 +76,7 @@
                             android:text="申请组织:" />
 
                         <EditText
+                            android:id="@+id/tv_stockOrgName"
                             style="@style/mine_fragment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -95,9 +97,10 @@
                             style="@style/mine_fragment"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="申请日期:" />
+                            android:text="单据日期:" />
 
                         <EditText
+                            android:id="@+id/tv_date"
                             style="@style/mine_fragment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -122,6 +125,31 @@
                             android:text="单据类型:" />
 
                         <EditText
+                            android:id="@+id/tv_billTypeName"
+                            style="@style/mine_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:singleLine="true" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/mine_fragment"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="领用部门:" />
+
+                        <EditText
+                            android:id="@+id/tv_departName"
                             style="@style/mine_fragment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -150,6 +178,7 @@
                     android:text="明细" />
 
                 <com.bin.david.form.core.SmartTable
+                    android:id="@+id/outStock_detail_table"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="400dp" />

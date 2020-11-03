@@ -11,7 +11,7 @@ import java.util.UUID;
  */
 
 public class Constance {
-    public static String COMMON_PROTOCOL="http://";
+    public static String COMMON_PROTOCOL = "http://";
     public static String COMMON_IP = "192.168.0.200:8081";
     public static UUID SPP_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
@@ -44,26 +44,27 @@ public class Constance {
     public static final int[] home4 = {R.drawable.home13, R.drawable.home14, R.drawable.home15, R.drawable.home16,
             R.drawable.home17, R.drawable.home18, R.drawable.home19, R.drawable.home20};
     //首页区域 生产管理文字
-    public static final String[] tv_home4 = {"用料清单", "生产领料", "生产汇报", "生产入库","直接调拨单","生产退料","生产补料","生产退库"};
+    public static final String[] tv_home4 = {"用料清单", "生产领料", "生产汇报", "生产入库", "直接调拨单", "生产退料", "生产补料", "生产退库"};
 
     //首页区域 工序管理图片
     public static final int[] home5 = {R.drawable.home21, R.drawable.home22, R.drawable.home23, R.drawable.home24,
             R.drawable.home25, R.drawable.home26};
     //首页区域 工序管理文字
-    public static final String[] tv_home5 = {"工序计划", "转移单委外发出", "转移单委外接收", "工序汇报","工序转移","生产入库"};
+    public static final String[] tv_home5 = {"工序计划", "转移单委外发出", "转移单委外接收", "工序汇报", "工序转移", "生产入库"};
 
     //设置baseip
     public static void setBaseIp(String baseIP) {
         SharedPreferencesUtil.getInstance(App.getmApplicationContext()).setKeyValue(Shared.BASEIP, baseIP);
     }
+
     //读取baseip
-    public static String getBaseIp(){
-       return SharedPreferencesUtil.getInstance(App.getmApplicationContext()).getKeyValue(Shared.BASEIP, COMMON_IP);
+    public static String getBaseIp() {
+        return SharedPreferencesUtil.getInstance(App.getmApplicationContext()).getKeyValue(Shared.BASEIP, COMMON_IP);
     }
 
     //读取baseurl
     public static String getBaseUrl() {
-        return COMMON_PROTOCOL+SharedPreferencesUtil.getInstance(App.getmApplicationContext()).getKeyValue(Shared.BASEIP, COMMON_IP);
+        return COMMON_PROTOCOL + SharedPreferencesUtil.getInstance(App.getmApplicationContext()).getKeyValue(Shared.BASEIP, COMMON_IP);
     }
 
 
@@ -113,14 +114,29 @@ public class Constance {
     //采购入库保存
     public static final String stkInStockAdd = "/api/pda/stkInStock/add";
     //工序汇报
-    public static final String PROCESSREPORT="/api/pda/operationReport/list";
+    public static final String PROCESSREPORT = "/api/pda/operationReport/list";
     //工序汇报详情
-    public static final String PROCESSREPORTDETAIL="/api/pda/operationReport/get/";
+    public static final String PROCESSREPORTDETAIL = "/api/pda/operationReport/get/";
     //工序汇报推送到云端
-    public static final String PUSHPROCESS="/api/pda/operationReport/push/";
+    public static final String PUSHPROCESS = "/api/pda/operationReport/push/";
 
     //生产入库-审核入库
-    public static final String PUSHPRODUCTION="/api/pda/operationReport/audit";
+    public static final String PUSHPRODUCTION = "/api/pda/operationReport/audit";
+
+    //用料清单表头
+    public static final String prdPpbomHead = "/api/pda/prdPpbom/getPrdPpbomHead";
+    //用料清单表体
+    public static final String PrdPpbom = "/api/pda/prdPpbom/getPrdPpbom";
+
+    //出库申请列表
+    public static final String OUTSTOCKAPPLY = "/api/pda/outStockApply/list";
+    //出库申请详情
+    public static final String OUTSTOCKAPPLYDETAIL = "/api/pda/outStockApply/get/";
+    //出库申请下推
+    public static final String OUTSTOCKPUSH = "/api/pda/outStockApply/push/";
+
+    //发货通知列表
+    public static final String SalDeliverynotice = "/api/pda/salDeliverynotice/getSalDeliverynotice";
 
 
     //登录
@@ -224,24 +240,56 @@ public class Constance {
     }
 
     //工序汇报列表
-    public static String getProcessreport(){
-        return getBaseUrl()+PROCESSREPORT;
+    public static String getProcessreport() {
+        return getBaseUrl() + PROCESSREPORT;
     }
 
     //工序汇报详情
     public static String getProcessReportDetail() {
-        return getBaseUrl()+ PROCESSREPORTDETAIL;
+        return getBaseUrl() + PROCESSREPORTDETAIL;
     }
 
     //工序汇报推送
-    public static String getPushProcess(){
-        return getBaseUrl()+PUSHPROCESS;
+    public static String getPushProcess() {
+        return getBaseUrl() + PUSHPROCESS;
     }
 
     //生产入库-审核入库
-     public static String getPushProduction(){
-        return  getBaseUrl()+PUSHPRODUCTION;
-     }
+    public static String getPushProduction() {
+        return getBaseUrl() + PUSHPRODUCTION;
+    }
+
+
+    //出库申请列表
+    public static String getOUTSTOCKAPPLY() {
+        return getBaseUrl() + OUTSTOCKAPPLY;
+    }
+
+    //出库申请详情
+    public static String getOUTSTOCKAPPLYDETAIL() {
+        return getBaseUrl() + OUTSTOCKAPPLYDETAIL;
+    }
+
+    //出库申请下推
+    public static String getOUTSTOCKPUSH() {
+        return getBaseUrl() + OUTSTOCKPUSH;
+    }
+
+    //用料清单表头
+    public static String getPrdPpbomHead() {
+        return getBaseUrl() + prdPpbomHead;
+    }
+
+    //用料清单表体
+    public static String getPrdPpbom() {
+        return getBaseUrl() + PrdPpbom;
+    }
+
+    //发货通知单列表
+    public static String getSalDeliverynotice() {
+        return getBaseUrl() + SalDeliverynotice;
+    }
+
     public static class SHAREP {
         /**
          * SharedPreferences

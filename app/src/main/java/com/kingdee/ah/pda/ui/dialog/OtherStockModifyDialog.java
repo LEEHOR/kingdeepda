@@ -4,9 +4,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -15,20 +13,17 @@ import android.widget.TextView;
 import com.kingdee.ah.pda.R;
 import com.kingdee.ah.pda.base.BaseDialogFragment;
 import com.kingdee.ah.pda.ui.view.CommodityCountView;
-import com.kingdee.ah.pda.util.Logutil;
-import com.kingdee.ah.pda.util.StringUtil;
 import com.kingdee.ah.pda.util.ToastUtil;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * @ProjectName: kingdeepda
  * @Package: com.jeewms.www.wms.ui.dialog
  * @ClassName: PurchaseOrderAddDialog
  * @Description: java类作用描述
+ * 其他出库修改数量弹窗
  * @Author: 作者名
  * @CreateDate: 2020/10/21 9:40
  * @UpdateUser: 更新者：
@@ -36,9 +31,7 @@ import butterknife.Unbinder;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class PurchaseOrderModifyDialog extends BaseDialogFragment {
-
-
+public class OtherStockModifyDialog extends BaseDialogFragment {
     @BindView(R.id.purchase_order_add_close)
     TextView purchaseOrderAddClose;
     @BindView(R.id.purchase_order_add_title)
@@ -49,40 +42,28 @@ public class PurchaseOrderModifyDialog extends BaseDialogFragment {
     EditText tvProjectName;
     @BindView(R.id.tv_projectNum)
     TextView tvProjectNum;
-    @BindView(R.id.tv_count1)
-    CommodityCountView tvCount1;
-    @BindView(R.id.tv_count2)
-    CommodityCountView tvCount2;
     @BindView(R.id.tv_count3)
     CommodityCountView tvCount3;
-    @BindView(R.id.tv_count4)
-    CommodityCountView tvCount4;
 
     /**
      * @param title
-     * @param fmustQty          应收数量
-     * @param frealQty          实收数量
-     * @param fpriceUnitQty     计价数量
-     * @param fremainInStockQty 采购数量
+     * @param qty          实发数量
      * @return
      */
-    public static PurchaseOrderModifyDialog newInstance(String title, String projectName, String projectNum, int fmustQty, int frealQty, int fpriceUnitQty, int fremainInStockQty) {
-        PurchaseOrderModifyDialog purchaseOrderAddDialog = new PurchaseOrderModifyDialog();
+    public static OtherStockModifyDialog newInstance(String title, String projectName, String projectNum, int qty) {
+        OtherStockModifyDialog purchaseOrderAddDialog = new OtherStockModifyDialog();
         Bundle bundle = new Bundle();
         bundle.putString("title", title);
         bundle.putString("projectName", projectName);
         bundle.putString("projectNum", projectNum);
-        bundle.putInt("fmustQty", fmustQty);
-        bundle.putInt("frealQty", frealQty);
-        bundle.putInt("fpriceUnitQty", fpriceUnitQty);
-        bundle.putInt("fremainInStockQty", fremainInStockQty);
+        bundle.putInt("qty", qty);
         purchaseOrderAddDialog.setArguments(bundle);
         return purchaseOrderAddDialog;
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.dialog_purchase_order_modify;
+        return R.layout.dialog_production_ware_modify;
     }
 
     @Override
@@ -91,17 +72,11 @@ public class PurchaseOrderModifyDialog extends BaseDialogFragment {
             String title = getArguments().getString("title");
             String projectName = getArguments().getString("projectName");
             String projectNum = getArguments().getString("projectNum");
-            int fmustQty = getArguments().getInt("fmustQty");
-            int frealQty = getArguments().getInt("frealQty");
-            int fpriceUnitQty = getArguments().getInt("fpriceUnitQty");
-            int fremainInStockQty = getArguments().getInt("fremainInStockQty");
+            int fmustQty = getArguments().getInt("qty");
             purchaseOrderAddTitle.setText(title);
             tvProjectName.setText(projectName);
             tvProjectNum.setText(projectNum);
-            tvCount1.setCount(fremainInStockQty);
-            tvCount2.setCount(fpriceUnitQty);
             tvCount3.setCount(fmustQty);
-            tvCount4.setCount(frealQty);
         }
     }
 
@@ -160,28 +135,14 @@ public class PurchaseOrderModifyDialog extends BaseDialogFragment {
     }
 
     private void complete() {
-        int count = tvCount1.getCount();
-        int count1 = tvCount2.getCount();
-        int count2 = tvCount3.getCount();
-        int count3 = tvCount4.getCount();
-        if (count == 0) {
-            ToastUtil.show(getActivity(), "采购数量不能为空");
-            return;
-        }
-        if (count1 == 0) {
-            ToastUtil.show(getActivity(), "计价数量不能为空");
-            return;
-        }
-        if (count2 == 0) {
-            ToastUtil.show(getActivity(), "应收数量不能为空");
-            return;
-        }
+        int count3 = tvCount3.getCount();
+
         if (count3 == 0) {
-            ToastUtil.show(getActivity(), "实收数量不能为空");
+            ToastUtil.show(getActivity(), "实发数量不能为空");
             return;
         }
         if (onModifyOrderListener != null) {
-            onModifyOrderListener.onConfirm(count, count1, count2, count3);
+            onModifyOrderListener.onConfirm(count3);
         }
         Close();
     }
@@ -194,7 +155,7 @@ public class PurchaseOrderModifyDialog extends BaseDialogFragment {
 
     public interface OnModifyOrderListener {
         //项目编码  物料编码
-        void onConfirm(int fremainInStockQty, int fpriceUnitQty, int fmustQty, int frealQtyint);
+        void onConfirm(int qty);
 
         void onClose();
     }

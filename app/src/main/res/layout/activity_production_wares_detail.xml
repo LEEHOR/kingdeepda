@@ -12,7 +12,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,7 +27,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:drawableRight="@drawable/ic_bottom_black"
                 android:text="基本信息" />
 
             <LinearLayout
@@ -44,6 +44,7 @@
                         android:text="入库组织:" />
 
                     <EditText
+                        android:id="@+id/tv_stockOrgName"
                         style="@style/mine_fragment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -65,6 +66,7 @@
                         android:text="生产组织:" />
 
                     <EditText
+                        android:id="@+id/tv_prdOrgName"
                         style="@style/mine_fragment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -86,6 +88,7 @@
                         android:text="货主:" />
 
                     <EditText
+                        android:id="@+id/tv_ownerName"
                         style="@style/mine_fragment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -108,6 +111,7 @@
                         android:text="单据类型:" />
 
                     <EditText
+                        android:id="@+id/tv_billTypeName"
                         style="@style/mine_fragment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -130,6 +134,7 @@
                         android:text="日期:" />
 
                     <EditText
+                        android:id="@+id/tv_date"
                         style="@style/mine_fragment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -156,6 +161,7 @@
                 android:orientation="vertical">
 
                 <com.bin.david.form.core.SmartTable
+                    android:id="@+id/production_table"
                     android:minHeight="400dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -163,4 +169,19 @@
 
         </LinearLayout>
     </ScrollView>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp">
+
+        <Button
+            android:id="@+id/btn_push"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_bg_blue"
+            android:textColor="@color/white"
+            android:text="审核入库" />
+    </LinearLayout>
 </LinearLayout>

@@ -22,7 +22,7 @@ import com.kingdee.ah.pda.ui.activity.productionPicking.ProductionPickingActivit
 import com.kingdee.ah.pda.ui.activity.productionWarehousing.ProductionWarehousingActivity;
 import com.kingdee.ah.pda.ui.activity.purchaseWarehousing.PurchaseWarehousingActivity;
 import com.kingdee.ah.pda.ui.activity.receive.ReceiveNoticeActivity;
-import com.kingdee.ah.pda.ui.activity.salesDelivery.SalesDeliveryActivity;
+import com.kingdee.ah.pda.ui.activity.salesDeliveryOutStock.SalesDeliveryOutStockActivity;
 import com.kingdee.ah.pda.ui.activity.warehouseOutApplication.WarehouseOutApplicationActivity;
 import com.zhy.android.percent.support.PercentLinearLayout;
 
@@ -83,7 +83,7 @@ public class HomeGridItemView1 {
                 if (Constance.tv_home2[0].equals(btnName)) {
                     DeliveryNoticeActivity.show(mActivity); //发货通知
                 } else if (Constance.tv_home2[1].equals(btnName)) {
-                    SalesDeliveryActivity.show(mActivity);//销售出库
+                    SalesDeliveryOutStockActivity.show(mActivity);//销售出库
                 } else if (Constance.tv_home2[2].equals(btnName)) {
 
                 } else if (Constance.tv_home2[3].equals(btnName)) {
@@ -150,7 +150,7 @@ public class HomeGridItemView1 {
         } else if (Constance.btnNameList[8].equals(btnName)) {
             DeliveryNoticeActivity.show(mActivity); //发货通知
         } else if (Constance.btnNameList[9].equals(btnName)) {
-            SalesDeliveryActivity.show(mActivity);//销售出库
+            SalesDeliveryOutStockActivity.show(mActivity);//销售出库
         } else if (Constance.btnNameList[10].equals(btnName)) {
             ScanCodeCheckInventoryActivity.show(mActivity);//扫码查库存
         } else if (Constance.btnNameList[11].equals(btnName)) {

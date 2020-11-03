@@ -6,7 +6,7 @@
     xmlns:tool="http://schemas.android.com/tools">
 
     <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
         app:layout_constraintLeft_toLeftOf="parent"

@@ -1,4 +1,4 @@
-package com.kingdee.ah.pda.ui.activity.salesDelivery;
+package com.kingdee.ah.pda.ui.activity.salesDeliveryOutStock;
 
 import android.content.Context;
 import android.content.Intent;
@@ -26,17 +26,17 @@ import butterknife.ButterKnife;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class SalesDeliveryAddActivity extends BaseActivity {
-    @BindView(R.id.sales_delivery_add_title)
+public class SalesDeliveryOutStockDetailActivity extends BaseActivity {
+    @BindView(R.id.sales_delivery_detail_title)
     TitleTopOrdersView salesOutTitle;
 
     @Override
     protected int getContentResId() {
-        return R.layout.activity_sales_delivery_add;
+        return R.layout.activity_sales_delivery_out_stock_detail;
     }
 
     public static void show(Context context) {
-        Intent intent = new Intent(context, SalesDeliveryAddActivity.class);
+        Intent intent = new Intent(context, SalesDeliveryOutStockDetailActivity.class);
         context.startActivity(intent);
     }
 
@@ -50,7 +50,7 @@ public class SalesDeliveryAddActivity extends BaseActivity {
         });
         TextView tex_item = salesOutTitle.getTex_item();
         tex_item.setVisibility(View.VISIBLE);
-        tex_item.setText("销售出库新增");
+        tex_item.setText("销售出库详情");
     }
 
     @Override

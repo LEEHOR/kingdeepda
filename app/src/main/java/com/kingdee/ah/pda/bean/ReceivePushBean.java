@@ -14,7 +14,7 @@ import java.io.Serializable;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class ReceivePush implements Serializable {
+public class ReceivePushBean implements Serializable {
 
     /**
      * msg : 操作成功

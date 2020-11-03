@@ -175,15 +175,15 @@
             android:launchMode="singleTop"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
-            android:name="com.kingdee.ah.pda.ui.activity.salesDelivery.SalesDeliveryActivity"
+            android:name="com.kingdee.ah.pda.ui.activity.salesDeliveryOutStock.SalesDeliveryOutStockActivity"
             android:launchMode="singleTop"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
-            android:name="com.kingdee.ah.pda.ui.activity.salesDelivery.SalesDeliveryAddActivity"
+            android:name="com.kingdee.ah.pda.ui.activity.salesDeliveryOutStock.SalesDeliveryOutStockAddActivity"
             android:launchMode="singleTop"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
-            android:name="com.kingdee.ah.pda.ui.activity.salesDelivery.SalesDeliveryDetailActivity"
+            android:name="com.kingdee.ah.pda.ui.activity.salesDeliveryOutStock.SalesDeliveryOutStockDetailActivity"
             android:launchMode="singleTop"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
