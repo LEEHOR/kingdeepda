@@ -136,17 +136,6 @@ public class CurrencyDialog extends BaseDialogFragment {
     @Override
     public void iniWidow(Dialog dialog) {
         if (dialog != null) {
-            dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
-                @Override
-                public boolean onKey(DialogInterface dialogInterface, int i, KeyEvent keyEvent) {
-                    if (i == KeyEvent.KEYCODE_BACK) {
-                        return true;
-                    }
-                    return false;
-                }
-            });
-            dialog.setCancelable(false);
-            dialog.setCanceledOnTouchOutside(false);
             Window window = dialog.getWindow();
             WindowManager.LayoutParams lp = window.getAttributes();
             lp.dimAmount = 0.5f;

@@ -134,7 +134,7 @@ public class PurchaseWarehousingAddActivity extends BaseActivity {
         receivingDetailTitle.getBtn_back().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                onBackPressed();
             }
         });
         receivingDetailTitle.getTex_item().setVisibility(View.VISIBLE);
@@ -331,7 +331,7 @@ public class PurchaseWarehousingAddActivity extends BaseActivity {
                 purchaseOrderAddDialog.Close();
             }
         });
-        purchaseOrderAddDialog.show(getFragmentManager(), "addorder");
+        purchaseOrderAddDialog.show(getSupportFragmentManager(), "addorder");
     }
 
     @OnClick({R.id.iv_add, R.id.iv_scan,R.id.tv_fbillTypeName, R.id.tv_fstockOrgNamee, R.id.tv_fpurchaseOrgName, R.id.tv_fbusinessType, R.id.tv_fstockDeptName, R.id.tv_fpurchaseDeptName, R.id.tv_fbillNo, R.id.tv_fstockerGroupName, R.id.tv_fpurchaserGroupName, R.id.tv_fdate, R.id.tv_fstockerName, R.id.tv_fpurchaserName, R.id.tv_fdocumentStatus, R.id.tv_fsupplierName, R.id.tv_fdemandOrgName, R.id.tv_fsettleName, R.id.tv_fsupplyName, R.id.tv_fproviderContactName, R.id.tv_fsupplyAddress, R.id.tv_fchargeName})
@@ -349,12 +349,12 @@ public class PurchaseWarehousingAddActivity extends BaseActivity {
                 break;
             case R.id.tv_fpurchaseOrgName://组织
                 organizationsDialog.setPosition(organization);
-                organizationsDialog.show(getFragmentManager(),"组织");
+                organizationsDialog.show(getSupportFragmentManager(),"组织");
                 break;
             case R.id.tv_fbusinessType:
                 break;
             case R.id.tv_fstockDeptName: //采购部门
-                departmentDialog.show(getFragmentManager(),"部门");
+                departmentDialog.show(getSupportFragmentManager(),"部门");
                 break;
             case R.id.tv_fpurchaseDeptName:
                 break;
@@ -373,7 +373,7 @@ public class PurchaseWarehousingAddActivity extends BaseActivity {
             case R.id.tv_fdocumentStatus:
                 break;
             case R.id.tv_fsupplierName: //供应商
-                supplierDialog.show(getFragmentManager(),"供应商");
+                supplierDialog.show(getSupportFragmentManager(),"供应商");
                 break;
             case R.id.tv_fdemandOrgName:
                 break;

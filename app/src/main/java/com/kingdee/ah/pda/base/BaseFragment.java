@@ -1,6 +1,7 @@
 package com.kingdee.ah.pda.base;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -226,7 +227,7 @@ public abstract class BaseFragment extends Fragment {
 
     private void viewLoading() {
         updateDialog = UpdateBaseDataDialog.newInstance("更新基础数据...");
-        updateDialog.show(getActivity().getFragmentManager(), "更新");
+        updateDialog.show(getChildFragmentManager(), "更新");
     }
 
     //更新基础数据
@@ -799,6 +800,31 @@ public abstract class BaseFragment extends Fragment {
         if (DownloadCount == hasDownload) {
             if (updateDialog != null) {
                 updateDialog.Close();
+            }
+        }
+    }
+
+    private static ProgressDialog progressDialog;
+
+    //进度条
+    public static void ShowProgress(Context context, String message, boolean Cancelable) {
+        if (progressDialog != null) {
+            progressDialog = new ProgressDialog(context);
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setMessage(message);
+            progressDialog.setCancelable(Cancelable);
+        }
+        if (!progressDialog.isShowing()) {
+            progressDialog.show();
+        }
+
+    }
+
+    //关闭进度条
+    public static void CancelProgress() {
+        if (progressDialog != null) {
+            if (progressDialog.isShowing()) {
+                progressDialog.cancel();
             }
         }
     }

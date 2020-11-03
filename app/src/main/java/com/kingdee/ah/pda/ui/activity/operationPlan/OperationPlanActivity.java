@@ -43,7 +43,7 @@ public class OperationPlanActivity extends BaseActivity {
         operationPlanTitle.getBtn_back().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                onBackPressed();
             }
         });
         TextView tex_item = operationPlanTitle.getTex_item();

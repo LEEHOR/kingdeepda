@@ -47,7 +47,7 @@ public class WarehouseOutApplicationDetailActivity extends BaseActivity {
         outDetailTitle.getBtn_back().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                onBackPressed();
             }
         });
         TextView tex_item = outDetailTitle.getTex_item();

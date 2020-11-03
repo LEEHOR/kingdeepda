@@ -112,6 +112,15 @@ public class Constance {
     public static final String getstkInStockEntry = "/api/pda/stkInStock/getstkInStockEntry";
     //采购入库保存
     public static final String stkInStockAdd = "/api/pda/stkInStock/add";
+    //工序汇报
+    public static final String PROCESSREPORT="/api/pda/operationReport/list";
+    //工序汇报详情
+    public static final String PROCESSREPORTDETAIL="/api/pda/operationReport/get/";
+    //工序汇报推送到云端
+    public static final String PUSHPROCESS="/api/pda/operationReport/push/";
+
+    //生产入库-审核入库
+    public static final String PUSHPRODUCTION="/api/pda/operationReport/audit";
 
 
     //登录
@@ -209,10 +218,30 @@ public class Constance {
         return getBaseUrl() + getstkInStockEntry;
     }
 
+    //保存入库
     public static String getStkInStockAdd() {
         return getBaseUrl() + stkInStockAdd;
     }
 
+    //工序汇报列表
+    public static String getProcessreport(){
+        return getBaseUrl()+PROCESSREPORT;
+    }
+
+    //工序汇报详情
+    public static String getProcessReportDetail() {
+        return getBaseUrl()+ PROCESSREPORTDETAIL;
+    }
+
+    //工序汇报推送
+    public static String getPushProcess(){
+        return getBaseUrl()+PUSHPROCESS;
+    }
+
+    //生产入库-审核入库
+     public static String getPushProduction(){
+        return  getBaseUrl()+PUSHPRODUCTION;
+     }
     public static class SHAREP {
         /**
          * SharedPreferences

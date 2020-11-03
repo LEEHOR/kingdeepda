@@ -53,7 +53,7 @@ public class ProductionWarehousingActivity extends BaseActivity {
         productionWarehousingTitle.getBtn_back().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                onBackPressed();
             }
         });
         TextView tex_item = productionWarehousingTitle.getTex_item();
@@ -66,19 +66,11 @@ public class ProductionWarehousingActivity extends BaseActivity {
 
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
-
-    @OnClick({R.id.iv_add, R.id.iv_scan})
+    @OnClick({R.id.iv_scan})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.iv_add:
-                break;
             case R.id.iv_scan:
+
                 break;
         }
     }

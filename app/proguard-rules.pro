@@ -215,7 +215,7 @@
 -keep class com.google.gson.examples.android.model.** { *; }
 # 将下面替换成自己的实体类
 -keep class com.kingdee.ah.pda.bean.** { *; }
--keep class com.kingdee.ah.pda.dataBase.** { *; }
+#-keep class com.kingdee.ah.pda.dataBase.** { *; }
 
 
 # ButterKnife
@@ -251,25 +251,20 @@
 #}
 
 #litepal 数据库
--keep class org.litepal.** {
-    *;
-}
--keep class * extends org.litepal.crud.DataSupport {
-    *;
-}
--keep class * extends org.litepal.crud.LitePalSupport {
-    *;
-}
+-keep class org.litepal.** { *;}
+-keep class * extends org.litepal.crud.DataSupport {*;}
+-keep class * extends org.litepal.crud.LitePalSupport {*;}
 #com.wang.avi:library:2.1.3
 #-keep class com.wang.avi.** { *; }
 #-keep class com.wang.avi.indicators.** { *; }
 
 #BaseRecyclerViewAdapterHelper:2.9.50
--keep class com.chad.library.adapter.** {
-*;
-}
+-keep class com.chad.library.adapter.** {*;}
 -keep public class * extends com.chad.library.adapter.base.BaseQuickAdapter
 -keep public class * extends com.chad.library.adapter.base.BaseViewHolder
 -keepclassmembers  class **$** extends com.chad.library.adapter.base.BaseViewHolder {
      <init>(...);
 }
+
+#smartTable
+-keep class com.bin.david.form.** { *;}

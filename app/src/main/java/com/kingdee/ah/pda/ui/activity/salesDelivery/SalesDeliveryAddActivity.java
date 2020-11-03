@@ -45,7 +45,7 @@ public class SalesDeliveryAddActivity extends BaseActivity {
         salesOutTitle.getBtn_back().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                onBackPressed();
             }
         });
         TextView tex_item = salesOutTitle.getTex_item();

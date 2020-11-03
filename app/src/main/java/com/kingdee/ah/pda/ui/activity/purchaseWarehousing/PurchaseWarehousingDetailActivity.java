@@ -37,6 +37,8 @@ import com.kingdee.ah.pda.bean.InStockHeadBean;
 import com.kingdee.ah.pda.bean.PurchaseAddBean;
 import com.kingdee.ah.pda.constance.Constance;
 import com.kingdee.ah.pda.ui.activity.ScanCodeCheckInventoryActivity;
+import com.kingdee.ah.pda.ui.activity.processReport.ProcessReportDetailActivity;
+import com.kingdee.ah.pda.ui.activity.receive.ReceiveNoticeDetailActivity;
 import com.kingdee.ah.pda.ui.dialog.PurchaseOrderAddDialog;
 import com.kingdee.ah.pda.ui.dialog.PurchaseOrderModifyDialog;
 import com.kingdee.ah.pda.ui.view.TitleTopOrdersView;
@@ -75,7 +77,7 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
     @BindView(R.id.purchase_warehousing_detail_title)
     TitleTopOrdersView receivingDetailTitle;
     @BindView(R.id.add_table)
-    SmartTable addTable;
+    SmartTable<InStockEntryBean.DataEntity> addTable;
     @BindView(R.id.iv_scan)
     ImageView ivScan;
     @BindView(R.id.btn_push)
@@ -100,7 +102,6 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
     EditText tvFPayee;
 
     private InStockHeadBean.DataEntity TableHeadData;
-    private List<InStockEntryBean.DataEntity> TableBodyDate = new ArrayList<>();
     private int fid = 0;
     private String key_fid = "fid";
 
@@ -115,7 +116,7 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
         receivingDetailTitle.getBtn_back().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+               onBackPressed();
             }
         });
         receivingDetailTitle.getTex_item().setVisibility(View.VISIBLE);
@@ -125,10 +126,7 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
     @Override
     protected void initfun() {
         if (getIntent() != null) {
-            Bundle extras = getIntent().getExtras();
-            if (extras != null) {
-                fid = extras.getInt("fid");
-            }
+         fid= getIntent().getIntExtra("fid",0);
         }
         addTable.getConfig().setShowYSequence(false);
         addTable.getConfig().setShowXSequence(false);
@@ -143,21 +141,26 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
                 if (cellInfo.row % 2 == 0) {
                     return ContextCompat.getColor(PurchaseWarehousingDetailActivity.this, R.color.actions_background_light);
                 } else {
-                    return TableConfig.INVALID_COLOR; //返回无效颜色，不会绘制
+                    return ContextCompat.getColor(PurchaseWarehousingDetailActivity.this, R.color.yellowF23757);
+                   // return TableConfig.INVALID_COLOR; //返回无效颜色，不会绘制
                 }
             }
         });
+
         createTab();
+
         if (fid != 0) {
             getTableHead(String.valueOf(fid));
         }
     }
 
+
+
     //获取单据头数据
     private void getTableHead(String id) {
         Map<String, String> params = new HashMap<>();
         params.put(key_fid, id);
-        LoadingUtil.ShowProgress(PurchaseWarehousingDetailActivity.this,"正在加载...",false);
+        ShowProgress(PurchaseWarehousingDetailActivity.this, "正在加载...", false);
         String getstkInStock = Constance.getGetstkInStock();
         HTTPUtils.getInstance(this).postByJson(getstkInStock, InStockHeadBean.class, params, new VolleyListener<InStockHeadBean>() {
             @Override
@@ -193,6 +196,9 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
         });
     }
 
+
+
+
     //获取单据体数据(从收料通知页跳转)
     private void getTableBodyDate(String fid) {
         Map<String, String> params = new HashMap<>();
@@ -201,7 +207,7 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
         HTTPUtils.getInstance(this).postByJson(getstkInStockEntry, InStockEntryBean.class, params, new VolleyListener<InStockEntryBean>() {
             @Override
             public void requestComplete() {
-                LoadingUtil.CancelProgress();
+                CancelProgress();
             }
 
             @Override
@@ -223,6 +229,8 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
         });
     }
 
+
+
     private void createTab() {
         Column<String> c1 = new Column<>("项目编码", "projectNumber");
         c1.setTextAlign(Paint.Align.LEFT);
@@ -235,20 +243,20 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
         Column<String> c5 = new Column<>("规格型号", "fspecification");
         c5.setTextAlign(Paint.Align.LEFT);
         Column<String> c6 = new Column<>("库存单位", "funitName");
-        c6.setTextAlign(Paint.Align.LEFT);
+        c6.setTextAlign(Paint.Align.CENTER);
         //   Column<String> c7 = new Column<>("所属项目", "ff100001Mame");
         //  c7.setTextAlign(Paint.Align.LEFT);
         Column<BigDecimal> c8 = new Column<>("应收数量", "fmustQty");
-        c8.setTextAlign(Paint.Align.LEFT);
+        c8.setTextAlign(Paint.Align.CENTER);
         //frealQty
         Column<BigDecimal> c9 = new Column<>("实收数量", "frealQty");
-        c9.setTextAlign(Paint.Align.LEFT);
+        c9.setTextAlign(Paint.Align.CENTER);
         //fpriceUnitName
         Column<String> c10 = new Column<>("计价单位", "fpriceUnitName");
-        c10.setTextAlign(Paint.Align.LEFT);
+        c10.setTextAlign(Paint.Align.CENTER);
         //fpriceUnitQty
         Column<BigDecimal> c11 = new Column<>("计价数量", "fpriceUnitQty");
-        c11.setTextAlign(Paint.Align.LEFT);
+        c11.setTextAlign(Paint.Align.CENTER);
         //flotName
         //   Column<String> c12 = new Column<>("批号", "flotName");
         //   c12.setTextAlign(Paint.Align.LEFT);
@@ -263,10 +271,10 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
         // c15.setTextAlign(Paint.Align.LEFT);
         //FRemainInStockUnitName;
         Column<String> c16 = new Column<>("采购单位", "fremainInStockUnitName");
-        c16.setTextAlign(Paint.Align.LEFT);
+        c16.setTextAlign(Paint.Align.CENTER);
         //fremainInStockQty
         Column<BigDecimal> c17 = new Column<>("采购数量", "fremainInStockQty");
-        c17.setTextAlign(Paint.Align.LEFT);
+        c17.setTextAlign(Paint.Align.CENTER);
         //ftaxNetPrice
         // Column<BigDecimal> c18 = new Column<>("净价", "ftaxNetPrice");
         //  c18.setTextAlign(Paint.Align.LEFT);
@@ -281,11 +289,11 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
         addTable.setTableData(listTableData);
         addTable.getTableData().setOnRowClickListener(new TableData.OnRowClickListener() {
             @Override
-            public void onClick(Column column, Object o,  int col, final int row) {
+            public void onClick(Column column, Object o, int col, final int row) {
                 final List<InStockEntryBean.DataEntity> t = addTable.getTableData().getT();
-                if (t != null && t.size()>0) {
+                if (t != null && t.size() > 0) {
                     final InStockEntryBean.DataEntity dataEntity = t.get(row);
-                    final PurchaseOrderModifyDialog modifyDialog=PurchaseOrderModifyDialog.newInstance("修改数量",dataEntity.getProjectName() , dataEntity.getProjectNumber(),
+                    final PurchaseOrderModifyDialog modifyDialog = PurchaseOrderModifyDialog.newInstance("修改数量", dataEntity.getProjectName(), dataEntity.getProjectNumber(),
                             dataEntity.getFmustQty(), dataEntity.getFrealQty(), dataEntity.getFpriceUnitQty(), dataEntity.getFremainInStockQty());
                     modifyDialog.setOnModifyOrderListener(new PurchaseOrderModifyDialog.OnModifyOrderListener() {
                         @Override
@@ -295,7 +303,7 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
                             dataEntity.setFpriceUnitQty(fpriceUnitQty);
                             dataEntity.setFremainInStockQty(fremainInStockQty);
                             t.remove(row);
-                            t.add(row,dataEntity);
+                            t.add(row, dataEntity);
                             modifyDialog.Close();
                             addTable.setData(t);
                             addTable.notifyDataChanged();
@@ -306,13 +314,15 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
 
                         }
                     });
-                    modifyDialog.show(getFragmentManager(),"修改");
+                    modifyDialog.show(getSupportFragmentManager(), "修改");
                 }
             }
         });
     }
 
-    @OnClick({R.id.iv_scan,R.id.btn_push})
+
+
+    @OnClick({R.id.iv_scan, R.id.btn_push})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_scan:
@@ -324,6 +334,8 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
         }
     }
 
+
+
     //保存
     private void SaveDate() {
         List<InStockEntryBean.DataEntity> t = addTable.getTableData().getT();
@@ -332,7 +344,7 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
         JsonObject asJsonObject = gson.toJsonTree(TableHeadData).getAsJsonObject();
         //   Logutil.print("数据", asJsonObject.toString());
         String stkInStockAdd = Constance.getStkInStockAdd();
-        LoadingUtil.ShowProgress(PurchaseWarehousingDetailActivity.this, "正在保存入库",true);
+        LoadingUtil.ShowProgress(PurchaseWarehousingDetailActivity.this, "正在保存入库", true);
         HTTPUtils.getInstance(this).postByJson(stkInStockAdd, PurchaseAddBean.class, asJsonObject, new VolleyListener<PurchaseAddBean>() {
             @Override
             public void requestComplete() {
@@ -363,6 +375,8 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
         });
     }
 
+
+
     //申请相机权限
     private void wantCameraPermission() {
         PermissionUtil.getInstance().request(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -392,6 +406,8 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
         });
     }
 
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -402,6 +418,8 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
             //将扫描出的信息显示出来并搜索
         }
     }
+
+
 
     @Override
     protected void onResume() {

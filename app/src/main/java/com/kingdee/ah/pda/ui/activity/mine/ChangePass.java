@@ -67,7 +67,7 @@ public class ChangePass extends BaseActivity {
         changePassTitle.getBtn_back().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                onBackPressed();
             }
         });
     }

@@ -44,7 +44,7 @@ public class ProductionWarehousingAddActivity extends BaseActivity {
         processDetailTitle.getBtn_back().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                onBackPressed();
             }
         });
         TextView tex_item = processDetailTitle.getTex_item();

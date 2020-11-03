@@ -44,7 +44,7 @@ public class OperationPlanTransferOutActivity extends BaseActivity {
         operationPlanTranslateOutTitle.getBtn_back().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                onBackPressed();
             }
         });
         TextView tex_item = operationPlanTranslateOutTitle.getTex_item();

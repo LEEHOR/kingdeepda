@@ -38,7 +38,7 @@ public class OtherStockOutDetailActivity extends BaseActivity {
         otherStockOutTitle.getBtn_back().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                onBackPressed();
             }
         });
         TextView tex_item = otherStockOutTitle.getTex_item();

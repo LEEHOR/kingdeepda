@@ -123,8 +123,8 @@ public class ReceiveNoticeActivity extends BaseActivity {
         receivingTitle.getBtn_back().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                judgeMenu();
-                finish();
+              //  judgeMenu();
+                onBackPressed();
             }
         });
         receivingTitle.getTex_item().setText("收料通知单");
@@ -139,8 +139,6 @@ public class ReceiveNoticeActivity extends BaseActivity {
     @Override
     protected void initfun() {
         String[] stringArray = getResources().getStringArray(R.array.menu_receive1);
-
-        getDate(0, mapParam);
         receivingRefresh.addEasyEvent(new EasyRefreshLayout.EasyEvent() {
             @Override
             public void onLoadMore() {
@@ -258,6 +256,8 @@ public class ReceiveNoticeActivity extends BaseActivity {
             }
         });
 
+        getDate(0, mapParam);
+
     }
 
     //申请相机权限
@@ -312,53 +312,58 @@ public class ReceiveNoticeActivity extends BaseActivity {
         HTTPUtils.getInstance(this).postByJson(receivingBill, ReceiveBillBean.class, params, new VolleyListener<ReceiveBillBean>() {
             @Override
             public void requestComplete() {
-                if (receivingRefresh != null) {
-                    if (loadType == 0) {
-                        receivingRefresh.refreshComplete();
-                    } else {
-                        receivingRefresh.loadMoreFail();
-                    }
-                }
 
             }
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                if (receivingAdapter != null && receivingRecycler !=null) {
-                    receivingAdapter.setEmptyView(R.layout.view_error,receivingRecycler);
+                if (receivingAdapter == null && receivingRecycler == null) {
+                    return;
                 }
+                if (loadType==0){
+                    receivingRefresh.refreshComplete();
+                } else {
+                    receivingRefresh.loadMoreFail();
+                }
+                receivingAdapter.setEmptyView(R.layout.view_error, receivingRecycler);
             }
 
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse(ReceiveBillBean response) {
-                if (receivingAdapter != null && receivingRecycler !=null) {
-                    int code = response.getCode();
-                    if (code == 0) {
-                        PAGE++;
-                        List<ReceiveBillBean.DataEntity> data = response.getData();
-                        if (data != null) {
-                            data.removeIf(new Predicate<ReceiveBillBean.DataEntity>() {  //过滤
-                                @Override
-                                public boolean test(ReceiveBillBean.DataEntity dataEntity) {
-                                    return dataEntity.getDocumentStatus().equals("C") || dataEntity.getDocumentStatus().equals("D");
-                                }
-                            });
-                            if (loadType == 0) {
-                                receivingAdapter.setNewData(data);
-                            } else {
-                                if (data.size() > 0) {
-                                    receivingAdapter.addData(data);
-                                }
-                            }
-                        } else {
-                            receivingAdapter.setEmptyView(R.layout.view_empt,receivingRecycler);
+                if (receivingAdapter == null && receivingRecycler == null) {
+                    return;
+                }
+                int code = response.getCode();
+                if (code == 0) {
+                    PAGE++;
+                    List<ReceiveBillBean.DataEntity> data = response.getData();
+                    data.removeIf(new Predicate<ReceiveBillBean.DataEntity>() {  //过滤
+                        @Override
+                        public boolean test(ReceiveBillBean.DataEntity dataEntity) {
+                            return dataEntity.getDocumentStatus().equals("C") || dataEntity.getDocumentStatus().equals("D");
                         }
-
+                    });
+                        if (loadType == 0) {
+                            receivingAdapter.setNewData(data);
+                            receivingRefresh.refreshComplete();
+                        } else {
+                            if (data.size()>0){
+                                receivingAdapter.addData(data);
+                                receivingRefresh.loadMoreComplete();
+                            } else {
+                                receivingRefresh.loadNothing();
+                            }
+                        }
+                    receivingAdapter.setEmptyView(R.layout.view_empt, receivingRecycler);
+                } else {
+                    if (loadType == 0) {
+                        receivingRefresh.refreshComplete();
                     } else {
-                        receivingAdapter.setEmptyView(R.layout.view_error,receivingRecycler);
-                        ToastUtil.show(ReceiveNoticeActivity.this, response.getMsg());
+                        receivingRefresh.loadMoreFail();
                     }
+                    receivingAdapter.setEmptyView(R.layout.view_error, receivingRecycler);
+                    ToastUtil.show(ReceiveNoticeActivity.this, response.getMsg());
                 }
             }
         });
@@ -375,7 +380,7 @@ public class ReceiveNoticeActivity extends BaseActivity {
             @Override
             public void onResponse(ReceivePush response) {
                 int code = response.getCode();
-                if (response.getCode() == 0) {
+                if (code == 0) {
                     ToastUtil.show(ReceiveNoticeActivity.this, response.getMsg());
                     Logutil.print("下推", response.getData().getId() + "/" + response.getData().getNumber());
                     //跳转到采购入库详情
@@ -385,11 +390,6 @@ public class ReceiveNoticeActivity extends BaseActivity {
                     bundle1.putString("fnumber", response.getData().getNumber());
                     intent1.putExtras(bundle1);
                     startActivity(intent1);
-//                } else if (code == 900) {
-//                    AlertDialog alertDialog = CreateDialog(ReceiveNoticeActivity.this, response.getMsg());
-//                    if (!alertDialog.isShowing()) {
-//                        alertDialog.show();
-//                    }
                 } else {
                     ToastUtil.show(ReceiveNoticeActivity.this, response.getMsg());
                 }
@@ -413,21 +413,17 @@ public class ReceiveNoticeActivity extends BaseActivity {
         //扫描结果回调
         if (requestCode == Constant.REQ_QR_CODE && resultCode == RESULT_OK) {
             Bundle bundle = data.getExtras();
+            assert bundle != null;
             String scanResult = bundle.getString(Constant.INTENT_EXTRA_KEY_QR_SCAN);
             //将扫描出的信息显示出来并搜索
             appSearch.setQuery(scanResult, false);
             mapParam.clear();
             mapParam.put(key_billNo, scanResult);
+
             getDate(0, mapParam);
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 
     @OnClick({R.id.menu1, R.id.menu2, R.id.menu3, R.id.iv_scan})
     public void onViewClicked(View view) {
@@ -450,25 +446,6 @@ public class ReceiveNoticeActivity extends BaseActivity {
                     supplierSelectMenu.showAsDropDown(cts1);
                 }
                 break;
-        }
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        judgeMenu();
-        finish();
-    }
-
-    private void judgeMenu() {
-        if (commonSelectMenu != null && commonSelectMenu.isMenuOpen()) {
-            commonSelectMenu.dismiss();
-        }
-        if (dateSelectMenu !=null && dateSelectMenu.isMenuOpen()){
-            dateSelectMenu.dismiss();
-        }
-        if (supplierSelectMenu != null && supplierSelectMenu.isMenuOpen()) {
-            supplierSelectMenu.dismiss();
         }
     }
 }

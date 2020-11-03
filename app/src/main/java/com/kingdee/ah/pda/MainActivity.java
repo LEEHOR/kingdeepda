@@ -52,6 +52,7 @@ public class MainActivity extends FragmentActivity {
     }
 
     protected void initView() {
+
         fragments.add(new HomeFragment());
         fragments.add(new MineFragment());
         bottomTabBar2.defaultSetting()

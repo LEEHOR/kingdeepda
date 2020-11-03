@@ -47,9 +47,11 @@
                             android:text="单据编号:" />
 
                         <EditText
+                            android:id="@+id/tv_billNo"
                             style="@style/mine_fragment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:inputType="textNoSuggestions"
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
                             android:ellipsize="end"
@@ -69,11 +71,13 @@
                             android:text="加工组织:" />
 
                         <EditText
+                            android:id="@+id/tv_prdOrgName"
                             style="@style/mine_fragment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
+                            android:inputType="textNoSuggestions"
                             android:ellipsize="end"
                             android:focusable="false"
                             android:focusableInTouchMode="false"
@@ -91,11 +95,13 @@
                             android:text="单据类型:" />
 
                         <EditText
+                            android:id="@+id/tv_billTypeName"
                             style="@style/mine_fragment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
+                            android:inputType="textNoSuggestions"
                             android:ellipsize="end"
                             android:focusable="false"
                             android:focusableInTouchMode="false"
@@ -112,11 +118,13 @@
                             android:text="单据日期:" />
 
                         <EditText
+                            android:id="@+id/tv_date"
                             style="@style/mine_fragment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
+                            android:inputType="textNoSuggestions"
                             android:ellipsize="end"
                             android:focusable="false"
                             android:focusableInTouchMode="false"
@@ -140,6 +148,7 @@
                     android:text="汇总" />
 
                 <com.bin.david.form.core.SmartTable
+                    android:id="@+id/process_detail_table"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="400dp" />

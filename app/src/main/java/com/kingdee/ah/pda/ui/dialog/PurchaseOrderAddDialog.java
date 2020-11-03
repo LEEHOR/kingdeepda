@@ -276,22 +276,22 @@ public class PurchaseOrderAddDialog extends BaseDialogFragment {
                 Close();
                 break;
             case R.id.tv_projectName:
-                projectDialog.show(getActivity().getFragmentManager(), "物料");
+                projectDialog.show(getActivity().getSupportFragmentManager(), "物料");
                 break;
             case R.id.tv_fmaterialName:
-                materialDialog.show(getActivity().getFragmentManager(), "物料");
+                materialDialog.show(getActivity().getSupportFragmentManager(), "物料");
                 break;
             case R.id.tv_fstockName:
-                stockDialog.show(getActivity().getFragmentManager(), "仓库");
+                stockDialog.show(getActivity().getSupportFragmentManager(), "仓库");
                 break;
             case R.id.tv_fpriceunitName: //计价
-                priceUnit.show(getActivity().getFragmentManager(), "计价");
+                priceUnit.show(getActivity().getSupportFragmentManager(), "计价");
                 break;
             case R.id.tv_funitName: //库存
-                funitName.show(getActivity().getFragmentManager(), "库存");
+                funitName.show(getActivity().getSupportFragmentManager(), "库存");
                 break;
             case R.id.tv_fremainInStockUnitName://采购
-                fremainInStockUnitName.show(getActivity().getFragmentManager(), "库存");
+                fremainInStockUnitName.show(getActivity().getSupportFragmentManager(), "库存");
                 break;
         }
     }

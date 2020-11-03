@@ -143,13 +143,7 @@ public class ScanCodeCheckInventoryActivity extends BaseActivity {
         stockScanTitle.getBtn_back().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (materialSelectMenu != null && materialSelectMenu.isMenuOpen()) {
-                    materialSelectMenu.dismiss();
-                }
-                if (stockSelectMenu != null && stockSelectMenu.isMenuOpen()) {
-                    stockSelectMenu.dismiss();
-                }
-                finish();
+               onBackPressed();
             }
         });
         stockScanTitle.getTex_item().setText(getResources().getText(R.string.stock_9));
@@ -383,25 +377,6 @@ public class ScanCodeCheckInventoryActivity extends BaseActivity {
                 }
                 break;
         }
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        if (materialSelectMenu != null && materialSelectMenu.isMenuOpen()) {
-            materialSelectMenu.dismiss();
-        }
-        if (stockSelectMenu != null && stockSelectMenu.isMenuOpen()) {
-            stockSelectMenu.dismiss();
-        }
-        finish();
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }
 

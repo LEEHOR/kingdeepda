@@ -38,7 +38,7 @@ public class DeliveryNoticeDetailActivity extends BaseActivity {
         deliveryNoticeDetailTitle.getBtn_back().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                onBackPressed();
             }
         });
         TextView tex_item = deliveryNoticeDetailTitle.getTex_item();

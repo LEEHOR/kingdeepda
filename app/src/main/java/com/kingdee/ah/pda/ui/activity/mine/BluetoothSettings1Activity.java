@@ -98,7 +98,7 @@ public class BluetoothSettings1Activity extends BaseActivity {
         bluetoothTitle.getBtn_back().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                onBackPressed();
             }
         });
         ImageButton iv3 = bluetoothTitle.getBtn_orders_3();

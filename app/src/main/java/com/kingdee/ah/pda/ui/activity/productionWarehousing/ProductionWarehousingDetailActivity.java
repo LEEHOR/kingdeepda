@@ -44,16 +44,22 @@ public class ProductionWarehousingDetailActivity extends BaseActivity {
         processDetailTitle.getBtn_back().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                onBackPressed();
             }
         });
         TextView tex_item = processDetailTitle.getTex_item();
         tex_item.setVisibility(View.VISIBLE);
-        tex_item.setText("生产入库");
+        tex_item.setText("生产入库详情");
     }
 
     @Override
     protected void initfun() {
+
+    }
+
+
+    //生产入库下推
+    private void push(){
 
     }
 

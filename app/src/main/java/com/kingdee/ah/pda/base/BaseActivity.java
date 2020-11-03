@@ -2,10 +2,12 @@ package com.kingdee.ah.pda.base;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 
 import com.kingdee.ah.pda.LoginActivity;
 import com.kingdee.ah.pda.R;
@@ -26,7 +28,7 @@ import butterknife.Unbinder;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public abstract class BaseActivity extends Activity {
+public abstract class BaseActivity extends AppCompatActivity {
 
     private Unbinder bind;
 
@@ -79,5 +81,28 @@ public abstract class BaseActivity extends Activity {
     protected void onStop() {
         super.onStop();
         HTTPUtils.getInstance(this).cancelAllRequest();
+    }
+
+    private static ProgressDialog progressDialog;
+
+    //进度条
+    public static void ShowProgress(Context context, String message, boolean Cancelable) {
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setMessage(message);
+        progressDialog.setCancelable(Cancelable);
+        if (!progressDialog.isShowing()) {
+            progressDialog.show();
+        }
+
+    }
+
+    //关闭进度条
+    public static void CancelProgress() {
+        if (progressDialog != null) {
+            if (progressDialog.isShowing()) {
+                progressDialog.cancel();
+            }
+        }
     }
 }

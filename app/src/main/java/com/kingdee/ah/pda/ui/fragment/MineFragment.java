@@ -99,16 +99,16 @@ public class MineFragment extends BaseFragment {
      * 清除用户信息
      */
     private void removeUerInfo() {
-        SharedPreferencesUtil.getInstance(getActivity()).remove(Shared.PASSWORD);
-        SharedPreferencesUtil.getInstance(getActivity()).remove(Shared.userAccount);
-        SharedPreferencesUtil.getInstance(getActivity()).remove(Shared.userPhone);
-        SharedPreferencesUtil.getInstance(getActivity()).remove(Shared.TOKEN);
-        SharedPreferencesUtil.getInstance(getActivity()).remove(Shared.userID);
-        LoginActivity.show(getActivity());
+        SharedPreferencesUtil.getInstance(getContext()).remove(Shared.PASSWORD);
+        SharedPreferencesUtil.getInstance(getContext()).remove(Shared.userAccount);
+        SharedPreferencesUtil.getInstance(getContext()).remove(Shared.userPhone);
+        SharedPreferencesUtil.getInstance(getContext()).remove(Shared.TOKEN);
+        SharedPreferencesUtil.getInstance(getContext()).remove(Shared.userID);
+        LoginActivity.show(getContext());
     }
 
     private void showDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()).setIcon(R.mipmap.icon).setTitle(getResources().getString(R.string.mine_dialog_title))
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext()).setIcon(R.mipmap.icon).setTitle(getResources().getString(R.string.mine_dialog_title))
                 .setMessage(getResources().getString(R.string.mine_dialog_msg)).setPositiveButton(getResources().getString(R.string.mine_dialog_ok), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -131,15 +131,15 @@ public class MineFragment extends BaseFragment {
                 checkVersion();
                 break;
             case R.id.re_change_pass:
-                Intent intent = new Intent(this.getActivity(), ChangePass.class);
-                getActivity().startActivity(intent);
+                Intent intent = new Intent(getContext(), ChangePass.class);
+                getContext().startActivity(intent);
                 break;
             case R.id.re_default_option:
-                SettingDefaultOrganActivity.show(getActivity());
+                SettingDefaultOrganActivity.show(getContext());
                 break;
             case R.id.re_server_option:
-                Intent intent1 = new Intent(this.getActivity(), ServerAddressConfigActivity.class);
-                getActivity().startActivity(intent1);
+                Intent intent1 = new Intent(getContext(), ServerAddressConfigActivity.class);
+                getContext().startActivity(intent1);
                 break;
             case R.id.re_sign_out:
                 showDialog();
@@ -189,7 +189,7 @@ public class MineFragment extends BaseFragment {
                 }
             }
         });
-        updateDialog.show(getActivity().getFragmentManager(), "update");
+        updateDialog.show(getChildFragmentManager(), "update");
     }
 
 }

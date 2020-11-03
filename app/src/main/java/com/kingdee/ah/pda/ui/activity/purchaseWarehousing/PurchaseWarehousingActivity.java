@@ -109,8 +109,7 @@ public class PurchaseWarehousingActivity extends BaseActivity {
         purchaseWarehousingTitle.getBtn_back().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                judgeMenu();
-                finish();
+               onBackPressed();
             }
         });
         TextView tex_item = purchaseWarehousingTitle.getTex_item();
@@ -160,10 +159,8 @@ public class PurchaseWarehousingActivity extends BaseActivity {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 InStockHeadBean.DataEntity item = (InStockHeadBean.DataEntity) adapter.getItem(position);
                 Intent intent1 = new Intent(PurchaseWarehousingActivity.this, PurchaseWarehousingDetailActivity.class);
-                Bundle bundle1 = new Bundle();
-                bundle1.putInt("fid", item.getFid());
-                bundle1.putString("fnumber", item.getFbillNo());
-                intent1.putExtras(bundle1);
+                intent1.putExtra("fid", item.getFid());
+                intent1.putExtra("fnumber", item.getFbillNo());
                 startActivity(intent1);
             }
         });
@@ -259,47 +256,53 @@ public class PurchaseWarehousingActivity extends BaseActivity {
         HTTPUtils.getInstance(this).postByJson(getstkInStock, InStockHeadBean.class, params, new VolleyListener<InStockHeadBean>() {
             @Override
             public void requestComplete() {
-                if (purchaseOrderRefresh != null) {
-                    if (loadType == 0) {
-                        purchaseOrderRefresh.refreshComplete();
-                    } else {
-                        purchaseOrderRefresh.loadMoreFail();
-                    }
-                }
+
             }
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                if (adapter != null && purchaseRecycler != null) {
-                    adapter.setEmptyView(R.layout.view_error, purchaseRecycler);
+                if (adapter == null && purchaseRecycler == null) {
+                   return;
+                }
+                adapter.setEmptyView(R.layout.view_error, purchaseRecycler);
+                if (loadType==0){
+                    purchaseOrderRefresh.refreshComplete();
+                } else {
+                    purchaseOrderRefresh.loadMoreFail();
                 }
             }
 
             @Override
             public void onResponse(InStockHeadBean response) {
-                if (adapter != null && purchaseOrderRefresh != null) {
+                if (adapter == null && purchaseOrderRefresh == null) {
+                    return;
+                }
                     int code = response.getCode();
                     if (code == 0) {
                         PAGE++;
                         List<InStockHeadBean.DataEntity> data = response.getData();
-                        if (data != null) {
                             if (loadType == 0) {
                                 adapter.setNewData(data);
+                                purchaseOrderRefresh.refreshComplete();
                             } else {
                                 if (data.size() > 0) {
                                     adapter.addData(data);
+                                    purchaseOrderRefresh.loadMoreComplete();
+                                } else {
+                                    purchaseOrderRefresh.loadNothing();
                                 }
                             }
-                        } else {
                             adapter.setEmptyView(R.layout.view_empt, purchaseRecycler);
-                        }
-
                     } else {
+                        if (loadType==0){
+                            purchaseOrderRefresh.refreshComplete();
+                        } else {
+                            purchaseOrderRefresh.loadMoreFail();
+                        }
                         adapter.setEmptyView(R.layout.view_error, purchaseRecycler);
                         ToastUtil.show(PurchaseWarehousingActivity.this, response.getMsg());
                     }
                 }
-            }
         });
     }
 
@@ -339,21 +342,17 @@ public class PurchaseWarehousingActivity extends BaseActivity {
         //扫描结果回调
         if (requestCode == Constant.REQ_QR_CODE && resultCode == RESULT_OK) {
             Bundle bundle = data.getExtras();
+            assert bundle != null;
             String scanResult = bundle.getString(Constant.INTENT_EXTRA_KEY_QR_SCAN);
             //将扫描出的信息显示出来并搜索
             //搜索
             mapParam.clear();
+            assert scanResult != null;
             mapParam.put("billNo", scanResult);
             getDate(0, mapParam);
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 
     @OnClick({R.id.menu1, R.id.menu2, R.id.menu3, R.id.iv_add, R.id.iv_scan})
     public void onViewClicked(View view) {
@@ -382,23 +381,4 @@ public class PurchaseWarehousingActivity extends BaseActivity {
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        judgeMenu();
-        HTTPUtils.getInstance(this).cancelAllRequest();
-        finish();
-    }
-
-    private void judgeMenu() {
-        if (commonSelectMenu != null && commonSelectMenu.isMenuOpen()) {
-            commonSelectMenu.dismiss();
-        }
-        if (dateSelectMenu != null && dateSelectMenu.isMenuOpen()) {
-            dateSelectMenu.dismiss();
-        }
-        if (supplierSelectMenu != null && supplierSelectMenu.isMenuOpen()) {
-            supplierSelectMenu.dismiss();
-        }
-    }
 }

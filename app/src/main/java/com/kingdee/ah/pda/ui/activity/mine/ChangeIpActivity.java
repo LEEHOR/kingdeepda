@@ -59,7 +59,7 @@ public class ChangeIpActivity extends BaseActivity {
         changeIpTitle.getBtn_back().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                onBackPressed();
             }
         });
     }

@@ -64,7 +64,7 @@ public class ReceiveNoticeDetailActivity extends BaseActivity {
     @BindView(R.id.receiving_detail_title)
     TitleTopOrdersView detailTitle;
     @BindView(R.id.detail_table)
-    SmartTable noticeDetailTab;
+    SmartTable<ReceiveBillEntry.DataEntity> noticeDetailTab;
     @BindView(R.id.tv_date)
     EditText tvDate;
     @BindView(R.id.btn_push)
@@ -112,7 +112,7 @@ public class ReceiveNoticeDetailActivity extends BaseActivity {
         detailTitle.getBtn_back().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                onBackPressed();
             }
         });
         detailTitle.getTex_item().setText("收料通知详情页面");
@@ -149,7 +149,8 @@ public class ReceiveNoticeDetailActivity extends BaseActivity {
                 if (cellInfo.row % 2 == 0) {
                     return ContextCompat.getColor(ReceiveNoticeDetailActivity.this, R.color.black_f5f5f5);
                 } else {
-                    return TableConfig.INVALID_COLOR; //返回无效颜色，不会绘制
+                    return ContextCompat.getColor(ReceiveNoticeDetailActivity.this, R.color.yellowF23757);
+                   // return TableConfig.INVALID_COLOR; //返回无效颜色，不会绘制
                 }
             }
         });
@@ -190,12 +191,6 @@ public class ReceiveNoticeDetailActivity extends BaseActivity {
                     tvFsupdelQty.setText(String.valueOf(count2));
                     tvPriceUnitQty.setText(String.valueOf(count3));
                     noticeDetailTab.addData(data, false);
-//                } else if (code == 900) {
-//                    AlertDialog alertDialog = CreateDialog(ReceiveNoticeDetailActivity.this, response.getMsg());
-//                    if (!alertDialog.isShowing()) {
-//                        alertDialog.show();
-//                    }
-//                } else {
                     ToastUtil.show(ReceiveNoticeDetailActivity.this, response.getMsg());
                     tvFactreceiveQty.setText(String.valueOf(0));
                     tvFsupdelQty.setText(String.valueOf(0));
@@ -224,13 +219,13 @@ public class ReceiveNoticeDetailActivity extends BaseActivity {
         Column<String> c7 = new Column<>("订单所属项目", "fprojectNo");
         c7.setTextAlign(Paint.Align.LEFT);
         Column<String> c8 = new Column<>("采购单位", "fpurorgName");
-        c8.setTextAlign(Paint.Align.LEFT);
+        c8.setTextAlign(Paint.Align.CENTER);
         Column<String> c9 = new Column<>("仓库名称", "fstockName");
         c9.setTextAlign(Paint.Align.LEFT);
         Column<BigDecimal> c10 = new Column<>("交货数量", "factreceiveQty");
-        c10.setTextAlign(Paint.Align.LEFT);
+        c10.setTextAlign(Paint.Align.CENTER);
         Column<String> c11 = new Column<>("收料单位", "funitName");
-        c11.setTextAlign(Paint.Align.LEFT);
+        c11.setTextAlign(Paint.Align.CENTER);
         Column<String> c17 = new Column<>("单据日期", "fdate", new IFormat<String>() {
 
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -311,7 +306,7 @@ public class ReceiveNoticeDetailActivity extends BaseActivity {
         Map<String, String> map = new HashMap<>();
         map.put("fid", String.valueOf(fid));
         String pushReceiving = Constance.getPushReceiving();
-        LoadingUtil.ShowProgress(this,"正在下推...",true);
+        ShowProgress(ReceiveNoticeDetailActivity.this,"正在加载...",false);
         HTTPUtils.getInstance(this).postByJson(pushReceiving, ReceivePush.class, map, new VolleyListener<ReceivePush>() {
             @Override
             public void onResponse(ReceivePush response) {
@@ -337,7 +332,7 @@ public class ReceiveNoticeDetailActivity extends BaseActivity {
 
             @Override
             public void requestComplete() {
-            LoadingUtil.CancelProgress();
+               CancelProgress();
             }
         });
     }

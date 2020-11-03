@@ -52,7 +52,7 @@ public class ProductionPickingActivity extends BaseActivity {
         productionPickTitle.getBtn_back().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                onBackPressed();
             }
         });
         TextView tex_item = productionPickTitle.getTex_item();

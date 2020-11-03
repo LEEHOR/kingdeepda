@@ -7,6 +7,7 @@ import com.kingdee.ah.pda.base.BaseFragment;
 import com.kingdee.ah.pda.bean.HomeBtnBean;
 import com.kingdee.ah.pda.constance.Constance;
 import com.kingdee.ah.pda.ui.adapter.HomeGridAdapter1;
+import com.kingdee.ah.pda.ui.dialog.CurrencyDialog;
 import com.kingdee.ah.pda.ui.view.NonScrollGridView;
 
 import java.util.ArrayList;

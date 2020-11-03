@@ -56,7 +56,7 @@ public class SettingDefaultOrganActivity extends BaseActivity {
         organTitle.getBtn_back().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                onBackPressed();
             }
         });
     }

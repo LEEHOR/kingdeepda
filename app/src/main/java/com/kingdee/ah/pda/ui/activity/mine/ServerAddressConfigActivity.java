@@ -48,7 +48,7 @@ public class ServerAddressConfigActivity extends BaseActivity {
         titleTopOrdersView.getBtn_back().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                onBackPressed();
             }
         });
         titleTopOrdersView.getTex_item().setText(getResources().getText(R.string.setting_6));

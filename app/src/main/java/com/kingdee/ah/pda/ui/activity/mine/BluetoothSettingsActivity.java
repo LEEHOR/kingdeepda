@@ -45,7 +45,7 @@ public class BluetoothSettingsActivity extends BaseActivity {
         bluetoothTitle.getBtn_back().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                onBackPressed();
             }
         });
         bluetoothTitle.getTex_item().setText(getResources().getText(R.string.setting_4));
