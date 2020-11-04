@@ -92,7 +92,7 @@ public class ProcessReportDetailActivity extends BaseActivity {
 
     //创建表格列
     private void createTable() {
-        processDetailTable.getConfig().setShowYSequence(false);
+        processDetailTable.getConfig().setShowYSequence(true);
         processDetailTable.getConfig().setShowXSequence(false);
         processDetailTable.getConfig().setShowTableTitle(false);
         processDetailTable.getConfig().setVerticalPadding(24);

@@ -120,7 +120,7 @@ public class ReceiveNoticeActivity extends BaseActivity {
         receivingTitle.getBtn_back().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              //  judgeMenu();
+                //  judgeMenu();
                 onBackPressed();
             }
         });
@@ -317,7 +317,7 @@ public class ReceiveNoticeActivity extends BaseActivity {
                 if (receivingAdapter == null && receivingRecycler == null) {
                     return;
                 }
-                if (loadType==0){
+                if (loadType == 0) {
                     receivingRefresh.refreshComplete();
                 } else {
                     receivingRefresh.loadMoreFail();
@@ -341,18 +341,18 @@ public class ReceiveNoticeActivity extends BaseActivity {
 //                            return dataEntity.getDocumentStatus().equals("C") || dataEntity.getDocumentStatus().equals("D");
 //                        }
 //                    });
-                        if (loadType == 0) {
-                            receivingAdapter.setNewData(data);
-                            receivingRefresh.refreshComplete();
+                    if (loadType == 0) {
+                        receivingAdapter.setNewData(data);
+                        receivingRefresh.refreshComplete();
+                    } else {
+                        if (data.size() > 0) {
+                            receivingRefresh.loadMoreComplete();
+                            receivingAdapter.addData(data);
                         } else {
-                            if (data.size()>0){
-                                receivingRefresh.loadMoreComplete();
-                                receivingAdapter.addData(data);
-                            } else {
-                                receivingRefresh.loadNothing();
-                            }
-
+                            receivingRefresh.loadNothing();
                         }
+
+                    }
                     receivingAdapter.setEmptyView(R.layout.view_empt, receivingRecycler);
                 } else {
                     if (loadType == 0) {
@@ -374,13 +374,13 @@ public class ReceiveNoticeActivity extends BaseActivity {
         Map<String, String> map = new HashMap<>();
         map.put("fid", String.valueOf(fid));
         String pushReceiving = Constance.getPushReceiving();
-        ShowProgress(this,"正在下推...",false);
+        ShowProgress(this, "正在下推...", false);
         HTTPUtils.getInstance(this).postByJson(pushReceiving, ReceivePushBean.class, map, new VolleyListener<ReceivePushBean>() {
             @Override
             public void onResponse(ReceivePushBean response) {
                 int code = response.getCode();
+                ToastUtil.show(ReceiveNoticeActivity.this, response.getMsg());
                 if (code == 0) {
-                    ToastUtil.show(ReceiveNoticeActivity.this, response.getMsg());
                     Logutil.print("下推", response.getData().getId() + "/" + response.getData().getNumber());
                     //跳转到采购入库详情
                     Intent intent1 = new Intent(ReceiveNoticeActivity.this, PurchaseWarehousingDetailActivity.class);
@@ -396,7 +396,7 @@ public class ReceiveNoticeActivity extends BaseActivity {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                ToastUtil.show(ReceiveNoticeActivity.this, error.getMessage());
+
             }
 
             @Override

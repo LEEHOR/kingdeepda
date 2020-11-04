@@ -133,6 +133,7 @@ public class DeliveryNoticeActivity extends BaseActivity {
 
     }
 
+    //获取发货通知列表数据
     private void getData(final int loadType) {
         if (loadType == 0) {
             this.PAGE = 1;
@@ -202,5 +203,6 @@ public class DeliveryNoticeActivity extends BaseActivity {
 
     @OnClick(R.id.iv_scan)
     public void onViewClicked() {
+
     }
 }

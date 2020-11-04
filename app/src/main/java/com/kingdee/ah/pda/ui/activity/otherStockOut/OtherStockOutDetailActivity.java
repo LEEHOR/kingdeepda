@@ -95,12 +95,11 @@ public class OtherStockOutDetailActivity extends BaseActivity {
             }
         }
 
-
     }
 
     //创建表格
     private void createTable() {
-        otherStockTable.getConfig().setShowYSequence(false);
+        otherStockTable.getConfig().setShowYSequence(true);
         otherStockTable.getConfig().setShowXSequence(false);
         otherStockTable.getConfig().setShowTableTitle(false);
         otherStockTable.getConfig().setVerticalPadding(24);

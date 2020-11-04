@@ -18,9 +18,9 @@ import java.util.List;
 public class OutStockApplyBean implements Serializable {
 
     /**
-     * msg :
+     * msg : 操作成功
      * code : 0
-     * data : [{"applyType":"","date":"","deptName":"","bizType":"","deptId":0,"custName":"","entitys":[{"stockLocId":0,"stockLocName":"","unitName":"","paezProject":"","specification":"","materialId":"","ownerId":0,"materialName":"","stockName":"","ownerName":"","qty":0,"stockId":0,"stockOrgId":0,"stockOrgName":"","unitId":0,"id":0,"paezProjectName":""}],"custId":0,"stockOrgId":0,"stockOrgName":"","documentStatus":"","id":0,"billTypeName":"","billNo":"","ownerTypeIdHead":"","billTypeId":""}]
+     * data : [{"date":"2020-09-22","applyType":null,"deptName":"工程部","bizType":null,"deptId":null,"custName":null,"entitys":[],"custId":null,"stockOrgId":null,"stockOrgName":"金锋馥（滁州）输送机械有限公司","documentStatus":"C","id":100006,"billTypeName":"标准出库申请","billNo":"CKSQD000002","ownerTypeIdHead":null,"billTypeId":null},{"date":"2020-09-17","applyType":null,"deptName":null,"bizType":null,"deptId":null,"custName":"金锋馥（滁州）输送机械有限公司","entitys":[],"custId":null,"stockOrgId":null,"stockOrgName":"金锋馥（滁州）输送机械有限公司","documentStatus":"C","id":100005,"billTypeName":"标准出库申请","billNo":"CKSQD000001","ownerTypeIdHead":null,"billTypeId":null}]
      */
     private String msg;
     private int code;
@@ -52,32 +52,31 @@ public class OutStockApplyBean implements Serializable {
 
     public class DataEntity {
         /**
-         * applyType :
-         * date :
-         * deptName :
-         * bizType :
-         * deptId : 0
-         * custName :
-         * entitys : [{"stockLocId":0,"stockLocName":"","unitName":"","paezProject":"","specification":"","materialId":"","ownerId":0,"materialName":"","stockName":"","ownerName":"","qty":0,"stockId":0,"stockOrgId":0,"stockOrgName":"","unitId":0,"id":0,"paezProjectName":""}]
-         * custId : 0
-         * stockOrgId : 0
-         * stockOrgName :
-         * documentStatus :
-         * id : 0
-         * billTypeName :
-         * billNo :
-         * ownerTypeIdHead :
-         * billTypeId :
+         * date : 2020-09-22
+         * applyType : null
+         * deptName : 工程部
+         * bizType : null
+         * deptId : null
+         * custName : null
+         * entitys : []
+         * custId : null
+         * stockOrgId : null
+         * stockOrgName : 金锋馥（滁州）输送机械有限公司
+         * documentStatus : C
+         * id : 100006
+         * billTypeName : 标准出库申请
+         * billNo : CKSQD000002
+         * ownerTypeIdHead : null
+         * billTypeId : null
          */
-        private String applyType;
         private String date;
+        private String applyType;
         private String deptName;
         private String bizType;
-        private int deptId;
+        private String deptId;
         private String custName;
-        private List<EntitysEntity> entitys;
-        private int custId;
-        private int stockOrgId;
+        private String custId;
+        private String stockOrgId;
         private String stockOrgName;
         private String documentStatus;
         private int id;
@@ -86,12 +85,12 @@ public class OutStockApplyBean implements Serializable {
         private String ownerTypeIdHead;
         private String billTypeId;
 
-        public void setApplyType(String applyType) {
-            this.applyType = applyType;
-        }
-
         public void setDate(String date) {
             this.date = date;
+        }
+
+        public void setApplyType(String applyType) {
+            this.applyType = applyType;
         }
 
         public void setDeptName(String deptName) {
@@ -102,7 +101,7 @@ public class OutStockApplyBean implements Serializable {
             this.bizType = bizType;
         }
 
-        public void setDeptId(int deptId) {
+        public void setDeptId(String deptId) {
             this.deptId = deptId;
         }
 
@@ -110,15 +109,12 @@ public class OutStockApplyBean implements Serializable {
             this.custName = custName;
         }
 
-        public void setEntitys(List<EntitysEntity> entitys) {
-            this.entitys = entitys;
-        }
 
-        public void setCustId(int custId) {
+        public void setCustId(String custId) {
             this.custId = custId;
         }
 
-        public void setStockOrgId(int stockOrgId) {
+        public void setStockOrgId(String stockOrgId) {
             this.stockOrgId = stockOrgId;
         }
 
@@ -150,12 +146,12 @@ public class OutStockApplyBean implements Serializable {
             this.billTypeId = billTypeId;
         }
 
-        public String getApplyType() {
-            return applyType;
-        }
-
         public String getDate() {
             return date;
+        }
+
+        public String getApplyType() {
+            return applyType;
         }
 
         public String getDeptName() {
@@ -166,23 +162,18 @@ public class OutStockApplyBean implements Serializable {
             return bizType;
         }
 
-        public int getDeptId() {
+        public String getDeptId() {
             return deptId;
         }
 
         public String getCustName() {
             return custName;
         }
-
-        public List<EntitysEntity> getEntitys() {
-            return entitys;
-        }
-
-        public int getCustId() {
+        public String getCustId() {
             return custId;
         }
 
-        public int getStockOrgId() {
+        public String getStockOrgId() {
             return stockOrgId;
         }
 
@@ -212,181 +203,6 @@ public class OutStockApplyBean implements Serializable {
 
         public String getBillTypeId() {
             return billTypeId;
-        }
-
-        public class EntitysEntity {
-            /**
-             * stockLocId : 0
-             * stockLocName :
-             * unitName :
-             * paezProject :
-             * specification :
-             * materialId :
-             * ownerId : 0
-             * materialName :
-             * stockName :
-             * ownerName :
-             * qty : 0
-             * stockId : 0
-             * stockOrgId : 0
-             * stockOrgName :
-             * unitId : 0
-             * id : 0
-             * paezProjectName :
-             */
-            private int stockLocId;
-            private String stockLocName;
-            private String unitName;
-            private String paezProject;
-            private String specification;
-            private String materialId;
-            private int ownerId;
-            private String materialName;
-            private String stockName;
-            private String ownerName;
-            private int qty;
-            private int stockId;
-            private int stockOrgId;
-            private String stockOrgName;
-            private int unitId;
-            private int id;
-            private String paezProjectName;
-
-            public void setStockLocId(int stockLocId) {
-                this.stockLocId = stockLocId;
-            }
-
-            public void setStockLocName(String stockLocName) {
-                this.stockLocName = stockLocName;
-            }
-
-            public void setUnitName(String unitName) {
-                this.unitName = unitName;
-            }
-
-            public void setPaezProject(String paezProject) {
-                this.paezProject = paezProject;
-            }
-
-            public void setSpecification(String specification) {
-                this.specification = specification;
-            }
-
-            public void setMaterialId(String materialId) {
-                this.materialId = materialId;
-            }
-
-            public void setOwnerId(int ownerId) {
-                this.ownerId = ownerId;
-            }
-
-            public void setMaterialName(String materialName) {
-                this.materialName = materialName;
-            }
-
-            public void setStockName(String stockName) {
-                this.stockName = stockName;
-            }
-
-            public void setOwnerName(String ownerName) {
-                this.ownerName = ownerName;
-            }
-
-            public void setQty(int qty) {
-                this.qty = qty;
-            }
-
-            public void setStockId(int stockId) {
-                this.stockId = stockId;
-            }
-
-            public void setStockOrgId(int stockOrgId) {
-                this.stockOrgId = stockOrgId;
-            }
-
-            public void setStockOrgName(String stockOrgName) {
-                this.stockOrgName = stockOrgName;
-            }
-
-            public void setUnitId(int unitId) {
-                this.unitId = unitId;
-            }
-
-            public void setId(int id) {
-                this.id = id;
-            }
-
-            public void setPaezProjectName(String paezProjectName) {
-                this.paezProjectName = paezProjectName;
-            }
-
-            public int getStockLocId() {
-                return stockLocId;
-            }
-
-            public String getStockLocName() {
-                return stockLocName;
-            }
-
-            public String getUnitName() {
-                return unitName;
-            }
-
-            public String getPaezProject() {
-                return paezProject;
-            }
-
-            public String getSpecification() {
-                return specification;
-            }
-
-            public String getMaterialId() {
-                return materialId;
-            }
-
-            public int getOwnerId() {
-                return ownerId;
-            }
-
-            public String getMaterialName() {
-                return materialName;
-            }
-
-            public String getStockName() {
-                return stockName;
-            }
-
-            public String getOwnerName() {
-                return ownerName;
-            }
-
-            public int getQty() {
-                return qty;
-            }
-
-            public int getStockId() {
-                return stockId;
-            }
-
-            public int getStockOrgId() {
-                return stockOrgId;
-            }
-
-            public String getStockOrgName() {
-                return stockOrgName;
-            }
-
-            public int getUnitId() {
-                return unitId;
-            }
-
-            public int getId() {
-                return id;
-            }
-
-            public String getPaezProjectName() {
-                return paezProjectName;
-            }
         }
     }
 }

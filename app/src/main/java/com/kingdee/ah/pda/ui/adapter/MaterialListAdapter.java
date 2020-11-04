@@ -5,8 +5,7 @@ import android.support.annotation.NonNull;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.kingdee.ah.pda.R;
-import com.kingdee.ah.pda.bean.MaterialBean;
-import com.kingdee.ah.pda.bean.OutStockApplyBean;
+import com.kingdee.ah.pda.bean.MaterialHeadBean;
 
 /**
  * @ProjectName: kingdeepda
@@ -20,13 +19,13 @@ import com.kingdee.ah.pda.bean.OutStockApplyBean;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class MaterialListAdapter extends BaseQuickAdapter<MaterialBean.DataEntity, BaseViewHolder> {
+public class MaterialListAdapter extends BaseQuickAdapter<MaterialHeadBean.DataEntity, BaseViewHolder> {
     public MaterialListAdapter(int layoutResId) {
         super(layoutResId);
     }
 
     @Override
-    protected void convert(@NonNull BaseViewHolder helper, MaterialBean.DataEntity item) {
+    protected void convert(@NonNull BaseViewHolder helper, MaterialHeadBean.DataEntity item) {
             helper.setText(R.id.tv_fbillNo,item.getFbillNo())
                     .setText(R.id.tv_fmaterialNumber,item.getFmaterialNumber())
                     .setText(R.id.tv_fmaterialName,item.getFmaterialName())

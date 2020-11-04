@@ -15,7 +15,7 @@ import com.android.volley.VolleyError;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.kingdee.ah.pda.R;
 import com.kingdee.ah.pda.base.BaseActivity;
-import com.kingdee.ah.pda.bean.MaterialBean;
+import com.kingdee.ah.pda.bean.MaterialHeadBean;
 import com.kingdee.ah.pda.bean.ReceivePushBean;
 import com.kingdee.ah.pda.constance.Constance;
 import com.kingdee.ah.pda.ui.activity.productionPicking.ProductionPickingDetailActivity;
@@ -116,13 +116,13 @@ public class MaterialListActivity extends BaseActivity {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 int id = view.getId();
-                MaterialBean.DataEntity dataEntity = (MaterialBean.DataEntity) adapter.getItem(position);
+                MaterialHeadBean.DataEntity dataEntity = (MaterialHeadBean.DataEntity) adapter.getItem(position);
                 switch (id) {
                     case R.id.btn_detail:
                         Intent intent = new Intent(MaterialListActivity.this, MaterialListDetailActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable("material", dataEntity);
-                        intent.putExtra("materialHead", bundle);
+                        Bundle bundle=new Bundle();
+                        bundle.putSerializable("head",dataEntity);
+                        intent.putExtra("materialBundle",bundle);
                         startActivity(intent);
                         break;
                     case R.id.btn_push:
@@ -143,7 +143,7 @@ public class MaterialListActivity extends BaseActivity {
         map.put("limit", String.valueOf(LIMIT));
         map.put("page", String.valueOf(PAGE));
         String prdPpbomHead = Constance.getPrdPpbomHead();
-        HTTPUtils.getInstance(this).postByJson(prdPpbomHead, MaterialBean.class, map, new VolleyListener<MaterialBean>() {
+        HTTPUtils.getInstance(this).postByJson(prdPpbomHead, MaterialHeadBean.class, map, new VolleyListener<MaterialHeadBean>() {
             @Override
             public void requestComplete() {
 
@@ -163,14 +163,14 @@ public class MaterialListActivity extends BaseActivity {
             }
 
             @Override
-            public void onResponse(MaterialBean response) {
+            public void onResponse(MaterialHeadBean response) {
                 if (listAdapter == null && materialRecycler == null) {
                     return;
                 }
                 int code = response.getCode();
                 if (code == 0) {
                     PAGE++;
-                    List<MaterialBean.DataEntity> data = response.getData();
+                    List<MaterialHeadBean.DataEntity> data = response.getData();
                     if (type == 0) {
                         listAdapter.setNewData(data);
                         materialRefresh.refreshComplete();
@@ -182,6 +182,7 @@ public class MaterialListActivity extends BaseActivity {
                             materialRefresh.loadNothing();
                         }
                     }
+                    listAdapter.setEmptyView(R.layout.view_empt, materialRecycler);
                 } else {
                     if (type == 0) {
                         materialRefresh.refreshComplete();

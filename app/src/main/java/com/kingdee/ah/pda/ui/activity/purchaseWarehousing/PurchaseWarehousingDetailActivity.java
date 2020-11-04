@@ -210,7 +210,7 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
 
     //创建表格
     private void createTab() {
-        addTable.getConfig().setShowYSequence(false);
+        addTable.getConfig().setShowYSequence(true);
         addTable.getConfig().setShowXSequence(false);
         addTable.getConfig().setShowTableTitle(false);
         addTable.getConfig().setVerticalPadding(24);

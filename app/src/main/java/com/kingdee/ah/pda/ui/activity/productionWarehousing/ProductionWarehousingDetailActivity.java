@@ -44,7 +44,7 @@ import butterknife.OnClick;
  * @Package: com.jeewms.www.wms.ui.activity.productionWarehousing
  * @ClassName: ProductionWarehousingActivity
  * @Description: java类作用描述
- * 首页跳转进来的生产入库
+ * 生产入库
  * @Author: 作者名
  * @CreateDate: 2020/10/23 11:26
  * @UpdateUser: 更新者：
@@ -142,7 +142,7 @@ public class ProductionWarehousingDetailActivity extends BaseActivity {
 
     //创建表格
     private void createTable() {
-        productionTable.getConfig().setShowYSequence(false);
+        productionTable.getConfig().setShowYSequence(true);
         productionTable.getConfig().setShowXSequence(false);
         productionTable.getConfig().setShowTableTitle(false);
         productionTable.getConfig().setVerticalPadding(24);

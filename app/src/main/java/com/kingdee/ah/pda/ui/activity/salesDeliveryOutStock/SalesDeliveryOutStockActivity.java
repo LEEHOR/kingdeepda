@@ -12,7 +12,6 @@ import com.kingdee.ah.pda.base.BaseActivity;
 import com.kingdee.ah.pda.ui.view.TitleTopOrdersView;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -65,18 +64,10 @@ public class SalesDeliveryOutStockActivity extends BaseActivity {
 
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 
     @OnClick({R.id.iv_add, R.id.iv_scan})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.iv_add:
-                break;
             case R.id.iv_scan:
                 break;
         }

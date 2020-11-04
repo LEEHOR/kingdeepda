@@ -17,10 +17,11 @@ import java.util.List;
  */
 public class OutStockApplyDetailBean implements Serializable {
 
+
     /**
-     * msg :
+     * msg : 操作成功
      * code : 0
-     * data : {"applyType":"","date":"","deptName":"","bizType":"","deptId":0,"custName":"","entitys":[{"stockLocId":0,"stockLocName":"","unitName":"","paezProject":"","specification":"","materialId":"","ownerId":0,"materialName":"","stockName":"","ownerName":"","qty":0,"stockId":0,"stockOrgId":0,"stockOrgName":"","unitId":0,"id":0,"paezProjectName":""}],"custId":0,"stockOrgId":0,"stockOrgName":"","documentStatus":"","id":0,"billTypeName":"","billNo":"","ownerTypeIdHead":"","billTypeId":""}
+     * data : {"date":"2020-09-22","applyType":" ","deptName":"工程部","bizType":"0","deptId":153619,"custName":"","entitys":[{"stockLocId":0,"stockLocName":"","unitName":"台","specification":"1200L*（1800H+200H）*400D","paezProject":"cs002","materialId":"03.01.01.01.0003","ownerId":110779,"materialName":"主控柜","stockName":"","ownerName":"金锋馥（滁州）输送机械有限公司","qty":15,"stockId":0,"unitId":10148,"stockOrgId":110779,"stockOrgName":"金锋馥（滁州）输送机械有限公司","id":100005,"paezProjectName":"京邦达物流转运中心"}],"custId":0,"stockOrgId":110779,"stockOrgName":"金锋馥（滁州）输送机械有限公司","documentStatus":"C","id":100006,"billTypeName":"标准出库申请","billNo":"CKSQD000002","ownerTypeIdHead":"BD_OwnerOrg","billTypeId":"59dc3f1c46d65a"}
      */
     private String msg;
     private int code;
@@ -52,25 +53,25 @@ public class OutStockApplyDetailBean implements Serializable {
 
     public class DataEntity {
         /**
+         * date : 2020-09-22
          * applyType :
-         * date :
-         * deptName :
-         * bizType :
-         * deptId : 0
+         * deptName : 工程部
+         * bizType : 0
+         * deptId : 153619
          * custName :
-         * entitys : [{"stockLocId":0,"stockLocName":"","unitName":"","paezProject":"","specification":"","materialId":"","ownerId":0,"materialName":"","stockName":"","ownerName":"","qty":0,"stockId":0,"stockOrgId":0,"stockOrgName":"","unitId":0,"id":0,"paezProjectName":""}]
+         * entitys : [{"stockLocId":0,"stockLocName":"","unitName":"台","specification":"1200L*（1800H+200H）*400D","paezProject":"cs002","materialId":"03.01.01.01.0003","ownerId":110779,"materialName":"主控柜","stockName":"","ownerName":"金锋馥（滁州）输送机械有限公司","qty":15,"stockId":0,"unitId":10148,"stockOrgId":110779,"stockOrgName":"金锋馥（滁州）输送机械有限公司","id":100005,"paezProjectName":"京邦达物流转运中心"}]
          * custId : 0
-         * stockOrgId : 0
-         * stockOrgName :
-         * documentStatus :
-         * id : 0
-         * billTypeName :
-         * billNo :
-         * ownerTypeIdHead :
-         * billTypeId :
+         * stockOrgId : 110779
+         * stockOrgName : 金锋馥（滁州）输送机械有限公司
+         * documentStatus : C
+         * id : 100006
+         * billTypeName : 标准出库申请
+         * billNo : CKSQD000002
+         * ownerTypeIdHead : BD_OwnerOrg
+         * billTypeId : 59dc3f1c46d65a
          */
-        private String applyType;
         private String date;
+        private String applyType;
         private String deptName;
         private String bizType;
         private int deptId;
@@ -86,12 +87,12 @@ public class OutStockApplyDetailBean implements Serializable {
         private String ownerTypeIdHead;
         private String billTypeId;
 
-        public void setApplyType(String applyType) {
-            this.applyType = applyType;
-        }
-
         public void setDate(String date) {
             this.date = date;
+        }
+
+        public void setApplyType(String applyType) {
+            this.applyType = applyType;
         }
 
         public void setDeptName(String deptName) {
@@ -150,12 +151,12 @@ public class OutStockApplyDetailBean implements Serializable {
             this.billTypeId = billTypeId;
         }
 
-        public String getApplyType() {
-            return applyType;
-        }
-
         public String getDate() {
             return date;
+        }
+
+        public String getApplyType() {
+            return applyType;
         }
 
         public String getDeptName() {
@@ -218,27 +219,27 @@ public class OutStockApplyDetailBean implements Serializable {
             /**
              * stockLocId : 0
              * stockLocName :
-             * unitName :
-             * paezProject :
-             * specification :
-             * materialId :
-             * ownerId : 0
-             * materialName :
+             * unitName : 台
+             * specification : 1200L*（1800H+200H）*400D
+             * paezProject : cs002
+             * materialId : 03.01.01.01.0003
+             * ownerId : 110779
+             * materialName : 主控柜
              * stockName :
-             * ownerName :
-             * qty : 0
+             * ownerName : 金锋馥（滁州）输送机械有限公司
+             * qty : 15
              * stockId : 0
-             * stockOrgId : 0
-             * stockOrgName :
-             * unitId : 0
-             * id : 0
-             * paezProjectName :
+             * unitId : 10148
+             * stockOrgId : 110779
+             * stockOrgName : 金锋馥（滁州）输送机械有限公司
+             * id : 100005
+             * paezProjectName : 京邦达物流转运中心
              */
             private int stockLocId;
             private String stockLocName;
             private String unitName;
-            private String paezProject;
             private String specification;
+            private String paezProject;
             private String materialId;
             private int ownerId;
             private String materialName;
@@ -246,9 +247,9 @@ public class OutStockApplyDetailBean implements Serializable {
             private String ownerName;
             private int qty;
             private int stockId;
+            private int unitId;
             private int stockOrgId;
             private String stockOrgName;
-            private int unitId;
             private int id;
             private String paezProjectName;
 
@@ -264,12 +265,12 @@ public class OutStockApplyDetailBean implements Serializable {
                 this.unitName = unitName;
             }
 
-            public void setPaezProject(String paezProject) {
-                this.paezProject = paezProject;
-            }
-
             public void setSpecification(String specification) {
                 this.specification = specification;
+            }
+
+            public void setPaezProject(String paezProject) {
+                this.paezProject = paezProject;
             }
 
             public void setMaterialId(String materialId) {
@@ -300,16 +301,16 @@ public class OutStockApplyDetailBean implements Serializable {
                 this.stockId = stockId;
             }
 
+            public void setUnitId(int unitId) {
+                this.unitId = unitId;
+            }
+
             public void setStockOrgId(int stockOrgId) {
                 this.stockOrgId = stockOrgId;
             }
 
             public void setStockOrgName(String stockOrgName) {
                 this.stockOrgName = stockOrgName;
-            }
-
-            public void setUnitId(int unitId) {
-                this.unitId = unitId;
             }
 
             public void setId(int id) {
@@ -332,12 +333,12 @@ public class OutStockApplyDetailBean implements Serializable {
                 return unitName;
             }
 
-            public String getPaezProject() {
-                return paezProject;
-            }
-
             public String getSpecification() {
                 return specification;
+            }
+
+            public String getPaezProject() {
+                return paezProject;
             }
 
             public String getMaterialId() {
@@ -368,16 +369,16 @@ public class OutStockApplyDetailBean implements Serializable {
                 return stockId;
             }
 
+            public int getUnitId() {
+                return unitId;
+            }
+
             public int getStockOrgId() {
                 return stockOrgId;
             }
 
             public String getStockOrgName() {
                 return stockOrgName;
-            }
-
-            public int getUnitId() {
-                return unitId;
             }
 
             public int getId() {

@@ -30,6 +30,7 @@ import com.kingdee.ah.pda.util.decoration.SpacesItemDecoration;
 import com.kingdee.ah.pda.volley.HTTPUtils;
 import com.kingdee.ah.pda.volley.VolleyListener;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -143,6 +144,8 @@ public class WarehouseOutApplicationActivity extends BaseActivity {
             stockAdapter.getData().clear();
             stockAdapter.notifyDataSetChanged();
         }
+        map.put("limit", String.valueOf(LIMIT));
+        map.put("page",String.valueOf(PAGE));
         String outstockapply = Constance.getOUTSTOCKAPPLY();
         HTTPUtils.getInstance(this).postByJson(outstockapply, OutStockApplyBean.class, map, new VolleyListener<OutStockApplyBean>() {
             @Override
@@ -183,6 +186,7 @@ public class WarehouseOutApplicationActivity extends BaseActivity {
                             outStockRefresh.loadNothing();
                         }
                     }
+                    stockAdapter.setEmptyView(R.layout.view_empt, outStockRecycler);
                 } else {
                     if (type == 0) {
                         outStockRefresh.refreshComplete();

@@ -256,6 +256,7 @@
             android:text="子项明细" />
 
         <com.bin.david.form.core.SmartTable
+            android:id="@+id/material_list_table"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="400dp" />

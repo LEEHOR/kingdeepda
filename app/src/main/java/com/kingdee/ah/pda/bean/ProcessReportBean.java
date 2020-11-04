@@ -17,10 +17,11 @@ import java.util.List;
  */
 public class ProcessReportBean implements Serializable {
 
+
     /**
      * msg : 操作成功
      * code : 0
-     * data : [{"date":"2020-09-19","prdOrgId":null,"workShopId":null,"prdOrgName":"金锋馥（滁州）输送机械有限公司","documentStatus":"C","details":[],"id":100021,"billTypeName":"工序入库汇报","workShopName":"生管部","billNo":"GXHB000017","billTypeId":null,"totalRptQty":4},{"date":"2020-09-19","prdOrgId":null,"workShopId":null,"prdOrgName":"金锋馥（滁州）输送机械有限公司","documentStatus":"C","details":[],"id":100020,"billTypeName":"工序入库汇报","workShopName":"生管部","billNo":"GXHB000016","billTypeId":null,"totalRptQty":5},{"date":"2020-09-18","prdOrgId":null,"workShopId":null,"prdOrgName":"金锋馥（滁州）输送机械有限公司","documentStatus":"C","details":[],"id":100019,"billTypeName":"工序入库汇报","workShopName":"生管部","billNo":"GXHB000015","billTypeId":null,"totalRptQty":6},{"date":"2020-09-17","prdOrgId":null,"workShopId":null,"prdOrgName":"金锋馥（滁州）输送机械有限公司","documentStatus":"C","details":[],"id":100018,"billTypeName":"工序入库汇报","workShopName":"生管部","billNo":"GXHB000014","billTypeId":null,"totalRptQty":4},{"date":"2020-09-17","prdOrgId":null,"workShopId":null,"prdOrgName":"金锋馥（滁州）输送机械有限公司","documentStatus":"C","details":[],"id":100017,"billTypeName":"工序入库汇报","workShopName":"生管部","billNo":"GXHB000013","billTypeId":null,"totalRptQty":4},{"date":"2020-09-11","prdOrgId":null,"workShopId":null,"prdOrgName":"金锋馥（滁州）输送机械有限公司","documentStatus":"C","details":[],"id":100015,"billTypeName":"工序入库汇报","workShopName":"生管部","billNo":"GXHB000012","billTypeId":null,"totalRptQty":164},{"date":"2020-09-11","prdOrgId":null,"workShopId":null,"prdOrgName":"金锋馥（滁州）输送机械有限公司","documentStatus":"C","details":[],"id":100014,"billTypeName":"工序入库汇报","workShopName":"生管部","billNo":"GXHB000011","billTypeId":null,"totalRptQty":4349},{"date":"2020-09-11","prdOrgId":null,"workShopId":null,"prdOrgName":"金锋馥（滁州）输送机械有限公司","documentStatus":"C","details":[],"id":100013,"billTypeName":"工序入库汇报","workShopName":"生管部","billNo":"GXHB000010","billTypeId":null,"totalRptQty":9},{"date":"2020-09-11","prdOrgId":null,"workShopId":null,"prdOrgName":"金锋馥（滁州）输送机械有限公司","documentStatus":"C","details":[],"id":100012,"billTypeName":"工序入库汇报","workShopName":"生管部","billNo":"GXHB000009","billTypeId":null,"totalRptQty":10},{"date":"2020-09-10","prdOrgId":null,"workShopId":null,"prdOrgName":"金锋馥（滁州）输送机械有限公司","documentStatus":"C","details":[],"id":100011,"billTypeName":"工序入库汇报","workShopName":"生管部","billNo":"GXHB000008","billTypeId":null,"totalRptQty":1}]
+     * data : [{"date":"2020-09-10","prdOrgId":null,"workShopId":null,"prdOrgName":"金锋馥（滁州）输送机械有限公司","documentStatus":"C","details":[],"id":100010,"billTypeName":"工序入库汇报","workShopName":"生管部","billNo":"GXHB000007","billTypeId":null,"totalRptQty":5},{"date":"2020-09-10","prdOrgId":null,"workShopId":null,"prdOrgName":"金锋馥（滁州）输送机械有限公司","documentStatus":"C","details":[],"id":100007,"billTypeName":"工序入库汇报","workShopName":"生管部","billNo":"GXHB000004","billTypeId":null,"totalRptQty":5},{"date":"2020-09-10","prdOrgId":null,"workShopId":null,"prdOrgName":"金锋馥（滁州）输送机械有限公司","documentStatus":"C","details":[],"id":100005,"billTypeName":"工序入库汇报","workShopName":"生管部","billNo":"GXHB000002","billTypeId":null,"totalRptQty":5},{"date":"2020-09-10","prdOrgId":null,"workShopId":null,"prdOrgName":"金锋馥（滁州）输送机械有限公司","documentStatus":"C","details":[],"id":100004,"billTypeName":"工序入库汇报","workShopName":"生管部","billNo":"GXHB000001","billTypeId":null,"totalRptQty":5}]
      */
     private String msg;
     private int code;
@@ -52,18 +53,18 @@ public class ProcessReportBean implements Serializable {
 
     public class DataEntity {
         /**
-         * date : 2020-09-19
+         * date : 2020-09-10
          * prdOrgId : null
          * workShopId : null
          * prdOrgName : 金锋馥（滁州）输送机械有限公司
          * documentStatus : C
          * details : []
-         * id : 100021
+         * id : 100010
          * billTypeName : 工序入库汇报
          * workShopName : 生管部
-         * billNo : GXHB000017
+         * billNo : GXHB000007
          * billTypeId : null
-         * totalRptQty : 4
+         * totalRptQty : 5
          */
         private String date;
         private String prdOrgId;

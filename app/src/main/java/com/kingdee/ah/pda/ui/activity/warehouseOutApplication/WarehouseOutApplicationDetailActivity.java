@@ -133,7 +133,7 @@ public class WarehouseOutApplicationDetailActivity extends BaseActivity {
 
     //创建表格
     private void createTable() {
-        outStockDetailTable.getConfig().setShowYSequence(false);
+        outStockDetailTable.getConfig().setShowYSequence(true);
         outStockDetailTable.getConfig().setShowXSequence(false);
         outStockDetailTable.getConfig().setShowTableTitle(false);
         outStockDetailTable.getConfig().setVerticalPadding(24);

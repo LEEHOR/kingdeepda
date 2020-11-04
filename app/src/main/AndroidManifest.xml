@@ -55,6 +55,7 @@
             </intent-filter>
         </activity>
         <activity
+            android:launchMode="singleTop"
             android:name="com.kingdee.ah.pda.LoginActivity" />
         <activity
             android:name="com.kingdee.ah.pda.HomeActivity" />

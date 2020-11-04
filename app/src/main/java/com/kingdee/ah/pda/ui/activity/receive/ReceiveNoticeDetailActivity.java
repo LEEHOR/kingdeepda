@@ -134,24 +134,6 @@ public class ReceiveNoticeDetailActivity extends BaseActivity {
                 tvFbillType.setText(dataEntity.getFbillType());//单据类型
             }
         }
-        noticeDetailTab.getConfig().setShowYSequence(false);
-        noticeDetailTab.getConfig().setShowXSequence(false);
-        noticeDetailTab.getConfig().setShowTableTitle(false);
-        noticeDetailTab.getConfig().setVerticalPadding(24);
-        noticeDetailTab.getConfig().setContentStyle(new FontStyle(45, Color.BLUE));
-        noticeDetailTab.getConfig().setColumnTitleStyle(new FontStyle(45, Color.WHITE));
-        noticeDetailTab.getConfig().setColumnTitleBackground(new BaseBackgroundFormat(getResources().getColor(R.color.titlebar_color)));
-        noticeDetailTab.getConfig().setContentCellBackgroundFormat(new BaseCellBackgroundFormat<CellInfo>() {
-            @Override
-            public int getBackGroundColor(CellInfo cellInfo) {
-                if (cellInfo.row % 2 == 0) {
-                    return ContextCompat.getColor(ReceiveNoticeDetailActivity.this, R.color.black_f5f5f5);
-                } else {
-                    return ContextCompat.getColor(ReceiveNoticeDetailActivity.this, R.color.yellowF23757);
-                   // return TableConfig.INVALID_COLOR; //返回无效颜色，不会绘制
-                }
-            }
-        });
         createTable();
         if (fid!=0){
             getTableBodyDate(String.valueOf(fid));
@@ -201,6 +183,24 @@ public class ReceiveNoticeDetailActivity extends BaseActivity {
 
     //创建表格
     private void createTable() {
+        noticeDetailTab.getConfig().setShowYSequence(true);
+        noticeDetailTab.getConfig().setShowXSequence(false);
+        noticeDetailTab.getConfig().setShowTableTitle(false);
+        noticeDetailTab.getConfig().setVerticalPadding(24);
+        noticeDetailTab.getConfig().setContentStyle(new FontStyle(45, Color.BLUE));
+        noticeDetailTab.getConfig().setColumnTitleStyle(new FontStyle(45, Color.WHITE));
+        noticeDetailTab.getConfig().setColumnTitleBackground(new BaseBackgroundFormat(getResources().getColor(R.color.titlebar_color)));
+        noticeDetailTab.getConfig().setContentCellBackgroundFormat(new BaseCellBackgroundFormat<CellInfo>() {
+            @Override
+            public int getBackGroundColor(CellInfo cellInfo) {
+                if (cellInfo.row % 2 == 0) {
+                    return ContextCompat.getColor(ReceiveNoticeDetailActivity.this, R.color.black_f5f5f5);
+                } else {
+                    return ContextCompat.getColor(ReceiveNoticeDetailActivity.this, R.color.yellowF23757);
+                    // return TableConfig.INVALID_COLOR; //返回无效颜色，不会绘制
+                }
+            }
+        });
         // Column<String> c0 = new Column<>("单据编号", "billNo");
         Column<String> c1 = new Column<>("物料编码", "fmaterialNumber");
         c1.setTextAlign(Paint.Align.LEFT);

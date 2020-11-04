@@ -16,7 +16,7 @@ import java.util.List;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class MaterialBean implements Serializable {
+public class MaterialHeadBean implements Serializable {
 
     /**
      * msg : 操作成功

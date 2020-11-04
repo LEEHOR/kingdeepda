@@ -63,14 +63,6 @@ public class OtherStockOutActivity extends BaseActivity {
     protected void initfun() {
 
     }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
-
     @OnClick({R.id.iv_add, R.id.iv_scan})
     public void onViewClicked(View view) {
         switch (view.getId()) {
