@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <com.kingdee.ah.pda.ui.view.TitleTopOrdersView
         android:id="@+id/production_warehousing_title"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -14,20 +16,61 @@
 
     <include
         android:id="@+id/in_view"
-        android:layout_width="match_parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/production_warehousing_title"
         layout="@layout/include_view_scan" />
+    <android.support.constraint.ConstraintLayout
+        android:orientation="horizontal"
+        android:id="@+id/cts_1"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/in_view">
 
+        <TextView
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/menu2"
+            android:id="@+id/menu1"
+            android:visibility="invisible"
+            style="@style/mine_fragment"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/ic_bottom_black"
+            android:padding="10dp"
+            android:text="@string/menu_5" />
+
+        <TextView
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/menu1"
+            android:id="@+id/menu2"
+            style="@style/mine_fragment"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/ic_bottom_black"
+            android:padding="10dp"
+            android:text="@string/menu_4" />
+    </android.support.constraint.ConstraintLayout>
     <com.ajguan.library.EasyRefreshLayout
         android:id="@+id/production_refresh"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/in_view"
+        app:layout_constraintTop_toBottomOf="@id/cts_1"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <android.support.v7.widget.RecyclerView

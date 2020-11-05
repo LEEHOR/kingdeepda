@@ -3,6 +3,7 @@ package com.kingdee.ah.pda.ui.activity.warehouseOutApplication;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -24,6 +25,7 @@ import com.kingdee.ah.pda.ui.adapter.OutStockAdapter;
 import com.kingdee.ah.pda.ui.dialog.MsgShowDialog;
 import com.kingdee.ah.pda.ui.view.TitleTopOrdersView;
 import com.kingdee.ah.pda.util.GsonUtils;
+import com.kingdee.ah.pda.util.KeyboardUtils;
 import com.kingdee.ah.pda.util.LocalDisplay;
 import com.kingdee.ah.pda.util.ToastUtil;
 import com.kingdee.ah.pda.util.decoration.SpacesItemDecoration;
@@ -91,7 +93,7 @@ public class WarehouseOutApplicationActivity extends BaseActivity {
         });
         TextView tex_item = outTitle.getTex_item();
         tex_item.setVisibility(View.VISIBLE);
-        tex_item.setText("出库申请列表页");
+        tex_item.setText("出库申请列表");
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         stockAdapter = new OutStockAdapter(R.layout.item_warehousing_out);
         outStockRecycler.setLayoutManager(linearLayoutManager);
@@ -130,6 +132,20 @@ public class WarehouseOutApplicationActivity extends BaseActivity {
                         break;
                     case R.id.btn_push:
                         push(outStockApplyBean.getId());
+                        break;
+                }
+            }
+        });
+        //recyclerview滚动监听
+        outStockRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                switch (newState) {
+                    case RecyclerView.SCROLL_STATE_DRAGGING:
+                    case RecyclerView.SCROLL_STATE_SETTLING:
+                        // appSearch.clearFocus();
+                        KeyboardUtils.hideKeyboard(appSearch);
                         break;
                 }
             }
@@ -201,6 +217,7 @@ public class WarehouseOutApplicationActivity extends BaseActivity {
         });
     }
 
+    //下推
     private void push(int id) {
         final String outstockpush = Constance.getOUTSTOCKPUSH();
         HTTPUtils.getInstance(this).get(outstockpush + id, new VolleyListener<String>() {
@@ -222,6 +239,7 @@ public class WarehouseOutApplicationActivity extends BaseActivity {
                     Intent intent = new Intent(WarehouseOutApplicationActivity.this, OtherStockOutDetailActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("outstock", outStockPushBean);
+                    intent.putExtra("pageType",1);
                     intent.putExtra("outDetail", bundle);
                     startActivity(intent);
                 } else if (code == 500) {

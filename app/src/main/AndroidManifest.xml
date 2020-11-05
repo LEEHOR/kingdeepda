@@ -86,7 +86,7 @@
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.receive.ReceiveNoticeActivity"
             android:launchMode="singleTop"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.receive.ReceiveNoticeDetailActivity"
             android:launchMode="singleTop"
@@ -94,7 +94,7 @@
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.purchaseWarehousing.PurchaseWarehousingActivity"
             android:launchMode="singleTop"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.purchaseWarehousing.PurchaseWarehousingAddActivity"
             android:launchMode="singleTop"
@@ -106,7 +106,7 @@
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.processReport.ProcessReportListActivity"
             android:launchMode="singleTop"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.processReport.ProcessReportDetailActivity"
             android:launchMode="singleTop"
@@ -114,7 +114,7 @@
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.productionWarehousing.ProductionWarehousingActivity"
             android:launchMode="singleTop"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.productionWarehousing.ProductionWarehousingAddActivity"
             android:launchMode="singleTop"
@@ -126,7 +126,7 @@
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.warehouseOutApplication.WarehouseOutApplicationActivity"
             android:launchMode="singleTop"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.warehouseOutApplication.WarehouseOutApplicationDetailActivity"
             android:launchMode="singleTop"
@@ -134,7 +134,7 @@
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.deliverNotice.DeliveryNoticeActivity"
             android:launchMode="singleTop"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.deliverNotice.DeliveryNoticeDetailActivity"
             android:launchMode="singleTop"
@@ -142,11 +142,11 @@
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.inventoryChecking.InventoryCheckingActivity"
             android:launchMode="singleTop"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.materialList.MaterialListActivity"
             android:launchMode="singleTop"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.materialList.MaterialListDetailActivity"
             android:launchMode="singleTop"
@@ -154,7 +154,7 @@
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.productionPicking.ProductionPickingActivity"
             android:launchMode="singleTop"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.productionPicking.ProductionPickingAddActivity"
             android:launchMode="singleTop"
@@ -166,7 +166,7 @@
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.otherStockOut.OtherStockOutActivity"
             android:launchMode="singleTop"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.otherStockOut.OtherStockOutAddActivity"
             android:launchMode="singleTop"
@@ -178,7 +178,7 @@
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.salesDeliveryOutStock.SalesDeliveryOutStockActivity"
             android:launchMode="singleTop"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
             android:name="com.kingdee.ah.pda.ui.activity.salesDeliveryOutStock.SalesDeliveryOutStockAddActivity"
             android:launchMode="singleTop"

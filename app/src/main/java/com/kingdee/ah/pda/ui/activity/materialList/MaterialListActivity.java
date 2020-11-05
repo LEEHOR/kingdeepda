@@ -3,6 +3,7 @@ package com.kingdee.ah.pda.ui.activity.materialList;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -21,6 +22,7 @@ import com.kingdee.ah.pda.constance.Constance;
 import com.kingdee.ah.pda.ui.activity.productionPicking.ProductionPickingDetailActivity;
 import com.kingdee.ah.pda.ui.adapter.MaterialListAdapter;
 import com.kingdee.ah.pda.ui.view.TitleTopOrdersView;
+import com.kingdee.ah.pda.util.KeyboardUtils;
 import com.kingdee.ah.pda.util.LocalDisplay;
 import com.kingdee.ah.pda.util.ToastUtil;
 import com.kingdee.ah.pda.util.decoration.SpacesItemDecoration;
@@ -78,6 +80,7 @@ public class MaterialListActivity extends BaseActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+        map.clear();
         ivAdd.setVisibility(View.GONE);
         materialListTitle.getBtn_back().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,7 +101,7 @@ public class MaterialListActivity extends BaseActivity {
 
     @Override
     protected void initfun() {
-        map.clear();
+
         getData(0);
         materialRefresh.addEasyEvent(new EasyRefreshLayout.EasyEvent() {
             @Override
@@ -127,6 +130,21 @@ public class MaterialListActivity extends BaseActivity {
                         break;
                     case R.id.btn_push:
                         pushDate(dataEntity.getFid());
+                        break;
+                }
+            }
+        });
+
+        //recyclerview滚动监听
+        materialRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                switch (newState) {
+                    case RecyclerView.SCROLL_STATE_DRAGGING:
+                    case RecyclerView.SCROLL_STATE_SETTLING:
+                        // appSearch.clearFocus();
+                        KeyboardUtils.hideKeyboard(appSearch);
                         break;
                 }
             }
@@ -214,6 +232,7 @@ public class MaterialListActivity extends BaseActivity {
                     Bundle bundle1 = new Bundle();
                     bundle1.putInt("fid", response.getData().getId());
                     bundle1.putString("fnumber", response.getData().getNumber());
+                    intent1.putExtra("pageType",1);
                     intent1.putExtras(bundle1);
                     startActivity(intent1);
                 } else {

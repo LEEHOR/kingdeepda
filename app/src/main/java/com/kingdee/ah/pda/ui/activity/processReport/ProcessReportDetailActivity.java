@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.bin.david.form.core.SmartTable;
-import com.bin.david.form.core.TableConfig;
 import com.bin.david.form.data.CellInfo;
 import com.bin.david.form.data.column.Column;
 import com.bin.david.form.data.format.bg.BaseBackgroundFormat;
@@ -140,6 +139,7 @@ public class ProcessReportDetailActivity extends BaseActivity {
 
 
 
+    //获取数据
     private void getData() {
         ShowProgress(this,"正在加载...",false);
         String processReportDetail = Constance.getProcessReportDetail();

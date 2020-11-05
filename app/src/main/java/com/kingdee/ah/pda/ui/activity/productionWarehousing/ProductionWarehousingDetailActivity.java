@@ -84,22 +84,25 @@ public class ProductionWarehousingDetailActivity extends BaseActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+
         processDetailTitle.getBtn_back().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
             }
         });
+
         TextView tex_item = processDetailTitle.getTex_item();
         tex_item.setVisibility(View.VISIBLE);
-        tex_item.setText("生产入库详情");
-        createTable();
-    }
-
-    @Override
-    protected void initfun() {
         if (getIntent() != null) {
             Bundle process = getIntent().getExtras();
+            int pageType = getIntent().getIntExtra("pageType", 0);
+            if (pageType ==0){
+                btnPush.setVisibility(View.GONE);
+                tex_item.setText("生产入库单详情");
+            } else {
+                tex_item.setText("生产入库单新增");
+            }
             if (process != null) {
                 PushProcessReportBean reportBean = (PushProcessReportBean) process.get("process");
                 reportBeanData = reportBean.getData();
@@ -112,6 +115,13 @@ public class ProductionWarehousingDetailActivity extends BaseActivity {
                 productionTable.addData(details, true);
             }
         }
+
+        createTable();
+    }
+
+    @Override
+    protected void initfun() {
+
 
         tableData.setOnRowClickListener(new TableData.OnRowClickListener<PushProcessReportBean.DataEntity.DetailsEntity>() {
             @Override

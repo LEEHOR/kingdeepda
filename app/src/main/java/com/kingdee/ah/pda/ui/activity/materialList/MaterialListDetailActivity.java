@@ -89,12 +89,6 @@ public class MaterialListDetailActivity extends BaseActivity {
         });
         TextView tex_item = materialListDetailTitle.getTex_item();
         tex_item.setVisibility(View.VISIBLE);
-        tex_item.setText("用料清单详情页");
-    }
-
-    @Override
-    protected void initfun() {
-        CreateTable();
         if (getIntent() != null) {
             Bundle materialHead = getIntent().getBundleExtra("materialBundle");
             MaterialHeadBean.DataEntity dataEntity = (MaterialHeadBean.DataEntity) materialHead.get("head");
@@ -108,19 +102,26 @@ public class MaterialListDetailActivity extends BaseActivity {
             tvFunitName.setText(dataEntity.getFunitName());
             tvFmobillNO.setText(dataEntity.getFmobillNO());
             tvFdocumentStatus.setText(dataEntity.getFdocumentStatus());
-            int fid = dataEntity.getFid();
-            if (fid != 0) {
-                getDetailBody(fid);
-            }
+            fid = dataEntity.getFid();
+            tex_item.setText("用料清单详情");
         }
 
 
     }
 
+    @Override
+    protected void initfun() {
+        CreateTable();
+        if (fid != 0) {
+            getDetailBody(fid);
+        }
+
+    }
+
     //获取表体
-    private void getDetailBody(int fid) {
+    private void getDetailBody(int fids) {
         map.clear();
-        map.put("fid", String.valueOf(fid));
+        map.put("fid", String.valueOf(fids));
         String prdPpbom = Constance.getPrdPpbom();
         ShowProgress(this, "正在加载...", false);
         HTTPUtils.getInstance(this).postByJson(prdPpbom, MaterialBodyBean.class, map, new VolleyListener<MaterialBodyBean>() {

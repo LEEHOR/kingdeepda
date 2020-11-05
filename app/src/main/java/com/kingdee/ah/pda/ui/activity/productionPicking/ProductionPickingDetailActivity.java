@@ -50,7 +50,15 @@ public class ProductionPickingDetailActivity extends BaseActivity {
         });
         TextView tex_item = titleTopOrdersView.getTex_item();
         tex_item.setVisibility(View.VISIBLE);
-        tex_item.setText("生产领料详情");
+        if (getIntent() != null) {
+            int pageType = getIntent().getIntExtra("pageType", 0);
+            if (pageType==0){
+                tex_item.setText("生产领料详情");
+            } else {
+                tex_item.setText("生产领料新增");
+            }
+        }
+
     }
 
     @Override

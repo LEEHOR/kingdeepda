@@ -56,7 +56,7 @@ public class SalesDeliveryOutStockActivity extends BaseActivity {
         });
         TextView tex_item = titleTopOrdersView.getTex_item();
         tex_item.setVisibility(View.VISIBLE);
-        tex_item.setText("销售出库");
+        tex_item.setText("销售出库列表");
     }
 
     @Override

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,6 +24,7 @@ import com.kingdee.ah.pda.constance.Constance;
 import com.kingdee.ah.pda.ui.activity.receive.ReceiveNoticeActivity;
 import com.kingdee.ah.pda.ui.adapter.SalDeliverNoticeAdapter;
 import com.kingdee.ah.pda.ui.view.TitleTopOrdersView;
+import com.kingdee.ah.pda.util.KeyboardUtils;
 import com.kingdee.ah.pda.util.LocalDisplay;
 import com.kingdee.ah.pda.util.ToastUtil;
 import com.kingdee.ah.pda.util.decoration.SpacesItemDecoration;
@@ -92,7 +94,7 @@ public class DeliveryNoticeActivity extends BaseActivity {
         });
         TextView tex_item = deliveryNoticeTitle.getTex_item();
         tex_item.setVisibility(View.VISIBLE);
-        tex_item.setText("发货通知列表页");
+        tex_item.setText("发货通知列表");
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         noticeAdapter = new SalDeliverNoticeAdapter(R.layout.item_sales_deliver_notice);
@@ -126,6 +128,21 @@ public class DeliveryNoticeActivity extends BaseActivity {
                     case R.id.btn_detail:
                         break;
                     case R.id.btn_push:
+                        break;
+                }
+            }
+        });
+
+        //recyclerview滚动监听
+        salDeliverNoticeRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                switch (newState) {
+                    case RecyclerView.SCROLL_STATE_DRAGGING:
+                    case RecyclerView.SCROLL_STATE_SETTLING:
+                        // appSearch.clearFocus();
+                        KeyboardUtils.hideKeyboard(appSearch);
                         break;
                 }
             }

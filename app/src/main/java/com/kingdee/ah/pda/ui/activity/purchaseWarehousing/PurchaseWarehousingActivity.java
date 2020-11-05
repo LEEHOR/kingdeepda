@@ -6,11 +6,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -32,7 +34,9 @@ import com.kingdee.ah.pda.ui.popWindows.OnDateSelectListener;
 import com.kingdee.ah.pda.ui.popWindows.OnStateChangeListener;
 import com.kingdee.ah.pda.ui.popWindows.SupplierSelectMenu;
 import com.kingdee.ah.pda.ui.view.TitleTopOrdersView;
+import com.kingdee.ah.pda.util.KeyboardUtils;
 import com.kingdee.ah.pda.util.LocalDisplay;
+import com.kingdee.ah.pda.util.StringUtil;
 import com.kingdee.ah.pda.util.ToastUtil;
 import com.kingdee.ah.pda.util.decoration.SpacesItemDecoration;
 import com.kingdee.ah.pda.volley.HTTPUtils;
@@ -84,6 +88,8 @@ public class PurchaseWarehousingActivity extends BaseActivity {
     LinearLayout cts1;
     @BindView(R.id.menu3)
     TextView menu3;
+    @BindView(R.id.purchase_root)
+    ConstraintLayout purchaseRoot;
     private PurchaseWarehousingAdapter adapter;
     //条件参数
     private Map<String, String> mapParam = new HashMap<>();
@@ -106,10 +112,11 @@ public class PurchaseWarehousingActivity extends BaseActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+        KeyboardUtils.hideKeyboard(appSearch);
         purchaseWarehousingTitle.getBtn_back().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               onBackPressed();
+                onBackPressed();
             }
         });
         TextView tex_item = purchaseWarehousingTitle.getTex_item();
@@ -138,6 +145,20 @@ public class PurchaseWarehousingActivity extends BaseActivity {
                 getDate(0, mapParam);
             }
         });
+        //recyclerview滚动监听
+        purchaseRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                switch (newState) {
+                    case RecyclerView.SCROLL_STATE_DRAGGING:
+                    case RecyclerView.SCROLL_STATE_SETTLING:
+                       // appSearch.clearFocus();
+                        KeyboardUtils.hideKeyboard(appSearch);
+                        break;
+                }
+            }
+        });
 
         appSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -153,7 +174,6 @@ public class PurchaseWarehousingActivity extends BaseActivity {
             }
         });
 
-
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -161,6 +181,7 @@ public class PurchaseWarehousingActivity extends BaseActivity {
                 Intent intent1 = new Intent(PurchaseWarehousingActivity.this, PurchaseWarehousingDetailActivity.class);
                 intent1.putExtra("fid", item.getFid());
                 intent1.putExtra("fnumber", item.getFbillNo());
+                intent1.putExtra("pageType", 0);
                 startActivity(intent1);
             }
         });
@@ -198,8 +219,8 @@ public class PurchaseWarehousingActivity extends BaseActivity {
             }
 
             @Override
-            public void onSelectDayWeekMonth(String time1, int time2) {
-                menu2.setText(time1);
+            public void onSelectDayWeekMonth(String startTime,String endTime, int time2) {
+                menu2.setText(startTime);
                 dateSelectMenu.dismiss();
             }
 
@@ -224,7 +245,7 @@ public class PurchaseWarehousingActivity extends BaseActivity {
 
             @Override
             public void onSelect(String name, String number) {
-                menu2.setText(name);
+                menu3.setText(name);
                 supplierSelectMenu.dismiss();
             }
         });
@@ -262,10 +283,10 @@ public class PurchaseWarehousingActivity extends BaseActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 if (adapter == null && purchaseRecycler == null) {
-                   return;
+                    return;
                 }
                 adapter.setEmptyView(R.layout.view_error, purchaseRecycler);
-                if (loadType==0){
+                if (loadType == 0) {
                     purchaseOrderRefresh.refreshComplete();
                 } else {
                     purchaseOrderRefresh.loadMoreFail();
@@ -277,32 +298,32 @@ public class PurchaseWarehousingActivity extends BaseActivity {
                 if (adapter == null && purchaseOrderRefresh == null) {
                     return;
                 }
-                    int code = response.getCode();
-                    if (code == 0) {
-                        PAGE++;
-                        List<InStockHeadBean.DataEntity> data = response.getData();
-                            if (loadType == 0) {
-                                adapter.setNewData(data);
-                                purchaseOrderRefresh.refreshComplete();
-                            } else {
-                                if (data.size() > 0) {
-                                    adapter.addData(data);
-                                    purchaseOrderRefresh.loadMoreComplete();
-                                } else {
-                                    purchaseOrderRefresh.loadNothing();
-                                }
-                            }
-                            adapter.setEmptyView(R.layout.view_empt, purchaseRecycler);
+                int code = response.getCode();
+                if (code == 0) {
+                    PAGE++;
+                    List<InStockHeadBean.DataEntity> data = response.getData();
+                    if (loadType == 0) {
+                        adapter.setNewData(data);
+                        purchaseOrderRefresh.refreshComplete();
                     } else {
-                        if (loadType==0){
-                            purchaseOrderRefresh.refreshComplete();
+                        if (data.size() > 0) {
+                            adapter.addData(data);
+                            purchaseOrderRefresh.loadMoreComplete();
                         } else {
-                            purchaseOrderRefresh.loadMoreFail();
+                            purchaseOrderRefresh.loadNothing();
                         }
-                        adapter.setEmptyView(R.layout.view_error, purchaseRecycler);
-                        ToastUtil.show(PurchaseWarehousingActivity.this, response.getMsg());
                     }
+                    adapter.setEmptyView(R.layout.view_empt, purchaseRecycler);
+                } else {
+                    if (loadType == 0) {
+                        purchaseOrderRefresh.refreshComplete();
+                    } else {
+                        purchaseOrderRefresh.loadMoreFail();
+                    }
+                    adapter.setEmptyView(R.layout.view_error, purchaseRecycler);
+                    ToastUtil.show(PurchaseWarehousingActivity.this, response.getMsg());
                 }
+            }
         });
     }
 
@@ -361,24 +382,31 @@ public class PurchaseWarehousingActivity extends BaseActivity {
                 PurchaseWarehousingAddActivity.show(this);
                 break;
             case R.id.iv_scan:
+               // appSearch.clearFocus();
+                KeyboardUtils.hideKeyboard(purchaseRoot);
                 wantCameraPermission();
                 break;
             case R.id.menu1:
+              //  appSearch.clearFocus();
+                KeyboardUtils.hideKeyboard(purchaseRoot);
                 if (commonSelectMenu != null) {
                     commonSelectMenu.showAsDropDown(cts1);
                 }
                 break;
             case R.id.menu2:
+              //  appSearch.clearFocus();
+                KeyboardUtils.hideKeyboard(purchaseRoot);
                 if (dateSelectMenu != null) {
                     dateSelectMenu.showAsDropDown(cts1);
                 }
                 break;
             case R.id.menu3:
+             //   appSearch.clearFocus();
+                KeyboardUtils.hideKeyboard(purchaseRoot);
                 if (supplierSelectMenu != null) {
                     supplierSelectMenu.showAsDropDown(cts1);
                 }
                 break;
         }
     }
-
 }

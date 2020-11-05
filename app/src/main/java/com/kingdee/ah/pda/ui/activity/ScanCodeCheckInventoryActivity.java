@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,6 +32,7 @@ import com.kingdee.ah.pda.ui.popWindows.MaterialSelectMenu;
 import com.kingdee.ah.pda.ui.popWindows.OnStateChangeListener;
 import com.kingdee.ah.pda.ui.popWindows.StockSelectMenu;
 import com.kingdee.ah.pda.ui.view.TitleTopOrdersView;
+import com.kingdee.ah.pda.util.KeyboardUtils;
 import com.kingdee.ah.pda.util.LoadingUtil;
 import com.kingdee.ah.pda.util.LocalDisplay;
 import com.kingdee.ah.pda.util.ToastUtil;
@@ -157,6 +159,7 @@ public class ScanCodeCheckInventoryActivity extends BaseActivity {
         stockRecycler.setAdapter(stockScanAdapter);
         stockRecycler.addItemDecoration(new SpacesItemDecoration(LocalDisplay.designedDP2px(0), LocalDisplay.designedDP2px(8), getResources().getColor(R.color.transparent)));
         stockScanAdapter.setEmptyView(R.layout.view_loading2, stockRecycler);
+
         stockRefresh.addEasyEvent(new EasyRefreshLayout.EasyEvent() {
             @Override
             public void onLoadMore() {
@@ -171,6 +174,22 @@ public class ScanCodeCheckInventoryActivity extends BaseActivity {
                 getSearch(0, mapParam);
             }
         });
+
+        //recyclerview滚动监听
+        stockRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                switch (newState) {
+                    case RecyclerView.SCROLL_STATE_DRAGGING:
+                    case RecyclerView.SCROLL_STATE_SETTLING:
+                        // appSearch.clearFocus();
+                        KeyboardUtils.hideKeyboard(stockSearch);
+                        break;
+                }
+            }
+        });
+
         //仓库分类点击
         stockSelectMenu.setOnStateChangeListener(new OnStateChangeListener() {
             @Override
@@ -367,11 +386,13 @@ public class ScanCodeCheckInventoryActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_classification:
+                KeyboardUtils.hideKeyboard(stockSearch);
                 if (materialSelectMenu != null && !materialSelectMenu.isMenuOpen()) {
                     materialSelectMenu.showAsDropDown(cts1);
                 }
                 break;
             case R.id.tv_stock:
+                KeyboardUtils.hideKeyboard(stockSearch);
                 if (stockSelectMenu != null && !stockSelectMenu.isMenuOpen()) {
                     stockSelectMenu.showAsDropDown(cts1);
                 }

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -30,6 +31,7 @@ import com.kingdee.ah.pda.ui.adapter.ProcessReportAdapter;
 import com.kingdee.ah.pda.ui.dialog.MsgShowDialog;
 import com.kingdee.ah.pda.ui.view.TitleTopOrdersView;
 import com.kingdee.ah.pda.util.GsonUtils;
+import com.kingdee.ah.pda.util.KeyboardUtils;
 import com.kingdee.ah.pda.util.LocalDisplay;
 import com.kingdee.ah.pda.util.ToastUtil;
 import com.kingdee.ah.pda.util.decoration.SpacesItemDecoration;
@@ -98,9 +100,9 @@ public class ProcessReportListActivity extends BaseActivity {
         });
         TextView tex_item = processTitle.getTex_item();
         tex_item.setVisibility(View.VISIBLE);
-        tex_item.setText("工序汇报列表页");
+        tex_item.setText("工序汇报列表");
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        reportAdapter = new ProcessReportAdapter(R.layout.item_process_report);
+        reportAdapter = new ProcessReportAdapter(R.layout.item_production_warse);
         processRecycler.setLayoutManager(linearLayoutManager);
         processRecycler.setAdapter(reportAdapter);
         reportAdapter.setEmptyView(R.layout.view_loading2, processRecycler);
@@ -137,6 +139,21 @@ public class ProcessReportListActivity extends BaseActivity {
                         break;
                     case R.id.btn_push:
                         push(dataEntity.getId());
+                        break;
+                }
+            }
+        });
+
+        //recyclerview滚动监听
+        processRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                switch (newState) {
+                    case RecyclerView.SCROLL_STATE_DRAGGING:
+                    case RecyclerView.SCROLL_STATE_SETTLING:
+                        // appSearch.clearFocus();
+                        KeyboardUtils.hideKeyboard(appSearch);
                         break;
                 }
             }
@@ -250,6 +267,7 @@ public class ProcessReportListActivity extends BaseActivity {
                 if (pushProcessReportBean.getCode()==0) {
                     Intent intent=new Intent(ProcessReportListActivity.this, ProductionWarehousingDetailActivity.class);
                     Bundle bundle=new Bundle();
+                    intent.putExtra("pageType",1);
                     bundle.putSerializable("process",pushProcessReportBean);
                     intent.putExtras(bundle);
                     startActivity(intent);

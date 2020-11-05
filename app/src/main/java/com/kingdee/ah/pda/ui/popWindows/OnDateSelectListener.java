@@ -9,7 +9,7 @@ public interface OnDateSelectListener {
 
     void onSpread();
 
-    void onSelectDayWeekMonth(String time1, int time2);
+    void onSelectDayWeekMonth(String startTime,String endTime, int time2);
 
     void onSelectTime(long startTime, long endTime,String startTimel,String endTimel);
 }

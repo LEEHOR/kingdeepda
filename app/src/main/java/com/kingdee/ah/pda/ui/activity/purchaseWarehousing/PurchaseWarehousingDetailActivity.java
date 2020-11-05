@@ -104,6 +104,7 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
     private InStockHeadBean.DataEntity TableHeadData;
     private int fid = 0;
     private String key_fid = "fid";
+    private int pageType;
 
     @Override
     protected int getContentResId() {
@@ -113,21 +114,30 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+        if (getIntent() != null) {
+            fid = getIntent().getIntExtra("fid", 0);
+            pageType = getIntent().getIntExtra("pageType", 0);
+        }
         receivingDetailTitle.getBtn_back().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
             }
         });
-        receivingDetailTitle.getTex_item().setVisibility(View.VISIBLE);
-        receivingDetailTitle.getTex_item().setText("采购入库详情页");
+        TextView tex_item = receivingDetailTitle.getTex_item();
+        tex_item.setVisibility(View.VISIBLE);
+        if (pageType==0){
+            tex_item.setText("采购入库单详情");
+            btnPush.setVisibility(View.GONE);
+        } else {
+            tex_item.setText("采购入库单新增");
+        }
+
     }
 
     @Override
     protected void initfun() {
-        if (getIntent() != null) {
-            fid = getIntent().getIntExtra("fid", 0);
-        }
+
         createTab();
 
         if (fid != 0) {

@@ -63,9 +63,9 @@ public class HomeActivity extends BaseActivity {
     //添加按钮
     private void addBtn() {
         list.clear();
-        for (int i = 0; i < Constance.btnNameList.length; i++) {
-            addBtn2List(Constance.btnNameList[i], Constance.btnImgList[i]);
-        }
+//        for (int i = 0; i < Constance.btnNameList.length; i++) {
+//            addBtn2List(Constance.btnNameList[i], Constance.btnImgList[i]);
+//        }
         adapter.setList(list,1);
         adapter.notifyDataSetChanged();
     }

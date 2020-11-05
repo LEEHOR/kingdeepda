@@ -73,14 +73,15 @@ public class OtherStockOutDetailActivity extends BaseActivity {
         });
         TextView tex_item = otherStockOutTitle.getTex_item();
         tex_item.setVisibility(View.VISIBLE);
-        tex_item.setText("其他出库");
-    }
-
-    @Override
-    protected void initfun() {
         createTable();
         if (getIntent() != null) {
             Bundle outDetail = getIntent().getBundleExtra("outDetail");
+            int pageType = getIntent().getIntExtra("pageType", 0);
+            if (pageType==0){
+                tex_item.setText("其他出库单详情");
+            } else {
+                tex_item.setText("其他出库单新增");
+            }
             outStockPushBean = (OutStockPushBean) outDetail.get("outstock");
             if (outStockPushBean != null) {
                 OutStockPushBean.DataEntity data = outStockPushBean.getData();
@@ -94,6 +95,13 @@ public class OtherStockOutDetailActivity extends BaseActivity {
                 otherStockTable.addData(details,true);
             }
         }
+
+    }
+
+    @Override
+    protected void initfun() {
+
+
 
     }
 

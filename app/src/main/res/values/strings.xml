@@ -169,4 +169,5 @@
     <string name="menu_2">单据类型</string>
     <string name="menu_3">供应商</string>
     <string name="menu_4">时间</string>
+    <string name="menu_5">单据编号</string>
 </resources>

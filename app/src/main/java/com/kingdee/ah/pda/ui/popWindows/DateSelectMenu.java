@@ -76,7 +76,7 @@ public class DateSelectMenu {
             @Override
             public void onClick(View v) {
                 if (onDateSelectListener != null) {
-                    onDateSelectListener.onSelectDayWeekMonth("全部", 0);
+                    onDateSelectListener.onSelectDayWeekMonth("", "",0);
                 }
             }
         });
@@ -84,7 +84,7 @@ public class DateSelectMenu {
             @Override
             public void onClick(View v) {
                 if (onDateSelectListener != null) {
-                    onDateSelectListener.onSelectDayWeekMonth("本日", 1);
+                    onDateSelectListener.onSelectDayWeekMonth("", "",1);
                 }
             }
         });
@@ -92,7 +92,7 @@ public class DateSelectMenu {
             @Override
             public void onClick(View v) {
                 if (onDateSelectListener != null) {
-                    onDateSelectListener.onSelectDayWeekMonth("本周", 2);
+                    onDateSelectListener.onSelectDayWeekMonth("", "",2);
                 }
             }
         });
@@ -100,7 +100,7 @@ public class DateSelectMenu {
             @Override
             public void onClick(View v) {
                 if (onDateSelectListener != null) {
-                    onDateSelectListener.onSelectDayWeekMonth("本月", 3);
+                    onDateSelectListener.onSelectDayWeekMonth("", "",3);
                 }
             }
         });

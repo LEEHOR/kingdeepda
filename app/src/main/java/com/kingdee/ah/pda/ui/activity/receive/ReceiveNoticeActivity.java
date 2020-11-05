@@ -7,7 +7,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -35,8 +37,10 @@ import com.kingdee.ah.pda.ui.popWindows.OnDateSelectListener;
 import com.kingdee.ah.pda.ui.popWindows.OnStateChangeListener;
 import com.kingdee.ah.pda.ui.popWindows.SupplierSelectMenu;
 import com.kingdee.ah.pda.ui.view.TitleTopOrdersView;
+import com.kingdee.ah.pda.util.KeyboardUtils;
 import com.kingdee.ah.pda.util.LocalDisplay;
 import com.kingdee.ah.pda.util.Logutil;
+import com.kingdee.ah.pda.util.StringUtil;
 import com.kingdee.ah.pda.util.ToastUtil;
 import com.kingdee.ah.pda.util.decoration.SpacesItemDecoration;
 import com.kingdee.ah.pda.volley.HTTPUtils;
@@ -48,9 +52,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Predicate;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -87,6 +91,8 @@ public class ReceiveNoticeActivity extends BaseActivity {
     TextView menu3;
     @BindView(R.id.cts_1)
     LinearLayout cts1;
+    @BindView(R.id.receive_root)
+    ConstraintLayout receiveRoot;
 
     //入参
     private String key_fid = "fid";
@@ -124,13 +130,14 @@ public class ReceiveNoticeActivity extends BaseActivity {
                 onBackPressed();
             }
         });
-        receivingTitle.getTex_item().setText("收料通知单");
+        receivingTitle.getTex_item().setText("收料通知单列表");
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ReceiveNoticeActivity.this);
         receivingAdapter = new ReceivingAdapter(R.layout.item_receiving_notice);
         receivingRecycler.setLayoutManager(linearLayoutManager);
         receivingRecycler.setAdapter(receivingAdapter);
         receivingAdapter.setEmptyView(R.layout.view_loading2, receivingRecycler);
         receivingRecycler.addItemDecoration(new SpacesItemDecoration(LocalDisplay.designedDP2px(0), LocalDisplay.designedDP2px(8), getResources().getColor(R.color.transparent)));
+        // regeKeyListener(receiveRoot,appSearch,ReceiveNoticeActivity.this);
     }
 
     @Override
@@ -168,6 +175,28 @@ public class ReceiveNoticeActivity extends BaseActivity {
                 return false;
             }
         });
+        appSearch.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                KeyboardUtils.hideKeyboard(appSearch);
+                return false;
+            }
+        });
+        //recyclerview滚动监听
+        receivingRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                switch (newState) {
+                    case RecyclerView.SCROLL_STATE_DRAGGING:
+                    case RecyclerView.SCROLL_STATE_SETTLING:
+                       // appSearch.clearFocus();
+                        KeyboardUtils.hideKeyboard(appSearch);
+                        break;
+                }
+            }
+        });
+
         receivingAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
@@ -221,8 +250,8 @@ public class ReceiveNoticeActivity extends BaseActivity {
             }
 
             @Override
-            public void onSelectDayWeekMonth(String time1, int time2) {
-                menu2.setText(time1);
+            public void onSelectDayWeekMonth(String startTime,String endTime, int time2) {
+                menu2.setText(startTime);
                 dateSelectMenu.dismiss();
             }
 
@@ -387,6 +416,7 @@ public class ReceiveNoticeActivity extends BaseActivity {
                     Bundle bundle1 = new Bundle();
                     bundle1.putInt("fid", response.getData().getId());
                     bundle1.putString("fnumber", response.getData().getNumber());
+                    intent1.putExtra("pageType", 1);
                     intent1.putExtras(bundle1);
                     startActivity(intent1);
                 } else {
@@ -431,21 +461,25 @@ public class ReceiveNoticeActivity extends BaseActivity {
                 wantCameraPermission();
                 break;
             case R.id.menu1:
+                KeyboardUtils.hideKeyboard(appSearch);
                 if (commonSelectMenu != null) {
                     commonSelectMenu.showAsDropDown(cts1);
                 }
                 break;
             case R.id.menu2:
+                KeyboardUtils.hideKeyboard(appSearch);
                 if (dateSelectMenu != null) {
                     dateSelectMenu.showAsDropDown(cts1);
                 }
                 break;
             case R.id.menu3:
+                KeyboardUtils.hideKeyboard(appSearch);
                 if (supplierSelectMenu != null) {
                     supplierSelectMenu.showAsDropDown(cts1);
                 }
                 break;
         }
     }
+
 }
 

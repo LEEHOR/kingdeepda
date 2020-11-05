@@ -119,14 +119,17 @@ public class Constance {
     public static final String PROCESSREPORTDETAIL = "/api/pda/operationReport/get/";
     //工序汇报推送到云端
     public static final String PUSHPROCESS = "/api/pda/operationReport/push/";
-
     //生产入库-审核入库
     public static final String PUSHPRODUCTION = "/api/pda/operationReport/audit";
+    //生产入库表头列表
+    public static final String prdInstockPage = "api/pda/operationReport/prdInstockPage";
 
     //用料清单表头
     public static final String prdPpbomHead = "/api/pda/prdPpbom/getPrdPpbomHead";
     //用料清单表体
     public static final String PrdPpbom = "/api/pda/prdPpbom/getPrdPpbom";
+    //生产领料的表头列表
+    public static final String getPickMtrl = "/api/pda/pickMtrl/getPickMtrl";
 
     //出库申请列表
     public static final String OUTSTOCKAPPLY = "/api/pda/outStockApply/list";
@@ -134,6 +137,8 @@ public class Constance {
     public static final String OUTSTOCKAPPLYDETAIL = "/api/pda/outStockApply/get/";
     //出库申请下推
     public static final String OUTSTOCKPUSH = "/api/pda/outStockApply/push/";
+    //出库申请列表
+    public static final String misdeliveryPage = "/api/pda/outStockApply/misdeliveryPage";
 
     //发货通知列表
     public static final String SalDeliverynotice = "/api/pda/salDeliverynotice/getSalDeliverynotice";
@@ -259,6 +264,10 @@ public class Constance {
         return getBaseUrl() + PUSHPRODUCTION;
     }
 
+    //生产入库列表
+    public static String getPrdInstockPage() {
+        return prdInstockPage;
+    }
 
     //出库申请列表
     public static String getOUTSTOCKAPPLY() {
@@ -275,6 +284,11 @@ public class Constance {
         return getBaseUrl() + OUTSTOCKPUSH;
     }
 
+    //其他出库列表
+    public static String getMisdeliveryPage() {
+        return getBaseUrl() + misdeliveryPage;
+    }
+
     //用料清单表头
     public static String getPrdPpbomHead() {
         return getBaseUrl() + prdPpbomHead;
@@ -285,10 +299,16 @@ public class Constance {
         return getBaseUrl() + PrdPpbom;
     }
 
+    //生产领料表头列表
+    public static String getGetPickMtrl() {
+        return getBaseUrl() + getPickMtrl;
+    }
+
     //发货通知单列表
     public static String getSalDeliverynotice() {
         return getBaseUrl() + SalDeliverynotice;
     }
+
 
     public static class SHAREP {
         /**
