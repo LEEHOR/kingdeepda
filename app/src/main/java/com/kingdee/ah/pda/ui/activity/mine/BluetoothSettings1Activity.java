@@ -400,19 +400,15 @@ public class BluetoothSettings1Activity extends BaseActivity {
 
     //检查蓝牙是否支持及打开
     private void checkBlueStatus() {
-        Logutil.print("蓝牙", "开启....");
         if (!ble.isSupportBle(this)) {
-            Logutil.print("蓝牙", "开启111....");
         }
         if (!ble.isBleEnable()) {
-            Logutil.print("蓝牙", "开启2222....");
             ble.turnOnBlueTooth(this);
         } else {
             BluetoothDatesEntity.bleDevices.clear();
             BluetoothDatesEntity.bleDevices.addAll(ble.getConnectedDevices());
             bluetoothBindAdapter.setNewData(BluetoothDatesEntity.bleDevices);
             if (!ble.isScanning()) {
-                Logutil.print("蓝牙", "开启3333....");
                 ble.startScan(scanCallback);
             }
         }
@@ -423,7 +419,7 @@ public class BluetoothSettings1Activity extends BaseActivity {
 
         @Override
         public void onLeScan(BleDevice device, int rssi, byte[] scanRecord) {
-            Logutil.print("蓝牙扫描", device.getBleAddress());
+            Logutil.print("蓝牙扫描"+device.getBleAddress());
             message = new Message();
             message.what = Comment.FOUND;
             message.obj = device;

@@ -11,7 +11,6 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -36,10 +35,9 @@ import com.kingdee.ah.pda.ui.popWindows.SupplierSelectMenu;
 import com.kingdee.ah.pda.ui.view.TitleTopOrdersView;
 import com.kingdee.ah.pda.util.KeyboardUtils;
 import com.kingdee.ah.pda.util.LocalDisplay;
-import com.kingdee.ah.pda.util.StringUtil;
 import com.kingdee.ah.pda.util.ToastUtil;
 import com.kingdee.ah.pda.util.decoration.SpacesItemDecoration;
-import com.kingdee.ah.pda.volley.HTTPUtils;
+import com.kingdee.ah.pda.volley.NetworkUtil;
 import com.kingdee.ah.pda.volley.VolleyListener;
 import com.yxp.permission.util.lib.PermissionUtil;
 import com.yxp.permission.util.lib.callback.PermissionResultCallBack;
@@ -50,7 +48,6 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -274,7 +271,7 @@ public class PurchaseWarehousingActivity extends BaseActivity {
         params.put("page", String.valueOf(PAGE));
         params.put("limit", String.valueOf(LIMIT));
         String getstkInStock = Constance.getGetstkInStock();
-        HTTPUtils.getInstance(this).postByJson(getstkInStock, InStockHeadBean.class, params, new VolleyListener<InStockHeadBean>() {
+        NetworkUtil.getInstance().postByJson(this,getstkInStock, InStockHeadBean.class, params, new VolleyListener<InStockHeadBean>() {
             @Override
             public void requestComplete() {
 
@@ -282,9 +279,7 @@ public class PurchaseWarehousingActivity extends BaseActivity {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                if (adapter == null && purchaseRecycler == null) {
-                    return;
-                }
+
                 adapter.setEmptyView(R.layout.view_error, purchaseRecycler);
                 if (loadType == 0) {
                     purchaseOrderRefresh.refreshComplete();
@@ -295,9 +290,6 @@ public class PurchaseWarehousingActivity extends BaseActivity {
 
             @Override
             public void onResponse(InStockHeadBean response) {
-                if (adapter == null && purchaseOrderRefresh == null) {
-                    return;
-                }
                 int code = response.getCode();
                 if (code == 0) {
                     PAGE++;
@@ -408,5 +400,11 @@ public class PurchaseWarehousingActivity extends BaseActivity {
                 }
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        App.sRequestQueue.cancelAll(PurchaseWarehousingActivity.this.getClass().getName());
     }
 }

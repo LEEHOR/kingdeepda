@@ -14,21 +14,18 @@ import android.widget.TextView;
 import com.ajguan.library.EasyRefreshLayout;
 import com.android.volley.VolleyError;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.kingdee.ah.pda.App;
 import com.kingdee.ah.pda.R;
 import com.kingdee.ah.pda.base.BaseActivity;
 import com.kingdee.ah.pda.bean.OtherStockHeadBean;
-import com.kingdee.ah.pda.bean.ProductionWareHeadBean;
 import com.kingdee.ah.pda.constance.Constance;
-import com.kingdee.ah.pda.ui.activity.productionWarehousing.ProductionWarehousingActivity;
-import com.kingdee.ah.pda.ui.activity.productionWarehousing.ProductionWarehousingDetailActivity;
 import com.kingdee.ah.pda.ui.adapter.OtherStockListAdapter;
-import com.kingdee.ah.pda.ui.adapter.ProductionWarehosingAdapter;
 import com.kingdee.ah.pda.ui.view.TitleTopOrdersView;
 import com.kingdee.ah.pda.util.KeyboardUtils;
 import com.kingdee.ah.pda.util.LocalDisplay;
 import com.kingdee.ah.pda.util.ToastUtil;
 import com.kingdee.ah.pda.util.decoration.SpacesItemDecoration;
-import com.kingdee.ah.pda.volley.HTTPUtils;
+import com.kingdee.ah.pda.volley.NetworkUtil;
 import com.kingdee.ah.pda.volley.VolleyListener;
 
 import java.util.HashMap;
@@ -36,7 +33,6 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -83,6 +79,7 @@ public class OtherStockOutActivity extends BaseActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+        mapParam.clear();
         otherStockOutTitle.getBtn_back().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -131,14 +128,14 @@ public class OtherStockOutActivity extends BaseActivity {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 mapParam.put("billNo",s);
-               // getData(0);
+                getData(0);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
                 mapParam.put("billNo",s);
-              //  getData(0);
+                getData(0);
                 return false;
             }
         });
@@ -168,7 +165,7 @@ public class OtherStockOutActivity extends BaseActivity {
         }
         mapParam.put("page",String.valueOf(PAGE));
         mapParam.put("limit",String.valueOf(LIMIT));
-        HTTPUtils.getInstance(OtherStockOutActivity.this).postByJson(misdeliveryPage,
+        NetworkUtil.getInstance().postByJson(OtherStockOutActivity.this,misdeliveryPage,
                 OtherStockHeadBean.class, mapParam, new VolleyListener<OtherStockHeadBean>() {
                     @Override
                     public void requestComplete() {
@@ -177,9 +174,6 @@ public class OtherStockOutActivity extends BaseActivity {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        if (otherRefresh == null && otherRecycler == null) {
-                            return;
-                        }
                         stockListAdapter.setEmptyView(R.layout.view_error, otherRecycler);
                         if (type == 0) {
                             otherRefresh.refreshComplete();
@@ -190,9 +184,6 @@ public class OtherStockOutActivity extends BaseActivity {
 
                     @Override
                     public void onResponse(OtherStockHeadBean response) {
-                        if (otherRefresh == null && otherRecycler == null) {
-                            return;
-                        }
                         int code = response.getCode();
                         if (code == 0) {
                             PAGE++;
@@ -237,4 +228,9 @@ public class OtherStockOutActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        App.sRequestQueue.cancelAll(OtherStockOutActivity.this.getClass().getName());
+    }
 }

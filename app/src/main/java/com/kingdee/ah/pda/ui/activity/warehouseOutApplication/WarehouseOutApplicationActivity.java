@@ -9,12 +9,12 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.ajguan.library.EasyRefreshLayout;
 import com.android.volley.VolleyError;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.kingdee.ah.pda.App;
 import com.kingdee.ah.pda.R;
 import com.kingdee.ah.pda.base.BaseActivity;
 import com.kingdee.ah.pda.bean.OutStockApplyBean;
@@ -29,16 +29,14 @@ import com.kingdee.ah.pda.util.KeyboardUtils;
 import com.kingdee.ah.pda.util.LocalDisplay;
 import com.kingdee.ah.pda.util.ToastUtil;
 import com.kingdee.ah.pda.util.decoration.SpacesItemDecoration;
-import com.kingdee.ah.pda.volley.HTTPUtils;
+import com.kingdee.ah.pda.volley.NetworkUtil;
 import com.kingdee.ah.pda.volley.VolleyListener;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -163,7 +161,7 @@ public class WarehouseOutApplicationActivity extends BaseActivity {
         map.put("limit", String.valueOf(LIMIT));
         map.put("page",String.valueOf(PAGE));
         String outstockapply = Constance.getOUTSTOCKAPPLY();
-        HTTPUtils.getInstance(this).postByJson(outstockapply, OutStockApplyBean.class, map, new VolleyListener<OutStockApplyBean>() {
+        NetworkUtil.getInstance().postByJson(this,outstockapply, OutStockApplyBean.class, map, new VolleyListener<OutStockApplyBean>() {
             @Override
             public void requestComplete() {
 
@@ -171,9 +169,6 @@ public class WarehouseOutApplicationActivity extends BaseActivity {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                if (stockAdapter == null && outStockRecycler == null) {
-                    return;
-                }
                 if (type == 0) {
                     outStockRefresh.refreshComplete();
                 } else {
@@ -184,9 +179,6 @@ public class WarehouseOutApplicationActivity extends BaseActivity {
 
             @Override
             public void onResponse(OutStockApplyBean response) {
-                if (stockAdapter == null && outStockRecycler == null) {
-                    return;
-                }
                 int code = response.getCode();
                 if (code == 0) {
                     PAGE++;
@@ -220,7 +212,7 @@ public class WarehouseOutApplicationActivity extends BaseActivity {
     //下推
     private void push(int id) {
         final String outstockpush = Constance.getOUTSTOCKPUSH();
-        HTTPUtils.getInstance(this).get(outstockpush + id, new VolleyListener<String>() {
+        NetworkUtil.getInstance().get(this,outstockpush + id, new VolleyListener<String>() {
             @Override
             public void requestComplete() {
 
@@ -256,5 +248,11 @@ public class WarehouseOutApplicationActivity extends BaseActivity {
     @OnClick(R.id.iv_scan)
     public void onViewClicked() {
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        App.sRequestQueue.cancelAll(WarehouseOutApplicationActivity.this.getClass().getName());
     }
 }

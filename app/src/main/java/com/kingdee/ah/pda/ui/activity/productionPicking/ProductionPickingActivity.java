@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.ajguan.library.EasyRefreshLayout;
 import com.android.volley.VolleyError;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.kingdee.ah.pda.App;
 import com.kingdee.ah.pda.R;
 import com.kingdee.ah.pda.base.BaseActivity;
 import com.kingdee.ah.pda.bean.ProductionPickHeadBean;
@@ -24,7 +25,7 @@ import com.kingdee.ah.pda.util.KeyboardUtils;
 import com.kingdee.ah.pda.util.LocalDisplay;
 import com.kingdee.ah.pda.util.ToastUtil;
 import com.kingdee.ah.pda.util.decoration.SpacesItemDecoration;
-import com.kingdee.ah.pda.volley.HTTPUtils;
+import com.kingdee.ah.pda.volley.NetworkUtil;
 import com.kingdee.ah.pda.volley.VolleyListener;
 
 import java.util.HashMap;
@@ -141,6 +142,7 @@ public class ProductionPickingActivity extends BaseActivity {
         getDate(0);
     }
 
+    //生产领料表头
     private void getDate(final int loadType){
         if (loadType == 0) {
             this.PAGE = 1;
@@ -151,7 +153,7 @@ public class ProductionPickingActivity extends BaseActivity {
         mapParams.put("page", String.valueOf(PAGE));
         mapParams.put("limit", String.valueOf(LIMIT));
         String getPickMtrl = Constance.getGetPickMtrl();
-        HTTPUtils.getInstance(this).postByJson(getPickMtrl, ProductionPickHeadBean.class, mapParams, new VolleyListener<ProductionPickHeadBean>() {
+        NetworkUtil.getInstance().postByJson(this,getPickMtrl, ProductionPickHeadBean.class, mapParams, new VolleyListener<ProductionPickHeadBean>() {
 
             @Override
             public void requestComplete() {
@@ -159,9 +161,6 @@ public class ProductionPickingActivity extends BaseActivity {
 
             @Override
             public void onResponse(ProductionPickHeadBean response) {
-                if (pickAdapter == null && productionpickRecycler ==null) {
-                    return;
-                }
                 if (response.getCode() == 0) {
                     PAGE++;
                     List<ProductionPickHeadBean.DataEntity> data = response.getData();
@@ -185,9 +184,6 @@ public class ProductionPickingActivity extends BaseActivity {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                if (pickAdapter == null && productionpickRecycler ==null) {
-                    return;
-                }
                 pickAdapter.setEmptyView(R.layout.view_error,productionpickRecycler);
                 if (loadType == 0) {
                     productionpickRefresh.refreshComplete();
@@ -205,5 +201,11 @@ public class ProductionPickingActivity extends BaseActivity {
             case R.id.iv_scan:
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        App.sRequestQueue.cancelAll(ProductionPickingActivity.this.getClass().getName());
     }
 }

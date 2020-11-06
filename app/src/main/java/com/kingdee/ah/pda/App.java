@@ -4,9 +4,12 @@ import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyLog;
 import com.kingdee.ah.pda.ui.view.LoadingView;
 import com.kingdee.ah.pda.util.LocalDisplay;
 import com.kingdee.ah.pda.util.Logutil;
+import com.kingdee.ah.pda.volley.RequestQueueUtil;
 
 import org.litepal.LitePal;
 
@@ -31,14 +34,21 @@ public class App extends Application {
     public static final String UPDATE_STATUS_ACTION = "com.cyht.wykc.action.UPDATE_STATUS";
     private static App mApplication;
     private String TAG = App.class.getSimpleName();
+    //初始化
+    public static RequestQueue sRequestQueue;
     @Override
     public void onCreate() {
         super.onCreate();
         mApplicationContext=getApplicationContext();
         mApplication=this;
+        sRequestQueue = RequestQueueUtil.getRequestQueue(this);
         LitePal.initialize(this);
         LocalDisplay.init(this);
         initBle();
+        VolleyLog.setTag("金蝶云");
+        VolleyLog.DEBUG=true;
+        Logutil.setTag("日志");
+        Logutil.DEBUG=true;
     }
 
     private void initBle() {
@@ -67,12 +77,12 @@ public class App extends Application {
                 .create(mApplication, new Ble.InitCallback() {
                     @Override
                     public void success() {
-                        Logutil.print("蓝牙","蓝牙配置成功");
+                        Logutil.print("蓝牙配置成功");
                     }
 
                     @Override
                     public void failed(int failedCode) {
-                        Logutil.print("蓝牙","蓝牙配置失败");
+                        Logutil.print("蓝牙配置失败");
                     }
                 });
     }

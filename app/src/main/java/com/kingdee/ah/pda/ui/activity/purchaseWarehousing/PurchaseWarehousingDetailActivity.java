@@ -1,7 +1,6 @@
 package com.kingdee.ah.pda.ui.activity.purchaseWarehousing;
 
 import android.Manifest;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -17,7 +16,6 @@ import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.bin.david.form.core.SmartTable;
-import com.bin.david.form.core.TableConfig;
 import com.bin.david.form.data.CellInfo;
 import com.bin.david.form.data.column.Column;
 import com.bin.david.form.data.format.bg.BaseBackgroundFormat;
@@ -36,16 +34,11 @@ import com.kingdee.ah.pda.bean.InStockEntryBean;
 import com.kingdee.ah.pda.bean.InStockHeadBean;
 import com.kingdee.ah.pda.bean.PurchaseAddBean;
 import com.kingdee.ah.pda.constance.Constance;
-import com.kingdee.ah.pda.ui.activity.ScanCodeCheckInventoryActivity;
-import com.kingdee.ah.pda.ui.activity.processReport.ProcessReportDetailActivity;
-import com.kingdee.ah.pda.ui.activity.receive.ReceiveNoticeDetailActivity;
-import com.kingdee.ah.pda.ui.dialog.PurchaseOrderAddDialog;
 import com.kingdee.ah.pda.ui.dialog.PurchaseOrderModifyDialog;
 import com.kingdee.ah.pda.ui.view.TitleTopOrdersView;
 import com.kingdee.ah.pda.util.LoadingUtil;
-import com.kingdee.ah.pda.util.Logutil;
 import com.kingdee.ah.pda.util.ToastUtil;
-import com.kingdee.ah.pda.volley.HTTPUtils;
+import com.kingdee.ah.pda.volley.NetworkUtil;
 import com.kingdee.ah.pda.volley.VolleyListener;
 import com.yxp.permission.util.lib.PermissionUtil;
 import com.yxp.permission.util.lib.callback.PermissionResultCallBack;
@@ -57,7 +50,6 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -152,7 +144,7 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
         params.put(key_fid, id);
         ShowProgress(PurchaseWarehousingDetailActivity.this, "正在加载...", false);
         String getstkInStock = Constance.getGetstkInStock();
-        HTTPUtils.getInstance(this).postByJson(getstkInStock, InStockHeadBean.class, params, new VolleyListener<InStockHeadBean>() {
+        NetworkUtil.getInstance().postByJson(this,getstkInStock, InStockHeadBean.class, params, new VolleyListener<InStockHeadBean>() {
             @Override
             public void onResponse(InStockHeadBean response) {
                 int code = response.getCode();
@@ -192,7 +184,7 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
         Map<String, String> params = new HashMap<>();
         params.put(key_fid, fid);
         String getstkInStockEntry = Constance.getGetstkInStockEntry();
-        HTTPUtils.getInstance(this).postByJson(getstkInStockEntry, InStockEntryBean.class, params, new VolleyListener<InStockEntryBean>() {
+        NetworkUtil.getInstance().postByJson(this,getstkInStockEntry, InStockEntryBean.class, params, new VolleyListener<InStockEntryBean>() {
             @Override
             public void requestComplete() {
                 CancelProgress();
@@ -345,7 +337,7 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
         //   Logutil.print("数据", asJsonObject.toString());
         String stkInStockAdd = Constance.getStkInStockAdd();
         LoadingUtil.ShowProgress(PurchaseWarehousingDetailActivity.this, "正在保存入库", true);
-        HTTPUtils.getInstance(this).postByJson(stkInStockAdd, PurchaseAddBean.class, asJsonObject, new VolleyListener<PurchaseAddBean>() {
+        NetworkUtil.getInstance().postByJson(this,stkInStockAdd, PurchaseAddBean.class, asJsonObject, new VolleyListener<PurchaseAddBean>() {
             @Override
             public void requestComplete() {
                 LoadingUtil.CancelProgress();
@@ -417,9 +409,9 @@ public class PurchaseWarehousingDetailActivity extends BaseActivity {
         }
     }
 
-
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onDestroy() {
+        super.onDestroy();
+        App.sRequestQueue.cancelAll(PurchaseWarehousingDetailActivity.this.getClass().getName());
     }
 }

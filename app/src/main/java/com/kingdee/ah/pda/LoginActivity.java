@@ -20,7 +20,7 @@ import com.kingdee.ah.pda.util.GsonUtils;
 import com.kingdee.ah.pda.util.SharedPreferencesUtil;
 import com.kingdee.ah.pda.util.StringUtil;
 import com.kingdee.ah.pda.util.ToastUtil;
-import com.kingdee.ah.pda.volley.HTTPUtils;
+import com.kingdee.ah.pda.volley.NetworkUtil;
 import com.kingdee.ah.pda.volley.VolleyListener;
 
 import java.util.HashMap;
@@ -98,7 +98,7 @@ public class LoginActivity extends BaseActivity {
 
     private void check() {
         setAddress();
-        HTTPUtils.getInstance(this).cleanerCathe();
+        App.sRequestQueue.getCache().clear();
         if (StringUtil.isEmpty(tvUserName.getText().toString())) {
             ToastUtil.show(this, "请输入用户名");
             return;
@@ -115,7 +115,7 @@ public class LoginActivity extends BaseActivity {
         params.put("username", username);
         params.put("password", password);
         String loginURL = Constance.getLoginURL();
-        HTTPUtils.getInstance(this).post(loginURL, params, new VolleyListener<String>() {
+        NetworkUtil.getInstance().post(this,loginURL, params, new VolleyListener<String>() {
             @Override
             public void requestComplete() {
 
@@ -172,5 +172,11 @@ public class LoginActivity extends BaseActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        App.sRequestQueue.cancelAll(LoginActivity.this.getClass().getName());
     }
 }

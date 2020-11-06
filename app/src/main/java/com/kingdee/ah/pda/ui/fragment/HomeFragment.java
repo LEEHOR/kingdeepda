@@ -2,6 +2,7 @@ package com.kingdee.ah.pda.ui.fragment;
 
 import android.widget.GridView;
 
+import com.kingdee.ah.pda.App;
 import com.kingdee.ah.pda.R;
 import com.kingdee.ah.pda.base.BaseFragment;
 import com.kingdee.ah.pda.bean.HomeBtnBean;
@@ -162,5 +163,6 @@ public class HomeFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        App.sRequestQueue.cancelAll(getActivity().getClass().getName());
     }
 }

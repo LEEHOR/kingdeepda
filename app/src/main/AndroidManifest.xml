@@ -47,6 +47,7 @@
 <!--                        </intent-filter>-->
         </activity>
         <activity
+            android:launchMode="singleTop"
             android:name="com.kingdee.ah.pda.WelComeActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

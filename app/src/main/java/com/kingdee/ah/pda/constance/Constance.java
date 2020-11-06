@@ -122,7 +122,7 @@ public class Constance {
     //生产入库-审核入库
     public static final String PUSHPRODUCTION = "/api/pda/operationReport/audit";
     //生产入库表头列表
-    public static final String prdInstockPage = "api/pda/operationReport/prdInstockPage";
+    public static final String prdInstockPage = "/api/pda/operationReport/prdInstockPage";
 
     //用料清单表头
     public static final String prdPpbomHead = "/api/pda/prdPpbom/getPrdPpbomHead";
@@ -130,6 +130,8 @@ public class Constance {
     public static final String PrdPpbom = "/api/pda/prdPpbom/getPrdPpbom";
     //生产领料的表头列表
     public static final String getPickMtrl = "/api/pda/pickMtrl/getPickMtrl";
+    //生产领料表体
+    public static final String getPickMtrlEntity = "/api/pda/pickMtrl/getPickMtrlEntity";
 
     //出库申请列表
     public static final String OUTSTOCKAPPLY = "/api/pda/outStockApply/list";
@@ -266,7 +268,7 @@ public class Constance {
 
     //生产入库列表
     public static String getPrdInstockPage() {
-        return prdInstockPage;
+        return getBaseUrl() +prdInstockPage;
     }
 
     //出库申请列表
@@ -302,6 +304,11 @@ public class Constance {
     //生产领料表头列表
     public static String getGetPickMtrl() {
         return getBaseUrl() + getPickMtrl;
+    }
+
+    //生产领料表体
+    public static String getGetPickMtrlEntity() {
+        return getBaseUrl() + getPickMtrlEntity;
     }
 
     //发货通知单列表

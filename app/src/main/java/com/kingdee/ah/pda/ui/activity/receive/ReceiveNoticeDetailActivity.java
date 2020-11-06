@@ -21,6 +21,7 @@ import com.bin.david.form.data.format.bg.BaseBackgroundFormat;
 import com.bin.david.form.data.format.bg.BaseCellBackgroundFormat;
 import com.bin.david.form.data.style.FontStyle;
 import com.bin.david.form.data.table.TableData;
+import com.kingdee.ah.pda.App;
 import com.kingdee.ah.pda.R;
 import com.kingdee.ah.pda.base.BaseActivity;
 import com.kingdee.ah.pda.bean.ReceiveBillBean;
@@ -31,7 +32,7 @@ import com.kingdee.ah.pda.ui.activity.purchaseWarehousing.PurchaseWarehousingDet
 import com.kingdee.ah.pda.ui.view.TitleTopOrdersView;
 import com.kingdee.ah.pda.util.LoadingUtil;
 import com.kingdee.ah.pda.util.ToastUtil;
-import com.kingdee.ah.pda.volley.HTTPUtils;
+import com.kingdee.ah.pda.volley.NetworkUtil;
 import com.kingdee.ah.pda.volley.VolleyListener;
 
 import java.math.BigDecimal;
@@ -41,7 +42,6 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -147,7 +147,7 @@ public class ReceiveNoticeDetailActivity extends BaseActivity {
         params.put(key_fid, fid);
         LoadingUtil.ShowProgress(ReceiveNoticeDetailActivity.this,"正在加载...",false);
         String billDetail = Constance.getGetReceivingBillDetail();
-        HTTPUtils.getInstance(this).postByJson(billDetail, ReceiveBillEntry.class, params, new VolleyListener<ReceiveBillEntry>() {
+        NetworkUtil.getInstance().postByJson(this,billDetail, ReceiveBillEntry.class, params, new VolleyListener<ReceiveBillEntry>() {
             @Override
             public void requestComplete() {
                 LoadingUtil.CancelProgress();
@@ -305,7 +305,7 @@ public class ReceiveNoticeDetailActivity extends BaseActivity {
         map.put("fid", String.valueOf(fid));
         String pushReceiving = Constance.getPushReceiving();
         ShowProgress(ReceiveNoticeDetailActivity.this,"正在加载...",false);
-        HTTPUtils.getInstance(this).postByJson(pushReceiving, ReceivePushBean.class, map, new VolleyListener<ReceivePushBean>() {
+        NetworkUtil.getInstance().postByJson(this,pushReceiving, ReceivePushBean.class, map, new VolleyListener<ReceivePushBean>() {
             @Override
             public void onResponse(ReceivePushBean response) {
                 int code = response.getCode();
@@ -336,9 +336,8 @@ public class ReceiveNoticeDetailActivity extends BaseActivity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+    protected void onDestroy() {
+        super.onDestroy();
+        App.sRequestQueue.cancelAll(ReceiveNoticeDetailActivity.this.getClass().getName());
     }
 }

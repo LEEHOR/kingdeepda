@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.ajguan.library.EasyRefreshLayout;
 import com.android.volley.VolleyError;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.kingdee.ah.pda.App;
 import com.kingdee.ah.pda.R;
 import com.kingdee.ah.pda.base.BaseActivity;
 import com.kingdee.ah.pda.bean.MaterialHeadBean;
@@ -26,7 +27,8 @@ import com.kingdee.ah.pda.util.KeyboardUtils;
 import com.kingdee.ah.pda.util.LocalDisplay;
 import com.kingdee.ah.pda.util.ToastUtil;
 import com.kingdee.ah.pda.util.decoration.SpacesItemDecoration;
-import com.kingdee.ah.pda.volley.HTTPUtils;
+import com.kingdee.ah.pda.volley.MyHandler;
+import com.kingdee.ah.pda.volley.NetworkUtil;
 import com.kingdee.ah.pda.volley.VolleyListener;
 
 import java.util.HashMap;
@@ -67,7 +69,7 @@ public class MaterialListActivity extends BaseActivity {
     private int LIMIT = 10;
     private Map<String, String> map = new HashMap<>();
     private MaterialListAdapter listAdapter;
-
+    private MyHandler<MaterialListActivity> myHandler;
     @Override
     protected int getContentResId() {
         return R.layout.activity_material_list;
@@ -101,7 +103,6 @@ public class MaterialListActivity extends BaseActivity {
 
     @Override
     protected void initfun() {
-
         getData(0);
         materialRefresh.addEasyEvent(new EasyRefreshLayout.EasyEvent() {
             @Override
@@ -113,6 +114,7 @@ public class MaterialListActivity extends BaseActivity {
             public void onRefreshing() {
                 map.clear();
                 getData(0);
+
             }
         });
         listAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
@@ -123,9 +125,9 @@ public class MaterialListActivity extends BaseActivity {
                 switch (id) {
                     case R.id.btn_detail:
                         Intent intent = new Intent(MaterialListActivity.this, MaterialListDetailActivity.class);
-                        Bundle bundle=new Bundle();
-                        bundle.putSerializable("head",dataEntity);
-                        intent.putExtra("materialBundle",bundle);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("head", dataEntity);
+                        intent.putExtra("materialBundle", bundle);
                         startActivity(intent);
                         break;
                     case R.id.btn_push:
@@ -149,6 +151,7 @@ public class MaterialListActivity extends BaseActivity {
                 }
             }
         });
+
     }
 
     //获取数据
@@ -161,7 +164,7 @@ public class MaterialListActivity extends BaseActivity {
         map.put("limit", String.valueOf(LIMIT));
         map.put("page", String.valueOf(PAGE));
         String prdPpbomHead = Constance.getPrdPpbomHead();
-        HTTPUtils.getInstance(this).postByJson(prdPpbomHead, MaterialHeadBean.class, map, new VolleyListener<MaterialHeadBean>() {
+        NetworkUtil.getInstance().postByJson(this, prdPpbomHead, MaterialHeadBean.class, map, new VolleyListener<MaterialHeadBean>() {
             @Override
             public void requestComplete() {
 
@@ -169,22 +172,16 @@ public class MaterialListActivity extends BaseActivity {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                if (listAdapter == null && materialRecycler == null) {
-                    return;
-                }
+                listAdapter.setEmptyView(R.layout.view_error, materialRecycler);
                 if (type == 0) {
                     materialRefresh.refreshComplete();
                 } else {
                     materialRefresh.loadMoreFail();
                 }
-                listAdapter.setEmptyView(R.layout.view_error, materialRecycler);
             }
 
             @Override
             public void onResponse(MaterialHeadBean response) {
-                if (listAdapter == null && materialRecycler == null) {
-                    return;
-                }
                 int code = response.getCode();
                 if (code == 0) {
                     PAGE++;
@@ -209,10 +206,9 @@ public class MaterialListActivity extends BaseActivity {
                     }
                     listAdapter.setEmptyView(R.layout.view_error, materialRecycler);
                 }
-
-
             }
         });
+
     }
 
     //下推
@@ -221,7 +217,7 @@ public class MaterialListActivity extends BaseActivity {
         map.put("fid", String.valueOf(fid));
         ShowProgress(this, "正在下推...", false);
         String pushReceiving = Constance.getPushReceiving();
-        HTTPUtils.getInstance(this).postByJson(pushReceiving, ReceivePushBean.class, map, new VolleyListener<ReceivePushBean>() {
+        NetworkUtil.getInstance().postByJson(this, pushReceiving, ReceivePushBean.class, map, new VolleyListener<ReceivePushBean>() {
             @Override
             public void onResponse(ReceivePushBean response) {
                 int code = response.getCode();
@@ -232,7 +228,7 @@ public class MaterialListActivity extends BaseActivity {
                     Bundle bundle1 = new Bundle();
                     bundle1.putInt("fid", response.getData().getId());
                     bundle1.putString("fnumber", response.getData().getNumber());
-                    intent1.putExtra("pageType",1);
+                    intent1.putExtra("pageType", 1);
                     intent1.putExtras(bundle1);
                     startActivity(intent1);
                 } else {
@@ -254,5 +250,12 @@ public class MaterialListActivity extends BaseActivity {
 
     @OnClick(R.id.iv_scan)
     public void onViewClicked() {
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        App.sRequestQueue.cancelAll(MaterialListActivity.this.getClass().getName());
     }
 }

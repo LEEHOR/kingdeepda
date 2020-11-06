@@ -6,19 +6,19 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.android.volley.VolleyError;
+import com.kingdee.ah.pda.App;
 import com.kingdee.ah.pda.R;
 import com.kingdee.ah.pda.base.BaseActivity;
 import com.kingdee.ah.pda.bean.UpdatePwd;
 import com.kingdee.ah.pda.constance.Constance;
 import com.kingdee.ah.pda.constance.Shared;
-import com.kingdee.ah.pda.ui.view.LoadingView;
 import com.kingdee.ah.pda.ui.view.TitleTopOrdersView;
 import com.kingdee.ah.pda.util.GsonUtils;
 import com.kingdee.ah.pda.util.LoadingUtil;
 import com.kingdee.ah.pda.util.SharedPreferencesUtil;
 import com.kingdee.ah.pda.util.StringUtil;
 import com.kingdee.ah.pda.util.ToastUtil;
-import com.kingdee.ah.pda.volley.HTTPUtils;
+import com.kingdee.ah.pda.volley.NetworkUtil;
 import com.kingdee.ah.pda.volley.VolleyListener;
 
 import java.util.HashMap;
@@ -105,7 +105,7 @@ public class ChangePass extends BaseActivity {
         params.put("oldPwd", userOldPass);
         params.put("newPwd", password);
         String updatePwdUrl = Constance.getUpdatePwd();
-        HTTPUtils.getInstance(this).post(updatePwdUrl, params, new VolleyListener<String>() {
+        NetworkUtil.getInstance().post(this,updatePwdUrl, params, new VolleyListener<String>() {
             @Override
             public void requestComplete() {
                 LoadingUtil.CancelProgress();
@@ -143,5 +143,11 @@ public class ChangePass extends BaseActivity {
 
     private void updateUserInfo(String pwd) {
         SharedPreferencesUtil.getInstance(this).setKeyValue(Shared.PASSWORD, pwd);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        App.sRequestQueue.cancelAll(ChangePass.this.getClass().getName());
     }
 }

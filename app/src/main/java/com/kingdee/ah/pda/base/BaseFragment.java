@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.volley.VolleyError;
+import com.kingdee.ah.pda.App;
 import com.kingdee.ah.pda.LoginActivity;
 import com.kingdee.ah.pda.R;
 import com.kingdee.ah.pda.bean.CurrencyBean;
@@ -41,7 +42,7 @@ import com.kingdee.ah.pda.ui.dialog.UpdateBaseDataDialog;
 import com.kingdee.ah.pda.util.GsonUtils;
 import com.kingdee.ah.pda.util.SharedPreferencesUtil;
 import com.kingdee.ah.pda.util.ToastUtil;
-import com.kingdee.ah.pda.volley.HTTPUtils;
+import com.kingdee.ah.pda.volley.NetworkUtil;
 import com.kingdee.ah.pda.volley.VolleyListener;
 
 import org.litepal.LitePal;
@@ -139,19 +140,6 @@ public abstract class BaseFragment extends Fragment {
             mRootView = inflater.inflate(getLayoutId(), container, false);
         }
     }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        bind.unbind();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        HTTPUtils.getInstance(getActivity()).cancelAllRequest();
-    }
-
     private void LoginDialog(final Context context, String msg) {
         builder = new AlertDialog.Builder(context).setIcon(R.mipmap.ic_launcher).setTitle("提示")
                 .setMessage(msg).setPositiveButton("重新登录", new DialogInterface.OnClickListener() {
@@ -318,7 +306,7 @@ public abstract class BaseFragment extends Fragment {
     //请求币别代码
     private void getBdCurrency(final int type) {
         String current = Constance.getCurrent();
-        HTTPUtils.getInstance(getActivity()).get(current, new VolleyListener<String>() {
+        NetworkUtil.getInstance().get(getActivity(),current, new VolleyListener<String>() {
             @Override
             public void requestComplete() {
             }
@@ -371,7 +359,7 @@ public abstract class BaseFragment extends Fragment {
     //请求部门
     private void getBdDepartment(final int type) {
         String department = Constance.getDepartment();
-        HTTPUtils.getInstance(getActivity()).get(department, new VolleyListener<String>() {
+        NetworkUtil.getInstance().get(getActivity(),department, new VolleyListener<String>() {
             @Override
             public void requestComplete() {
             }
@@ -426,7 +414,7 @@ public abstract class BaseFragment extends Fragment {
     //请求金蝶物料表
     private void getBdMaterial(final int type) {
         String materriallist = Constance.getMaterial();
-        HTTPUtils.getInstance(getActivity()).get(materriallist, new VolleyListener<String>() {
+        NetworkUtil.getInstance().get(getActivity(),materriallist, new VolleyListener<String>() {
             @Override
             public void requestComplete() {
             }
@@ -478,7 +466,7 @@ public abstract class BaseFragment extends Fragment {
     //请求存货类别
     private void getBdMaterialCategory(final int type) {
         String materialcategory = Constance.getMaterialcategory();
-        HTTPUtils.getInstance(getActivity()).get(materialcategory, new VolleyListener<String>() {
+        NetworkUtil.getInstance().get(getActivity(),materialcategory, new VolleyListener<String>() {
             @Override
             public void requestComplete() {
             }
@@ -531,7 +519,7 @@ public abstract class BaseFragment extends Fragment {
     //请求组织机构类别
     private void getBdOrganization(final int type) {
         final String organization = Constance.getOrganization();
-        HTTPUtils.getInstance(getActivity()).get(organization, new VolleyListener<String>() {
+        NetworkUtil.getInstance().get(getActivity(),organization, new VolleyListener<String>() {
             @Override
             public void requestComplete() {
             }
@@ -583,7 +571,7 @@ public abstract class BaseFragment extends Fragment {
     //请求项目
     private void getBdProject(final int type) {
         String projectlist = Constance.getProjectlist();
-        HTTPUtils.getInstance(getActivity()).get(projectlist, new VolleyListener<String>() {
+        NetworkUtil.getInstance().get(getActivity(),projectlist, new VolleyListener<String>() {
             @Override
             public void requestComplete() {
             }
@@ -636,7 +624,7 @@ public abstract class BaseFragment extends Fragment {
     //请求仓库
     private void getBdStock(final int type) {
         String stockList = Constance.getStockList();
-        HTTPUtils.getInstance(getActivity()).get(stockList, new VolleyListener<String>() {
+        NetworkUtil.getInstance().get(getActivity(),stockList, new VolleyListener<String>() {
             @Override
             public void requestComplete() {
             }
@@ -688,7 +676,7 @@ public abstract class BaseFragment extends Fragment {
     //请求供应商
     private void getBdSupplier(final int type) {
         String supplier = Constance.getSupplier();
-        HTTPUtils.getInstance(getActivity()).get(supplier, new VolleyListener<String>() {
+        NetworkUtil.getInstance().get(getActivity(),supplier, new VolleyListener<String>() {
             @Override
             public void requestComplete() {
             }
@@ -743,7 +731,7 @@ public abstract class BaseFragment extends Fragment {
     //请求计量单位代码
     private void getBdUnit(final int type) {
         String unit = Constance.getUnit();
-        HTTPUtils.getInstance(getActivity()).get(unit, new VolleyListener<String>() {
+        NetworkUtil.getInstance().get(getActivity(),unit, new VolleyListener<String>() {
             @Override
             public void requestComplete() {
             }
@@ -828,5 +816,24 @@ public abstract class BaseFragment extends Fragment {
             }
         }
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        App.sRequestQueue.start();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        App.sRequestQueue.stop();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        bind.unbind();
+    }
+
 
 }

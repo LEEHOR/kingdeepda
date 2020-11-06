@@ -16,13 +16,14 @@ import com.bin.david.form.data.format.bg.BaseBackgroundFormat;
 import com.bin.david.form.data.format.bg.BaseCellBackgroundFormat;
 import com.bin.david.form.data.style.FontStyle;
 import com.bin.david.form.data.table.TableData;
+import com.kingdee.ah.pda.App;
 import com.kingdee.ah.pda.R;
 import com.kingdee.ah.pda.base.BaseActivity;
 import com.kingdee.ah.pda.bean.ProcessReportDetailBean;
 import com.kingdee.ah.pda.constance.Constance;
 import com.kingdee.ah.pda.ui.view.TitleTopOrdersView;
 import com.kingdee.ah.pda.util.GsonUtils;
-import com.kingdee.ah.pda.volley.HTTPUtils;
+import com.kingdee.ah.pda.volley.NetworkUtil;
 import com.kingdee.ah.pda.volley.VolleyListener;
 
 import java.util.ArrayList;
@@ -143,7 +144,7 @@ public class ProcessReportDetailActivity extends BaseActivity {
     private void getData() {
         ShowProgress(this,"正在加载...",false);
         String processReportDetail = Constance.getProcessReportDetail();
-        HTTPUtils.getInstance(this).get(processReportDetail + fid, new VolleyListener<String>() {
+        NetworkUtil.getInstance().get(this,processReportDetail + fid, new VolleyListener<String>() {
             @Override
             public void requestComplete() {
             CancelProgress();
@@ -170,4 +171,9 @@ public class ProcessReportDetailActivity extends BaseActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        App.sRequestQueue.cancelAll(ProcessReportDetailActivity.this.getClass().getName());
+    }
 }

@@ -13,7 +13,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -33,11 +32,10 @@ import com.kingdee.ah.pda.ui.popWindows.OnStateChangeListener;
 import com.kingdee.ah.pda.ui.popWindows.StockSelectMenu;
 import com.kingdee.ah.pda.ui.view.TitleTopOrdersView;
 import com.kingdee.ah.pda.util.KeyboardUtils;
-import com.kingdee.ah.pda.util.LoadingUtil;
 import com.kingdee.ah.pda.util.LocalDisplay;
 import com.kingdee.ah.pda.util.ToastUtil;
 import com.kingdee.ah.pda.util.decoration.SpacesItemDecoration;
-import com.kingdee.ah.pda.volley.HTTPUtils;
+import com.kingdee.ah.pda.volley.NetworkUtil;
 import com.kingdee.ah.pda.volley.VolleyListener;
 import com.yxp.permission.util.lib.PermissionUtil;
 import com.yxp.permission.util.lib.callback.PermissionResultCallBack;
@@ -48,7 +46,6 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
@@ -283,7 +280,7 @@ public class ScanCodeCheckInventoryActivity extends BaseActivity {
         params.put("page", String.valueOf(PAGE));
         params.put("limit", String.valueOf(LIMIT));
         String inventoryUrl = Constance.getInventory();
-        HTTPUtils.getInstance(this).postByJson(inventoryUrl, StockScanBean.class, params, new VolleyListener<StockScanBean>() {
+        NetworkUtil.getInstance().postByJson(this,inventoryUrl, StockScanBean.class, params, new VolleyListener<StockScanBean>() {
 
             @Override
             public void requestComplete() {
@@ -291,9 +288,6 @@ public class ScanCodeCheckInventoryActivity extends BaseActivity {
 
             @Override
             public void onResponse(StockScanBean response) {
-                if (stockScanAdapter == null && stockRecycler ==null) {
-                    return;
-                }
                     if (response.getCode() == 0) {
                         PAGE++;
                         List<StockScanBean.DataEntity> data = response.getData();
@@ -317,9 +311,6 @@ public class ScanCodeCheckInventoryActivity extends BaseActivity {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                if (stockScanAdapter == null && stockRecycler ==null) {
-                    return;
-                }
                 stockScanAdapter.setEmptyView(R.layout.view_error,stockRecycler);
                 if (loadType == 0) {
                     stockRefresh.refreshComplete();
@@ -398,6 +389,12 @@ public class ScanCodeCheckInventoryActivity extends BaseActivity {
                 }
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        App.sRequestQueue.cancelAll(ScanCodeCheckInventoryActivity.this.getClass().getName());
     }
 }
 

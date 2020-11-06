@@ -8,6 +8,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
+import com.kingdee.ah.pda.App;
 import com.kingdee.ah.pda.LoginActivity;
 import com.kingdee.ah.pda.R;
 import com.kingdee.ah.pda.base.BaseFragment;
@@ -20,14 +21,14 @@ import com.kingdee.ah.pda.ui.activity.mine.SettingDefaultOrganActivity;
 import com.kingdee.ah.pda.ui.dialog.UpdateDialog;
 import com.kingdee.ah.pda.ui.view.CircleImageView;
 import com.kingdee.ah.pda.util.GsonUtils;
-import com.kingdee.ah.pda.util.LoadingUtil;
 import com.kingdee.ah.pda.util.SharedPreferencesUtil;
 import com.kingdee.ah.pda.util.ToastUtil;
-import com.kingdee.ah.pda.volley.HTTPUtils;
+import com.kingdee.ah.pda.volley.NetworkUtil;
 import com.kingdee.ah.pda.volley.VolleyListener;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -156,7 +157,7 @@ public class MineFragment extends BaseFragment {
     private void checkVersion() {
         Map<String, String> params = new HashMap<>();
         String newVersionUrl = Constance.getNewVersion();
-        HTTPUtils.getInstance(getActivity()).post(newVersionUrl, params, new VolleyListener<String>() {
+        NetworkUtil.getInstance().post(getActivity(),newVersionUrl, params, new VolleyListener<String>() {
             @Override
             public void requestComplete() {
 
@@ -164,7 +165,6 @@ public class MineFragment extends BaseFragment {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                ToastUtil.show(getActivity(), error.getMessage());
             }
 
             @Override
@@ -192,4 +192,9 @@ public class MineFragment extends BaseFragment {
         updateDialog.show(getChildFragmentManager(), "update");
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        App.sRequestQueue.cancelAll(getActivity().getClass().getName());
+    }
 }

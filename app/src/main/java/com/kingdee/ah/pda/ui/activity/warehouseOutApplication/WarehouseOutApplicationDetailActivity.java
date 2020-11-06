@@ -3,7 +3,6 @@ package com.kingdee.ah.pda.ui.activity.warehouseOutApplication;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
@@ -21,19 +20,16 @@ import com.bin.david.form.data.table.TableData;
 import com.kingdee.ah.pda.R;
 import com.kingdee.ah.pda.base.BaseActivity;
 import com.kingdee.ah.pda.bean.OutStockApplyDetailBean;
-import com.kingdee.ah.pda.bean.ProcessReportDetailBean;
 import com.kingdee.ah.pda.constance.Constance;
-import com.kingdee.ah.pda.ui.activity.processReport.ProcessReportDetailActivity;
 import com.kingdee.ah.pda.ui.view.TitleTopOrdersView;
 import com.kingdee.ah.pda.util.GsonUtils;
-import com.kingdee.ah.pda.volley.HTTPUtils;
+import com.kingdee.ah.pda.volley.NetworkUtil;
 import com.kingdee.ah.pda.volley.VolleyListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * @ProjectName: kingdeepda
@@ -102,7 +98,7 @@ public class WarehouseOutApplicationDetailActivity extends BaseActivity {
     private void getDetail() {
         String outstockapplydetail = Constance.getOUTSTOCKAPPLYDETAIL();
         ShowProgress(this, "正在加载...", false);
-        HTTPUtils.getInstance(this).get(outstockapplydetail + fid, new VolleyListener<String>() {
+        NetworkUtil.getInstance().get(this,outstockapplydetail + fid, new VolleyListener<String>() {
             @Override
             public void requestComplete() {
                 CancelProgress();

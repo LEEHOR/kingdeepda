@@ -12,11 +12,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.view.View;
 import android.view.ViewTreeObserver;
+
+import com.kingdee.ah.pda.App;
 import com.kingdee.ah.pda.LoginActivity;
 import com.kingdee.ah.pda.R;
 import com.kingdee.ah.pda.util.Logutil;
-import com.kingdee.ah.pda.util.ToastUtil;
-import com.kingdee.ah.pda.volley.HTTPUtils;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -49,19 +49,14 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-         setContentView(getContentResId());
+        setContentView(getContentResId());
         bind = ButterKnife.bind(this);
         initView(savedInstanceState);
         initfun();
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        bind.unbind();
-        HTTPUtils.getInstance(this).cancelAllRequest();
-    }
-    private  void LoginDialog(final Context context, String msg){
+
+    private void LoginDialog(final Context context, String msg) {
         builder = new AlertDialog.Builder(context).setIcon(R.mipmap.ic_launcher).setTitle("提示")
                 .setMessage(msg).setPositiveButton("重新登录", new DialogInterface.OnClickListener() {
                     @Override
@@ -76,11 +71,11 @@ public abstract class BaseActivity extends AppCompatActivity {
                 });
     }
 
-    public AlertDialog CreateDialog(Context context, String msg){
-        if (builder ==null){
-            LoginDialog( context, msg);
+    public AlertDialog CreateDialog(Context context, String msg) {
+        if (builder == null) {
+            LoginDialog(context, msg);
         }
-       return builder.create();
+        return builder.create();
     }
 
 
@@ -107,36 +102,27 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * 移除searView焦点问题
-     * @param v
-     * @param mSearchView
-     * @param activity
-     */
-    @Deprecated
-  public void regeKeyListener(final View v, final SearchView mSearchView, final Activity activity) {
-        // 注册根View布局监听，监听布局大小改变
-        v.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                // 获取当前焦点所在View
-                View currentFocus = activity.getCurrentFocus();
-                String name = currentFocus.getClass().getSimpleName();
-                Rect outRect = new Rect();
-                v.getWindowVisibleDisplayFrame(outRect);
-                // 计算比例，从而判断软键盘是否弹起
-                double dl = 1.0 * outRect.bottom / v.getMeasuredHeight();
-                if (dl < 0.8 && name.equals("android.widget.SearchView$SearchAutoComplete")) {
-                    if (!isKeyUp) {
-                        isKeyUp = true;
-                    }
-                } else if (isKeyUp) {
-                    currentFocus.clearFocus();
-                    mSearchView.clearFocus();
-                    isKeyUp = false;
-                }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        App.sRequestQueue.start();
 
-            }
-        });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        App.sRequestQueue.stop();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        bind.unbind();
     }
 }

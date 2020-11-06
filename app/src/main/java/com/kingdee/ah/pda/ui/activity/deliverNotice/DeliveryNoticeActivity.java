@@ -16,25 +16,23 @@ import android.widget.TextView;
 import com.ajguan.library.EasyRefreshLayout;
 import com.android.volley.VolleyError;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.kingdee.ah.pda.App;
 import com.kingdee.ah.pda.R;
 import com.kingdee.ah.pda.base.BaseActivity;
-import com.kingdee.ah.pda.bean.ReceiveBillBean;
 import com.kingdee.ah.pda.bean.SalDeliverynoticeBean;
 import com.kingdee.ah.pda.constance.Constance;
-import com.kingdee.ah.pda.ui.activity.receive.ReceiveNoticeActivity;
 import com.kingdee.ah.pda.ui.adapter.SalDeliverNoticeAdapter;
 import com.kingdee.ah.pda.ui.view.TitleTopOrdersView;
 import com.kingdee.ah.pda.util.KeyboardUtils;
 import com.kingdee.ah.pda.util.LocalDisplay;
 import com.kingdee.ah.pda.util.ToastUtil;
 import com.kingdee.ah.pda.util.decoration.SpacesItemDecoration;
-import com.kingdee.ah.pda.volley.HTTPUtils;
+import com.kingdee.ah.pda.volley.NetworkUtil;
 import com.kingdee.ah.pda.volley.VolleyListener;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Predicate;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -161,7 +159,7 @@ public class DeliveryNoticeActivity extends BaseActivity {
         mapParam.put("page", String.valueOf(PAGE));
         mapParam.put("limit", String.valueOf(LIMIT));
         String salDeliverynotice = Constance.getSalDeliverynotice();
-        HTTPUtils.getInstance(this).postByJson(salDeliverynotice, SalDeliverynoticeBean.class, mapParam, new VolleyListener<SalDeliverynoticeBean>() {
+        NetworkUtil.getInstance().postByJson(this,salDeliverynotice, SalDeliverynoticeBean.class, mapParam, new VolleyListener<SalDeliverynoticeBean>() {
             @Override
             public void requestComplete() {
 
@@ -169,9 +167,6 @@ public class DeliveryNoticeActivity extends BaseActivity {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                if (noticeAdapter == null && salDeliverNoticeRecycler == null) {
-                    return;
-                }
                 if (loadType == 0) {
                     salDeliverNoticeRefresh.refreshComplete();
                 } else {
@@ -183,9 +178,6 @@ public class DeliveryNoticeActivity extends BaseActivity {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse(SalDeliverynoticeBean response) {
-                if (noticeAdapter == null && salDeliverNoticeRecycler == null) {
-                    return;
-                }
                 int code = response.getCode();
                 if (code == 0) {
                     PAGE++;
@@ -221,5 +213,11 @@ public class DeliveryNoticeActivity extends BaseActivity {
     @OnClick(R.id.iv_scan)
     public void onViewClicked() {
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        App.sRequestQueue.cancelAll(DeliveryNoticeActivity.this.getClass().getName());
     }
 }

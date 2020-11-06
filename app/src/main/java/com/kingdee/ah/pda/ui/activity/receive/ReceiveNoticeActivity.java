@@ -40,10 +40,9 @@ import com.kingdee.ah.pda.ui.view.TitleTopOrdersView;
 import com.kingdee.ah.pda.util.KeyboardUtils;
 import com.kingdee.ah.pda.util.LocalDisplay;
 import com.kingdee.ah.pda.util.Logutil;
-import com.kingdee.ah.pda.util.StringUtil;
 import com.kingdee.ah.pda.util.ToastUtil;
 import com.kingdee.ah.pda.util.decoration.SpacesItemDecoration;
-import com.kingdee.ah.pda.volley.HTTPUtils;
+import com.kingdee.ah.pda.volley.NetworkUtil;
 import com.kingdee.ah.pda.volley.VolleyListener;
 import com.yxp.permission.util.lib.PermissionUtil;
 import com.yxp.permission.util.lib.callback.PermissionResultCallBack;
@@ -54,7 +53,6 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -335,7 +333,7 @@ public class ReceiveNoticeActivity extends BaseActivity {
         params.put("page", String.valueOf(PAGE));
         params.put("limit", String.valueOf(LIMIT));
         String receivingBill = Constance.getReceivingBillList();
-        HTTPUtils.getInstance(this).postByJson(receivingBill, ReceiveBillBean.class, params, new VolleyListener<ReceiveBillBean>() {
+        NetworkUtil.getInstance().postByJson(this,receivingBill, ReceiveBillBean.class, params, new VolleyListener<ReceiveBillBean>() {
             @Override
             public void requestComplete() {
 
@@ -343,9 +341,6 @@ public class ReceiveNoticeActivity extends BaseActivity {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                if (receivingAdapter == null && receivingRecycler == null) {
-                    return;
-                }
                 if (loadType == 0) {
                     receivingRefresh.refreshComplete();
                 } else {
@@ -357,9 +352,6 @@ public class ReceiveNoticeActivity extends BaseActivity {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse(ReceiveBillBean response) {
-                if (receivingAdapter == null && receivingRecycler == null) {
-                    return;
-                }
                 int code = response.getCode();
                 if (code == 0) {
                     PAGE++;
@@ -404,13 +396,13 @@ public class ReceiveNoticeActivity extends BaseActivity {
         map.put("fid", String.valueOf(fid));
         String pushReceiving = Constance.getPushReceiving();
         ShowProgress(this, "正在下推...", false);
-        HTTPUtils.getInstance(this).postByJson(pushReceiving, ReceivePushBean.class, map, new VolleyListener<ReceivePushBean>() {
+        NetworkUtil.getInstance().postByJson(this,pushReceiving, ReceivePushBean.class, map, new VolleyListener<ReceivePushBean>() {
             @Override
             public void onResponse(ReceivePushBean response) {
                 int code = response.getCode();
                 ToastUtil.show(ReceiveNoticeActivity.this, response.getMsg());
                 if (code == 0) {
-                    Logutil.print("下推", response.getData().getId() + "/" + response.getData().getNumber());
+                    Logutil.print("下推:"+response.getData().getId() + "/" + response.getData().getNumber());
                     //跳转到采购入库详情
                     Intent intent1 = new Intent(ReceiveNoticeActivity.this, PurchaseWarehousingDetailActivity.class);
                     Bundle bundle1 = new Bundle();
@@ -481,5 +473,10 @@ public class ReceiveNoticeActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        App.sRequestQueue.cancelAll(ReceiveNoticeActivity.this.getClass().getName());
+    }
 }
 

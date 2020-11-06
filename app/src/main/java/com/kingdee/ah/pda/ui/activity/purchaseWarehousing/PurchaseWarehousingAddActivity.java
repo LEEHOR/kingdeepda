@@ -23,6 +23,7 @@ import com.bin.david.form.data.table.TableData;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import com.kingdee.ah.pda.App;
 import com.kingdee.ah.pda.R;
 import com.kingdee.ah.pda.base.BaseActivity;
 import com.kingdee.ah.pda.bean.InStockEntryBean;
@@ -35,7 +36,7 @@ import com.kingdee.ah.pda.ui.dialog.PurchaseOrderAddDialog;
 import com.kingdee.ah.pda.ui.dialog.SupplierDialog;
 import com.kingdee.ah.pda.ui.view.TitleTopOrdersView;
 import com.kingdee.ah.pda.util.Logutil;
-import com.kingdee.ah.pda.volley.HTTPUtils;
+import com.kingdee.ah.pda.volley.NetworkUtil;
 import com.kingdee.ah.pda.volley.VolleyListener;
 
 import java.math.BigDecimal;
@@ -274,7 +275,7 @@ public class PurchaseWarehousingAddActivity extends BaseActivity {
                 List<InStockEntryBean.DataEntity> t = addTable.getTableData().getT();
                 if (t != null) {
                     InStockEntryBean.DataEntity dataEntity = t.get(row);
-                    Logutil.print("打印",dataEntity.getProjectNumber());
+                    Logutil.print("打印"+dataEntity.getProjectNumber());
                 }
             }
         });
@@ -299,7 +300,7 @@ public class PurchaseWarehousingAddActivity extends BaseActivity {
         JsonObject asJsonObject = gson.toJsonTree(TableHeadData).getAsJsonObject();
     //    Logutil.print("数据", asJsonObject.toString());
         String stkInStockAdd = Constance.getStkInStockAdd();
-        HTTPUtils.getInstance(this).postByJson(stkInStockAdd, UpdatePwd.class, asJsonObject, new VolleyListener<UpdatePwd>() {
+        NetworkUtil.getInstance().postByJson(this,stkInStockAdd, UpdatePwd.class, asJsonObject, new VolleyListener<UpdatePwd>() {
             @Override
             public void requestComplete() {
 
@@ -388,5 +389,11 @@ public class PurchaseWarehousingAddActivity extends BaseActivity {
             case R.id.tv_fchargeName:
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        App.sRequestQueue.cancelAll(PurchaseWarehousingAddActivity.this.getClass().getName());
     }
 }

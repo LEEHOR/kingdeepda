@@ -19,24 +19,23 @@ import com.bin.david.form.data.format.bg.BaseCellBackgroundFormat;
 import com.bin.david.form.data.style.FontStyle;
 import com.bin.david.form.data.table.TableData;
 import com.google.gson.JsonObject;
+import com.kingdee.ah.pda.App;
 import com.kingdee.ah.pda.R;
 import com.kingdee.ah.pda.base.BaseActivity;
 import com.kingdee.ah.pda.bean.PurchaseAddBean;
 import com.kingdee.ah.pda.bean.PushProcessReportBean;
 import com.kingdee.ah.pda.constance.Constance;
-import com.kingdee.ah.pda.ui.activity.purchaseWarehousing.PurchaseWarehousingDetailActivity;
 import com.kingdee.ah.pda.ui.dialog.ProductionWareModifyDialog;
 import com.kingdee.ah.pda.ui.view.TitleTopOrdersView;
 import com.kingdee.ah.pda.util.GsonUtils;
 import com.kingdee.ah.pda.util.ToastUtil;
-import com.kingdee.ah.pda.volley.HTTPUtils;
+import com.kingdee.ah.pda.volley.NetworkUtil;
 import com.kingdee.ah.pda.volley.VolleyListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -192,7 +191,7 @@ public class ProductionWarehousingDetailActivity extends BaseActivity {
             JsonObject jsonObject = GsonUtils.parseJsonObject(reportBeanData);
             ShowProgress(this,"正在入库...",false);
             String pushproduction = Constance.getPushProduction();
-            HTTPUtils.getInstance(this).postByJson(pushproduction, PurchaseAddBean.class, jsonObject, new VolleyListener<PurchaseAddBean>() {
+            NetworkUtil.getInstance().postByJson(this,pushproduction, PurchaseAddBean.class, jsonObject, new VolleyListener<PurchaseAddBean>() {
                 @Override
                 public void requestComplete() {
                     CancelProgress();
@@ -225,5 +224,11 @@ public class ProductionWarehousingDetailActivity extends BaseActivity {
     @OnClick(R.id.btn_push)
     public void onViewClicked() {
         push();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        App.sRequestQueue.cancelAll(ProductionWarehousingDetailActivity.this.getClass().getName());
     }
 }

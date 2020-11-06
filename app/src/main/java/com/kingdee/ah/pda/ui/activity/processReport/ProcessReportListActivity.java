@@ -26,7 +26,6 @@ import com.kingdee.ah.pda.bean.ProcessReportBean;
 import com.kingdee.ah.pda.bean.PushProcessReportBean;
 import com.kingdee.ah.pda.constance.Constance;
 import com.kingdee.ah.pda.ui.activity.productionWarehousing.ProductionWarehousingDetailActivity;
-import com.kingdee.ah.pda.ui.activity.receive.ReceiveNoticeActivity;
 import com.kingdee.ah.pda.ui.adapter.ProcessReportAdapter;
 import com.kingdee.ah.pda.ui.dialog.MsgShowDialog;
 import com.kingdee.ah.pda.ui.view.TitleTopOrdersView;
@@ -35,7 +34,7 @@ import com.kingdee.ah.pda.util.KeyboardUtils;
 import com.kingdee.ah.pda.util.LocalDisplay;
 import com.kingdee.ah.pda.util.ToastUtil;
 import com.kingdee.ah.pda.util.decoration.SpacesItemDecoration;
-import com.kingdee.ah.pda.volley.HTTPUtils;
+import com.kingdee.ah.pda.volley.NetworkUtil;
 import com.kingdee.ah.pda.volley.VolleyListener;
 import com.yxp.permission.util.lib.PermissionUtil;
 import com.yxp.permission.util.lib.callback.PermissionResultCallBack;
@@ -190,7 +189,7 @@ public class ProcessReportListActivity extends BaseActivity {
         }
         mapParams.put("page",String.valueOf(PAGE));
         mapParams.put("limit",String.valueOf(LIMIT));
-        HTTPUtils.getInstance(ProcessReportListActivity.this).postByJson(processreport,
+        NetworkUtil.getInstance().postByJson(ProcessReportListActivity.this,processreport,
                 ProcessReportBean.class, mapParams, new VolleyListener<ProcessReportBean>() {
                     @Override
                     public void requestComplete() {
@@ -250,7 +249,7 @@ public class ProcessReportListActivity extends BaseActivity {
     private void push(int fid){
         String pushProcess = Constance.getPushProcess();
         ShowProgress(this,"正在下推...",false);
-        HTTPUtils.getInstance(this).get(pushProcess + fid, new VolleyListener<String>() {
+        NetworkUtil.getInstance().get(this,pushProcess + fid, new VolleyListener<String>() {
             @Override
             public void requestComplete() {
             CancelProgress();
@@ -330,5 +329,11 @@ public class ProcessReportListActivity extends BaseActivity {
             mapParams.put("billNo", scanResult);
             getData(0);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        App.sRequestQueue.cancelAll(ProcessReportListActivity.this.getClass().getName());
     }
 }

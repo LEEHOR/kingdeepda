@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.ajguan.library.EasyRefreshLayout;
 import com.android.volley.VolleyError;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.kingdee.ah.pda.App;
 import com.kingdee.ah.pda.R;
 import com.kingdee.ah.pda.base.BaseActivity;
 import com.kingdee.ah.pda.bean.ProductionWareHeadBean;
@@ -26,7 +27,7 @@ import com.kingdee.ah.pda.util.KeyboardUtils;
 import com.kingdee.ah.pda.util.LocalDisplay;
 import com.kingdee.ah.pda.util.ToastUtil;
 import com.kingdee.ah.pda.util.decoration.SpacesItemDecoration;
-import com.kingdee.ah.pda.volley.HTTPUtils;
+import com.kingdee.ah.pda.volley.NetworkUtil;
 import com.kingdee.ah.pda.volley.VolleyListener;
 
 import java.util.HashMap;
@@ -198,7 +199,7 @@ public class ProductionWarehousingActivity extends BaseActivity {
             }
             mapParam.put("page",String.valueOf(PAGE));
             mapParam.put("limit",String.valueOf(LIMIT));
-            HTTPUtils.getInstance(ProductionWarehousingActivity.this).postByJson(prdInstockPage,
+            NetworkUtil.getInstance().postByJson(ProductionWarehousingActivity.this,prdInstockPage,
                     ProductionWareHeadBean.class, mapParam, new VolleyListener<ProductionWareHeadBean>() {
                         @Override
                         public void requestComplete() {
@@ -207,9 +208,6 @@ public class ProductionWarehousingActivity extends BaseActivity {
 
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            if (productionRefresh == null && productionRecycler == null) {
-                                return;
-                            }
                             warehosingAdapter.setEmptyView(R.layout.view_error, productionRecycler);
                             if (type == 0) {
                                 productionRefresh.refreshComplete();
@@ -220,9 +218,6 @@ public class ProductionWarehousingActivity extends BaseActivity {
 
                         @Override
                         public void onResponse(ProductionWareHeadBean response) {
-                            if (productionRefresh == null && productionRecycler == null) {
-                                return;
-                            }
                             int code = response.getCode();
                             if (code == 0) {
                                 PAGE++;
@@ -263,5 +258,11 @@ public class ProductionWarehousingActivity extends BaseActivity {
             case R.id.iv_scan:
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        App.sRequestQueue.cancelAll(ProductionWarehousingActivity.this.getClass().getName());
     }
 }

@@ -21,7 +21,7 @@ import com.kingdee.ah.pda.bean.MaterialBodyBean;
 import com.kingdee.ah.pda.bean.MaterialHeadBean;
 import com.kingdee.ah.pda.constance.Constance;
 import com.kingdee.ah.pda.ui.view.TitleTopOrdersView;
-import com.kingdee.ah.pda.volley.HTTPUtils;
+import com.kingdee.ah.pda.volley.NetworkUtil;
 import com.kingdee.ah.pda.volley.VolleyListener;
 
 import java.math.BigDecimal;
@@ -124,7 +124,7 @@ public class MaterialListDetailActivity extends BaseActivity {
         map.put("fid", String.valueOf(fids));
         String prdPpbom = Constance.getPrdPpbom();
         ShowProgress(this, "正在加载...", false);
-        HTTPUtils.getInstance(this).postByJson(prdPpbom, MaterialBodyBean.class, map, new VolleyListener<MaterialBodyBean>() {
+        NetworkUtil.getInstance().postByJson(this,prdPpbom, MaterialBodyBean.class, map, new VolleyListener<MaterialBodyBean>() {
             @Override
             public void requestComplete() {
                 CancelProgress();
