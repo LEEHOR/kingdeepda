@@ -1,5 +1,7 @@
 package com.kingdee.ah.pda.bean;
 
+import android.content.Intent;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -316,8 +318,8 @@ public class PushProcessReportBean implements Serializable {
             private int realQty;
             private String stockName;
             private int mustQty;
-            private int stockId;
-            private int unitId;
+            private Integer stockId;
+            private Integer unitId;
             private int id;
 
             public void setStockLocId(int stockLocId) {
@@ -360,25 +362,6 @@ public class PushProcessReportBean implements Serializable {
                 this.materialName = materialName;
             }
 
-            public void setRealQty(int realQty) {
-                this.realQty = realQty;
-            }
-
-            public void setStockName(String stockName) {
-                this.stockName = stockName;
-            }
-
-            public void setMustQty(int mustQty) {
-                this.mustQty = mustQty;
-            }
-
-            public void setStockId(int stockId) {
-                this.stockId = stockId;
-            }
-
-            public void setUnitId(int unitId) {
-                this.unitId = unitId;
-            }
 
             public void setId(int id) {
                 this.id = id;
@@ -424,28 +407,48 @@ public class PushProcessReportBean implements Serializable {
                 return materialName;
             }
 
+            public String getStockName() {
+                return stockName;
+            }
+
+            public int getId() {
+                return id;
+            }
+
             public int getRealQty() {
                 return realQty;
             }
 
-            public String getStockName() {
-                return stockName;
+            public void setRealQty(int realQty) {
+                this.realQty = realQty;
+            }
+
+            public void setStockName(String stockName) {
+                this.stockName = stockName;
             }
 
             public int getMustQty() {
                 return mustQty;
             }
 
-            public int getStockId() {
+            public void setMustQty(int mustQty) {
+                this.mustQty = mustQty;
+            }
+
+            public Integer getStockId() {
                 return stockId;
             }
 
-            public int getUnitId() {
+            public void setStockId(Integer stockId) {
+                this.stockId = stockId;
+            }
+
+            public Integer getUnitId() {
                 return unitId;
             }
 
-            public int getId() {
-                return id;
+            public void setUnitId(Integer unitId) {
+                this.unitId = unitId;
             }
         }
     }

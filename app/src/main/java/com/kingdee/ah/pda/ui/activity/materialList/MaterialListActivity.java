@@ -3,6 +3,7 @@ package com.kingdee.ah.pda.ui.activity.materialList;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +22,7 @@ import com.kingdee.ah.pda.bean.MaterialHeadBean;
 import com.kingdee.ah.pda.bean.ReceivePushBean;
 import com.kingdee.ah.pda.constance.Constance;
 import com.kingdee.ah.pda.ui.activity.productionPicking.ProductionPickingDetailActivity;
+import com.kingdee.ah.pda.ui.activity.warehouseOutApplication.WarehouseOutApplicationActivity;
 import com.kingdee.ah.pda.ui.adapter.MaterialListAdapter;
 import com.kingdee.ah.pda.ui.view.TitleTopOrdersView;
 import com.kingdee.ah.pda.util.KeyboardUtils;
@@ -51,7 +53,7 @@ import butterknife.OnClick;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class MaterialListActivity extends BaseActivity {
+public class MaterialListActivity extends BaseActivity implements MyHandler.OnReceiveMessageListener {
     @BindView(R.id.material_list_title)
     TitleTopOrdersView materialListTitle;
     @BindView(R.id.app_search)
@@ -69,7 +71,9 @@ public class MaterialListActivity extends BaseActivity {
     private int LIMIT = 10;
     private Map<String, String> map = new HashMap<>();
     private MaterialListAdapter listAdapter;
-    private MyHandler<MaterialListActivity> myHandler;
+    private MyHandler myHandler = new MyHandler(this);
+    private double type;
+
     @Override
     protected int getContentResId() {
         return R.layout.activity_material_list;
@@ -155,7 +159,8 @@ public class MaterialListActivity extends BaseActivity {
     }
 
     //获取数据
-    private void getData(final int type) {
+    private void getData(final int isLoad) {
+        this.type=isLoad;
         if (type == 0) {
             this.PAGE = 1;
             listAdapter.getData().clear();
@@ -164,28 +169,39 @@ public class MaterialListActivity extends BaseActivity {
         map.put("limit", String.valueOf(LIMIT));
         map.put("page", String.valueOf(PAGE));
         String prdPpbomHead = Constance.getPrdPpbomHead();
-        NetworkUtil.getInstance().postByJson(this, prdPpbomHead, MaterialHeadBean.class, map, new VolleyListener<MaterialHeadBean>() {
-            @Override
-            public void requestComplete() {
+        NetworkUtil.getInstance().postByJson(this, prdPpbomHead, MaterialHeadBean.class, map,0,myHandler);
 
-            }
+    }
 
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                listAdapter.setEmptyView(R.layout.view_error, materialRecycler);
-                if (type == 0) {
-                    materialRefresh.refreshComplete();
-                } else {
-                    materialRefresh.loadMoreFail();
-                }
-            }
+    //下推
+    private void pushDate(int fid) {
+        Map<String, String> map = new HashMap<>();
+        map.put("fid", String.valueOf(fid));
+        ShowProgress(this, "正在下推...", false);
+        String pushReceiving = Constance.getPushReceiving();
+        NetworkUtil.getInstance().postByJson(this, pushReceiving, ReceivePushBean.class, map,1,myHandler);
+    }
 
-            @Override
-            public void onResponse(MaterialHeadBean response) {
-                int code = response.getCode();
+    @OnClick(R.id.iv_scan)
+    public void onViewClicked() {
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        myHandler.removeCallbacksAndMessages(null);
+    }
+
+    @Override
+    public void Success(Message message) {
+        switch (message.arg1){
+            case 0:
+                MaterialHeadBean materialHeadBean= (MaterialHeadBean) message.obj;
+                int code = materialHeadBean.getCode();
                 if (code == 0) {
                     PAGE++;
-                    List<MaterialHeadBean.DataEntity> data = response.getData();
+                    List<MaterialHeadBean.DataEntity> data = materialHeadBean.getData();
                     if (type == 0) {
                         listAdapter.setNewData(data);
                         materialRefresh.refreshComplete();
@@ -206,56 +222,44 @@ public class MaterialListActivity extends BaseActivity {
                     }
                     listAdapter.setEmptyView(R.layout.view_error, materialRecycler);
                 }
-            }
-        });
-
-    }
-
-    //下推
-    private void pushDate(int fid) {
-        Map<String, String> map = new HashMap<>();
-        map.put("fid", String.valueOf(fid));
-        ShowProgress(this, "正在下推...", false);
-        String pushReceiving = Constance.getPushReceiving();
-        NetworkUtil.getInstance().postByJson(this, pushReceiving, ReceivePushBean.class, map, new VolleyListener<ReceivePushBean>() {
-            @Override
-            public void onResponse(ReceivePushBean response) {
-                int code = response.getCode();
-                if (code == 0) {
-                    ToastUtil.show(MaterialListActivity.this, response.getMsg());
+                break;
+            case 1:
+                ReceivePushBean receivePushBean= (ReceivePushBean) message.obj;
+                int code1 = receivePushBean.getCode();
+                if (code1 == 0) {
+                    ToastUtil.show(MaterialListActivity.this, receivePushBean.getMsg());
                     //跳转到采购入库详情
                     Intent intent1 = new Intent(MaterialListActivity.this, ProductionPickingDetailActivity.class);
                     Bundle bundle1 = new Bundle();
-                    bundle1.putInt("fid", response.getData().getId());
-                    bundle1.putString("fnumber", response.getData().getNumber());
+                    bundle1.putInt("fid", receivePushBean.getData().getId());
+                    bundle1.putString("fnumber", receivePushBean.getData().getNumber());
                     intent1.putExtra("pageType", 1);
                     intent1.putExtras(bundle1);
                     startActivity(intent1);
                 } else {
-                    ToastUtil.show(MaterialListActivity.this, response.getMsg());
+                    ToastUtil.show(MaterialListActivity.this, receivePushBean.getMsg());
                 }
-            }
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                ToastUtil.show(MaterialListActivity.this, error.getMessage());
-            }
-
-            @Override
-            public void requestComplete() {
-                CancelProgress();
-            }
-        });
+                break;
+        }
     }
 
-    @OnClick(R.id.iv_scan)
-    public void onViewClicked() {
+    @Override
+    public void Failure(int arg) {
+        if (arg==0){
+            listAdapter.setEmptyView(R.layout.view_error, materialRecycler);
+            if (type == 0) {
+                materialRefresh.refreshComplete();
+            } else {
+                materialRefresh.loadMoreFail();
+            }
+        }
 
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        App.sRequestQueue.cancelAll(MaterialListActivity.this.getClass().getName());
+    public void Complete(int arg) {
+            if (arg==1){
+                CancelProgress();
+            }
     }
 }

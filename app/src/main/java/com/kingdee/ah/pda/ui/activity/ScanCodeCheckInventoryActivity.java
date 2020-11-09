@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Message;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
@@ -35,6 +36,7 @@ import com.kingdee.ah.pda.util.KeyboardUtils;
 import com.kingdee.ah.pda.util.LocalDisplay;
 import com.kingdee.ah.pda.util.ToastUtil;
 import com.kingdee.ah.pda.util.decoration.SpacesItemDecoration;
+import com.kingdee.ah.pda.volley.MyHandler;
 import com.kingdee.ah.pda.volley.NetworkUtil;
 import com.kingdee.ah.pda.volley.VolleyListener;
 import com.yxp.permission.util.lib.PermissionUtil;
@@ -62,7 +64,7 @@ import butterknife.OnClick;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class ScanCodeCheckInventoryActivity extends BaseActivity {
+public class ScanCodeCheckInventoryActivity extends BaseActivity implements MyHandler.OnReceiveMessageListener{
     @BindView(R.id.stock_scan_search)
     SearchView stockSearch;
     @BindView(R.id.iv_scan)
@@ -97,6 +99,8 @@ public class ScanCodeCheckInventoryActivity extends BaseActivity {
     ;
     private StockSelectMenu stockSelectMenu;
     private MaterialSelectMenu materialSelectMenu;
+    private double loadType;
+    private MyHandler myHandler=new MyHandler(this);
 
     //
     public static void show(Context context) {
@@ -266,11 +270,12 @@ public class ScanCodeCheckInventoryActivity extends BaseActivity {
     /**
      * 查询\扫描获取数据的方法
      *
-     * @param loadType
+     * @param isload
      * @param params   查询参数
      */
-    private void getSearch(final int loadType, Map<String, String> params) {
+    private void getSearch(final int isload, Map<String, String> params) {
         //   LoadingUtil.ShowProgress(getActivity(),"正在加载数据...");
+        this.loadType=isload;
         if (loadType == 0) {
             this.PAGE = 1;
             this.LIMIT = 10;
@@ -280,45 +285,7 @@ public class ScanCodeCheckInventoryActivity extends BaseActivity {
         params.put("page", String.valueOf(PAGE));
         params.put("limit", String.valueOf(LIMIT));
         String inventoryUrl = Constance.getInventory();
-        NetworkUtil.getInstance().postByJson(this,inventoryUrl, StockScanBean.class, params, new VolleyListener<StockScanBean>() {
-
-            @Override
-            public void requestComplete() {
-            }
-
-            @Override
-            public void onResponse(StockScanBean response) {
-                    if (response.getCode() == 0) {
-                        PAGE++;
-                        List<StockScanBean.DataEntity> data = response.getData();
-                            if (loadType == 0) {
-                                stockScanAdapter.setNewData(data);
-                                stockRefresh.refreshComplete();
-                            } else {
-                                if (data.size() > 0) {
-                                    stockScanAdapter.addData(data);
-                                    stockRefresh.loadMoreComplete();
-                                } else {
-                                    stockRefresh.loadNothing();
-                                }
-                            }
-                            stockScanAdapter.setEmptyView(R.layout.view_empt,stockRecycler);
-                    } else {
-                        stockScanAdapter.setEmptyView(R.layout.view_error,stockRecycler);
-                        ToastUtil.show(ScanCodeCheckInventoryActivity.this,response.getMsg());
-                    }
-                }
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                stockScanAdapter.setEmptyView(R.layout.view_error,stockRecycler);
-                if (loadType == 0) {
-                    stockRefresh.refreshComplete();
-                } else {
-                    stockRefresh.loadMoreFail();
-                }
-            }
-        });
+        NetworkUtil.getInstance().postByJson(this,inventoryUrl, StockScanBean.class, params,0,myHandler);
     }
 
     @OnClick(R.id.iv_scan)
@@ -394,7 +361,46 @@ public class ScanCodeCheckInventoryActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        App.sRequestQueue.cancelAll(ScanCodeCheckInventoryActivity.this.getClass().getName());
+        myHandler.removeCallbacksAndMessages(null);
+    }
+
+    @Override
+    public void Success(Message message) {
+        StockScanBean stockScanBean= (StockScanBean) message.obj;
+        if (stockScanBean.getCode() == 0) {
+            PAGE++;
+            List<StockScanBean.DataEntity> data = stockScanBean.getData();
+            if (loadType == 0) {
+                stockScanAdapter.setNewData(data);
+                stockRefresh.refreshComplete();
+            } else {
+                if (data.size() > 0) {
+                    stockScanAdapter.addData(data);
+                    stockRefresh.loadMoreComplete();
+                } else {
+                    stockRefresh.loadNothing();
+                }
+            }
+            stockScanAdapter.setEmptyView(R.layout.view_empt,stockRecycler);
+        } else {
+            stockScanAdapter.setEmptyView(R.layout.view_error,stockRecycler);
+            ToastUtil.show(ScanCodeCheckInventoryActivity.this,stockScanBean.getMsg());
+        }
+    }
+
+    @Override
+    public void Failure(int arg) {
+        stockScanAdapter.setEmptyView(R.layout.view_error,stockRecycler);
+        if (loadType == 0) {
+            stockRefresh.refreshComplete();
+        } else {
+            stockRefresh.loadMoreFail();
+        }
+    }
+
+    @Override
+    public void Complete(int arg) {
+
     }
 }
 

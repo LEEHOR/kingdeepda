@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
@@ -32,6 +33,7 @@ import com.kingdee.ah.pda.ui.activity.purchaseWarehousing.PurchaseWarehousingDet
 import com.kingdee.ah.pda.ui.view.TitleTopOrdersView;
 import com.kingdee.ah.pda.util.LoadingUtil;
 import com.kingdee.ah.pda.util.ToastUtil;
+import com.kingdee.ah.pda.volley.MyHandler;
 import com.kingdee.ah.pda.volley.NetworkUtil;
 import com.kingdee.ah.pda.volley.VolleyListener;
 
@@ -57,7 +59,7 @@ import butterknife.OnClick;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class ReceiveNoticeDetailActivity extends BaseActivity {
+public class ReceiveNoticeDetailActivity extends BaseActivity implements MyHandler.OnReceiveMessageListener {
 
     @BindView(R.id.receiving_detail_title)
     TitleTopOrdersView detailTitle;
@@ -92,12 +94,13 @@ public class ReceiveNoticeDetailActivity extends BaseActivity {
 
     private String key_fid = "fid";
     private int fid = 0;
-    private int count1 = 0;
-    private int count2 = 0;
-    private int count3 = 0;
+    private Double count1 = 0.0;
+    private Double count2 = 0.0;
+    private Double count3 = 0.0;
 
     private String date;
     private String billNo;
+    private MyHandler myHandler = new MyHandler( this);
 
     @Override
     protected int getContentResId() {
@@ -135,7 +138,7 @@ public class ReceiveNoticeDetailActivity extends BaseActivity {
             }
         }
         createTable();
-        if (fid!=0){
+        if (fid != 0) {
             getTableBodyDate(String.valueOf(fid));
         }
     }
@@ -145,40 +148,9 @@ public class ReceiveNoticeDetailActivity extends BaseActivity {
     private void getTableBodyDate(String fid) {
         Map<String, String> params = new HashMap<>();
         params.put(key_fid, fid);
-        LoadingUtil.ShowProgress(ReceiveNoticeDetailActivity.this,"正在加载...",false);
+        ShowProgress(this, "正在获取...", false);
         String billDetail = Constance.getGetReceivingBillDetail();
-        NetworkUtil.getInstance().postByJson(this,billDetail, ReceiveBillEntry.class, params, new VolleyListener<ReceiveBillEntry>() {
-            @Override
-            public void requestComplete() {
-                LoadingUtil.CancelProgress();
-            }
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-            }
-
-            @Override
-            public void onResponse(ReceiveBillEntry response) {
-                int code = response.getCode();
-                if (code == 0) {
-                    List<ReceiveBillEntry.DataEntity> data = response.getData();
-                    for (int i = 0; i < data.size(); i++) {
-                        count1 += data.get(i).getFactreceiveQty();
-                        count2 += data.get(i).getFsupdelQty();
-                        count3 += data.get(i).getPriceUnitQty();
-                    }
-                    tvFactreceiveQty.setText(String.valueOf(count1));
-                    tvFsupdelQty.setText(String.valueOf(count2));
-                    tvPriceUnitQty.setText(String.valueOf(count3));
-                    noticeDetailTab.addData(data, false);
-                    ToastUtil.show(ReceiveNoticeDetailActivity.this, response.getMsg());
-                    tvFactreceiveQty.setText(String.valueOf(0));
-                    tvFsupdelQty.setText(String.valueOf(0));
-                    tvPriceUnitQty.setText(String.valueOf(0));
-                }
-
-            }
-        });
+        NetworkUtil.getInstance().postByJson(this, billDetail, ReceiveBillEntry.class, params,0,myHandler);
     }
 
     //创建表格
@@ -220,7 +192,7 @@ public class ReceiveNoticeDetailActivity extends BaseActivity {
         c8.setTextAlign(Paint.Align.CENTER);
         Column<String> c9 = new Column<>("仓库名称", "fstockName");
         c9.setTextAlign(Paint.Align.LEFT);
-        Column<BigDecimal> c10 = new Column<>("交货数量", "factreceiveQty");
+        Column<Integer> c10 = new Column<>("交货数量", "factreceiveQty");
         c10.setTextAlign(Paint.Align.CENTER);
         Column<String> c11 = new Column<>("收料单位", "funitName");
         c11.setTextAlign(Paint.Align.CENTER);
@@ -251,11 +223,11 @@ public class ReceiveNoticeDetailActivity extends BaseActivity {
             }
         });
         c12.setTextAlign(Paint.Align.LEFT);
-        Column<BigDecimal> c13 = new Column<>("供应商交货数量", "fsupdelQty");
+        Column<Integer> c13 = new Column<>("供应商交货数量", "fsupdelQty");
         c13.setTextAlign(Paint.Align.LEFT);
         Column<String> c14 = new Column<>("计价单位", "fpriceunitName");
         c14.setTextAlign(Paint.Align.LEFT);
-        Column<BigDecimal> c15 = new Column<>("计价数量", "priceUnitQty");
+        Column<Integer> c15 = new Column<>("计价数量", "priceUnitQty");
         c15.setTextAlign(Paint.Align.LEFT);
         Column<String> c16 = new Column<>("行状态", "documentStatus", new IFormat<String>() {
             @Override
@@ -304,40 +276,70 @@ public class ReceiveNoticeDetailActivity extends BaseActivity {
         Map<String, String> map = new HashMap<>();
         map.put("fid", String.valueOf(fid));
         String pushReceiving = Constance.getPushReceiving();
-        ShowProgress(ReceiveNoticeDetailActivity.this,"正在加载...",false);
-        NetworkUtil.getInstance().postByJson(this,pushReceiving, ReceivePushBean.class, map, new VolleyListener<ReceivePushBean>() {
-            @Override
-            public void onResponse(ReceivePushBean response) {
-                int code = response.getCode();
-                if (code == 0) {
-                    ToastUtil.show(ReceiveNoticeDetailActivity.this, response.getMsg());
-                    //跳转到采购入库详情
-                    Intent intent1 = new Intent(ReceiveNoticeDetailActivity.this, PurchaseWarehousingDetailActivity.class);
-                    Bundle bundle1 = new Bundle();
-                    bundle1.putInt("fid", response.getData().getId());
-                    bundle1.putString("fnumber", response.getData().getNumber());
-                    intent1.putExtras(bundle1);
-                    startActivity(intent1);
-                } else {
-                    ToastUtil.show(ReceiveNoticeDetailActivity.this, response.getMsg());
-                }
-            }
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                ToastUtil.show(ReceiveNoticeDetailActivity.this, error.getMessage());
-            }
-
-            @Override
-            public void requestComplete() {
-               CancelProgress();
-            }
-        });
+        ShowProgress(ReceiveNoticeDetailActivity.this, "正在加载...", false);
+        NetworkUtil.getInstance().postByJson(this, pushReceiving, ReceivePushBean.class, map,1,myHandler);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        App.sRequestQueue.cancelAll(ReceiveNoticeDetailActivity.this.getClass().getName());
+        myHandler.removeCallbacksAndMessages(null);
+    }
+
+    @Override
+    public void Success(Message message) {
+        switch (message.arg1) {
+            case 0:
+                ReceiveBillEntry receiveBillEntry = (ReceiveBillEntry) message.obj;
+                int code = receiveBillEntry.getCode();
+                if (code == 0) {
+                    List<ReceiveBillEntry.DataEntity> data = receiveBillEntry.getData();
+                    for (int i = 0; i < data.size(); i++) {
+                        count1 += data.get(i).getFactreceiveQty();
+                        count2 += data.get(i).getFsupdelQty();
+                        count3 += data.get(i).getPriceUnitQty();
+                    }
+                    tvFactreceiveQty.setText(String.valueOf(count1));
+                    tvFsupdelQty.setText(String.valueOf(count2));
+                    tvPriceUnitQty.setText(String.valueOf(count3));
+                    noticeDetailTab.addData(data, false);
+                    ToastUtil.show(ReceiveNoticeDetailActivity.this, receiveBillEntry.getMsg());
+                    tvFactreceiveQty.setText(String.valueOf(0));
+                    tvFsupdelQty.setText(String.valueOf(0));
+                    tvPriceUnitQty.setText(String.valueOf(0));
+                }
+                break;
+            case 1:
+                ReceivePushBean receivePushBean= (ReceivePushBean) message.obj;
+                int code1 = receivePushBean.getCode();
+                if (code1 == 0) {
+                    ToastUtil.show(ReceiveNoticeDetailActivity.this, receivePushBean.getMsg());
+                    //跳转到采购入库详情
+                    Intent intent1 = new Intent(ReceiveNoticeDetailActivity.this, PurchaseWarehousingDetailActivity.class);
+                    Bundle bundle1 = new Bundle();
+                    bundle1.putInt("fid", receivePushBean.getData().getId());
+                    bundle1.putString("fnumber", receivePushBean.getData().getNumber());
+                    intent1.putExtras(bundle1);
+                    startActivity(intent1);
+                } else {
+                    ToastUtil.show(ReceiveNoticeDetailActivity.this, receivePushBean.getMsg());
+                }
+                break;
+        }
+    }
+
+    @Override
+    public void Failure(int arg) {
+
+    }
+
+    @Override
+    public void Complete(int arg) {
+        switch (arg){
+            case 0:
+            case 1:
+                CancelProgress();
+                break;
+        }
     }
 }

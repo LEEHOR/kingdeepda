@@ -283,40 +283,9 @@ public class PurchaseWarehousingAddActivity extends BaseActivity {
 
     @OnClick(R.id.btn_push)
     public void onViewClicked() {
-       // SaveDate();
+
     }
 
-    //保存
-    private void SaveDate() {
-        Gson gson = new GsonBuilder().serializeNulls().create();
-//        String s = gson.toJson(TableHeadData);
-//        JSONObject jsonObject = null;
-//        try {
-//            jsonObject = new JSONObject(s);
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//        Logutil.print("数据11", jsonObject.toString());
-        JsonObject asJsonObject = gson.toJsonTree(TableHeadData).getAsJsonObject();
-    //    Logutil.print("数据", asJsonObject.toString());
-        String stkInStockAdd = Constance.getStkInStockAdd();
-        NetworkUtil.getInstance().postByJson(this,stkInStockAdd, UpdatePwd.class, asJsonObject, new VolleyListener<UpdatePwd>() {
-            @Override
-            public void requestComplete() {
-
-            }
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-
-            @Override
-            public void onResponse(UpdatePwd response) {
-
-            }
-        });
-    }
 
     private void AddOrderDialog(String title, int type) {
         TableBodyDate.clear();
@@ -394,6 +363,5 @@ public class PurchaseWarehousingAddActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        App.sRequestQueue.cancelAll(PurchaseWarehousingAddActivity.this.getClass().getName());
     }
 }

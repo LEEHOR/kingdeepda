@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.Button;
@@ -29,6 +30,7 @@ import com.kingdee.ah.pda.ui.dialog.ProductionWareModifyDialog;
 import com.kingdee.ah.pda.ui.view.TitleTopOrdersView;
 import com.kingdee.ah.pda.util.GsonUtils;
 import com.kingdee.ah.pda.util.ToastUtil;
+import com.kingdee.ah.pda.volley.MyHandler;
 import com.kingdee.ah.pda.volley.NetworkUtil;
 import com.kingdee.ah.pda.volley.VolleyListener;
 
@@ -51,7 +53,7 @@ import butterknife.OnClick;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class ProductionWarehousingDetailActivity extends BaseActivity {
+public class ProductionWarehousingDetailActivity extends BaseActivity implements MyHandler.OnReceiveMessageListener {
     @BindView(R.id.production_warehousing_Detail_title)
     TitleTopOrdersView processDetailTitle;
     @BindView(R.id.tv_stockOrgName)
@@ -70,6 +72,7 @@ public class ProductionWarehousingDetailActivity extends BaseActivity {
     Button btnPush;
     private TableData<PushProcessReportBean.DataEntity.DetailsEntity> tableData;
     private PushProcessReportBean.DataEntity reportBeanData;
+    private MyHandler myHandler=new MyHandler(this);
 
     @Override
     protected int getContentResId() {
@@ -96,7 +99,7 @@ public class ProductionWarehousingDetailActivity extends BaseActivity {
         if (getIntent() != null) {
             Bundle process = getIntent().getExtras();
             int pageType = getIntent().getIntExtra("pageType", 0);
-            if (pageType ==0){
+            if (pageType == 0) {
                 btnPush.setVisibility(View.GONE);
                 tex_item.setText("生产入库单详情");
             } else {
@@ -120,7 +123,6 @@ public class ProductionWarehousingDetailActivity extends BaseActivity {
 
     @Override
     protected void initfun() {
-
 
         tableData.setOnRowClickListener(new TableData.OnRowClickListener<PushProcessReportBean.DataEntity.DetailsEntity>() {
             @Override
@@ -179,8 +181,32 @@ public class ProductionWarehousingDetailActivity extends BaseActivity {
         Column<String> c8 = new Column<>("仓库", "stockName");
         Column<String> c9 = new Column<>("批号", "lot");
         tableData = new TableData<>("生产入库详情", new ArrayList<PushProcessReportBean.DataEntity.DetailsEntity>()
-                , c1, c2, c4, c5, c3, c8, c9);
+                , c1, c2, c3, c4, c5, c6, c7, c8, c9);
         productionTable.setTableData(tableData);
+        tableData.setOnRowClickListener(new TableData.OnRowClickListener<PushProcessReportBean.DataEntity.DetailsEntity>() {
+            @Override
+            public void onClick(Column column, final PushProcessReportBean.DataEntity.DetailsEntity detailsEntity, int col, final int row) {
+                ProductionWareModifyDialog productionWareModifyDialog=ProductionWareModifyDialog.newInstance("更改数量","","",detailsEntity.getMustQty()
+                ,detailsEntity.getRealQty());
+                productionWareModifyDialog.setOnModifyOrderListener(new ProductionWareModifyDialog.OnModifyOrderListener() {
+                    @Override
+                    public void onConfirm(int fmustQty, int frealQtyint) {
+                        detailsEntity.setMustQty(fmustQty);
+                        detailsEntity.setRealQty(frealQtyint);
+                        List<PushProcessReportBean.DataEntity.DetailsEntity> t = tableData.getT();
+                        t.remove(row);
+                        t.add(row,detailsEntity);
+                        tableData.clear();
+                        productionTable.addData(t,true);
+                    }
+
+                    @Override
+                    public void onClose() {
+
+                    }
+                });
+            }
+        });
     }
 
 
@@ -189,38 +215,12 @@ public class ProductionWarehousingDetailActivity extends BaseActivity {
         if (reportBeanData != null) {
             reportBeanData.setDetails(tableData.getT());
             JsonObject jsonObject = GsonUtils.parseJsonObject(reportBeanData);
-            ShowProgress(this,"正在入库...",false);
+            ShowProgress(this, "正在入库...", false);
             String pushproduction = Constance.getPushProduction();
-            NetworkUtil.getInstance().postByJson(this,pushproduction, PurchaseAddBean.class, jsonObject, new VolleyListener<PurchaseAddBean>() {
-                @Override
-                public void requestComplete() {
-                    CancelProgress();
-                }
-
-                @Override
-                public void onErrorResponse(VolleyError error) {
-
-                }
-
-                @Override
-                public void onResponse(PurchaseAddBean response) {
-                    int code = response.getCode();
-                    if (code == 0) {
-                        ToastUtil.show(ProductionWarehousingDetailActivity.this, response.getMsg());
-                    } else {
-                        List<PurchaseAddBean.DataEntity> data = response.getData();
-                        StringBuilder stringBuilder = new StringBuilder();
-                        if (data != null) {
-                            for (PurchaseAddBean.DataEntity d : data) {
-                                stringBuilder.append(d.getMessage());
-                            }
-                        }
-                        ToastUtil.showLong(ProductionWarehousingDetailActivity.this, stringBuilder.toString());
-                    }
-                }
-            });
+            NetworkUtil.getInstance().postByJson(this, pushproduction, PurchaseAddBean.class, jsonObject,1,myHandler);
         }
     }
+
     @OnClick(R.id.btn_push)
     public void onViewClicked() {
         push();
@@ -229,6 +229,34 @@ public class ProductionWarehousingDetailActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        App.sRequestQueue.cancelAll(ProductionWarehousingDetailActivity.this.getClass().getName());
+        myHandler.removeCallbacksAndMessages(null);
+    }
+
+    @Override
+    public void Success(Message message) {
+        PurchaseAddBean purchaseAddBean= (PurchaseAddBean) message.obj;
+        int code = purchaseAddBean.getCode();
+        if (code == 0) {
+            ToastUtil.show(ProductionWarehousingDetailActivity.this, purchaseAddBean.getMsg());
+        } else {
+            List<PurchaseAddBean.DataEntity> data = purchaseAddBean.getData();
+            StringBuilder stringBuilder = new StringBuilder();
+            if (data != null) {
+                for (PurchaseAddBean.DataEntity d : data) {
+                    stringBuilder.append(d.getMessage());
+                }
+            }
+            ToastUtil.showLong(ProductionWarehousingDetailActivity.this, stringBuilder.toString());
+        }
+    }
+
+    @Override
+    public void Failure(int arg) {
+
+    }
+
+    @Override
+    public void Complete(int arg) {
+        CancelProgress();
     }
 }

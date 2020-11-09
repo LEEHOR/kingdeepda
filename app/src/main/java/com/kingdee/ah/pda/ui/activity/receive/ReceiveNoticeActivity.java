@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Message;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
@@ -42,6 +43,7 @@ import com.kingdee.ah.pda.util.LocalDisplay;
 import com.kingdee.ah.pda.util.Logutil;
 import com.kingdee.ah.pda.util.ToastUtil;
 import com.kingdee.ah.pda.util.decoration.SpacesItemDecoration;
+import com.kingdee.ah.pda.volley.MyHandler;
 import com.kingdee.ah.pda.volley.NetworkUtil;
 import com.kingdee.ah.pda.volley.VolleyListener;
 import com.yxp.permission.util.lib.PermissionUtil;
@@ -68,7 +70,7 @@ import butterknife.OnClick;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class ReceiveNoticeActivity extends BaseActivity {
+public class ReceiveNoticeActivity extends BaseActivity implements MyHandler.OnReceiveMessageListener {
     @BindView(R.id.receivingTitle)
     TitleTopOrdersView receivingTitle;
     @BindView(R.id.app_search)
@@ -106,6 +108,8 @@ public class ReceiveNoticeActivity extends BaseActivity {
     private CommonSelectMenu commonSelectMenu;
     private SupplierSelectMenu supplierSelectMenu;
     private DateSelectMenu dateSelectMenu;
+    private MyHandler myHandler = new MyHandler(this);
+    private double loadType;
 
     @Override
     protected int getContentResId() {
@@ -188,7 +192,7 @@ public class ReceiveNoticeActivity extends BaseActivity {
                 switch (newState) {
                     case RecyclerView.SCROLL_STATE_DRAGGING:
                     case RecyclerView.SCROLL_STATE_SETTLING:
-                       // appSearch.clearFocus();
+                        // appSearch.clearFocus();
                         KeyboardUtils.hideKeyboard(appSearch);
                         break;
                 }
@@ -248,7 +252,7 @@ public class ReceiveNoticeActivity extends BaseActivity {
             }
 
             @Override
-            public void onSelectDayWeekMonth(String startTime,String endTime, int time2) {
+            public void onSelectDayWeekMonth(String startTime, String endTime, int time2) {
                 menu2.setText(startTime);
                 dateSelectMenu.dismiss();
             }
@@ -323,7 +327,8 @@ public class ReceiveNoticeActivity extends BaseActivity {
     }
 
     //获取数据
-    private void getDate(final int loadType, Map<String, String> params) {
+    private void getDate(final int isLoad, Map<String, String> params) {
+        this.loadType = isLoad;
         if (loadType == 0) {
             this.PAGE = 1;
             this.LIMIT = 10;
@@ -333,59 +338,7 @@ public class ReceiveNoticeActivity extends BaseActivity {
         params.put("page", String.valueOf(PAGE));
         params.put("limit", String.valueOf(LIMIT));
         String receivingBill = Constance.getReceivingBillList();
-        NetworkUtil.getInstance().postByJson(this,receivingBill, ReceiveBillBean.class, params, new VolleyListener<ReceiveBillBean>() {
-            @Override
-            public void requestComplete() {
-
-            }
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                if (loadType == 0) {
-                    receivingRefresh.refreshComplete();
-                } else {
-                    receivingRefresh.loadMoreFail();
-                }
-                receivingAdapter.setEmptyView(R.layout.view_error, receivingRecycler);
-            }
-
-            @RequiresApi(api = Build.VERSION_CODES.N)
-            @Override
-            public void onResponse(ReceiveBillBean response) {
-                int code = response.getCode();
-                if (code == 0) {
-                    PAGE++;
-                    List<ReceiveBillBean.DataEntity> data = response.getData();
-//                    data.removeIf(new Predicate<ReceiveBillBean.DataEntity>() {  //过滤
-//                        @Override
-//                        public boolean test(ReceiveBillBean.DataEntity dataEntity) {
-//                            return dataEntity.getDocumentStatus().equals("C") || dataEntity.getDocumentStatus().equals("D");
-//                        }
-//                    });
-                    if (loadType == 0) {
-                        receivingAdapter.setNewData(data);
-                        receivingRefresh.refreshComplete();
-                    } else {
-                        if (data.size() > 0) {
-                            receivingRefresh.loadMoreComplete();
-                            receivingAdapter.addData(data);
-                        } else {
-                            receivingRefresh.loadNothing();
-                        }
-
-                    }
-                    receivingAdapter.setEmptyView(R.layout.view_empt, receivingRecycler);
-                } else {
-                    if (loadType == 0) {
-                        receivingRefresh.refreshComplete();
-                    } else {
-                        receivingRefresh.loadMoreFail();
-                    }
-                    receivingAdapter.setEmptyView(R.layout.view_error, receivingRecycler);
-                    ToastUtil.show(ReceiveNoticeActivity.this, response.getMsg());
-                }
-            }
-        });
+        NetworkUtil.getInstance().postByJson(this, receivingBill, ReceiveBillBean.class, params,0,myHandler);
 
     }
 
@@ -396,36 +349,7 @@ public class ReceiveNoticeActivity extends BaseActivity {
         map.put("fid", String.valueOf(fid));
         String pushReceiving = Constance.getPushReceiving();
         ShowProgress(this, "正在下推...", false);
-        NetworkUtil.getInstance().postByJson(this,pushReceiving, ReceivePushBean.class, map, new VolleyListener<ReceivePushBean>() {
-            @Override
-            public void onResponse(ReceivePushBean response) {
-                int code = response.getCode();
-                ToastUtil.show(ReceiveNoticeActivity.this, response.getMsg());
-                if (code == 0) {
-                    Logutil.print("下推:"+response.getData().getId() + "/" + response.getData().getNumber());
-                    //跳转到采购入库详情
-                    Intent intent1 = new Intent(ReceiveNoticeActivity.this, PurchaseWarehousingDetailActivity.class);
-                    Bundle bundle1 = new Bundle();
-                    bundle1.putInt("fid", response.getData().getId());
-                    bundle1.putString("fnumber", response.getData().getNumber());
-                    intent1.putExtra("pageType", 1);
-                    intent1.putExtras(bundle1);
-                    startActivity(intent1);
-                } else {
-                    ToastUtil.show(ReceiveNoticeActivity.this, response.getMsg());
-                }
-            }
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-
-            @Override
-            public void requestComplete() {
-                CancelProgress();
-            }
-        });
+        NetworkUtil.getInstance().postByJson(this, pushReceiving, ReceivePushBean.class, map,1,myHandler);
     }
 
     @Override
@@ -476,7 +400,81 @@ public class ReceiveNoticeActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        App.sRequestQueue.cancelAll(ReceiveNoticeActivity.this.getClass().getName());
+       myHandler.removeCallbacksAndMessages(null);
+    }
+
+    @Override
+    public void Success(Message message) {
+        switch (message.arg1) {
+            case 0:
+                ReceiveBillBean receiveBillBean = (ReceiveBillBean) message.obj;
+                int code = receiveBillBean.getCode();
+                if (code == 0) {
+                    PAGE++;
+                    List<ReceiveBillBean.DataEntity> data = receiveBillBean.getData();
+                    if (loadType == 0) {
+                        receivingAdapter.setNewData(data);
+                        receivingRefresh.refreshComplete();
+                    } else {
+                        if (data.size() > 0) {
+                            receivingRefresh.loadMoreComplete();
+                            receivingAdapter.addData(data);
+                        } else {
+                            receivingRefresh.loadNothing();
+                        }
+
+                    }
+                    receivingAdapter.setEmptyView(R.layout.view_empt, receivingRecycler);
+                } else {
+                    if (loadType == 0) {
+                        receivingRefresh.refreshComplete();
+                    } else {
+                        receivingRefresh.loadMoreFail();
+                    }
+                    receivingAdapter.setEmptyView(R.layout.view_error, receivingRecycler);
+                    ToastUtil.show(ReceiveNoticeActivity.this, receiveBillBean.getMsg());
+                }
+                break;
+            case 1:
+                ReceivePushBean pushBean= (ReceivePushBean) message.obj;
+                int code1 = pushBean.getCode();
+                ToastUtil.show(ReceiveNoticeActivity.this, pushBean.getMsg());
+                if (code1 == 0) {
+                    Logutil.print("下推:" + pushBean.getData().getId() + "/" + pushBean.getData().getNumber());
+                    //跳转到采购入库详情
+                    Intent intent1 = new Intent(ReceiveNoticeActivity.this, PurchaseWarehousingDetailActivity.class);
+                    Bundle bundle1 = new Bundle();
+                    bundle1.putInt("fid", pushBean.getData().getId());
+                    bundle1.putString("fnumber", pushBean.getData().getNumber());
+                    intent1.putExtra("pageType", 1);
+                    intent1.putExtras(bundle1);
+                    startActivity(intent1);
+                } else {
+                    ToastUtil.show(ReceiveNoticeActivity.this, pushBean.getMsg());
+                }
+                break;
+        }
+    }
+
+    @Override
+    public void Failure(int arg) {
+        switch (arg) {
+            case 0:
+                if (loadType == 0) {
+                    receivingRefresh.refreshComplete();
+                } else {
+                    receivingRefresh.loadMoreFail();
+                }
+                receivingAdapter.setEmptyView(R.layout.view_error, receivingRecycler);
+                break;
+        }
+    }
+
+    @Override
+    public void Complete(int arg) {
+        if (arg==1){
+            CancelProgress();
+        }
     }
 }
 

@@ -161,10 +161,6 @@ public class InStockEntryBean implements Serializable {
             this.funitNumber = funitNumber;
         }
 
-        public void setFremainInStockQty(int fremainInStockQty) {
-            this.fremainInStockQty = fremainInStockQty;
-        }
-
         public void setFgiveAway(String fgiveAway) {
             this.fgiveAway = fgiveAway;
         }
@@ -213,9 +209,6 @@ public class InStockEntryBean implements Serializable {
             this.fmaterialName = fmaterialName;
         }
 
-        public void setFrealQty(int frealQty) {
-            this.frealQty = frealQty;
-        }
 
         public void setFpriceUnitNumber(String fpriceUnitNumber) {
             this.fpriceUnitNumber = fpriceUnitNumber;
@@ -225,16 +218,8 @@ public class InStockEntryBean implements Serializable {
             this.fstockStatusName = fstockStatusName;
         }
 
-        public void setFmustQty(int fmustQty) {
-            this.fmustQty = fmustQty;
-        }
-
         public void setFwwinTypeNumber(String fwwinTypeNumber) {
             this.fwwinTypeNumber = fwwinTypeNumber;
-        }
-
-        public void setFpriceUnitQty(int fpriceUnitQty) {
-            this.fpriceUnitQty = fpriceUnitQty;
         }
 
         public void setPage(String page) {
@@ -289,10 +274,6 @@ public class InStockEntryBean implements Serializable {
             return funitNumber;
         }
 
-        public int getFremainInStockQty() {
-            return fremainInStockQty;
-        }
-
         public String getFgiveAway() {
             return fgiveAway;
         }
@@ -341,10 +322,6 @@ public class InStockEntryBean implements Serializable {
             return fmaterialName;
         }
 
-        public int getFrealQty() {
-            return frealQty;
-        }
-
         public String getFpriceUnitNumber() {
             return fpriceUnitNumber;
         }
@@ -353,16 +330,8 @@ public class InStockEntryBean implements Serializable {
             return fstockStatusName;
         }
 
-        public int getFmustQty() {
-            return fmustQty;
-        }
-
         public String getFwwinTypeNumber() {
             return fwwinTypeNumber;
-        }
-
-        public int getFpriceUnitQty() {
-            return fpriceUnitQty;
         }
 
         public String getPage() {
@@ -375,6 +344,38 @@ public class InStockEntryBean implements Serializable {
 
         public String getFstockStatusNumber() {
             return fstockStatusNumber;
+        }
+
+        public int getFremainInStockQty() {
+            return fremainInStockQty;
+        }
+
+        public void setFremainInStockQty(int fremainInStockQty) {
+            this.fremainInStockQty = fremainInStockQty;
+        }
+
+        public int getFrealQty() {
+            return frealQty;
+        }
+
+        public void setFrealQty(int frealQty) {
+            this.frealQty = frealQty;
+        }
+
+        public int getFmustQty() {
+            return fmustQty;
+        }
+
+        public void setFmustQty(int fmustQty) {
+            this.fmustQty = fmustQty;
+        }
+
+        public int getFpriceUnitQty() {
+            return fpriceUnitQty;
+        }
+
+        public void setFpriceUnitQty(int fpriceUnitQty) {
+            this.fpriceUnitQty = fpriceUnitQty;
         }
     }
 }

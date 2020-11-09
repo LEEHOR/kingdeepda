@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.EditText;
@@ -23,6 +24,7 @@ import com.kingdee.ah.pda.bean.OutStockApplyDetailBean;
 import com.kingdee.ah.pda.constance.Constance;
 import com.kingdee.ah.pda.ui.view.TitleTopOrdersView;
 import com.kingdee.ah.pda.util.GsonUtils;
+import com.kingdee.ah.pda.volley.MyHandler;
 import com.kingdee.ah.pda.volley.NetworkUtil;
 import com.kingdee.ah.pda.volley.VolleyListener;
 
@@ -44,7 +46,7 @@ import butterknife.BindView;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class WarehouseOutApplicationDetailActivity extends BaseActivity {
+public class WarehouseOutApplicationDetailActivity extends BaseActivity implements MyHandler.OnReceiveMessageListener {
 
 
     @BindView(R.id.warehose_out_detail_title)
@@ -62,6 +64,7 @@ public class WarehouseOutApplicationDetailActivity extends BaseActivity {
     @BindView(R.id.outStock_detail_table)
     SmartTable<OutStockApplyDetailBean.DataEntity.EntitysEntity> outStockDetailTable;
     private int fid;
+    private MyHandler myHandler=new MyHandler(this);
 
     @Override
     protected int getContentResId() {
@@ -98,33 +101,7 @@ public class WarehouseOutApplicationDetailActivity extends BaseActivity {
     private void getDetail() {
         String outstockapplydetail = Constance.getOUTSTOCKAPPLYDETAIL();
         ShowProgress(this, "正在加载...", false);
-        NetworkUtil.getInstance().get(this,outstockapplydetail + fid, new VolleyListener<String>() {
-            @Override
-            public void requestComplete() {
-                CancelProgress();
-            }
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-
-            @Override
-            public void onResponse(String response) {
-                OutStockApplyDetailBean outStockApplyDetailBean = GsonUtils.parseJSON(response, OutStockApplyDetailBean.class);
-                int code = outStockApplyDetailBean.getCode();
-                if (code == 0) {
-                    OutStockApplyDetailBean.DataEntity data = outStockApplyDetailBean.getData();
-                    tvStockOrgName.setText(data.getStockOrgName());
-                    tvOwnerTypeIdHead.setText(data.getOwnerTypeIdHead());
-                    tvBillTypeName.setText(data.getBillTypeName());
-                    tvDate.setText(data.getDate());
-                    tvDepartName.setText(data.getDeptName());
-                    List<OutStockApplyDetailBean.DataEntity.EntitysEntity> entitys = data.getEntitys();
-                    outStockDetailTable.addData(entitys,true);
-                }
-            }
-        });
+        NetworkUtil.getInstance().get(this,outstockapplydetail + fid,0,myHandler);
     }
 
     //创建表格
@@ -160,4 +137,36 @@ public class WarehouseOutApplicationDetailActivity extends BaseActivity {
         outStockDetailTable.setTableData(tableData);
     }
 
+    @Override
+    public void Success(Message message) {
+        String response= (String) message.obj;
+        OutStockApplyDetailBean outStockApplyDetailBean = GsonUtils.parseJSON(response, OutStockApplyDetailBean.class);
+        int code = outStockApplyDetailBean.getCode();
+        if (code == 0) {
+            OutStockApplyDetailBean.DataEntity data = outStockApplyDetailBean.getData();
+            tvStockOrgName.setText(data.getStockOrgName());
+            tvOwnerTypeIdHead.setText(data.getOwnerTypeIdHead());
+            tvBillTypeName.setText(data.getBillTypeName());
+            tvDate.setText(data.getDate());
+            tvDepartName.setText(data.getDeptName());
+            List<OutStockApplyDetailBean.DataEntity.EntitysEntity> entitys = data.getEntitys();
+            outStockDetailTable.addData(entitys,true);
+        }
+    }
+
+    @Override
+    public void Failure(int arg) {
+
+    }
+
+    @Override
+    public void Complete(int arg) {
+        CancelProgress();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        myHandler.removeCallbacksAndMessages(null);
+    }
 }

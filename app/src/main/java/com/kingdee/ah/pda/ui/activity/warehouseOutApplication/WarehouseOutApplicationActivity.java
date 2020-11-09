@@ -3,6 +3,7 @@ package com.kingdee.ah.pda.ui.activity.warehouseOutApplication;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,6 +30,7 @@ import com.kingdee.ah.pda.util.KeyboardUtils;
 import com.kingdee.ah.pda.util.LocalDisplay;
 import com.kingdee.ah.pda.util.ToastUtil;
 import com.kingdee.ah.pda.util.decoration.SpacesItemDecoration;
+import com.kingdee.ah.pda.volley.MyHandler;
 import com.kingdee.ah.pda.volley.NetworkUtil;
 import com.kingdee.ah.pda.volley.VolleyListener;
 
@@ -52,7 +54,7 @@ import butterknife.OnClick;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class WarehouseOutApplicationActivity extends BaseActivity {
+public class WarehouseOutApplicationActivity extends BaseActivity implements MyHandler.OnReceiveMessageListener {
     @BindView(R.id.out_title)
     TitleTopOrdersView outTitle;
     @BindView(R.id.iv_add)
@@ -69,6 +71,8 @@ public class WarehouseOutApplicationActivity extends BaseActivity {
     private int LIMIT = 10;
     private Map<String, String> map = new HashMap<>();
     private OutStockAdapter stockAdapter;
+    private MyHandler myHandler = new MyHandler(this);
+    private double type;
 
     @Override
     protected int getContentResId() {
@@ -148,11 +152,11 @@ public class WarehouseOutApplicationActivity extends BaseActivity {
                 }
             }
         });
-
     }
 
     //获取数据
-    private void getData(final int type) {
+    private void getData(final int isload) {
+        this.type=isload;
         if (type == 0) {
             this.PAGE = 1;
             stockAdapter.getData().clear();
@@ -161,24 +165,33 @@ public class WarehouseOutApplicationActivity extends BaseActivity {
         map.put("limit", String.valueOf(LIMIT));
         map.put("page",String.valueOf(PAGE));
         String outstockapply = Constance.getOUTSTOCKAPPLY();
-        NetworkUtil.getInstance().postByJson(this,outstockapply, OutStockApplyBean.class, map, new VolleyListener<OutStockApplyBean>() {
-            @Override
-            public void requestComplete() {
+        NetworkUtil.getInstance().postByJson(this,outstockapply, OutStockApplyBean.class, map, 0,myHandler);
+    }
 
-            }
+    //下推
+    private void push(int id) {
+        final String outstockpush = Constance.getOUTSTOCKPUSH();
+        ShowProgress(this,"正在下推...",false);
+        NetworkUtil.getInstance().get(this,outstockpush + id,1,myHandler);
+    }
 
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                if (type == 0) {
-                    outStockRefresh.refreshComplete();
-                } else {
-                    outStockRefresh.loadMoreFail();
-                }
-                stockAdapter.setEmptyView(R.layout.view_error, outStockRecycler);
-            }
 
-            @Override
-            public void onResponse(OutStockApplyBean response) {
+    @OnClick(R.id.iv_scan)
+    public void onViewClicked() {
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        myHandler.removeCallbacksAndMessages(null);
+    }
+
+    @Override
+    public void Success(Message message) {
+        switch (message.arg1){  //0 获取数据 1下推
+            case 0:
+                OutStockApplyBean response= (OutStockApplyBean) message.obj;
                 int code = response.getCode();
                 if (code == 0) {
                     PAGE++;
@@ -203,56 +216,45 @@ public class WarehouseOutApplicationActivity extends BaseActivity {
                     }
                     stockAdapter.setEmptyView(R.layout.view_error, outStockRecycler);
                 }
-
-
-            }
-        });
-    }
-
-    //下推
-    private void push(int id) {
-        final String outstockpush = Constance.getOUTSTOCKPUSH();
-        NetworkUtil.getInstance().get(this,outstockpush + id, new VolleyListener<String>() {
-            @Override
-            public void requestComplete() {
-
-            }
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-
-            @Override
-            public void onResponse(String response) {
-                OutStockPushBean outStockPushBean = GsonUtils.parseJSON(response, OutStockPushBean.class);
-                int code = outStockPushBean.getCode();
-                if (code == 0) {
+                break;
+            case 1:
+              String response1= (String) message.obj;
+                OutStockPushBean outStockPushBean = GsonUtils.parseJSON(response1, OutStockPushBean.class);
+                int code1 = outStockPushBean.getCode();
+                if (code1 == 0) {
                     Intent intent = new Intent(WarehouseOutApplicationActivity.this, OtherStockOutDetailActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("outstock", outStockPushBean);
                     intent.putExtra("pageType",1);
                     intent.putExtra("outDetail", bundle);
                     startActivity(intent);
-                } else if (code == 500) {
+                } else if (code1 == 500) {
                     MsgShowDialog msgShowDialog = MsgShowDialog.newInstance(outStockPushBean.getMsg());
                     msgShowDialog.show(getSupportFragmentManager(), "msg");
                 } else {
                     ToastUtil.show(WarehouseOutApplicationActivity.this, outStockPushBean.getMsg());
                 }
-            }
-        });
-    }
-
-
-    @OnClick(R.id.iv_scan)
-    public void onViewClicked() {
+                break;
+        }
 
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        App.sRequestQueue.cancelAll(WarehouseOutApplicationActivity.this.getClass().getName());
+    public void Failure(int arg) {
+           if (arg==0){
+               if (type == 0) {
+                   outStockRefresh.refreshComplete();
+               } else {
+                   outStockRefresh.loadMoreFail();
+               }
+               stockAdapter.setEmptyView(R.layout.view_error, outStockRecycler);
+           }
+    }
+
+    @Override
+    public void Complete(int arg) {
+        if (arg==1){
+            CancelProgress();
+        }
     }
 }

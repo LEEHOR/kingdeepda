@@ -3,6 +3,7 @@ package com.kingdee.ah.pda.ui.activity.otherStockOut;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,6 +26,7 @@ import com.kingdee.ah.pda.util.KeyboardUtils;
 import com.kingdee.ah.pda.util.LocalDisplay;
 import com.kingdee.ah.pda.util.ToastUtil;
 import com.kingdee.ah.pda.util.decoration.SpacesItemDecoration;
+import com.kingdee.ah.pda.volley.MyHandler;
 import com.kingdee.ah.pda.volley.NetworkUtil;
 import com.kingdee.ah.pda.volley.VolleyListener;
 
@@ -48,7 +50,7 @@ import butterknife.OnClick;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class OtherStockOutActivity extends BaseActivity {
+public class OtherStockOutActivity extends BaseActivity implements MyHandler.OnReceiveMessageListener {
     @BindView(R.id.other_stock_out_title)
     TitleTopOrdersView otherStockOutTitle;
     @BindView(R.id.iv_add)
@@ -62,9 +64,11 @@ public class OtherStockOutActivity extends BaseActivity {
     @BindView(R.id.other_refresh)
     EasyRefreshLayout otherRefresh;
     private OtherStockListAdapter stockListAdapter;
-    private Map<String,String> mapParam=new HashMap<>();
+    private Map<String, String> mapParam = new HashMap<>();
     private int PAGE = 1;
     private int LIMIT = 10;
+    private MyHandler myHandler = new MyHandler(this);
+    private double type;
 
     @Override
     protected int getContentResId() {
@@ -116,10 +120,10 @@ public class OtherStockOutActivity extends BaseActivity {
         stockListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                OtherStockHeadBean.DataEntity dataEntity= (OtherStockHeadBean.DataEntity) adapter.getItem(position);
-                Intent intent=new Intent(OtherStockOutActivity.this, OtherStockOutDetailActivity.class);
-                intent.putExtra("fid",dataEntity.getFid());
-                intent.putExtra("pageType",1);
+                OtherStockHeadBean.DataEntity dataEntity = (OtherStockHeadBean.DataEntity) adapter.getItem(position);
+                Intent intent = new Intent(OtherStockOutActivity.this, OtherStockOutDetailActivity.class);
+                intent.putExtra("fid", dataEntity.getFid());
+                intent.putExtra("pageType", 1);
                 startActivity(intent);
             }
         });
@@ -127,14 +131,14 @@ public class OtherStockOutActivity extends BaseActivity {
         appSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                mapParam.put("billNo",s);
+                mapParam.put("billNo", s);
                 getData(0);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
-                mapParam.put("billNo",s);
+                mapParam.put("billNo", s);
                 getData(0);
                 return false;
             }
@@ -156,65 +160,20 @@ public class OtherStockOutActivity extends BaseActivity {
     }
 
     //获取数据
-    private void getData(final int type) {
+    private void getData(final int isLoad) {
+        this.type = isLoad;
         String misdeliveryPage = Constance.getMisdeliveryPage();
         if (type == 0) {
-            PAGE=1;
+            PAGE = 1;
             stockListAdapter.getData().clear();
             stockListAdapter.notifyDataSetChanged();
         }
-        mapParam.put("page",String.valueOf(PAGE));
-        mapParam.put("limit",String.valueOf(LIMIT));
-        NetworkUtil.getInstance().postByJson(OtherStockOutActivity.this,misdeliveryPage,
-                OtherStockHeadBean.class, mapParam, new VolleyListener<OtherStockHeadBean>() {
-                    @Override
-                    public void requestComplete() {
-
-                    }
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        stockListAdapter.setEmptyView(R.layout.view_error, otherRecycler);
-                        if (type == 0) {
-                            otherRefresh.refreshComplete();
-                        } else {
-                            otherRefresh.loadMoreFail();
-                        }
-                    }
-
-                    @Override
-                    public void onResponse(OtherStockHeadBean response) {
-                        int code = response.getCode();
-                        if (code == 0) {
-                            PAGE++;
-                            List<OtherStockHeadBean.DataEntity> data = response.getData();
-                            if (type == 0) {
-                                stockListAdapter.setNewData(data);
-                                otherRefresh.refreshComplete();
-                            } else {
-                                if (data.size() > 0) {
-                                    stockListAdapter.addData(data);
-                                    otherRefresh.loadMoreComplete();
-                                } else {
-                                    otherRefresh.loadNothing();
-                                }
-                            }
-                            stockListAdapter.setEmptyView(R.layout.view_empt, otherRecycler);
-                        } else {
-                            stockListAdapter.setEmptyView(R.layout.view_error, otherRecycler);
-                            ToastUtil.show(OtherStockOutActivity.this,response.getMsg());
-                            if (type == 0) {
-                                otherRefresh.refreshComplete();
-                            } else {
-                                otherRefresh.loadMoreFail();
-                            }
-                        }
-
-                    }
-                });
+        mapParam.put("page", String.valueOf(PAGE));
+        mapParam.put("limit", String.valueOf(LIMIT));
+        NetworkUtil.getInstance().postByJson(OtherStockOutActivity.this, misdeliveryPage,
+                OtherStockHeadBean.class, mapParam, 0, myHandler);
 
     }
-
 
 
     @OnClick({R.id.iv_add, R.id.iv_scan})
@@ -229,8 +188,59 @@ public class OtherStockOutActivity extends BaseActivity {
     }
 
     @Override
+    public void Success(Message message) {
+        switch (message.arg1) {
+            case 0:
+                OtherStockHeadBean response = (OtherStockHeadBean) message.obj;
+                int code = response.getCode();
+                if (code == 0) {
+                    PAGE++;
+                    List<OtherStockHeadBean.DataEntity> data = response.getData();
+                    if (type == 0) {
+                        stockListAdapter.setNewData(data);
+                        otherRefresh.refreshComplete();
+                    } else {
+                        if (data.size() > 0) {
+                            stockListAdapter.addData(data);
+                            otherRefresh.loadMoreComplete();
+                        } else {
+                            otherRefresh.loadNothing();
+                        }
+                    }
+                    stockListAdapter.setEmptyView(R.layout.view_empt, otherRecycler);
+                } else {
+                    stockListAdapter.setEmptyView(R.layout.view_error, otherRecycler);
+                    ToastUtil.show(OtherStockOutActivity.this, response.getMsg());
+                    if (type == 0) {
+                        otherRefresh.refreshComplete();
+                    } else {
+                        otherRefresh.loadMoreFail();
+                    }
+                }
+                break;
+        }
+    }
+
+    @Override
+    public void Failure(int arg) {
+        if (arg == 0) {
+            stockListAdapter.setEmptyView(R.layout.view_error, otherRecycler);
+            if (type == 0) {
+                otherRefresh.refreshComplete();
+            } else {
+                otherRefresh.loadMoreFail();
+            }
+        }
+    }
+
+    @Override
+    public void Complete(int arg) {
+
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
-        App.sRequestQueue.cancelAll(OtherStockOutActivity.this.getClass().getName());
+       myHandler.removeCallbacksAndMessages(null);
     }
 }

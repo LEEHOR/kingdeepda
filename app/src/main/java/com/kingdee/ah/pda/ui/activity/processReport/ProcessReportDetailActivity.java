@@ -3,6 +3,7 @@ package com.kingdee.ah.pda.ui.activity.processReport;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.EditText;
@@ -21,8 +22,10 @@ import com.kingdee.ah.pda.R;
 import com.kingdee.ah.pda.base.BaseActivity;
 import com.kingdee.ah.pda.bean.ProcessReportDetailBean;
 import com.kingdee.ah.pda.constance.Constance;
+import com.kingdee.ah.pda.ui.activity.productionPicking.ProductionPickingDetailActivity;
 import com.kingdee.ah.pda.ui.view.TitleTopOrdersView;
 import com.kingdee.ah.pda.util.GsonUtils;
+import com.kingdee.ah.pda.volley.MyHandler;
 import com.kingdee.ah.pda.volley.NetworkUtil;
 import com.kingdee.ah.pda.volley.VolleyListener;
 
@@ -44,7 +47,7 @@ import butterknife.BindView;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class ProcessReportDetailActivity extends BaseActivity {
+public class ProcessReportDetailActivity extends BaseActivity implements MyHandler.OnReceiveMessageListener{
     @BindView(R.id.processDetail_title2)
     TitleTopOrdersView processDetailTitle;
     @BindView(R.id.tv_billNo)
@@ -58,6 +61,7 @@ public class ProcessReportDetailActivity extends BaseActivity {
     @BindView(R.id.process_detail_table)
     SmartTable<ProcessReportDetailBean.DataEntity.DetailsEntity> processDetailTable;
     private int fid;
+    private MyHandler myHandler=new MyHandler(this);
 
 
     @Override
@@ -144,36 +148,38 @@ public class ProcessReportDetailActivity extends BaseActivity {
     private void getData() {
         ShowProgress(this,"正在加载...",false);
         String processReportDetail = Constance.getProcessReportDetail();
-        NetworkUtil.getInstance().get(this,processReportDetail + fid, new VolleyListener<String>() {
-            @Override
-            public void requestComplete() {
-            CancelProgress();
-            }
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-            }
-
-            @Override
-            public void onResponse(String response) {
-                ProcessReportDetailBean processReportDetailBean = GsonUtils.parseJSON(response, ProcessReportDetailBean.class);
-                int code = processReportDetailBean.getCode();
-                if (code == 0) {
-                    ProcessReportDetailBean.DataEntity data = processReportDetailBean.getData();
-                    tvBillNo.setText(data.getBillNo());
-                    tvBillTypeName.setText(data.getBillTypeName());
-                    tvDate.setText(data.getDate());
-                    tvPrdOrgName.setText(data.getPrdOrgName());
-                    List<ProcessReportDetailBean.DataEntity.DetailsEntity> details = data.getDetails();
-                    processDetailTable.addData(details,true);
-                }
-            }
-        });
+        NetworkUtil.getInstance().get(this,processReportDetail + fid,0,myHandler);
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        App.sRequestQueue.cancelAll(ProcessReportDetailActivity.this.getClass().getName());
+    protected void onDestroy() {
+        super.onDestroy();
+        myHandler.removeCallbacksAndMessages(null);
+    }
+
+    @Override
+    public void Success(Message message) {
+        String response= (String) message.obj;
+        ProcessReportDetailBean processReportDetailBean = GsonUtils.parseJSON(response, ProcessReportDetailBean.class);
+        int code = processReportDetailBean.getCode();
+        if (code == 0) {
+            ProcessReportDetailBean.DataEntity data = processReportDetailBean.getData();
+            tvBillNo.setText(data.getBillNo());
+            tvBillTypeName.setText(data.getBillTypeName());
+            tvDate.setText(data.getDate());
+            tvPrdOrgName.setText(data.getPrdOrgName());
+            List<ProcessReportDetailBean.DataEntity.DetailsEntity> details = data.getDetails();
+            processDetailTable.addData(details,true);
+        }
+    }
+
+    @Override
+    public void Failure(int arg) {
+
+    }
+
+    @Override
+    public void Complete(int arg) {
+        CancelProgress();
     }
 }

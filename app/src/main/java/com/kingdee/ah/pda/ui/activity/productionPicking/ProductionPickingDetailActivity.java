@@ -89,6 +89,5 @@ public class ProductionPickingDetailActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        App.sRequestQueue.cancelAll(ProductionPickingDetailActivity.this.getClass().getName());
     }
 }

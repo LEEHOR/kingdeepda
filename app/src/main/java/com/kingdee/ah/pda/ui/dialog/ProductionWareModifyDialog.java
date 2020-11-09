@@ -83,7 +83,7 @@ public class ProductionWareModifyDialog extends BaseDialogFragment {
             purchaseOrderAddTitle.setText(title);
             tvProjectName.setText(projectName);
             tvProjectNum.setText(projectNum);
-            tvCount3.setCount(fmustQty);
+            tvCount3.setCount( fmustQty);
             tvCount4.setCount(frealQty);
         }
     }
@@ -154,7 +154,7 @@ public class ProductionWareModifyDialog extends BaseDialogFragment {
             return;
         }
         if (onModifyOrderListener != null) {
-            onModifyOrderListener.onConfirm(count2, count3);
+            onModifyOrderListener.onConfirm(count2,  count3);
         }
 
         Close();

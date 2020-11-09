@@ -103,24 +103,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        App.sRequestQueue.start();
-
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        App.sRequestQueue.stop();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
         bind.unbind();

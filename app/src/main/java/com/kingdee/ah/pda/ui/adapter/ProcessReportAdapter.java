@@ -29,9 +29,9 @@ public class ProcessReportAdapter extends BaseQuickAdapter<ProcessReportBean.Dat
     @Override
     protected void convert(@NonNull BaseViewHolder helper, ProcessReportBean.DataEntity item) {
             helper.setText(R.id.tv_fbillNo,item.getBillNo())
-                    .setText(R.id.tv_workShopName,item.getWorkShopName())
-                    .setText(R.id.tv_date,item.getDate())
                     .setText(R.id.tv_billTypeName,item.getBillTypeName())
+                    .setText(R.id.tv_date,item.getDate())
+                    .setText(R.id.tv_workShopName,item.getWorkShopName())
                     .setText(R.id.tv_documentStatus,item.getDocumentStatus())
                     .addOnClickListener(R.id.btn_detail,R.id.btn_push);
     }

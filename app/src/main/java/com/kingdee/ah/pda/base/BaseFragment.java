@@ -42,6 +42,7 @@ import com.kingdee.ah.pda.ui.dialog.UpdateBaseDataDialog;
 import com.kingdee.ah.pda.util.GsonUtils;
 import com.kingdee.ah.pda.util.SharedPreferencesUtil;
 import com.kingdee.ah.pda.util.ToastUtil;
+import com.kingdee.ah.pda.volley.MyHandler;
 import com.kingdee.ah.pda.volley.NetworkUtil;
 import com.kingdee.ah.pda.volley.VolleyListener;
 
@@ -102,7 +103,7 @@ public abstract class BaseFragment extends Fragment {
     private int DownloadCount = 0;
     //下载的数量
     private int hasDownload = 0;
-    private Message message;
+    private Message messages;
     private UpdateBaseDataDialog updateDialog;
 
     /*** 初始化数据以及其他请求操作 ***/
@@ -140,6 +141,7 @@ public abstract class BaseFragment extends Fragment {
             mRootView = inflater.inflate(getLayoutId(), container, false);
         }
     }
+
     private void LoginDialog(final Context context, String msg) {
         builder = new AlertDialog.Builder(context).setIcon(R.mipmap.ic_launcher).setTitle("提示")
                 .setMessage(msg).setPositiveButton("重新登录", new DialogInterface.OnClickListener() {
@@ -175,39 +177,39 @@ public abstract class BaseFragment extends Fragment {
             switch (msg.what) {
                 case currency_finish:
                     SharedPreferencesUtil.getInstance(getActivity()).setKeyValue(Shared.key_currency, (boolean) msg.obj);
-                    closeDialog("币别",(boolean) msg.obj);
+                    closeDialog("币别", (boolean) msg.obj);
                     break;
                 case department_finish:
                     SharedPreferencesUtil.getInstance(getActivity()).setKeyValue(Shared.key_department, (boolean) msg.obj);
-                    closeDialog("部门",(boolean) msg.obj);
+                    closeDialog("部门", (boolean) msg.obj);
                     break;
                 case material_finish:
                     SharedPreferencesUtil.getInstance(getActivity()).setKeyValue(Shared.key_material, (boolean) msg.obj);
-                    closeDialog("物料",(boolean) msg.obj);
+                    closeDialog("物料", (boolean) msg.obj);
                     break;
                 case materialCategory_finish:
                     SharedPreferencesUtil.getInstance(getActivity()).setKeyValue(Shared.key_materialCategory, (boolean) msg.obj);
-                    closeDialog("存货类别",(boolean) msg.obj);
+                    closeDialog("存货类别", (boolean) msg.obj);
                     break;
                 case organization_finish:
                     SharedPreferencesUtil.getInstance(getActivity()).setKeyValue(Shared.key_organization, (boolean) msg.obj);
-                    closeDialog("组织机构",(boolean) msg.obj);
+                    closeDialog("组织机构", (boolean) msg.obj);
                     break;
                 case project_finish:
                     SharedPreferencesUtil.getInstance(getActivity()).setKeyValue(Shared.key_project, (boolean) msg.obj);
-                    closeDialog("项目",(boolean) msg.obj);
+                    closeDialog("项目", (boolean) msg.obj);
                     break;
                 case stock_finish:
                     SharedPreferencesUtil.getInstance(getActivity()).setKeyValue(Shared.key_stock, (boolean) msg.obj);
-                    closeDialog("仓库",(boolean) msg.obj);
+                    closeDialog("仓库", (boolean) msg.obj);
                     break;
                 case supplier_finish:
                     SharedPreferencesUtil.getInstance(getActivity()).setKeyValue(Shared.key_supplier, (boolean) msg.obj);
-                    closeDialog("供应商",(boolean) msg.obj);
+                    closeDialog("供应商", (boolean) msg.obj);
                     break;
                 case unit_finish:
                     SharedPreferencesUtil.getInstance(getActivity()).setKeyValue(Shared.key_unit, (boolean) msg.obj);
-                    closeDialog("单位表",(boolean) msg.obj);
+                    closeDialog("单位表", (boolean) msg.obj);
                     break;
             }
         }
@@ -232,8 +234,8 @@ public abstract class BaseFragment extends Fragment {
             hasDownload = 0;
             startUpdateHome();
         } else {
-            DownloadCount=9;
-            hasDownload=0;
+            DownloadCount = 9;
+            hasDownload = 0;
             startUpdateMine();
         }
     }
@@ -302,25 +304,13 @@ public abstract class BaseFragment extends Fragment {
         getBdUnit(2);
     }
 
-
     //请求币别代码
     private void getBdCurrency(final int type) {
         String current = Constance.getCurrent();
-        NetworkUtil.getInstance().get(getActivity(),current, new VolleyListener<String>() {
+        NetworkUtil.getInstance().get(getActivity(), current, 0, new com.kingdee.ah.pda.volley.MyHandler(new com.kingdee.ah.pda.volley.MyHandler.OnReceiveMessageListener() {
             @Override
-            public void requestComplete() {
-            }
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                message = new Message();
-                message.what = currency_finish;
-                message.obj = false;
-                myHandler.sendMessage(message);
-            }
-
-            @Override
-            public void onResponse(String response) {
+            public void Success(Message message) {
+                String response = (String) message.obj;
                 CurrencyBean currencyBean = GsonUtils.parseJSON(response, CurrencyBean.class);
                 int code = currencyBean.getCode();
                 if (code == 0) {
@@ -333,47 +323,49 @@ public abstract class BaseFragment extends Fragment {
                                     LitePal.deleteAll(BdCurrency.class);
                                 }
                                 boolean save = LitePal.saveAll(data);
-                                message = new Message();
-                                message.what = currency_finish;
-                                message.obj = save;
-                                myHandler.sendMessage(message);
+                                messages = new Message();
+                                messages.what = currency_finish;
+                                messages.obj = save;
+                                myHandler.sendMessage(messages);
                             }
                         };
                         threadPoolExecutor.execute(runnable);
                     } else {
-                        message = new Message();
-                        message.what = currency_finish;
-                        message.obj = false;
-                        myHandler.sendMessage(message);
+                        messages = new Message();
+                        messages.what = currency_finish;
+                        messages.obj = false;
+                        myHandler.sendMessage(messages);
                     }
                 } else {
-                    message = new Message();
-                    message.what = currency_finish;
-                    message.obj = false;
-                    myHandler.sendMessage(message);
+                    messages = new Message();
+                    messages.what = currency_finish;
+                    messages.obj = false;
+                    myHandler.sendMessage(messages);
                 }
             }
-        });
+
+            @Override
+            public void Failure(int arg) {
+                messages = new Message();
+                messages.what = currency_finish;
+                messages.obj = false;
+                myHandler.sendMessage(messages);
+            }
+
+            @Override
+            public void Complete(int arg) {
+
+            }
+        }));
     }
 
     //请求部门
     private void getBdDepartment(final int type) {
         String department = Constance.getDepartment();
-        NetworkUtil.getInstance().get(getActivity(),department, new VolleyListener<String>() {
+        NetworkUtil.getInstance().get(getActivity(), department, 1, new com.kingdee.ah.pda.volley.MyHandler(new com.kingdee.ah.pda.volley.MyHandler.OnReceiveMessageListener() {
             @Override
-            public void requestComplete() {
-            }
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                message = new Message();
-                message.what = department_finish;
-                message.obj = false;
-                myHandler.sendMessage(message);
-            }
-
-            @Override
-            public void onResponse(String response) {
+            public void Success(Message message) {
+                String response = (String) message.obj;
                 DepartmentBean departmentBean = GsonUtils.parseJSON(response, DepartmentBean.class);
                 if (departmentBean.getCode() == 0) {
                     final List<BdDepartment> data = departmentBean.getData();
@@ -385,50 +377,49 @@ public abstract class BaseFragment extends Fragment {
                                     LitePal.deleteAll(BdDepartment.class);
                                 }
                                 boolean save = LitePal.saveAll(data);
-                                message = new Message();
-                                message.what = department_finish;
-                                message.obj = save;
-                                myHandler.sendMessage(message);
+                                messages = new Message();
+                                messages.what = department_finish;
+                                messages.obj = save;
+                                myHandler.sendMessage(messages);
                             }
                         };
                         threadPoolExecutor.execute(runnable);
                     } else {
-                        message = new Message();
-                        message.what = department_finish;
-                        message.obj = false;
-                        myHandler.sendMessage(message);
+                        messages = new Message();
+                        messages.what = department_finish;
+                        messages.obj = false;
+                        myHandler.sendMessage(messages);
                     }
                 } else {
-                    message = new Message();
-                    message.what = department_finish;
-                    message.obj = false;
-                    myHandler.sendMessage(message);
+                    messages = new Message();
+                    messages.what = department_finish;
+                    messages.obj = false;
+                    myHandler.sendMessage(messages);
                 }
+            }
 
+            @Override
+            public void Failure(int arg) {
+                messages = new Message();
+                messages.what = department_finish;
+                messages.obj = false;
+                myHandler.sendMessage(messages);
+            }
+
+            @Override
+            public void Complete(int arg) {
 
             }
-        });
+        }));
     }
-
 
     //请求金蝶物料表
     private void getBdMaterial(final int type) {
         String materriallist = Constance.getMaterial();
-        NetworkUtil.getInstance().get(getActivity(),materriallist, new VolleyListener<String>() {
+        NetworkUtil.getInstance().get(getActivity(), materriallist, 2, new com.kingdee.ah.pda.volley.MyHandler(new com.kingdee.ah.pda.volley.MyHandler.OnReceiveMessageListener() {
             @Override
-            public void requestComplete() {
-            }
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                message = new Message();
-                message.what = material_finish;
-                message.obj = false;
-                myHandler.sendMessage(message);
-            }
-
-            @Override
-            public void onResponse(String response) {
+            public void Success(Message message) {
+                String response = (String) message.obj;
                 MaterialListBean materialListBean = GsonUtils.parseJSON(response, MaterialListBean.class);
                 if (materialListBean.getCode() == 0) {
                     final List<BdMaterial> data = materialListBean.getData();
@@ -440,47 +431,50 @@ public abstract class BaseFragment extends Fragment {
                                     LitePal.deleteAll(BdMaterial.class);
                                 }
                                 boolean save = LitePal.saveAll(data);
-                                message = new Message();
-                                message.what = material_finish;
-                                message.obj = save;
-                                myHandler.sendMessage(message);
+                                messages = new Message();
+                                messages.what = material_finish;
+                                messages.obj = save;
+                                myHandler.sendMessage(messages);
                             }
                         };
                         threadPoolExecutor.execute(runnable);
                     } else {
-                        message = new Message();
-                        message.what = material_finish;
-                        message.obj = false;
-                        myHandler.sendMessage(message);
+                        messages = new Message();
+                        messages.what = material_finish;
+                        messages.obj = false;
+                        myHandler.sendMessage(messages);
                     }
                 } else {
-                    message = new Message();
-                    message.what = material_finish;
-                    message.obj = false;
-                    myHandler.sendMessage(message);
+                    messages = new Message();
+                    messages.what = material_finish;
+                    messages.obj = false;
+                    myHandler.sendMessage(messages);
                 }
             }
-        });
+
+            @Override
+            public void Failure(int arg) {
+                messages = new Message();
+                messages.what = material_finish;
+                messages.obj = false;
+                myHandler.sendMessage(messages);
+            }
+
+            @Override
+            public void Complete(int arg) {
+
+            }
+        }));
     }
+
 
     //请求存货类别
     private void getBdMaterialCategory(final int type) {
-        String materialcategory = Constance.getMaterialcategory();
-        NetworkUtil.getInstance().get(getActivity(),materialcategory, new VolleyListener<String>() {
+        final String materialcategory = Constance.getMaterialcategory();
+        NetworkUtil.getInstance().get(getActivity(), materialcategory, 3, new com.kingdee.ah.pda.volley.MyHandler( new com.kingdee.ah.pda.volley.MyHandler.OnReceiveMessageListener() {
             @Override
-            public void requestComplete() {
-            }
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                message = new Message();
-                message.what = materialCategory_finish;
-                message.obj = false;
-                myHandler.sendMessage(message);
-            }
-
-            @Override
-            public void onResponse(String response) {
+            public void Success(Message message) {
+                String response = (String) message.obj;
                 MaterialCategoryBean materialCategoryBean = GsonUtils.parseJSON(response, MaterialCategoryBean.class);
                 if (materialCategoryBean.getCode() == 0) {
                     final List<BdMaterialcategory> data = materialCategoryBean.getData();
@@ -492,48 +486,49 @@ public abstract class BaseFragment extends Fragment {
                                     LitePal.deleteAll(BdMaterialcategory.class);
                                 }
                                 boolean save = LitePal.saveAll(data);
-                                message = new Message();
-                                message.what = materialCategory_finish;
-                                message.obj = save;
-                                myHandler.sendMessage(message);
+                                messages = new Message();
+                                messages.what = materialCategory_finish;
+                                messages.obj = save;
+                                myHandler.sendMessage(messages);
                             }
                         };
                         threadPoolExecutor.execute(runnable);
                     } else {
-                        message = new Message();
-                        message.what = materialCategory_finish;
-                        message.obj = false;
-                        myHandler.sendMessage(message);
+                        messages = new Message();
+                        messages.what = materialCategory_finish;
+                        messages.obj = false;
+                        myHandler.sendMessage(messages);
                     }
                 } else {
-                    message = new Message();
-                    message.what = materialCategory_finish;
-                    message.obj = false;
-                    myHandler.sendMessage(message);
+                    messages = new Message();
+                    messages.what = materialCategory_finish;
+                    messages.obj = false;
+                    myHandler.sendMessage(messages);
                 }
+            }
+
+            @Override
+            public void Failure(int arg) {
+                messages = new Message();
+                messages.what = materialCategory_finish;
+                messages.obj = false;
+                myHandler.sendMessage(messages);
+            }
+
+            @Override
+            public void Complete(int arg) {
 
             }
-        });
+        }));
     }
 
     //请求组织机构类别
     private void getBdOrganization(final int type) {
         final String organization = Constance.getOrganization();
-        NetworkUtil.getInstance().get(getActivity(),organization, new VolleyListener<String>() {
+        NetworkUtil.getInstance().get(getActivity(), organization, 4, new com.kingdee.ah.pda.volley.MyHandler( new com.kingdee.ah.pda.volley.MyHandler.OnReceiveMessageListener() {
             @Override
-            public void requestComplete() {
-            }
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                message = new Message();
-                message.what = organization_finish;
-                message.obj = false;
-                myHandler.sendMessage(message);
-            }
-
-            @Override
-            public void onResponse(String response) {
+            public void Success(Message message) {
+                String response = (String) message.obj;
                 OrganizationsBean organizationsBean = GsonUtils.parseJSON(response, OrganizationsBean.class);
                 if (organizationsBean.getCode() == 0) {
                     final List<BdOrganizations> data = organizationsBean.getData();
@@ -545,47 +540,50 @@ public abstract class BaseFragment extends Fragment {
                                     LitePal.deleteAll(BdOrganizations.class);
                                 }
                                 boolean save = LitePal.saveAll(data);
-                                message = new Message();
-                                message.what = organization_finish;
-                                message.obj = save;
-                                myHandler.sendMessage(message);
+                                messages = new Message();
+                                messages.what = organization_finish;
+                                messages.obj = save;
+                                myHandler.sendMessage(messages);
                             }
                         };
                         threadPoolExecutor.execute(runnable);
                     } else {
-                        message = new Message();
-                        message.what = organization_finish;
-                        message.obj = false;
-                        myHandler.sendMessage(message);
+                        messages = new Message();
+                        messages.what = organization_finish;
+                        messages.obj = false;
+                        myHandler.sendMessage(messages);
                     }
                 } else {
-                    message = new Message();
-                    message.what = organization_finish;
-                    message.obj = false;
-                    myHandler.sendMessage(message);
+                    messages = new Message();
+                    messages.what = organization_finish;
+                    messages.obj = false;
+                    myHandler.sendMessage(messages);
                 }
             }
-        });
+
+            @Override
+            public void Failure(int arg) {
+                messages = new Message();
+                messages.what = organization_finish;
+                messages.obj = false;
+                myHandler.sendMessage(messages);
+            }
+
+            @Override
+            public void Complete(int arg) {
+
+            }
+        }));
     }
+
 
     //请求项目
     private void getBdProject(final int type) {
         String projectlist = Constance.getProjectlist();
-        NetworkUtil.getInstance().get(getActivity(),projectlist, new VolleyListener<String>() {
+        NetworkUtil.getInstance().get(getActivity(), projectlist,5,new com.kingdee.ah.pda.volley.MyHandler( new com.kingdee.ah.pda.volley.MyHandler.OnReceiveMessageListener() {
             @Override
-            public void requestComplete() {
-            }
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                message = new Message();
-                message.what = project_finish;
-                message.obj = false;
-                myHandler.sendMessage(message);
-            }
-
-            @Override
-            public void onResponse(String response) {
+            public void Success(Message message) {
+                String response= (String) message.obj;
                 ProjectListBean projectListBean = GsonUtils.parseJSON(response, ProjectListBean.class);
                 if (projectListBean.getCode() == 0) {
                     final List<BdProject> data = projectListBean.getData();
@@ -597,48 +595,49 @@ public abstract class BaseFragment extends Fragment {
                                     LitePal.deleteAll(BdProject.class);
                                 }
                                 boolean save = LitePal.saveAll(data);
-                                message = new Message();
-                                message.what = project_finish;
-                                message.obj = save;
-                                myHandler.sendMessage(message);
+                                messages = new Message();
+                                messages.what = project_finish;
+                                messages.obj = save;
+                                myHandler.sendMessage(messages);
                             }
                         };
                         threadPoolExecutor.execute(runnable);
                     } else {
-                        message = new Message();
-                        message.what = project_finish;
-                        message.obj = false;
-                        myHandler.sendMessage(message);
+                        messages = new Message();
+                        messages.what = project_finish;
+                        messages.obj = false;
+                        myHandler.sendMessage(messages);
                     }
                 } else {
-                    message = new Message();
-                    message.what = project_finish;
-                    message.obj = false;
-                    myHandler.sendMessage(message);
+                    messages = new Message();
+                    messages.what = project_finish;
+                    messages.obj = false;
+                    myHandler.sendMessage(messages);
                 }
+            }
+
+            @Override
+            public void Failure(int arg) {
+                messages = new Message();
+                messages.what = project_finish;
+                messages.obj = false;
+                myHandler.sendMessage(messages);
+            }
+
+            @Override
+            public void Complete(int arg) {
 
             }
-        });
+        }));
     }
 
     //请求仓库
     private void getBdStock(final int type) {
         String stockList = Constance.getStockList();
-        NetworkUtil.getInstance().get(getActivity(),stockList, new VolleyListener<String>() {
+        NetworkUtil.getInstance().get(getActivity(), stockList,6,new com.kingdee.ah.pda.volley.MyHandler(new com.kingdee.ah.pda.volley.MyHandler.OnReceiveMessageListener() {
             @Override
-            public void requestComplete() {
-            }
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                message = new Message();
-                message.what = stock_finish;
-                message.obj = false;
-                myHandler.sendMessage(message);
-            }
-
-            @Override
-            public void onResponse(String response) {
+            public void Success(Message message) {
+                String response= (String) message.obj;
                 StockBean stockBean = GsonUtils.parseJSON(response, StockBean.class);
                 if (stockBean.getCode() == 0) {
                     final List<BdStock> data = stockBean.getData();
@@ -650,47 +649,49 @@ public abstract class BaseFragment extends Fragment {
                                     LitePal.deleteAll(BdStock.class);
                                 }
                                 boolean save = LitePal.saveAll(data);
-                                message = new Message();
-                                message.what = stock_finish;
-                                message.obj = save;
-                                myHandler.sendMessage(message);
+                                messages = new Message();
+                                messages.what = stock_finish;
+                                messages.obj = save;
+                                myHandler.sendMessage(messages);
                             }
                         };
                         threadPoolExecutor.execute(runnable);
                     } else {
-                        message = new Message();
-                        message.what = stock_finish;
-                        message.obj = false;
-                        myHandler.sendMessage(message);
+                        messages = new Message();
+                        messages.what = stock_finish;
+                        messages.obj = false;
+                        myHandler.sendMessage(messages);
                     }
                 } else {
-                    message = new Message();
-                    message.what = stock_finish;
-                    message.obj = false;
-                    myHandler.sendMessage(message);
+                    messages = new Message();
+                    messages.what = stock_finish;
+                    messages.obj = false;
+                    myHandler.sendMessage(messages);
                 }
             }
-        });
+
+            @Override
+            public void Failure(int arg) {
+                messages = new Message();
+                messages.what = stock_finish;
+                messages.obj = false;
+                myHandler.sendMessage(messages);
+            }
+
+            @Override
+            public void Complete(int arg) {
+
+            }
+        }));
     }
 
     //请求供应商
     private void getBdSupplier(final int type) {
         String supplier = Constance.getSupplier();
-        NetworkUtil.getInstance().get(getActivity(),supplier, new VolleyListener<String>() {
+        NetworkUtil.getInstance().get(getActivity(), supplier,7,new com.kingdee.ah.pda.volley.MyHandler(new com.kingdee.ah.pda.volley.MyHandler.OnReceiveMessageListener() {
             @Override
-            public void requestComplete() {
-            }
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                message = new Message();
-                message.what = supplier_finish;
-                message.obj = false;
-                myHandler.sendMessage(message);
-            }
-
-            @Override
-            public void onResponse(String response) {
+            public void Success(Message message) {
+                String response= (String) message.obj;
                 SupplierBean supplierBean = GsonUtils.parseJSON(response, SupplierBean.class);
                 if (supplierBean.getCode() == 0) {
                     final List<BdSupplier> data = supplierBean.getData();
@@ -702,50 +703,49 @@ public abstract class BaseFragment extends Fragment {
                                     LitePal.deleteAll(BdSupplier.class);
                                 }
                                 boolean save = LitePal.saveAll(data);
-                                message = new Message();
-                                message.what = supplier_finish;
-                                message.obj = save;
-                                myHandler.sendMessage(message);
+                                messages = new Message();
+                                messages.what = supplier_finish;
+                                messages.obj = save;
+                                myHandler.sendMessage(messages);
                             }
                         };
                         threadPoolExecutor.execute(runnable);
                     } else {
-                        message = new Message();
-                        message.what = supplier_finish;
-                        message.obj = false;
-                        myHandler.sendMessage(message);
+                        messages = new Message();
+                        messages.what = supplier_finish;
+                        messages.obj = false;
+                        myHandler.sendMessage(messages);
                     }
                 } else {
-                    message = new Message();
-                    message.what = supplier_finish;
-                    message.obj = false;
-                    myHandler.sendMessage(message);
+                    messages = new Message();
+                    messages.what = supplier_finish;
+                    messages.obj = false;
+                    myHandler.sendMessage(messages);
                 }
+            }
 
+            @Override
+            public void Failure(int arg) {
+                messages = new Message();
+                messages.what = supplier_finish;
+                messages.obj = false;
+                myHandler.sendMessage(messages);
+            }
+
+            @Override
+            public void Complete(int arg) {
 
             }
-        });
+        }));
     }
-
 
     //请求计量单位代码
     private void getBdUnit(final int type) {
         String unit = Constance.getUnit();
-        NetworkUtil.getInstance().get(getActivity(),unit, new VolleyListener<String>() {
+        NetworkUtil.getInstance().get(getActivity(), unit,8,new com.kingdee.ah.pda.volley.MyHandler(new com.kingdee.ah.pda.volley.MyHandler.OnReceiveMessageListener() {
             @Override
-            public void requestComplete() {
-            }
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                message = new Message();
-                message.what = unit_finish;
-                message.obj = false;
-                myHandler.sendMessage(message);
-            }
-
-            @Override
-            public void onResponse(String response) {
+            public void Success(Message message) {
+                String response= (String) message.obj;
                 UnitBean unitBean = GsonUtils.parseJSON(response, UnitBean.class);
                 if (unitBean.getCode() == 0) {
                     final List<BdUnit> data = unitBean.getData();
@@ -757,33 +757,42 @@ public abstract class BaseFragment extends Fragment {
                                     LitePal.deleteAll(BdUnit.class);
                                 }
                                 boolean save = LitePal.saveAll(data);
-                                message = new Message();
-                                message.what = unit_finish;
-                                message.obj = save;
-                                myHandler.sendMessage(message);
+                                messages = new Message();
+                                messages.what = unit_finish;
+                                messages.obj = save;
+                                myHandler.sendMessage(messages);
                             }
                         };
                         threadPoolExecutor.execute(runnable);
                     } else {
-                        message = new Message();
-                        message.what = unit_finish;
-                        message.obj = false;
-                        myHandler.sendMessage(message);
+                        messages = new Message();
+                        messages.what = unit_finish;
+                        messages.obj = false;
+                        myHandler.sendMessage(messages);
                     }
                 } else {
-                    message = new Message();
-                    message.what = unit_finish;
-                    message.obj = false;
-                    myHandler.sendMessage(message);
+                    messages = new Message();
+                    messages.what = unit_finish;
+                    messages.obj = false;
+                    myHandler.sendMessage(messages);
                 }
+            }
 
+            @Override
+            public void Failure(int arg) {
 
             }
-        });
+
+            @Override
+            public void Complete(int arg) {
+
+            }
+        }));
     }
 
-    private void closeDialog(String msg,boolean b) {
-        ToastUtil.show(getActivity(),String.format("%s%s%s",msg,"基础数据同步",b?"成功":"失败"));
+
+    private void closeDialog(String msg, boolean b) {
+        ToastUtil.show(getActivity(), String.format("%s%s%s", msg, "基础数据同步", b ? "成功" : "失败"));
         hasDownload++;
         if (DownloadCount == hasDownload) {
             if (updateDialog != null) {
@@ -815,18 +824,6 @@ public abstract class BaseFragment extends Fragment {
                 progressDialog.cancel();
             }
         }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        App.sRequestQueue.start();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        App.sRequestQueue.stop();
     }
 
     @Override

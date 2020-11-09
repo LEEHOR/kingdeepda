@@ -70,7 +70,7 @@ public class HomeFragment extends BaseFragment {
         addBtn3();
         addBtn4();
         addBtn5();
-        updateBaseData(1);
+       // updateBaseData(1);
     }
 
     //添加1
@@ -163,6 +163,5 @@ public class HomeFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
-        App.sRequestQueue.cancelAll(getActivity().getClass().getName());
     }
 }

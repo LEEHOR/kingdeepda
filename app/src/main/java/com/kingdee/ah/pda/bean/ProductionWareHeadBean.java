@@ -303,9 +303,9 @@ public class ProductionWareHeadBean implements Serializable {
              */
             private String fstockstatusid;
             private String finstocktype;
-            private int fbasemustqty;
+            private Double fbasemustqty;
             private String fmaterialid;
-            private int fbaserealqty;
+            private Double fbaserealqty;
             private String funitid;
             private String fstockid;
             private String fkeepertypeid;
@@ -314,9 +314,9 @@ public class ProductionWareHeadBean implements Serializable {
             private String fproducttype;
             private int parentId;
             private String fownerid;
-            private int frealqty;
+            private Double frealqty;
             private String fspecification;
-            private int fmustqty;
+            private Double fmustqty;
             private String fkeeperid;
             private String fbaseunitid;
             private String fproducedate;
@@ -333,16 +333,9 @@ public class ProductionWareHeadBean implements Serializable {
                 this.finstocktype = finstocktype;
             }
 
-            public void setFbasemustqty(int fbasemustqty) {
-                this.fbasemustqty = fbasemustqty;
-            }
 
             public void setFmaterialid(String fmaterialid) {
                 this.fmaterialid = fmaterialid;
-            }
-
-            public void setFbaserealqty(int fbaserealqty) {
-                this.fbaserealqty = fbaserealqty;
             }
 
             public void setFunitid(String funitid) {
@@ -377,17 +370,11 @@ public class ProductionWareHeadBean implements Serializable {
                 this.fownerid = fownerid;
             }
 
-            public void setFrealqty(int frealqty) {
-                this.frealqty = frealqty;
-            }
 
             public void setFspecification(String fspecification) {
                 this.fspecification = fspecification;
             }
 
-            public void setFmustqty(int fmustqty) {
-                this.fmustqty = fmustqty;
-            }
 
             public void setFkeeperid(String fkeeperid) {
                 this.fkeeperid = fkeeperid;
@@ -425,17 +412,11 @@ public class ProductionWareHeadBean implements Serializable {
                 return finstocktype;
             }
 
-            public int getFbasemustqty() {
-                return fbasemustqty;
-            }
 
             public String getFmaterialid() {
                 return fmaterialid;
             }
 
-            public int getFbaserealqty() {
-                return fbaserealqty;
-            }
 
             public String getFunitid() {
                 return funitid;
@@ -469,17 +450,11 @@ public class ProductionWareHeadBean implements Serializable {
                 return fownerid;
             }
 
-            public int getFrealqty() {
-                return frealqty;
-            }
 
             public String getFspecification() {
                 return fspecification;
             }
 
-            public int getFmustqty() {
-                return fmustqty;
-            }
 
             public String getFkeeperid() {
                 return fkeeperid;
@@ -507,6 +482,38 @@ public class ProductionWareHeadBean implements Serializable {
 
             public String getFmaterialname() {
                 return fmaterialname;
+            }
+
+            public Double getFbasemustqty() {
+                return fbasemustqty;
+            }
+
+            public void setFbasemustqty(Double fbasemustqty) {
+                this.fbasemustqty = fbasemustqty;
+            }
+
+            public Double getFbaserealqty() {
+                return fbaserealqty;
+            }
+
+            public void setFbaserealqty(Double fbaserealqty) {
+                this.fbaserealqty = fbaserealqty;
+            }
+
+            public Double getFrealqty() {
+                return frealqty;
+            }
+
+            public void setFrealqty(Double frealqty) {
+                this.frealqty = frealqty;
+            }
+
+            public Double getFmustqty() {
+                return fmustqty;
+            }
+
+            public void setFmustqty(Double fmustqty) {
+                this.fmustqty = fmustqty;
             }
         }
     }

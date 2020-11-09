@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
@@ -27,6 +28,7 @@ import com.kingdee.ah.pda.util.KeyboardUtils;
 import com.kingdee.ah.pda.util.LocalDisplay;
 import com.kingdee.ah.pda.util.ToastUtil;
 import com.kingdee.ah.pda.util.decoration.SpacesItemDecoration;
+import com.kingdee.ah.pda.volley.MyHandler;
 import com.kingdee.ah.pda.volley.NetworkUtil;
 import com.kingdee.ah.pda.volley.VolleyListener;
 
@@ -50,7 +52,7 @@ import butterknife.OnClick;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class DeliveryNoticeActivity extends BaseActivity {
+public class DeliveryNoticeActivity extends BaseActivity implements MyHandler.OnReceiveMessageListener {
     @BindView(R.id.delivery_notice_title)
     TitleTopOrdersView deliveryNoticeTitle;
     @BindView(R.id.app_search)
@@ -64,12 +66,14 @@ public class DeliveryNoticeActivity extends BaseActivity {
     @BindView(R.id.salDeliverNotice_refresh)
     EasyRefreshLayout salDeliverNoticeRefresh;
     private SalDeliverNoticeAdapter noticeAdapter;
+    private MyHandler myHandler = new MyHandler( this);
 
     private int PAGE = 1;
     private int LIMIT = 10;
 
     //条件参数
     private Map<String, String> mapParam = new HashMap<>();
+    private double loadType;
 
     @Override
     protected int getContentResId() {
@@ -122,7 +126,7 @@ public class DeliveryNoticeActivity extends BaseActivity {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 int id = view.getId();
-                switch (id){
+                switch (id) {
                     case R.id.btn_detail:
                         break;
                     case R.id.btn_push:
@@ -149,7 +153,8 @@ public class DeliveryNoticeActivity extends BaseActivity {
     }
 
     //获取发货通知列表数据
-    private void getData(final int loadType) {
+    private void getData(final int isLoad) {
+        this.loadType = isLoad;
         if (loadType == 0) {
             this.PAGE = 1;
             this.LIMIT = 10;
@@ -159,29 +164,31 @@ public class DeliveryNoticeActivity extends BaseActivity {
         mapParam.put("page", String.valueOf(PAGE));
         mapParam.put("limit", String.valueOf(LIMIT));
         String salDeliverynotice = Constance.getSalDeliverynotice();
-        NetworkUtil.getInstance().postByJson(this,salDeliverynotice, SalDeliverynoticeBean.class, mapParam, new VolleyListener<SalDeliverynoticeBean>() {
-            @Override
-            public void requestComplete() {
+        NetworkUtil.getInstance().postByJson(this, salDeliverynotice, SalDeliverynoticeBean.class, mapParam,0,myHandler);
 
-            }
+    }
 
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                if (loadType == 0) {
-                    salDeliverNoticeRefresh.refreshComplete();
-                } else {
-                    salDeliverNoticeRefresh.loadMoreFail();
-                }
-                noticeAdapter.setEmptyView(R.layout.view_error, salDeliverNoticeRecycler);
-            }
 
-            @RequiresApi(api = Build.VERSION_CODES.N)
-            @Override
-            public void onResponse(SalDeliverynoticeBean response) {
-                int code = response.getCode();
+    @OnClick(R.id.iv_scan)
+    public void onViewClicked() {
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        myHandler.removeCallbacksAndMessages(null);
+    }
+
+    @Override
+    public void Success(Message message) {
+        switch (message.arg1) {
+            case 0:
+                SalDeliverynoticeBean salDeliverynoticeBean = (SalDeliverynoticeBean) message.obj;
+                int code = salDeliverynoticeBean.getCode();
                 if (code == 0) {
                     PAGE++;
-                    List<SalDeliverynoticeBean.DataEntity> data = response.getData();
+                    List<SalDeliverynoticeBean.DataEntity> data = salDeliverynoticeBean.getData();
                     if (loadType == 0) {
                         noticeAdapter.setNewData(data);
                         salDeliverNoticeRefresh.refreshComplete();
@@ -202,22 +209,28 @@ public class DeliveryNoticeActivity extends BaseActivity {
                         salDeliverNoticeRefresh.loadMoreFail();
                     }
                     noticeAdapter.setEmptyView(R.layout.view_error, salDeliverNoticeRecycler);
-                    ToastUtil.show(DeliveryNoticeActivity.this, response.getMsg());
+                    ToastUtil.show(DeliveryNoticeActivity.this, salDeliverynoticeBean.getMsg());
                 }
-            }
-        });
-
-    }
-
-
-    @OnClick(R.id.iv_scan)
-    public void onViewClicked() {
-
+                break;
+        }
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        App.sRequestQueue.cancelAll(DeliveryNoticeActivity.this.getClass().getName());
+    public void Failure(int arg) {
+        switch (arg) {
+            case 0:
+                if (loadType == 0) {
+                    salDeliverNoticeRefresh.refreshComplete();
+                } else {
+                    salDeliverNoticeRefresh.loadMoreFail();
+                }
+                noticeAdapter.setEmptyView(R.layout.view_error, salDeliverNoticeRecycler);
+                break;
+        }
+    }
+
+    @Override
+    public void Complete(int arg) {
+
     }
 }

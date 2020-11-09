@@ -3,6 +3,7 @@ package com.kingdee.ah.pda.ui.activity.productionWarehousing;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,6 +28,7 @@ import com.kingdee.ah.pda.util.KeyboardUtils;
 import com.kingdee.ah.pda.util.LocalDisplay;
 import com.kingdee.ah.pda.util.ToastUtil;
 import com.kingdee.ah.pda.util.decoration.SpacesItemDecoration;
+import com.kingdee.ah.pda.volley.MyHandler;
 import com.kingdee.ah.pda.volley.NetworkUtil;
 import com.kingdee.ah.pda.volley.VolleyListener;
 
@@ -50,7 +52,7 @@ import butterknife.OnClick;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class ProductionWarehousingActivity extends BaseActivity {
+public class ProductionWarehousingActivity extends BaseActivity implements MyHandler.OnReceiveMessageListener {
 
     @BindView(R.id.production_warehousing_title)
     TitleTopOrdersView productionWarehousingTitle;
@@ -73,6 +75,8 @@ public class ProductionWarehousingActivity extends BaseActivity {
     private ProductionWarehosingAdapter warehosingAdapter;
     private Map<String,String> mapParam =new HashMap<>();
     private DateSelectMenu dateSelectMenu;
+    private MyHandler myHandler=new MyHandler(this);
+    private int type;
 
     @Override
     protected int getContentResId() {
@@ -190,8 +194,9 @@ public class ProductionWarehousingActivity extends BaseActivity {
     }
 
         //获取数据
-        private void getData(final int type) {
+        private void getData(final int isLoad) {
             String prdInstockPage = Constance.getPrdInstockPage();
+            this.type=isLoad;
             if (type == 0) {
                 PAGE=1;
                 warehosingAdapter.getData().clear();
@@ -200,52 +205,7 @@ public class ProductionWarehousingActivity extends BaseActivity {
             mapParam.put("page",String.valueOf(PAGE));
             mapParam.put("limit",String.valueOf(LIMIT));
             NetworkUtil.getInstance().postByJson(ProductionWarehousingActivity.this,prdInstockPage,
-                    ProductionWareHeadBean.class, mapParam, new VolleyListener<ProductionWareHeadBean>() {
-                        @Override
-                        public void requestComplete() {
-
-                        }
-
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            warehosingAdapter.setEmptyView(R.layout.view_error, productionRecycler);
-                            if (type == 0) {
-                                productionRefresh.refreshComplete();
-                            } else {
-                                productionRefresh.loadMoreFail();
-                            }
-                        }
-
-                        @Override
-                        public void onResponse(ProductionWareHeadBean response) {
-                            int code = response.getCode();
-                            if (code == 0) {
-                                PAGE++;
-                                List<ProductionWareHeadBean.DataEntity> data = response.getData();
-                                if (type == 0) {
-                                    warehosingAdapter.setNewData(data);
-                                    productionRefresh.refreshComplete();
-                                } else {
-                                    if (data.size() > 0) {
-                                        warehosingAdapter.addData(data);
-                                        productionRefresh.loadMoreComplete();
-                                    } else {
-                                        productionRefresh.loadNothing();
-                                    }
-                                }
-                                warehosingAdapter.setEmptyView(R.layout.view_empt, productionRecycler);
-                            } else {
-                                warehosingAdapter.setEmptyView(R.layout.view_error, productionRecycler);
-                                ToastUtil.show(ProductionWarehousingActivity.this,response.getMsg());
-                                if (type == 0) {
-                                    productionRefresh.refreshComplete();
-                                } else {
-                                    productionRefresh.loadMoreFail();
-                                }
-                            }
-
-                        }
-                    });
+                    ProductionWareHeadBean.class, mapParam,0,myHandler);
 
         }
 
@@ -263,6 +223,51 @@ public class ProductionWarehousingActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        App.sRequestQueue.cancelAll(ProductionWarehousingActivity.this.getClass().getName());
+        myHandler.removeCallbacksAndMessages(null);
+    }
+
+    @Override
+    public void Success(Message message) {
+        ProductionWareHeadBean productionWareHeadBean= (ProductionWareHeadBean) message.obj;
+        int code = productionWareHeadBean.getCode();
+        if (code == 0) {
+            PAGE++;
+            List<ProductionWareHeadBean.DataEntity> data = productionWareHeadBean.getData();
+            if (type == 0) {
+                warehosingAdapter.setNewData(data);
+                productionRefresh.refreshComplete();
+            } else {
+                if (data.size() > 0) {
+                    warehosingAdapter.addData(data);
+                    productionRefresh.loadMoreComplete();
+                } else {
+                    productionRefresh.loadNothing();
+                }
+            }
+            warehosingAdapter.setEmptyView(R.layout.view_empt, productionRecycler);
+        } else {
+            warehosingAdapter.setEmptyView(R.layout.view_error, productionRecycler);
+            ToastUtil.show(ProductionWarehousingActivity.this,productionWareHeadBean.getMsg());
+            if (type == 0) {
+                productionRefresh.refreshComplete();
+            } else {
+                productionRefresh.loadMoreFail();
+            }
+        }
+    }
+
+    @Override
+    public void Failure(int arg) {
+        warehosingAdapter.setEmptyView(R.layout.view_error, productionRecycler);
+        if (type == 0) {
+            productionRefresh.refreshComplete();
+        } else {
+            productionRefresh.loadMoreFail();
+        }
+    }
+
+    @Override
+    public void Complete(int arg) {
+
     }
 }

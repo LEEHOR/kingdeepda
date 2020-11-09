@@ -3,6 +3,7 @@ package com.kingdee.ah.pda.ui.activity.productionPicking;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,6 +26,7 @@ import com.kingdee.ah.pda.util.KeyboardUtils;
 import com.kingdee.ah.pda.util.LocalDisplay;
 import com.kingdee.ah.pda.util.ToastUtil;
 import com.kingdee.ah.pda.util.decoration.SpacesItemDecoration;
+import com.kingdee.ah.pda.volley.MyHandler;
 import com.kingdee.ah.pda.volley.NetworkUtil;
 import com.kingdee.ah.pda.volley.VolleyListener;
 
@@ -48,7 +50,7 @@ import butterknife.OnClick;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class ProductionPickingActivity extends BaseActivity {
+public class ProductionPickingActivity extends BaseActivity implements MyHandler.OnReceiveMessageListener {
     @BindView(R.id.production_pick_title)
     TitleTopOrdersView productionPickTitle;
     @BindView(R.id.iv_add)
@@ -64,8 +66,10 @@ public class ProductionPickingActivity extends BaseActivity {
 
     private int PAGE = 1;
     private int LIMIT = 10;
+    private int loadType=0;
     private ProductionPickAdapter pickAdapter;
     private Map<String,String> mapParams=new HashMap<>();
+    private MyHandler myHandler=new MyHandler(this);
 
     @Override
     protected int getContentResId() {
@@ -143,7 +147,8 @@ public class ProductionPickingActivity extends BaseActivity {
     }
 
     //生产领料表头
-    private void getDate(final int loadType){
+    private void getDate(final int isLoad){
+
         if (loadType == 0) {
             this.PAGE = 1;
             this.LIMIT = 10;
@@ -153,45 +158,7 @@ public class ProductionPickingActivity extends BaseActivity {
         mapParams.put("page", String.valueOf(PAGE));
         mapParams.put("limit", String.valueOf(LIMIT));
         String getPickMtrl = Constance.getGetPickMtrl();
-        NetworkUtil.getInstance().postByJson(this,getPickMtrl, ProductionPickHeadBean.class, mapParams, new VolleyListener<ProductionPickHeadBean>() {
-
-            @Override
-            public void requestComplete() {
-            }
-
-            @Override
-            public void onResponse(ProductionPickHeadBean response) {
-                if (response.getCode() == 0) {
-                    PAGE++;
-                    List<ProductionPickHeadBean.DataEntity> data = response.getData();
-                    if (loadType == 0) {
-                        pickAdapter.setNewData(data);
-                        productionpickRefresh.refreshComplete();
-                    } else {
-                        if (data.size() > 0) {
-                            pickAdapter.addData(data);
-                            productionpickRefresh.loadMoreComplete();
-                        } else {
-                            productionpickRefresh.loadNothing();
-                        }
-                    }
-                    pickAdapter.setEmptyView(R.layout.view_empt,productionpickRecycler);
-                } else {
-                    pickAdapter.setEmptyView(R.layout.view_error,productionpickRecycler);
-                    ToastUtil.show(ProductionPickingActivity.this,response.getMsg());
-                }
-            }
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                pickAdapter.setEmptyView(R.layout.view_error,productionpickRecycler);
-                if (loadType == 0) {
-                    productionpickRefresh.refreshComplete();
-                } else {
-                    productionpickRefresh.loadMoreFail();
-                }
-            }
-        });
+        NetworkUtil.getInstance().postByJson(this,getPickMtrl, ProductionPickHeadBean.class, mapParams,0,myHandler);
     }
 
 
@@ -206,6 +173,45 @@ public class ProductionPickingActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        App.sRequestQueue.cancelAll(ProductionPickingActivity.this.getClass().getName());
+        myHandler.removeCallbacksAndMessages(null);
+    }
+
+    @Override
+    public void Success(Message message) {
+        ProductionPickHeadBean pickHeadBean= (ProductionPickHeadBean) message.obj;
+        if (pickHeadBean.getCode() == 0) {
+            PAGE++;
+            List<ProductionPickHeadBean.DataEntity> data = pickHeadBean.getData();
+            if (loadType == 0) {
+                pickAdapter.setNewData(data);
+                productionpickRefresh.refreshComplete();
+            } else {
+                if (data.size() > 0) {
+                    pickAdapter.addData(data);
+                    productionpickRefresh.loadMoreComplete();
+                } else {
+                    productionpickRefresh.loadNothing();
+                }
+            }
+            pickAdapter.setEmptyView(R.layout.view_empt,productionpickRecycler);
+        } else {
+            pickAdapter.setEmptyView(R.layout.view_error,productionpickRecycler);
+            ToastUtil.show(ProductionPickingActivity.this,pickHeadBean.getMsg());
+        }
+    }
+
+    @Override
+    public void Failure(int arg) {
+        pickAdapter.setEmptyView(R.layout.view_error,productionpickRecycler);
+        if (loadType == 0) {
+            productionpickRefresh.refreshComplete();
+        } else {
+            productionpickRefresh.loadMoreFail();
+        }
+    }
+
+    @Override
+    public void Complete(int arg) {
+
     }
 }

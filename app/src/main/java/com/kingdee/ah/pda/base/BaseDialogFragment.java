@@ -48,11 +48,6 @@ public abstract class BaseDialogFragment extends AppCompatDialogFragment {
         super.onCreate(savedInstanceState);
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-
-    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

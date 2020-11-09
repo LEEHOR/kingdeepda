@@ -3,6 +3,7 @@ package com.kingdee.ah.pda.ui.fragment;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Message;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -23,6 +24,7 @@ import com.kingdee.ah.pda.ui.view.CircleImageView;
 import com.kingdee.ah.pda.util.GsonUtils;
 import com.kingdee.ah.pda.util.SharedPreferencesUtil;
 import com.kingdee.ah.pda.util.ToastUtil;
+import com.kingdee.ah.pda.volley.MyHandler;
 import com.kingdee.ah.pda.volley.NetworkUtil;
 import com.kingdee.ah.pda.volley.VolleyListener;
 
@@ -46,7 +48,7 @@ import butterknife.Unbinder;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class MineFragment extends BaseFragment {
+public class MineFragment extends BaseFragment implements MyHandler.OnReceiveMessageListener {
     @BindView(R.id.mine_head_portrait)
     CircleImageView mineHeadPortrait;
     @BindView(R.id.userID)
@@ -66,6 +68,7 @@ public class MineFragment extends BaseFragment {
     @BindView(R.id.re_update_base)
     RelativeLayout reUpdateBase;
     Unbinder unbinder;
+    private MyHandler myHandler=new MyHandler(this);
 
     @Override
     protected int getLayoutId() {
@@ -157,26 +160,8 @@ public class MineFragment extends BaseFragment {
     private void checkVersion() {
         Map<String, String> params = new HashMap<>();
         String newVersionUrl = Constance.getNewVersion();
-        NetworkUtil.getInstance().post(getActivity(),newVersionUrl, params, new VolleyListener<String>() {
-            @Override
-            public void requestComplete() {
-
-            }
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-            }
-
-            @Override
-            public void onResponse(String response) {
-                NewVersionBean vm = GsonUtils.parseJSON(response, NewVersionBean.class);
-                if (vm.getCode() == 0) {
-                    DialogVersion(vm.getVersion(), vm.getFocusUpdate(), vm.getRemark(), vm.getUrl());
-                } else {
-                    ToastUtil.show(getActivity(), vm.getMsg());
-                }
-            }
-        });
+        ShowProgress(getActivity(),"加载中...",false);
+        NetworkUtil.getInstance().post(getActivity(),newVersionUrl, params,0,myHandler);
     }
 
     private void DialogVersion(String versionName, int isForceUpdate, String remark, final String durl) {
@@ -195,6 +180,27 @@ public class MineFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        App.sRequestQueue.cancelAll(getActivity().getClass().getName());
+        myHandler.removeCallbacksAndMessages(null);
+    }
+
+    @Override
+    public void Success(Message message) {
+        String response= (String) message.obj;
+        NewVersionBean vm = GsonUtils.parseJSON(response, NewVersionBean.class);
+        if (vm.getCode() == 0) {
+            DialogVersion(vm.getVersion(), vm.getFocusUpdate(), vm.getRemark(), vm.getUrl());
+        } else {
+            ToastUtil.show(getActivity(), vm.getMsg());
+        }
+    }
+
+    @Override
+    public void Failure(int arg) {
+
+    }
+
+    @Override
+    public void Complete(int arg) {
+        CancelProgress();
     }
 }

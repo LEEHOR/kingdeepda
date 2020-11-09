@@ -81,11 +81,11 @@ public class ReceiveBillEntry implements Serializable {
         private String fmaterialSpecification;
         private String fmaterialNumber;
         private String projectNumber;
-        private int priceUnitQty;
+        private Double priceUnitQty;
         private String fstockName;
         private int entryId;
         private String fmaterialName;
-        private int factreceiveQty;
+        private Double factreceiveQty;
         private String fpredeliveryDate;
         private String fpurorgName;
         private String fauxPropIdProjectName;
@@ -93,7 +93,7 @@ public class ReceiveBillEntry implements Serializable {
         private String limit;
         private String fdate;
         private String fprojectNo;
-        private int fsupdelQty;
+        private Double fsupdelQty;
         private String documentStatus;
         private String funitName;
         private String page;
@@ -117,10 +117,6 @@ public class ReceiveBillEntry implements Serializable {
             this.projectNumber = projectNumber;
         }
 
-        public void setPriceUnitQty(int priceUnitQty) {
-            this.priceUnitQty = priceUnitQty;
-        }
-
         public void setFstockName(String fstockName) {
             this.fstockName = fstockName;
         }
@@ -131,10 +127,6 @@ public class ReceiveBillEntry implements Serializable {
 
         public void setFmaterialName(String fmaterialName) {
             this.fmaterialName = fmaterialName;
-        }
-
-        public void setFactreceiveQty(int factreceiveQty) {
-            this.factreceiveQty = factreceiveQty;
         }
 
         public void setFpredeliveryDate(String fpredeliveryDate) {
@@ -163,10 +155,6 @@ public class ReceiveBillEntry implements Serializable {
 
         public void setFprojectNo(String fprojectNo) {
             this.fprojectNo = fprojectNo;
-        }
-
-        public void setFsupdelQty(int fsupdelQty) {
-            this.fsupdelQty = fsupdelQty;
         }
 
         public void setDocumentStatus(String documentStatus) {
@@ -209,10 +197,6 @@ public class ReceiveBillEntry implements Serializable {
             return projectNumber;
         }
 
-        public int getPriceUnitQty() {
-            return priceUnitQty;
-        }
-
         public String getFstockName() {
             return fstockName;
         }
@@ -225,9 +209,6 @@ public class ReceiveBillEntry implements Serializable {
             return fmaterialName;
         }
 
-        public int getFactreceiveQty() {
-            return factreceiveQty;
-        }
 
         public String getFpredeliveryDate() {
             return fpredeliveryDate;
@@ -257,10 +238,6 @@ public class ReceiveBillEntry implements Serializable {
             return fprojectNo;
         }
 
-        public int getFsupdelQty() {
-            return fsupdelQty;
-        }
-
         public String getDocumentStatus() {
             return documentStatus;
         }
@@ -283,6 +260,30 @@ public class ReceiveBillEntry implements Serializable {
 
         public String getFpriceunitName() {
             return fpriceunitName;
+        }
+
+        public Double getPriceUnitQty() {
+            return priceUnitQty;
+        }
+
+        public void setPriceUnitQty(Double priceUnitQty) {
+            this.priceUnitQty = priceUnitQty;
+        }
+
+        public Double getFactreceiveQty() {
+            return factreceiveQty;
+        }
+
+        public void setFactreceiveQty(Double factreceiveQty) {
+            this.factreceiveQty = factreceiveQty;
+        }
+
+        public Double getFsupdelQty() {
+            return fsupdelQty;
+        }
+
+        public void setFsupdelQty(Double fsupdelQty) {
+            this.fsupdelQty = fsupdelQty;
         }
     }
 }

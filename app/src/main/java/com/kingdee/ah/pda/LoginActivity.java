@@ -3,6 +3,7 @@ package com.kingdee.ah.pda;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Message;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -17,9 +18,11 @@ import com.kingdee.ah.pda.constance.Constance;
 import com.kingdee.ah.pda.constance.Shared;
 import com.kingdee.ah.pda.ui.activity.mine.ChangeIpActivity;
 import com.kingdee.ah.pda.util.GsonUtils;
+import com.kingdee.ah.pda.util.LoadingUtil;
 import com.kingdee.ah.pda.util.SharedPreferencesUtil;
 import com.kingdee.ah.pda.util.StringUtil;
 import com.kingdee.ah.pda.util.ToastUtil;
+import com.kingdee.ah.pda.volley.MyHandler;
 import com.kingdee.ah.pda.volley.NetworkUtil;
 import com.kingdee.ah.pda.volley.VolleyListener;
 
@@ -33,7 +36,7 @@ import butterknife.OnClick;
  * Created by 13799 on 2018/5/29.
  */
 
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends BaseActivity implements MyHandler.OnReceiveMessageListener {
 
     @BindView(R.id.tv_userName)
     EditText tvUserName;
@@ -49,6 +52,7 @@ public class LoginActivity extends BaseActivity {
     TextView btnIpChange;
     String addressPer;
     private long exitTime = 0;
+    private MyHandler myHandler=new MyHandler(this);
 
     public static void show(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);
@@ -115,27 +119,8 @@ public class LoginActivity extends BaseActivity {
         params.put("username", username);
         params.put("password", password);
         String loginURL = Constance.getLoginURL();
-        NetworkUtil.getInstance().post(this,loginURL, params, new VolleyListener<String>() {
-            @Override
-            public void requestComplete() {
-
-            }
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                ToastUtil.show(LoginActivity.this, "网络连接失败");
-            }
-
-            @Override
-            public void onResponse(String response) {
-                LoginVm vm = GsonUtils.parseJSON(response, LoginVm.class);
-                if (vm.getCode() == 0) {
-                    savePassword(vm.getData().getFuserAccount(), vm.getData().getFuserID(), vm.getData().getFphone(), vm.getAccess_token());
-                } else {
-                    ToastUtil.show(LoginActivity.this, vm.getMsg());
-                }
-            }
-        });
+        ShowProgress(this,"正在登陆...",false);
+        NetworkUtil.getInstance().post(this,loginURL, params,0,myHandler);
     }
 
     private void savePassword(String userAccount, int userId, String phone, String token) {
@@ -177,6 +162,27 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        App.sRequestQueue.cancelAll(LoginActivity.this.getClass().getName());
+         myHandler.removeCallbacksAndMessages(null);
+    }
+
+    @Override
+    public void Success(Message message) {
+        String response= (String) message.obj;
+        LoginVm vm = GsonUtils.parseJSON(response, LoginVm.class);
+        if (vm.getCode() == 0) {
+            savePassword(vm.getData().getFuserAccount(), vm.getData().getFuserID(), vm.getData().getFphone(), vm.getAccess_token());
+        } else {
+            ToastUtil.show(LoginActivity.this, vm.getMsg());
+        }
+    }
+
+    @Override
+    public void Failure(int arg) {
+
+    }
+
+    @Override
+    public void Complete(int arg) {
+        CancelProgress();
     }
 }

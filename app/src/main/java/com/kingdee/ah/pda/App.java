@@ -41,7 +41,6 @@ public class App extends Application {
         super.onCreate();
         mApplicationContext=getApplicationContext();
         mApplication=this;
-        sRequestQueue = RequestQueueUtil.getRequestQueue(this);
         LitePal.initialize(this);
         LocalDisplay.init(this);
         initBle();
@@ -49,6 +48,7 @@ public class App extends Application {
         VolleyLog.DEBUG=true;
         Logutil.setTag("日志");
         Logutil.DEBUG=true;
+        sRequestQueue = RequestQueueUtil.getRequestQueue(this);
     }
 
     private void initBle() {

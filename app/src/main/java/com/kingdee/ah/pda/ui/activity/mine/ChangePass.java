@@ -1,6 +1,7 @@
 package com.kingdee.ah.pda.ui.activity.mine;
 
 import android.os.Bundle;
+import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +19,7 @@ import com.kingdee.ah.pda.util.LoadingUtil;
 import com.kingdee.ah.pda.util.SharedPreferencesUtil;
 import com.kingdee.ah.pda.util.StringUtil;
 import com.kingdee.ah.pda.util.ToastUtil;
+import com.kingdee.ah.pda.volley.MyHandler;
 import com.kingdee.ah.pda.volley.NetworkUtil;
 import com.kingdee.ah.pda.volley.VolleyListener;
 
@@ -40,7 +42,7 @@ import butterknife.OnClick;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class ChangePass extends BaseActivity {
+public class ChangePass extends BaseActivity implements MyHandler.OnReceiveMessageListener {
     @BindView(R.id.user_account)
     EditText userAccount;
     @BindView(R.id.user_oldpass)
@@ -53,6 +55,7 @@ public class ChangePass extends BaseActivity {
     Button btnConfirm;
     @BindView(R.id.changePass_title)
     TitleTopOrdersView changePassTitle;
+    private MyHandler myHandler=new MyHandler(this);
 
     @Override
     protected int getContentResId() {
@@ -100,39 +103,12 @@ public class ChangePass extends BaseActivity {
     //修改密码
     public void doChangePass(String userOldPass, String password) {
         Map<String, String> params = new HashMap<>();
-        LoadingUtil.ShowProgress(this,"正在修改...",true);
+      ShowProgress(this,"正在修改...",false);
         params.put("username", SharedPreferencesUtil.getInstance(this).getKeyValue(Shared.userAccount));
         params.put("oldPwd", userOldPass);
         params.put("newPwd", password);
         String updatePwdUrl = Constance.getUpdatePwd();
-        NetworkUtil.getInstance().post(this,updatePwdUrl, params, new VolleyListener<String>() {
-            @Override
-            public void requestComplete() {
-                LoadingUtil.CancelProgress();
-            }
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                ToastUtil.show(ChangePass.this, "网络连接失败");
-            }
-
-            @Override
-            public void onResponse(String response) {
-                UpdatePwd updatePwd = GsonUtils.parseJSON(response, UpdatePwd.class);
-                int code = updatePwd.getCode();
-                if (code == 0) {
-                    ToastUtil.show(ChangePass.this, updatePwd.getMsg());
-                    updateUserInfo(inputPass2.getText().toString().trim());
-//                } else if (code == 900) {
-//                    AlertDialog alertDialog = CreateDialog(ChangePass.this, updatePwd.getMsg());
-//                    if (!alertDialog.isShowing()) {
-//                        alertDialog.show();
-//                    }
-                } else {
-                    ToastUtil.show(ChangePass.this, updatePwd.getMsg());
-                }
-            }
-        });
+        NetworkUtil.getInstance().post(this,updatePwdUrl, params,0,myHandler);
     }
 
     @OnClick(R.id.btn_confirm)
@@ -140,14 +116,35 @@ public class ChangePass extends BaseActivity {
         check();
     }
 
-
     private void updateUserInfo(String pwd) {
         SharedPreferencesUtil.getInstance(this).setKeyValue(Shared.PASSWORD, pwd);
     }
 
     @Override
+    public void Success(Message message) {
+     String response= (String) message.obj;
+        UpdatePwd updatePwd = GsonUtils.parseJSON(response, UpdatePwd.class);
+        int code = updatePwd.getCode();
+        if (code == 0) {
+            ToastUtil.show(ChangePass.this, updatePwd.getMsg());
+            updateUserInfo(inputPass2.getText().toString().trim());
+        } else {
+            ToastUtil.show(ChangePass.this, updatePwd.getMsg());
+        }
+    }
+
+    @Override
+    public void Failure(int arg) {
+
+    }
+
+    @Override
+    public void Complete(int arg) {
+        CancelProgress();
+    }
+    @Override
     protected void onDestroy() {
         super.onDestroy();
-        App.sRequestQueue.cancelAll(ChangePass.this.getClass().getName());
+       myHandler.removeCallbacksAndMessages(null);
     }
 }

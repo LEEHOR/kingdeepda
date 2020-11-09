@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Message;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
@@ -37,6 +38,7 @@ import com.kingdee.ah.pda.util.KeyboardUtils;
 import com.kingdee.ah.pda.util.LocalDisplay;
 import com.kingdee.ah.pda.util.ToastUtil;
 import com.kingdee.ah.pda.util.decoration.SpacesItemDecoration;
+import com.kingdee.ah.pda.volley.MyHandler;
 import com.kingdee.ah.pda.volley.NetworkUtil;
 import com.kingdee.ah.pda.volley.VolleyListener;
 import com.yxp.permission.util.lib.PermissionUtil;
@@ -63,7 +65,7 @@ import butterknife.OnClick;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class PurchaseWarehousingActivity extends BaseActivity {
+public class PurchaseWarehousingActivity extends BaseActivity implements MyHandler.OnReceiveMessageListener {
 
     @BindView(R.id.purchase_warehousing_title)
     TitleTopOrdersView purchaseWarehousingTitle;
@@ -90,12 +92,13 @@ public class PurchaseWarehousingActivity extends BaseActivity {
     private PurchaseWarehousingAdapter adapter;
     //条件参数
     private Map<String, String> mapParam = new HashMap<>();
-    ;
     private int PAGE = 1;
     private int LIMIT = 10;
+    private int loadType=0;
     private CommonSelectMenu commonSelectMenu;
     private SupplierSelectMenu supplierSelectMenu;
     private DateSelectMenu dateSelectMenu;
+    private MyHandler myHandler=new MyHandler(this);
 
     @Override
     protected int getContentResId() {
@@ -261,7 +264,8 @@ public class PurchaseWarehousingActivity extends BaseActivity {
     }
 
     //获取数据
-    private void getDate(final int loadType, Map<String, String> params) {
+    private void getDate(final int isLoad, Map<String, String> params) {
+        this.loadType=isLoad;
         if (loadType == 0) {
             this.PAGE = 0;
             this.LIMIT = 10;
@@ -271,52 +275,7 @@ public class PurchaseWarehousingActivity extends BaseActivity {
         params.put("page", String.valueOf(PAGE));
         params.put("limit", String.valueOf(LIMIT));
         String getstkInStock = Constance.getGetstkInStock();
-        NetworkUtil.getInstance().postByJson(this,getstkInStock, InStockHeadBean.class, params, new VolleyListener<InStockHeadBean>() {
-            @Override
-            public void requestComplete() {
-
-            }
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-                adapter.setEmptyView(R.layout.view_error, purchaseRecycler);
-                if (loadType == 0) {
-                    purchaseOrderRefresh.refreshComplete();
-                } else {
-                    purchaseOrderRefresh.loadMoreFail();
-                }
-            }
-
-            @Override
-            public void onResponse(InStockHeadBean response) {
-                int code = response.getCode();
-                if (code == 0) {
-                    PAGE++;
-                    List<InStockHeadBean.DataEntity> data = response.getData();
-                    if (loadType == 0) {
-                        adapter.setNewData(data);
-                        purchaseOrderRefresh.refreshComplete();
-                    } else {
-                        if (data.size() > 0) {
-                            adapter.addData(data);
-                            purchaseOrderRefresh.loadMoreComplete();
-                        } else {
-                            purchaseOrderRefresh.loadNothing();
-                        }
-                    }
-                    adapter.setEmptyView(R.layout.view_empt, purchaseRecycler);
-                } else {
-                    if (loadType == 0) {
-                        purchaseOrderRefresh.refreshComplete();
-                    } else {
-                        purchaseOrderRefresh.loadMoreFail();
-                    }
-                    adapter.setEmptyView(R.layout.view_error, purchaseRecycler);
-                    ToastUtil.show(PurchaseWarehousingActivity.this, response.getMsg());
-                }
-            }
-        });
+        NetworkUtil.getInstance().postByJson(this,getstkInStock, InStockHeadBean.class, params,0,myHandler);
     }
 
 
@@ -405,6 +364,51 @@ public class PurchaseWarehousingActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        App.sRequestQueue.cancelAll(PurchaseWarehousingActivity.this.getClass().getName());
+        myHandler.removeCallbacksAndMessages(null);
+    }
+
+    @Override
+    public void Success(Message message) {
+        InStockHeadBean inStockHeadBean= (InStockHeadBean) message.obj;
+        int code = inStockHeadBean.getCode();
+        if (code == 0) {
+            PAGE++;
+            List<InStockHeadBean.DataEntity> data = inStockHeadBean.getData();
+            if (loadType == 0) {
+                adapter.setNewData(data);
+                purchaseOrderRefresh.refreshComplete();
+            } else {
+                if (data.size() > 0) {
+                    adapter.addData(data);
+                    purchaseOrderRefresh.loadMoreComplete();
+                } else {
+                    purchaseOrderRefresh.loadNothing();
+                }
+            }
+            adapter.setEmptyView(R.layout.view_empt, purchaseRecycler);
+        } else {
+            if (loadType == 0) {
+                purchaseOrderRefresh.refreshComplete();
+            } else {
+                purchaseOrderRefresh.loadMoreFail();
+            }
+            adapter.setEmptyView(R.layout.view_error, purchaseRecycler);
+            ToastUtil.show(PurchaseWarehousingActivity.this, inStockHeadBean.getMsg());
+        }
+    }
+
+    @Override
+    public void Failure(int arg) {
+        adapter.setEmptyView(R.layout.view_error, purchaseRecycler);
+        if (loadType == 0) {
+            purchaseOrderRefresh.refreshComplete();
+        } else {
+            purchaseOrderRefresh.loadMoreFail();
+        }
+    }
+
+    @Override
+    public void Complete(int arg) {
+
     }
 }

@@ -2,6 +2,7 @@ package com.kingdee.ah.pda.ui.activity.materialList;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.EditText;
@@ -21,6 +22,7 @@ import com.kingdee.ah.pda.bean.MaterialBodyBean;
 import com.kingdee.ah.pda.bean.MaterialHeadBean;
 import com.kingdee.ah.pda.constance.Constance;
 import com.kingdee.ah.pda.ui.view.TitleTopOrdersView;
+import com.kingdee.ah.pda.volley.MyHandler;
 import com.kingdee.ah.pda.volley.NetworkUtil;
 import com.kingdee.ah.pda.volley.VolleyListener;
 
@@ -45,7 +47,7 @@ import butterknife.BindView;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class MaterialListDetailActivity extends BaseActivity {
+public class MaterialListDetailActivity extends BaseActivity implements MyHandler.OnReceiveMessageListener {
 
     @BindView(R.id.material_list_detail_title)
     TitleTopOrdersView materialListDetailTitle;
@@ -73,6 +75,7 @@ public class MaterialListDetailActivity extends BaseActivity {
     SmartTable<MaterialBodyBean.DataEntity> materialListTable;
     private int fid;
     private Map<String, String> map = new HashMap<>();
+    private MyHandler myHandler=new MyHandler(this);
 
     @Override
     protected int getContentResId() {
@@ -124,26 +127,7 @@ public class MaterialListDetailActivity extends BaseActivity {
         map.put("fid", String.valueOf(fids));
         String prdPpbom = Constance.getPrdPpbom();
         ShowProgress(this, "正在加载...", false);
-        NetworkUtil.getInstance().postByJson(this,prdPpbom, MaterialBodyBean.class, map, new VolleyListener<MaterialBodyBean>() {
-            @Override
-            public void requestComplete() {
-                CancelProgress();
-            }
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-
-            @Override
-            public void onResponse(MaterialBodyBean response) {
-                int code = response.getCode();
-                if (code == 0) {
-                    List<MaterialBodyBean.DataEntity> data = response.getData();
-                    materialListTable.addData(data, true);
-                }
-            }
-        });
+        NetworkUtil.getInstance().postByJson(this,prdPpbom, MaterialBodyBean.class, map,0,myHandler);
     }
 
     //创建表格
@@ -184,4 +168,29 @@ public class MaterialListDetailActivity extends BaseActivity {
         materialListTable.setTableData(tableData);
     }
 
+    @Override
+    public void Success(Message message) {
+        MaterialBodyBean materialBodyBean= (MaterialBodyBean) message.obj;
+        int code = materialBodyBean.getCode();
+        if (code == 0) {
+            List<MaterialBodyBean.DataEntity> data = materialBodyBean.getData();
+            materialListTable.addData(data, true);
+        }
+    }
+
+    @Override
+    public void Failure(int arg) {
+
+    }
+
+    @Override
+    public void Complete(int arg) {
+        CancelProgress();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        myHandler.removeCallbacksAndMessages(null);
+    }
 }

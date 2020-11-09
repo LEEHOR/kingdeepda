@@ -21,29 +21,27 @@ import java.lang.ref.WeakReference;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class MyHandler<T> extends Handler {
+public class MyHandler extends Handler {
     WeakReference<OnReceiveMessageListener> reference;
-    WeakReference<T> activityWeakReference;
 
-    public MyHandler(T activity, OnReceiveMessageListener listener) {
+
+    public MyHandler( OnReceiveMessageListener listener) {
         reference = new WeakReference<>(listener);
-        activityWeakReference = new WeakReference<>(activity);
     }
 
     @Override
     public void handleMessage(Message msg) {
-        if (activityWeakReference != null && activityWeakReference.get() != null &&
-                reference != null && reference.get() != null) {
-            Logutil.print(activityWeakReference.get().toString());
+      //  Logutil.print(msg.what+"/"+msg.obj.toString());
+        if (reference != null && reference.get() != null) {
             switch (msg.what) {
                 case NetworkUtil.SUCCESS:
                     reference.get().Success(msg);
                     break;
                 case NetworkUtil.FAILURE:
-                    reference.get().Failure();
+                    reference.get().Failure(msg.arg1);
                     break;
-                case NetworkUtil.COMPLETE:
-                    reference.get().Complete();
+                default:
+                    reference.get().Complete(msg.what);
                     break;
             }
 
@@ -53,9 +51,9 @@ public class MyHandler<T> extends Handler {
     public interface OnReceiveMessageListener {
         void Success(Message message);
 
-        void Failure();
+        void Failure(int arg);
 
-        void Complete();
+        void Complete(int arg);
     }
 
 }

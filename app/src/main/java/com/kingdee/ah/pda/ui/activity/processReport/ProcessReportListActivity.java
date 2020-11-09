@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Message;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
@@ -34,6 +35,7 @@ import com.kingdee.ah.pda.util.KeyboardUtils;
 import com.kingdee.ah.pda.util.LocalDisplay;
 import com.kingdee.ah.pda.util.ToastUtil;
 import com.kingdee.ah.pda.util.decoration.SpacesItemDecoration;
+import com.kingdee.ah.pda.volley.MyHandler;
 import com.kingdee.ah.pda.volley.NetworkUtil;
 import com.kingdee.ah.pda.volley.VolleyListener;
 import com.yxp.permission.util.lib.PermissionUtil;
@@ -59,7 +61,7 @@ import butterknife.OnClick;
  * @UpdateRemark: 更新说明：
  * @Version: 1.0
  */
-public class ProcessReportListActivity extends BaseActivity {
+public class ProcessReportListActivity extends BaseActivity implements MyHandler.OnReceiveMessageListener {
     @BindView(R.id.process_title)
     TitleTopOrdersView processTitle;
     @BindView(R.id.app_search)
@@ -76,6 +78,8 @@ public class ProcessReportListActivity extends BaseActivity {
     private Map<String, String> mapParams = new HashMap<>();
     private int PAGE = 1;
     private int LIMIT = 10;
+    private MyHandler myHandler = new MyHandler(this);
+    private double type;
 
     @Override
     protected int getContentResId() {
@@ -101,7 +105,7 @@ public class ProcessReportListActivity extends BaseActivity {
         tex_item.setVisibility(View.VISIBLE);
         tex_item.setText("工序汇报列表");
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        reportAdapter = new ProcessReportAdapter(R.layout.item_production_warse);
+        reportAdapter = new ProcessReportAdapter(R.layout.item_process_report);
         processRecycler.setLayoutManager(linearLayoutManager);
         processRecycler.setAdapter(reportAdapter);
         reportAdapter.setEmptyView(R.layout.view_loading2, processRecycler);
@@ -130,10 +134,10 @@ public class ProcessReportListActivity extends BaseActivity {
                 int id = view.getId();
                 ProcessReportBean.DataEntity dataEntity = (ProcessReportBean.DataEntity) adapter.getItem(position);
                 assert dataEntity != null;
-                switch (id){
+                switch (id) {
                     case R.id.btn_detail:
-                        Intent intent=new Intent(ProcessReportListActivity.this, ProcessReportDetailActivity.class);
-                        intent.putExtra("fid",dataEntity.getId());
+                        Intent intent = new Intent(ProcessReportListActivity.this, ProcessReportDetailActivity.class);
+                        intent.putExtra("fid", dataEntity.getId());
                         startActivity(intent);
                         break;
                     case R.id.btn_push:
@@ -162,7 +166,7 @@ public class ProcessReportListActivity extends BaseActivity {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 mapParams.clear();
-                mapParams.put("billNo",s);
+                mapParams.put("billNo", s);
                 getData(0);
                 return false;
             }
@@ -170,7 +174,7 @@ public class ProcessReportListActivity extends BaseActivity {
             @Override
             public boolean onQueryTextChange(String s) {
                 mapParams.clear();
-                mapParams.put("billNo",s);
+                mapParams.put("billNo", s);
                 getData(0);
                 return false;
             }
@@ -179,105 +183,26 @@ public class ProcessReportListActivity extends BaseActivity {
     }
 
     //获取数据
-    private void getData(final int type) {
+    private void getData(final int isLoad) {
+        this.type = isLoad;
         String processreport = Constance.getProcessreport();
-
         if (type == 0) {
-            PAGE=1;
+            PAGE = 1;
             reportAdapter.getData().clear();
             reportAdapter.notifyDataSetChanged();
         }
-        mapParams.put("page",String.valueOf(PAGE));
-        mapParams.put("limit",String.valueOf(LIMIT));
-        NetworkUtil.getInstance().postByJson(ProcessReportListActivity.this,processreport,
-                ProcessReportBean.class, mapParams, new VolleyListener<ProcessReportBean>() {
-                    @Override
-                    public void requestComplete() {
-
-                    }
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        if (processRefresh == null && processRecycler == null) {
-                            return;
-                        }
-                        reportAdapter.setEmptyView(R.layout.view_error, processRecycler);
-                        if (type == 0) {
-                            processRefresh.refreshComplete();
-                        } else {
-                            processRefresh.loadMoreFail();
-                        }
-                    }
-
-                    @Override
-                    public void onResponse(ProcessReportBean response) {
-                        if (processRefresh == null && processRecycler == null) {
-                            return;
-                        }
-                        int code = response.getCode();
-                        if (code == 0) {
-                            PAGE++;
-                            List<ProcessReportBean.DataEntity> data = response.getData();
-                                if (type == 0) {
-                                    reportAdapter.setNewData(data);
-                                    processRefresh.refreshComplete();
-                                } else {
-                                    if (data.size() > 0) {
-                                        reportAdapter.addData(data);
-                                        processRefresh.loadMoreComplete();
-                                    } else {
-                                        processRefresh.loadNothing();
-                                    }
-                                }
-                                reportAdapter.setEmptyView(R.layout.view_empt, processRecycler);
-                        } else {
-                            reportAdapter.setEmptyView(R.layout.view_error, processRecycler);
-                            ToastUtil.show(ProcessReportListActivity.this,response.getMsg());
-                            if (type == 0) {
-                                processRefresh.refreshComplete();
-                            } else {
-                                processRefresh.loadMoreFail();
-                            }
-                        }
-
-                    }
-                });
+        mapParams.put("page", String.valueOf(PAGE));
+        mapParams.put("limit", String.valueOf(LIMIT));
+        NetworkUtil.getInstance().postByJson(ProcessReportListActivity.this, processreport,
+                ProcessReportBean.class, mapParams, 0, myHandler);
 
     }
 
     //推送到云端
-    private void push(int fid){
+    private void push(int fid) {
         String pushProcess = Constance.getPushProcess();
-        ShowProgress(this,"正在下推...",false);
-        NetworkUtil.getInstance().get(this,pushProcess + fid, new VolleyListener<String>() {
-            @Override
-            public void requestComplete() {
-            CancelProgress();
-            }
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-
-            @Override
-            public void onResponse(String response) {
-                PushProcessReportBean pushProcessReportBean = GsonUtils.parseJSON(response, PushProcessReportBean.class);
-                if (pushProcessReportBean.getCode()==0) {
-                    Intent intent=new Intent(ProcessReportListActivity.this, ProductionWarehousingDetailActivity.class);
-                    Bundle bundle=new Bundle();
-                    intent.putExtra("pageType",1);
-                    bundle.putSerializable("process",pushProcessReportBean);
-                    intent.putExtras(bundle);
-                    startActivity(intent);
-                } else if (pushProcessReportBean.getCode()==500){
-                    MsgShowDialog msgShowDialog=MsgShowDialog.newInstance(pushProcessReportBean.getMsg());
-                    msgShowDialog.show(getSupportFragmentManager(),"msg");
-                } else {
-                    ToastUtil.show(ProcessReportListActivity.this,pushProcessReportBean.getMsg());
-                }
-            }
-        });
+        ShowProgress(this, "正在下推...", false);
+        NetworkUtil.getInstance().get(this, pushProcess + fid, 1, myHandler);
     }
 
     @OnClick(R.id.iv_scan)
@@ -334,6 +259,77 @@ public class ProcessReportListActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        App.sRequestQueue.cancelAll(ProcessReportListActivity.this.getClass().getName());
+        myHandler.removeCallbacksAndMessages(null);
+    }
+
+    @Override
+    public void Success(Message message) {
+        switch (message.arg1) {
+            case 0: //获取数据
+                ProcessReportBean reportBean = (ProcessReportBean) message.obj;
+                int code = reportBean.getCode();
+                if (code == 0) {
+                    PAGE++;
+                    List<ProcessReportBean.DataEntity> data = reportBean.getData();
+                    if (type == 0) {
+                        reportAdapter.setNewData(data);
+                        processRefresh.refreshComplete();
+                    } else {
+                        if (data.size() > 0) {
+                            reportAdapter.addData(data);
+                            processRefresh.loadMoreComplete();
+                        } else {
+                            processRefresh.loadNothing();
+                        }
+                    }
+                    reportAdapter.setEmptyView(R.layout.view_empt, processRecycler);
+                } else {
+                    reportAdapter.setEmptyView(R.layout.view_error, processRecycler);
+                    ToastUtil.show(ProcessReportListActivity.this, reportBean.getMsg());
+                    if (type == 0) {
+                        processRefresh.refreshComplete();
+                    } else {
+                        processRefresh.loadMoreFail();
+                    }
+                }
+                break;
+            case 1: //下推
+                String response = (String) message.obj;
+                PushProcessReportBean pushProcessReportBean = GsonUtils.parseJSON(response, PushProcessReportBean.class);
+                if (pushProcessReportBean.getCode() == 0) {
+                    Intent intent = new Intent(ProcessReportListActivity.this, ProductionWarehousingDetailActivity.class);
+                    Bundle bundle = new Bundle();
+                    intent.putExtra("pageType", 1);
+                    bundle.putSerializable("process", pushProcessReportBean);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                } else if (pushProcessReportBean.getCode() == 500) {
+                    MsgShowDialog msgShowDialog = MsgShowDialog.newInstance(pushProcessReportBean.getMsg());
+                    msgShowDialog.show(getSupportFragmentManager(), "msg");
+                } else {
+                    ToastUtil.show(ProcessReportListActivity.this, pushProcessReportBean.getMsg());
+                }
+                break;
+        }
+    }
+
+    @Override
+    public void Failure(int arg) {
+        if (arg == 0) {
+            reportAdapter.setEmptyView(R.layout.view_error, processRecycler);
+            if (type == 0) {
+                processRefresh.refreshComplete();
+            } else {
+                processRefresh.loadMoreFail();
+            }
+
+        }
+    }
+
+    @Override
+    public void Complete(int arg) {
+        if (arg == 1) {
+            CancelProgress();
+        }
     }
 }
